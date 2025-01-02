@@ -14,7 +14,7 @@ return [
     */
 
     'paths' => [
-        resource_path('Merikharz'),
+        resource_path('Shop'),
     ],
 
     /*
@@ -30,7 +30,7 @@ return [
 
     'compiled' => env(
         'VIEW_COMPILED_PATH',
-        realpath(storage_path('framework/Merikharz'))
+        realpath(storage_path('framework/Shop'))
     ),
 
 ];

@@ -13,19 +13,14 @@ return new class extends Migration {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('service_id')->nullable()->constrained('services')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('bank_id')->nullable()->constrained('banks')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('siteService_id')->nullable()->constrained('site_services')->cascadeOnUpdate()->cascadeOnDelete();
-
-            $table->decimal('service_id_custom',10,1)->nullable()->comment('در صورتی پر میشود که کاربر بخواهد از سرویس سفارشی استفاده کند');
-            $table->foreignId('disscount_code_id')->nullable()->constrained('disscount_codes')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->bigInteger('final_amount')->nullable();
-            $table->integer('time_price_of_dollars')->nullable();
-            $table->enum('type', ['service', 'wallet','transmission'])->nullable();
-            $table->enum('status',['requested','failed','finished'])->nullable();
+            $table->enum('status_bank', ['requested', 'failed', 'finished'])->nullable();
+            $table->decimal('final_amount', 20, 3)->nullable();
+            $table->enum('type', ['service', 'product'])->nullable();
+            $table->enum('status', ['paid', 'not_paid'])->nullable();
+            $table->enum('type_of_business', ['buy', 'sales'])->nullable();
             $table->text('description')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
+
         });
     }
 
