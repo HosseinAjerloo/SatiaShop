@@ -1,0 +1,33 @@
+.listview{
+    border-top-left-radius:5px ;
+  background: #F2F2F2;
+}
+.borderbox{
+    border: 1px solid darkgrey;
+    border-radius: 10px;
+    background:#FFFFFF;
+}
+.span1
+{
+    background: #F2F2F2;
+    padding: 0;
+    margin: 0;
+    height: 30px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.bgcustom1{
+    background-color:#F2F2F2
+}
+ .basket{
+ }
+.header{
+    background-color: #2081F2;
+    color: #F2F2F2;
+    font-size: 18px;
+}
+.bgbascket
+{
+    color:#FFFFFF ;
+    background-color:red;
+}
