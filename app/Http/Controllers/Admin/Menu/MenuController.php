@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Menu;
+namespace App\Http\Controllers\Admin\Menu;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Menu\MenuRequest;
+use App\Http\Requests\Admin\Menu\MenuRequest;
 use App\Models\Menu;
-use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {
@@ -14,7 +13,7 @@ class MenuController extends Controller
      */
     public function index()
     {
-        return view('Menu.index');
+        return view('MenuSeeder.index');
     }
 
     /**
@@ -22,7 +21,7 @@ class MenuController extends Controller
      */
     public function create()
     {
-        return view('Menu.create');
+        return view('MenuSeeder.create');
 
     }
 
@@ -33,7 +32,7 @@ class MenuController extends Controller
     {
         $inputs = $request->all();
         $result = Menu::create($inputs);
-        return $result ? redirect()->route('menu.index')->with('success', 'منوی جدید باموفقیت اضافه شد') : dd('no');
+        return $result ? redirect()->route('admin.menu.index')->with('success', 'منوی جدید باموفقیت اضافه شد') : dd('no');
     }
 
     /**
@@ -49,7 +48,7 @@ class MenuController extends Controller
      */
     public function edit(Menu $menu)
     {
-        return view('Menu.edit', compact('menu'));
+        return view('MenuSeeder.edit', compact('menu'));
     }
 
     /**
@@ -59,7 +58,7 @@ class MenuController extends Controller
     {
         $inputs = $request->all();
         $result = $menu->update($inputs);
-        return $result ? redirect()->route('menu.index')->with('success', 'منوی شماویرایش شد') : dd('no');
+        return $result ? redirect()->route('admin.menu.index')->with('success', 'منوی شماویرایش شد') : dd('no');
 
     }
 

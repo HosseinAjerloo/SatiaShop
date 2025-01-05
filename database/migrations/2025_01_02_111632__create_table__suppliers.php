@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Suppliers', function (Blueprint $table) {
+        Schema::create('suppliers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('supplier_category_id')->constrained('supplier_categories')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('name')->nullable();
             $table->string('mobile')->nullable();
+            $table->enum('status',['active','inactive'])->default('active');
+            $table->text('address')->nullable();
+            $table->string('phone')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

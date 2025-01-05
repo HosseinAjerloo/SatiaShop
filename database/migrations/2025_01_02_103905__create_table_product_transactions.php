@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('product_transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained('products')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('product_id')->constrained('products')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('invoice_id')->nullable()->constrained('invoices')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->tinyInteger('amount')->default(0);
-            $table->tinyInteger('remain')->default(0);
+            $table->integer('amount')->default(0);
+            $table->integer('remain')->default(0);
             $table->enum('type',['add','minus'])->nullable();
             $table->timestamps();
             $table->softDeletes();

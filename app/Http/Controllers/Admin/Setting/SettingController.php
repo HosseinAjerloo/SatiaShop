@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Setting;
+namespace App\Http\Controllers\Admin\Setting;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Setting\SettingRequest;
+use App\Http\Requests\Admin\Setting\SettingRequest;
 use App\Models\Setting;
 use App\Services\ImageService\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\Relations\Relation;
 
 class SettingController extends Controller
 {
@@ -70,11 +69,11 @@ class SettingController extends Controller
                 'user_id' => $user->id
             ]);
             if (!$status)
-                return redirect()->route('error', 'آپلودعکس به مشکل روبه رو شد');
+                return redirect()->route('admin.setting.index', 'آپلودعکس به مشکل روبه رو شد');
         }
 
         $result = $setting->update($inputs);
-        return $result ? redirect()->route('setting.index')->with('success', 'نظیمات  شماویرایش شد') : dd('no');
+        return $result ? redirect()->route('admin.setting.index')->with('success', 'نظیمات  شماویرایش شد') : dd('no');
 
     }
 

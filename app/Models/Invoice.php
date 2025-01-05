@@ -10,8 +10,22 @@ class Invoice extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['user_id', 'service_id', 'disscount_code_id', 'final_amount', 'type', 'service_id_custom', 'status', 'time_price_of_dollars', 'bank_id','description','siteService_id'];
+    protected $fillable =
+        [
+            'user_id',
+            'bank_id',
+            'status_bank',
+            'final_amount',
+            'type',
+            'status',
+            'type_of_business',
+            'description',
+            'supplier_id'
+        ];
 
+    public function invoiceItem(){
+        return $this->hasMany(InvoiceItem::class,'invoice_id');
+    }
     public function service()
     {
         return $this->belongsTo(Service::class, 'service_id');
@@ -26,18 +40,20 @@ class Invoice extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
     public function payment()
     {
-        return $this->hasOne(Payment::class,'invoice_id');
+        return $this->hasOne(Payment::class, 'invoice_id');
     }
+
     public function voucher()
     {
-        return $this->hasOne(Voucher::class,'invoice_id');
+        return $this->hasOne(Voucher::class, 'invoice_id');
     }
 
     public function transferm()
     {
-        return $this->hasOne(Transmission::class,'invoice_id');
+        return $this->hasOne(Transmission::class, 'invoice_id');
     }
 
 
@@ -51,14 +67,14 @@ class Invoice extends Model
             return false;
         }
     }
+
     public function persianType()
     {
-            return match ($this->type)
-            {
-                "service"=>"خرید کارت هدیه پرفکت مانی",
-                "wallet"=>"افزایش کیف پول",
-                "transmission"=>"انتقال حواله کارت هدیه پرفکت مانی",
-                default =>''
-            };
+        return match ($this->type) {
+            "service" => "خرید کارت هدیه پرفکت مانی",
+            "wallet" => "افزایش کیف پول",
+            "transmission" => "انتقال حواله کارت هدیه پرفکت مانی",
+            default => ''
+        };
     }
 }

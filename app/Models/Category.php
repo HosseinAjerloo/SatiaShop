@@ -8,8 +8,25 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
-    use HasFactory,SoftDeletes;
-    protected $fillable=['name','view_sort','status','menu_id'];
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = ['name', 'view_sort', 'status', 'menu_id'];
+    const CategoryRecord =
+        [
+            [
+                'name' => 'سامسونگ',
+                'view_sort' => 1,
+                'status' => 'active',
+                'menu_id' => 1
+            ],
+            [
+                'name' => 'apple',
+                'view_sort' => 4,
+                'status' => 'active',
+                'menu_id' => 2
+            ]
+        ];
+
     public function image()
     {
         return $this->morphOne(File::class, 'files', 'fileable_type', 'fileable_id', 'id');

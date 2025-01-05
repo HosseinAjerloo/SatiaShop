@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->foreignId('bank_id')->nullable()->constrained('banks')->cascadeOnUpdate()->cascadeOnDelete();
             $table->enum('status_bank', ['requested', 'failed', 'finished'])->nullable();
             $table->decimal('final_amount', 20, 3)->nullable();
-            $table->enum('type', ['service', 'product'])->nullable();
             $table->enum('status', ['paid', 'not_paid'])->nullable();
             $table->enum('type_of_business', ['buy', 'sales'])->nullable();
             $table->text('description')->nullable();

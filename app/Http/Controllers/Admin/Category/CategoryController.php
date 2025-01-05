@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Category;
+namespace App\Http\Controllers\Admin\Category;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Category\CategoryRequest;
+use App\Http\Requests\Admin\Category\CategoryRequest;
 use App\Models\Category;
 use App\Models\Menu;
 use App\Services\ImageService\ImageService;
@@ -27,8 +27,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $menus=Menu::where("status",'active')->get();
-        return view('Category.create',compact('menus'));
+        $menus = Menu::where("status", 'active')->get();
+        return view('Category.create', compact('menus'));
 
     }
 
@@ -44,7 +44,7 @@ class CategoryController extends Controller
 
 
         if (!$image)
-            return redirect()->route('error', 'آپلودعکس به مشکل روبه رو شد');
+            return redirect()->route('admin.category.index', 'آپلودعکس به مشکل روبه رو شد');
 
         $category = Category::create($inputs);
         if ($category) {
@@ -52,7 +52,7 @@ class CategoryController extends Controller
                 'path' => $image,
                 'user_id' => $user->id
             ]);
-            return redirect()->route('category.index')->with('success', 'نظیمات  شماویرایش شد');
+            return redirect()->route('admin.category.index')->with('success', 'نظیمات  شماویرایش شد');
         } else {
             dd('no');
         }

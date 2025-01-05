@@ -1,16 +1,7 @@
 <?php
 
 
-use App\Models\Payment;
-use App\Models\Role;
-use App\Models\Transmission;
-use App\Models\VouchersBank;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
-
-use Illuminate\Http\Client\Response;
-use Illuminate\Http\Client\RequestException;
-use AyubIRZ\PerfectMoneyAPI\PerfectMoneyAPI;
 
 Route::middleware('guest')->group(function () {
     Route::name('login.')->prefix('login')->group(function () {
@@ -92,31 +83,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('faq', [App\Http\Controllers\Panel\FaqController::class, 'index'])->name('panel.faq');
 
 
-    //MENU
 
-    Route::prefix('menu')->name('menu.')->group(function () {
-        Route::get('', [App\Http\Controllers\Menu\MenuController::class, 'index'])->name('index');
-        Route::get('create', [App\Http\Controllers\Menu\MenuController::class, 'create'])->name('create');
-        Route::post('store', [App\Http\Controllers\Menu\MenuController::class, 'store'])->name('store');
-        Route::get('edit/{menu}', [App\Http\Controllers\Menu\MenuController::class, 'edit'])->name('edit');
-        Route::put('update/{menu}', [App\Http\Controllers\Menu\MenuController::class, 'update'])->name('update');
-    });
-
-    //SETTING
-    Route::prefix('setting')->name('setting.')->group(function () {
-        Route::get('', [App\Http\Controllers\Setting\SettingController::class, 'index'])->name('index');
-        Route::get('edit/{setting}', [App\Http\Controllers\Setting\SettingController::class, 'edit'])->name('edit');
-        Route::put('update/{setting}', [App\Http\Controllers\Setting\SettingController::class, 'update'])->name('update');
-    });
-
-//Category
-    Route::prefix('category')->name('category.')->group(function () {
-        Route::get('', [App\Http\Controllers\Category\CategoryController::class, 'index'])->name('index');
-        Route::get('create', [App\Http\Controllers\Category\CategoryController::class, 'create'])->name('create');
-        Route::post('store', [App\Http\Controllers\Category\CategoryController::class, 'store'])->name('store');
-        Route::get('edit/{menu}', [App\Http\Controllers\Category\CategoryController::class, 'edit'])->name('edit');
-        Route::put('update/{menu}', [App\Http\Controllers\Category\CategoryController::class, 'update'])->name('update');
-    });
 
 });
 
@@ -141,6 +108,32 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
     });
 
 
+    //ADMINMENU
+
+    Route::prefix('menu')->name('admin.menu.')->group(function () {
+        Route::get('', [\App\Http\Controllers\Admin\Menu\MenuController::class, 'index'])->name('index');
+        Route::get('create', [\App\Http\Controllers\Admin\Menu\MenuController::class, 'create'])->name('create');
+        Route::post('store', [\App\Http\Controllers\Admin\Menu\MenuController::class, 'store'])->name('store');
+        Route::get('edit/{menu}', [\App\Http\Controllers\Admin\Menu\MenuController::class, 'edit'])->name('edit');
+        Route::put('update/{menu}', [\App\Http\Controllers\Admin\Menu\MenuController::class, 'update'])->name('update');
+    });
+
+    //ADMINSETTING
+    Route::prefix('setting')->name('admin.setting.')->group(function () {
+        Route::get('', [\App\Http\Controllers\Admin\Setting\SettingController::class, 'index'])->name('index');
+        Route::get('edit/{setting}', [\App\Http\Controllers\Admin\Setting\SettingController::class, 'edit'])->name('edit');
+        Route::put('update/{setting}', [\App\Http\Controllers\Admin\Setting\SettingController::class, 'update'])->name('update');
+    });
+
+    //ADMINCategory
+    Route::prefix('category')->name('admin.category.')->group(function () {
+        Route::get('', [\App\Http\Controllers\Admin\Category\CategoryController::class, 'index'])->name('index');
+        Route::get('create', [\App\Http\Controllers\Admin\Category\CategoryController::class, 'create'])->name('create');
+        Route::post('store', [\App\Http\Controllers\Admin\Category\CategoryController::class, 'store'])->name('store');
+        Route::get('edit/{menu}', [\App\Http\Controllers\Admin\Category\CategoryController::class, 'edit'])->name('edit');
+        Route::put('update/{menu}', [\App\Http\Controllers\Admin\Category\CategoryController::class, 'update'])->name('update');
+    });
+
     //ADMIN ADD PRODUCT
 
     Route::prefix('product')->name('admin.product.')->group(function (){
@@ -155,8 +148,10 @@ Route::fallback(function () {
     abort(404);
 });
 
-Route::get('test', function () {
-
+Route::post('test', function () {
+    \App\Models\Product::create(request()->all());
+    $product=\App\Models\Product::all();
+    return response()->json(['data'=>$product]);
 })->name('test');
 
 

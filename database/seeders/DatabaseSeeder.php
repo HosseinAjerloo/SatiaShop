@@ -2,13 +2,14 @@
 
 namespace Database\Seeders;
 
-use App\Models\Bank;
-use App\Models\Doller;
-use App\Models\Service;
-use App\Models\User;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Database\Seeders\Bank\BankSeeder;
+use Database\Seeders\Category\CategorySeeder;
+use Database\Seeders\Menu\MenuSeeder;
 use Database\Seeders\Setting\SettingSeeder;
+use Database\Seeders\Supllier\Supplier ;
+use Database\Seeders\SupplierCategorie\SupplierCategorie;
 use Database\Seeders\User\UserSeeder;
 use Illuminate\Database\Seeder;
 
@@ -22,7 +23,11 @@ class DatabaseSeeder extends Seeder
         $this->call([
             SettingSeeder::class,
             BankSeeder::class,
-            UserSeeder::class
+            UserSeeder::class,
+            SupplierCategorie::class,
+            Supplier::class,
+            MenuSeeder::class,
+            CategorySeeder::class
         ]);
     }
 }
