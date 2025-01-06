@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\Product\ProductRequest;
 use App\Models\Category;
 use App\Models\Invoice;
 use App\Models\Product;
+use App\Models\ProductTransaction;
 use App\Models\Supplier;
 use App\Services\ImageService\ImageService;
 use Illuminate\Http\Request;
@@ -35,9 +36,8 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, ImageService $imageService)
+    public function store(ProductRequest $request, ImageService $imageService)
     {
-
         $inputs = $request->all();
         $user = Auth::user();
         $productItems = array_filter($inputs, function ($value) use ($inputs) {
@@ -49,7 +49,6 @@ class ProductController extends Controller
         foreach ($productItems['product_id'] as $key => $product) {
             $product = [];
             foreach ($productItems as $keyValue => $input) {
-
                 if (isset($input[$key])) {
                     $product[$keyValue] = $input[$key];
                 }
@@ -58,9 +57,10 @@ class ProductController extends Controller
             $products->push($product);
         }
         $productsGruop = $products->groupBy('product_id');
+
         $updateCollectionProduct = collect();
         $productItem = collect();
-        $finalAmount=0;
+        $finalAmount = 0;
         foreach ($productsGruop->all() as $groupp) {
             $amount = 0;
             foreach ($groupp as $item) {
@@ -71,17 +71,16 @@ class ProductController extends Controller
                         'description' => $item['description'],
                         'amount' => $amount,
                         'price' => $item['price']
-
                     ]
                 );
 
             }
             $productItem->push($updateCollectionProduct->last());
         }
-           foreach ($productItem->toArray() as $productPrice)
-           {
-               $finalAmount+=$productPrice['amount']*$productPrice['price'];
-           }
+
+        foreach ($productItem->toArray() as $productPrice) {
+            $finalAmount += $productPrice['amount'] * $productPrice['price'];
+        }
         $invouce = Invoice::create([
             'user_id' => $user->id,
             'type_of_business' => 'buy',
@@ -90,6 +89,17 @@ class ProductController extends Controller
             'description' => 'invoiceDescription'
         ]);
         $invouce->invoiceItem()->createMany($productItem->all());
+        foreach ($productItem as $itemTransaction) {
+            $productTransaction=ProductTransaction::where('product_id',$itemTransaction['product_id'])->latest()->first();
+            $itemTransaction['type']='add';
+            $itemTransaction['remain']=$itemTransaction['amount'];
+            $itemTransaction['user_id']=$user->id;
+            if ($productTransaction)
+            {
+                $itemTransaction['remain']=$itemTransaction['amount']+$productTransaction->remain;
+            }
+            $invouce->productTransaction()->create($itemTransaction);
+        }
         dd($invouce);
 
 

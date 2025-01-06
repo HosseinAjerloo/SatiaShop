@@ -8,7 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-<form action="{{route('category.store')}}" method="POST" enctype="multipart/form-data">
+<form action="{{route('admin.category.store')}}" method="POST" enctype="multipart/form-data">
     @csrf
     <input type="text" placeholder="name" name="name" value="{{old('name')}}">
     <br>

@@ -22,15 +22,12 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category_id'=>'required|exists:categories,id',
             'supplier_id'=>'required|exists:suppliers,id',
-            'title'=>'required|min:3',
-            'description'=>'required|min:3',
-            'type'=>'required|in:service,goods',
-            'status'=>'required|in:active,inactive',
-            'price'=>'required|numeric',
-            'amount'=>'required|numeric',
-            'file' => 'required|file|mimes:jpg,png,jpeg',
+            'invoiceDesc'=>'required|string|min:3',
+            'product_id.*'=>'required|exists:products,id',
+            'description.*'=>'required|min:3',
+            'price.*'=>'required|numeric|min:3',
+            'amount.*'=>'required|numeric',
         ];
     }
 }
