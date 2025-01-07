@@ -17,6 +17,24 @@ class Product extends Model
         'status',
         'price'
     ];
+    const Products=[
+        [
+            'category_id'=>1,
+            'title'=>'samsung a12',
+            'type'=>'goods',
+            'status'=>'active',
+            'price'=>120000000
+
+        ],
+        [
+            'category_id'=>2,
+            'title'=>'iphone 16',
+            'type'=>'goods',
+            'status'=>'active',
+            'price'=>1000000000
+
+        ],
+    ];
     public function images(){
         return $this->morphMany(File::class,'files','fileable_type','fileable_id','id');
     }

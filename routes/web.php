@@ -149,6 +149,7 @@ Route::fallback(function () {
 });
 
 Route::post('test', function () {
+    dd('hossein');
     \App\Models\Product::create(request()->all());
     $product=\App\Models\Product::all();
     return response()->json(['data'=>$product]);
