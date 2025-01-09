@@ -13,13 +13,21 @@
 <div class="col-sm-12  my-2 mx-auto header">
     <img src="images/Vector.svg" style="padding-right: 5px">
     <img src="images/logo125.svg" style="padding-right: 15px" >
+    <img src="images/profile.svg" class="profile" >
     سامانه مدیریت شارژ کپسول آتش نشانی
 </div>
     <div class="basket text-start ">
         <img  width="40px" height="50px" src="images/basketno.svg">
     </div>
+    <div id="crumbs">
+        <ul>
+            <li><a href="#">Breadcrumb</a></li>
+        </ul>
+    </div>
 </div>
+
 <div class="container">
+
     <div class="row text-end ">
         <div class="col-3 my-3 lst mx-auto">
             <div class="borderbox text-center">
@@ -29,30 +37,24 @@
         </div>
     </div>
 
-    <div class="row text-start  " >
-        <div class="col-12 my-3 lst mx-auto">
+    <div class="row ">
+        <div class="col-3 my-3 offset-9  ">
             <div class="borderbox text-center">
               <p>توضیحات</p>
 
             </div>
         </div>
     </div>
-    <div class="cart-totals text-end ">
-        <input type="image" value="حذف" src="images/delete%20(4).svg" id="btn-delete" for="quantity" style="color: red;width: 20px">
-        <input type="button"  value="-" id="minus-button" for="quantity" style="color: red" >
-        <input type="number"  class="text-center" id="quantity" value="1" min="1" style="color:red;width: 40px;">
-        <input type="button" value="+" id="plus-button" for="quantity" style="color: red">
-    </div>
 
-    <div class="row text-start ">
-        <div class="col-3 my-3 ">
+    <div class="row ">
+        <div class="col-3 offset-9 my-3  ">
             <div class="borderbox text-center">
                 <p>قیمت</p>
             </div>
         </div>
     </div>
     <div class="row text-start ">
-        <div class="col-3 my-3 ">
+        <div class="col-3 my-3  offset-9">
 
             <div class="borderbox text-center">
                 <p>جمع سبد خرید</p>
@@ -60,11 +62,18 @@
         </div>
     </div>
     <div class="row text-start ">
-        <div class="col-3 my-3 ">
+        <div class="col-3 my-3 offset-9 ">
             <div class="borderbox text-center">
                 <p>سود شما از خرید</p>
             </div>
         </div>
+    </div>
+
+    <div class="cart-totals text-end ">
+        <input type="image" value="حذف" src="images/delete%20(4).svg" id="btn-delete" for="quantity" style="color: red;width: 20px">
+        <input type="button"  value="-" id="minus-button" for="quantity" style="color: red" >
+        <input type="number"  class="text-center" id="quantity" value="1" min="1" style="color:red;width: 40px;">
+        <input type="button" value="+" id="plus-button" for="quantity" style="color: red">
     </div>
     <div class="row text-start ">
         <div class="col-3 my-3 ">
