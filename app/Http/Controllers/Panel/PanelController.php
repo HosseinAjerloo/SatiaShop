@@ -9,9 +9,11 @@ use App\Http\Requests\Panel\WalletCharging\WalletChargingRequest;
 use App\Http\Traits\HasConfig;
 use App\Jobs\SendAppAlertsJob;
 use App\Models\Bank;
+use App\Models\Category;
 use App\Models\Doller;
 use App\Models\FinanceTransaction;
 use App\Models\Invoice;
+use App\Models\Menu;
 use App\Models\Payment;
 use App\Models\Service;
 use App\Models\Voucher;
@@ -39,7 +41,9 @@ class PanelController extends Controller
 
     public function index()
     {
-        return view('Panel.index');
+        $menus=Menu::all();
+
+        return view('index',compact('menus'));
     }
 
     public function contactUs()

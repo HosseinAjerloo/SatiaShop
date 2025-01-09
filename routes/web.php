@@ -134,6 +134,15 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
         Route::put('update/{menu}', [\App\Http\Controllers\Admin\Category\CategoryController::class, 'update'])->name('update');
     });
 
+    //BRAND
+
+    Route::prefix('brand')->name('admin.brand.')->group(function (){
+        Route::get('',[App\Http\Controllers\Admin\Brand\BrandController::class,'index'])->name('index');
+        Route::get('create',[App\Http\Controllers\Admin\Brand\BrandController::class,'create'])->name('create');
+        Route::post('store',[App\Http\Controllers\Admin\Brand\BrandController::class,'store'])->name('store');
+        Route::get('edit/{brand}', [\App\Http\Controllers\Admin\Brand\BrandController::class,'edit'])->name('edit');
+        Route::put('update/{brand}', [\App\Http\Controllers\Admin\Brand\BrandController::class,'update'])->name('update');
+    });
     //ADMIN ADD PRODUCT
 
     Route::prefix('product')->name('admin.product.')->group(function (){
@@ -148,8 +157,8 @@ Route::fallback(function () {
     abort(404);
 });
 
-Route::post('test', function () {
-    dd('hossein');
+Route::get('test', function () {
+    dd(\App\Models\Brand::all());
     \App\Models\Product::create(request()->all());
     $product=\App\Models\Product::all();
     return response()->json(['data'=>$product]);

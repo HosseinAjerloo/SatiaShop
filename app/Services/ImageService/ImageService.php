@@ -19,4 +19,11 @@ class ImageService extends ImageProvider
         }
         return false;
     }
+    public function deleteImage($path)
+    {
+        if (file_exists($path))
+        {
+            unlink($path);
+        }
+    }
 }

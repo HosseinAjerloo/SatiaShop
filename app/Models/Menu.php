@@ -25,4 +25,9 @@ class Menu extends Model
                 'status'=>'active'
             ]
         ];
+
+    public function category()
+    {
+        return $this->hasOne(Category::class,'menu_id');
+    }
 }
