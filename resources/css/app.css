@@ -1,10 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@font-face {
-    font-family: vazir;
-    src: url('../../public/merikhArz/src/fonts/Vazir.woff');
-    src: url('../../public/merikhArz/src/fonts/Vazir.woff2');
+
+
+@layer base{
+    @font-face {
+        font-family: 'vazir';
+        src: url('../../public/capsule/fonts/vazir.woff');
+
+    }
+
 }
 *{
     font-family: 'vazir';
@@ -13,26 +18,100 @@ body{
     font-family: 'vazir';
     direction: rtl;
 }
-.animation{
-    animation: animate 1.5s linear infinite;
-    animation-delay: calc(.1s * var(--i));
-}
-@keyframes animate {
-    0%{
-        transform: translateY(0);
-        margin-left: 0;
 
-    }
-    50%{
-        transform: translateY(-10px);
-        margin-left: 5px;
-    }
-    100%{
-        transform: translateY(0);
-        margin-left: 0;
 
+.toast-container {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* فاصله بین توست‌ها */
+}
+.toast {
+    visibility: hidden;
+    max-width: 300px;
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.1);
+    background-color: #fff;
+    color: black;
+    text-align: center;
+    border-radius: 5px;
+    padding:2px 3px;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    position: relative; /* برای دکمه بستن */
+}
+.toast.show {
+    visibility: visible;
+    animation: fadein 0.5s, fadeout 0.5s 4.5s;
+}
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }
+@keyframes fadeout {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+.close-btn {
+    position: relative;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    font-size: 10px;
+    color: #fff;
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+    top: 7px;
+    right: 7px;
+    background-color: red;
+    box-shadow: inset 3px 0 3px rgba(0,0,0,0.2),inset -3px 0 5px rgba(0,0,0,0.2);
+    margin-bottom: 10px;
+    border-radius: 50%;
+}
+.progress-bar {
+    width: 100%;
+    height: 5px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+.progress-bar div {
+
+    height: 100%;
+    width: 0;
+    background-color: #4caf50;
+    animation: fill 4.5s linear forwards;
+}
+.message{
+    font-size: 10px!important;
+    padding: 0 5px;
+}
+
+@keyframes fill {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
 
 
 

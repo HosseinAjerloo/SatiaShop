@@ -19,7 +19,7 @@ class CategoryController extends Controller
     {
         $categories = Category::all();
 
-        return view('Category.index', compact('categories'));
+        return view('Admin.ProductCategory.index', compact('categories'));
     }
 
     /**
@@ -28,7 +28,7 @@ class CategoryController extends Controller
     public function create()
     {
         $menus = Menu::where("status", 'active')->get();
-        return view('Category.create', compact('menus'));
+        return view('Admin.ProductCategory.create', compact('menus'));
 
     }
 

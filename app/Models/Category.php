@@ -32,4 +32,8 @@ class Category extends Model
         return $this->morphOne(File::class, 'files', 'fileable_type', 'fileable_id', 'id');
 
     }
+    public function menu()
+    {
+        return $this->belongsTo(Menu::class,'menu_id');
+    }
 }
