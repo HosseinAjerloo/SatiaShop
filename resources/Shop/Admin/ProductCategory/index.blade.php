@@ -44,6 +44,11 @@
             </div>
             <div class="w-1/5">
                 <h1 class="text-white text-min font-bold text-center">
+                  دسته والد
+                </h1>
+            </div>
+            <div class="w-1/5">
+                <h1 class="text-white text-min font-bold text-center">
                     ترتیب نمایش
                 </h1>
             </div>
@@ -66,6 +71,11 @@
                     <div class="w-1/5 h-full">
                         <p class="text-black  text-min_sm font-bold  h-full flex items-center justify-center text-center">
                         {{$category->menu->name??''}}
+                        </p>
+                    </div>
+                    <div class="w-1/5 h-full">
+                        <p class="text-black  text-min_sm font-bold  h-full flex items-center justify-center text-center">
+                            {{$category->parent->name??'منوی اصلی'}}
                         </p>
                     </div>
 

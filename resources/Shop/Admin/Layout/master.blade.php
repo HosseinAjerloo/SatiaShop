@@ -1,5 +1,5 @@
 @include('Admin.Layout.head')
-<body>
+<body class="overflow-x-hidden">
 @include('Admin.Layout.header')
 @yield('header')
 

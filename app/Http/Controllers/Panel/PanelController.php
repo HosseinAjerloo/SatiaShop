@@ -41,9 +41,8 @@ class PanelController extends Controller
 
     public function index()
     {
-        $menus=Menu::all();
-
-        return view('index',compact('menus'));
+        $menus=Menu::where("status",'active')->orderBy('view_sort','desc')->get();
+        return view('Site.index',compact('menus'));
     }
 
     public function contactUs()

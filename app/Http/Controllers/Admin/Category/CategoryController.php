@@ -28,7 +28,8 @@ class CategoryController extends Controller
     public function create()
     {
         $menus = Menu::where("status", 'active')->get();
-        return view('Admin.ProductCategory.create', compact('menus'));
+        $categories=Category::where("status",'active')->get();
+        return view('Admin.ProductCategory.create', compact('menus','categories'));
 
     }
 
@@ -44,7 +45,8 @@ class CategoryController extends Controller
 
 
         if (!$image)
-            return redirect()->route('admin.category.index', 'آپلودعکس به مشکل روبه رو شد');
+        return redirect()->route('admin.category.index')->withErrors(['error'=> 'آپلود عکس با خطا مواجه شد']);
+
 
         $category = Category::create($inputs);
         if ($category) {
@@ -52,9 +54,9 @@ class CategoryController extends Controller
                 'path' => $image,
                 'user_id' => $user->id
             ]);
-            return redirect()->route('admin.category.index')->with('success', 'نظیمات  شماویرایش شد');
+            return redirect()->route('admin.category.index')->with(['success'=> 'دسته بندی شما ایجاد شد']);
         } else {
-            dd('no');
+            return redirect()->route('admin.category.index')->withErrors(['error'=> 'ایجاد دسته بندی با خطا مواجه شد']);
         }
 
 

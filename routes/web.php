@@ -83,8 +83,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('faq', [App\Http\Controllers\Panel\FaqController::class, 'index'])->name('panel.faq');
 
 
-
-
 });
 
 // Admin
@@ -136,19 +134,19 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
 
     //BRAND
 
-    Route::prefix('brand')->name('admin.brand.')->group(function (){
-        Route::get('',[App\Http\Controllers\Admin\Brand\BrandController::class,'index'])->name('index');
-        Route::get('create',[App\Http\Controllers\Admin\Brand\BrandController::class,'create'])->name('create');
-        Route::post('store',[App\Http\Controllers\Admin\Brand\BrandController::class,'store'])->name('store');
-        Route::get('edit/{brand}', [\App\Http\Controllers\Admin\Brand\BrandController::class,'edit'])->name('edit');
-        Route::put('update/{brand}', [\App\Http\Controllers\Admin\Brand\BrandController::class,'update'])->name('update');
+    Route::prefix('brand')->name('admin.brand.')->group(function () {
+        Route::get('', [App\Http\Controllers\Admin\Brand\BrandController::class, 'index'])->name('index');
+        Route::get('create', [App\Http\Controllers\Admin\Brand\BrandController::class, 'create'])->name('create');
+        Route::post('store', [App\Http\Controllers\Admin\Brand\BrandController::class, 'store'])->name('store');
+        Route::get('edit/{brand}', [\App\Http\Controllers\Admin\Brand\BrandController::class, 'edit'])->name('edit');
+        Route::put('update/{brand}', [\App\Http\Controllers\Admin\Brand\BrandController::class, 'update'])->name('update');
     });
     //ADMIN ADD PRODUCT
 
-    Route::prefix('product')->name('admin.product.')->group(function (){
-        Route::get('',[App\Http\Controllers\Admin\Product\ProductController::class,'index'])->name('index');
-        Route::get('create',[App\Http\Controllers\Admin\Product\ProductController::class,'create'])->name('create');
-        Route::post('store',[App\Http\Controllers\Admin\Product\ProductController::class,'store'])->name('store');
+    Route::prefix('product')->name('admin.product.')->group(function () {
+        Route::get('', [App\Http\Controllers\Admin\Product\ProductController::class, 'index'])->name('index');
+        Route::get('create', [App\Http\Controllers\Admin\Product\ProductController::class, 'create'])->name('create');
+        Route::post('store', [App\Http\Controllers\Admin\Product\ProductController::class, 'store'])->name('store');
     });
 });
 
@@ -160,8 +158,8 @@ Route::fallback(function () {
 Route::get('test', function () {
     dd(\App\Models\Brand::all());
     \App\Models\Product::create(request()->all());
-    $product=\App\Models\Product::all();
-    return response()->json(['data'=>$product]);
+    $product = \App\Models\Product::all();
+    return response()->json(['data' => $product]);
 })->name('test');
 
 
