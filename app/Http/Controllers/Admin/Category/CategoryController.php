@@ -28,8 +28,8 @@ class CategoryController extends Controller
     public function create()
     {
         $menus = Menu::where("status", 'active')->get();
-        $categories=Category::where("status",'active')->get();
-        return view('Admin.ProductCategory.create', compact('menus','categories'));
+        $categories = Category::where("status", 'active')->get();
+        return view('Admin.ProductCategory.create', compact('menus', 'categories'));
 
     }
 
@@ -45,7 +45,7 @@ class CategoryController extends Controller
 
 
         if (!$image)
-        return redirect()->route('admin.category.index')->withErrors(['error'=> 'آپلود عکس با خطا مواجه شد']);
+            return redirect()->route('admin.category.index')->withErrors(['error' => 'آپلود عکس با خطا مواجه شد']);
 
 
         $category = Category::create($inputs);
@@ -54,9 +54,9 @@ class CategoryController extends Controller
                 'path' => $image,
                 'user_id' => $user->id
             ]);
-            return redirect()->route('admin.category.index')->with(['success'=> 'دسته بندی شما ایجاد شد']);
+            return redirect()->route('admin.category.index')->with(['success' => 'دسته بندی شما ایجاد شد']);
         } else {
-            return redirect()->route('admin.category.index')->withErrors(['error'=> 'ایجاد دسته بندی با خطا مواجه شد']);
+            return redirect()->route('admin.category.index')->withErrors(['error' => 'ایجاد دسته بندی با خطا مواجه شد']);
         }
 
 
@@ -73,17 +73,42 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Category $category)
     {
-        //
+        $menus = Menu::where("status", 'active')->get();
+        $categories = Category::where("status", 'active')->get()->except($category->id);
+        return view('Admin.ProductCategory.edit', compact('menus', 'categories', 'category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CategoryRequest $request, Category $category, ImageService $imageService)
     {
-        //
+        $inputs = $request->all();
+        $user = Auth::user();
+        if ($request->hasFile('file')) {
+            if (isset($category->image->path))
+                $imageService->deleteImage($category->image->path);
+
+            $imageService->setRootFolder('CategoryStore' . DIRECTORY_SEPARATOR . "image");
+            $image = $imageService->saveImage($request->file('file'));
+
+            if (!$image)
+                return redirect()->route('admin.category.index')->withErrors(['error' => 'آپلود عکس با خطا مواجه شد']);
+            $category->image()->update([
+                'path' => $image,
+                'user_id' => $user->id
+            ]);
+        }
+
+
+        $category =$category->update($inputs);
+        if ($category) {
+            return redirect()->route('admin.category.index')->with(['success' => 'دسته بندی شما ویرایش شد']);
+        } else {
+            return redirect()->route('admin.category.index')->withErrors(['error' => 'ویرایش دسته بندی با خطا مواجه شد']);
+        }
     }
 
     /**

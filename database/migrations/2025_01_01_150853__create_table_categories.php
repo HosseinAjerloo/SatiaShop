@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('menu_id')->constrained('menus')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('category_id')->nullable()->constrained('categories')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('name')->nullable();
-            $table->tinyInteger('view_sort')->nullable();
+            $table->integer('view_sort')->nullable();
             $table->enum('status',['active','inactive'])->default('active');
             $table->timestamps();
             $table->softDeletes();

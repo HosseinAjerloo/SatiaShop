@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Admin\Menu;
 
+use App\Models\Menu;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
 
 class MenuRequest extends FormRequest
 {
@@ -21,10 +23,16 @@ class MenuRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $roue=Route::current();
+        $validation=[
             'name'=>'required|min:3',
+            'status'=>'required|in:active,inactive',
             'view_sort'=>'required|unique:menus,view_sort',
-            'status'=>'required|in:active,inactive'
         ];
+        if ($roue->getName()=='admin.menu.update' and $menu=$roue->parameters['menu'])
+        {
+            $validation['view_sort']='required|unique:menus,view_sort,'.$menu->id;
+        }
+        return $validation;
     }
 }

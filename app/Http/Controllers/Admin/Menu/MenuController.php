@@ -13,7 +13,8 @@ class MenuController extends Controller
      */
     public function index()
     {
-        return view('MenuSeeder.index');
+        $menus=Menu::orderBy('view_sort','asc')->get();
+        return view('Admin.Menu.index',compact('menus'));
     }
 
     /**
@@ -21,8 +22,7 @@ class MenuController extends Controller
      */
     public function create()
     {
-        return view('MenuSeeder.create');
-
+        return view('Admin.Menu.create');
     }
 
     /**
@@ -32,7 +32,7 @@ class MenuController extends Controller
     {
         $inputs = $request->all();
         $result = Menu::create($inputs);
-        return $result ? redirect()->route('admin.menu.index')->with('success', 'منوی جدید باموفقیت اضافه شد') : dd('no');
+        return $result ? redirect()->route('admin.menu.index')->with(['success'=>'منوی جدید باموفقیت اضافه شد']) : redirect()->route('admin.menu.index')->withErrors(['error' => 'خطایی رخ داد لطفا مجددا تلاش فرمایید']);
     }
 
     /**
@@ -48,7 +48,7 @@ class MenuController extends Controller
      */
     public function edit(Menu $menu)
     {
-        return view('MenuSeeder.edit', compact('menu'));
+        return view('Admin.Menu.edit', compact('menu'));
     }
 
     /**
@@ -58,7 +58,7 @@ class MenuController extends Controller
     {
         $inputs = $request->all();
         $result = $menu->update($inputs);
-        return $result ? redirect()->route('admin.menu.index')->with('success', 'منوی شماویرایش شد') : dd('no');
+        return $result ? redirect()->route('admin.menu.index')->with(['success'=>'منوی شما باموفقیت ویرایش شد']) : redirect()->route('admin.menu.index')->withErrors(['error' => 'خطایی رخ داد لطفا مجددا تلاش فرمایید']);
 
     }
 

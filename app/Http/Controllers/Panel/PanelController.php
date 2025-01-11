@@ -41,7 +41,7 @@ class PanelController extends Controller
 
     public function index()
     {
-        $menus=Menu::where("status",'active')->orderBy('view_sort','desc')->get();
+        $menus=Menu::where("status",'active')->orderBy('view_sort','asc')->get();
         return view('Site.index',compact('menus'));
     }
 

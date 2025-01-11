@@ -16,7 +16,8 @@ class BrandController extends Controller
      */
     public function index()
     {
-        //
+        $brands = Brand::all();
+        return view('Admin.Brand.index', compact('brands'));
     }
 
     /**
@@ -24,7 +25,7 @@ class BrandController extends Controller
      */
     public function create()
     {
-        return view('Brand.create');
+        return view('Admin.Brand.create');
     }
 
     /**
@@ -39,17 +40,17 @@ class BrandController extends Controller
 
 
         if (!$image)
-            return redirect()->route('admin.category.index', 'آپلودعکس به مشکل روبه رو شد');
+            return redirect()->route('admin.brand.index')->withErrors(['error' => 'آپلودعکس به مشکل روبه رو شد']);
 
-        $category = Brand::create($inputs);
-        if ($category) {
-            $category->image()->create([
+        $brand = Brand::create($inputs);
+        if ($brand) {
+            $brand->image()->create([
                 'path' => $image,
                 'user_id' => $user->id
             ]);
-            return redirect()->route('admin.brand.index')->with('success', 'نظیمات  شماویرایش شد');
+            return redirect()->route('admin.brand.index')->with(['success' => 'نظیمات  شماویرایش شد']);
         } else {
-            dd('no');
+            return redirect()->route('admin.brand.index')->withErrors(['error' => 'مشکلی پیش اومد لطفا مجددا تلاش فرمایید.']);
         }
     }
 
@@ -66,7 +67,7 @@ class BrandController extends Controller
      */
     public function edit(Brand $brand)
     {
-        return view('brand.edit', compact('brand'));
+        return view('Admin.Brand.edit', compact('brand'));
     }
 
     /**
@@ -74,7 +75,6 @@ class BrandController extends Controller
      */
     public function update(BrandRequest $request, ImageService $imageService, Brand $brand)
     {
-
         $user = Auth::user();
         $inputs = $request->all();
         if ($request->has('file')) {
@@ -82,14 +82,16 @@ class BrandController extends Controller
             $imageService->deleteImage($brand->image->path);
             $image = $imageService->saveImage($request->file('file'));
             if (!$image)
-                return redirect()->route('admin.category.index', 'آپلودعکس به مشکل روبه رو شد');
+                return redirect()->route('admin.brand.index')->withErrors(['error'=>'آپلود عکس با مشکل روبه رو شد لطفا مجددا تلاش فرماید']);
 
             $brand->image()->update([
                 'user_id' => $user->id,
                 'path' => $image
             ]);
         }
-        $brand->update($inputs);
+        $result=$brand->update($inputs);
+        return $result? redirect()->route('admin.brand.index')->with(['success'=>'برند شما بروز رسانی شد']):redirect()->route('admin.brand.index')->withErrors(['error'=>'خطایی رخ داد لطفا بعدا تلاش فرمایید']);
+
     }
 
     /**

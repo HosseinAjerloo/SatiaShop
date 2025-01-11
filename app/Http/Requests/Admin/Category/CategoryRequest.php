@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
 
 class CategoryRequest extends FormRequest
 {
@@ -21,10 +22,11 @@ class CategoryRequest extends FormRequest
      */
     public function rules(): array
     {
+        $routeCurrent = Route::current();
         return [
             'name' => 'required|min:3',
-            'file' => 'required|file|mimes:jpg,png,jpeg',
-            'view_sort' => 'required|unique:menus,view_sort',
+            'file' => [$routeCurrent->getName() == 'admin.category.update' ? 'nullable' : 'required', 'file', 'mimes:jpg,png,jpeg'],
+            'view_sort' => 'required',
             'status' => 'required|in:active,inactive',
             'menu_id' => 'required|exists:menus,id',
             'category_id' => 'nullable|exists:categories,id',

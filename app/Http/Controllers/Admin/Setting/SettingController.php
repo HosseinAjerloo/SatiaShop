@@ -17,7 +17,7 @@ class SettingController extends Controller
     public function index()
     {
         $setting=Setting::first();
-        return view('Setting.index',compact('setting'));
+        return view('Admin.Setting.index',compact('setting'));
 
     }
 
@@ -50,7 +50,7 @@ class SettingController extends Controller
      */
     public function edit(Setting $setting)
     {
-        return view('Setting.edit', compact('setting'));
+        return view('Admin.Setting.edit', compact('setting'));
 
     }
 
@@ -64,7 +64,9 @@ class SettingController extends Controller
         if ($request->hasFile('file')) {
             $imageService->setRootFolder('settingStore' . DIRECTORY_SEPARATOR . "image");
             $image = $imageService->saveImage($request->file('file'));
-            $status = $setting->image()->create([
+            if (isset($setting->image->path))
+                $imageService->deleteImage($setting->image->path);
+            $status = $setting->image()->update([
                 'path' => $image,
                 'user_id' => $user->id
             ]);
@@ -73,7 +75,7 @@ class SettingController extends Controller
         }
 
         $result = $setting->update($inputs);
-        return $result ? redirect()->route('admin.setting.index')->with('success', 'نظیمات  شماویرایش شد') : dd('no');
+        return $result ? redirect()->route('admin.setting.index')->with(['success'=> 'نظیمات  شماویرایش شد']) :redirect()->route('admin.setting.index')->withErrors(['error'=> 'خطایی رخ داد لطفا بعدا تلاش فرمایید']);
 
     }
 

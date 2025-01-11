@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
             $table->string("name")->nullable();
-            $table->tinyInteger('view_sort')->nullable();
+            $table->integer('view_sort')->nullable();
             $table->enum('status',['active','inactive'])->default('active');
             $table->timestamps();
             $table->softDeletes();

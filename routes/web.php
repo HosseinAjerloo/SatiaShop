@@ -128,8 +128,8 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
         Route::get('', [\App\Http\Controllers\Admin\Category\CategoryController::class, 'index'])->name('index');
         Route::get('create', [\App\Http\Controllers\Admin\Category\CategoryController::class, 'create'])->name('create');
         Route::post('store', [\App\Http\Controllers\Admin\Category\CategoryController::class, 'store'])->name('store');
-        Route::get('edit/{menu}', [\App\Http\Controllers\Admin\Category\CategoryController::class, 'edit'])->name('edit');
-        Route::put('update/{menu}', [\App\Http\Controllers\Admin\Category\CategoryController::class, 'update'])->name('update');
+        Route::get('edit/{category}', [\App\Http\Controllers\Admin\Category\CategoryController::class, 'edit'])->name('edit');
+        Route::put('update/{category}', [\App\Http\Controllers\Admin\Category\CategoryController::class, 'update'])->name('update');
     });
 
     //BRAND
