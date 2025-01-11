@@ -29,4 +29,8 @@ class Supplier extends Model
                 'phone'=>'09386542718'
             ]
         ];
+
+    public function supplierCategory(){
+        return $this->belongsTo(SupplierCategory::class,'supplier_category_id');
+    }
 }

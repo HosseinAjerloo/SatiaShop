@@ -148,6 +148,19 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
         Route::get('create', [App\Http\Controllers\Admin\Product\ProductController::class, 'create'])->name('create');
         Route::post('store', [App\Http\Controllers\Admin\Product\ProductController::class, 'store'])->name('store');
     });
+
+
+    //ADMIN SUPPLIER
+
+    //ADMINMENU
+
+    Route::prefix('supplier')->name('admin.supplier.')->group(function () {
+        Route::get('', [\App\Http\Controllers\Admin\Supplier\SupplierController::class, 'index'])->name('index');
+        Route::get('create', [\App\Http\Controllers\Admin\Supplier\SupplierController::class, 'create'])->name('create');
+        Route::post('store', [\App\Http\Controllers\Admin\Supplier\SupplierController::class, 'store'])->name('store');
+        Route::get('edit/{supplier}', [\App\Http\Controllers\Admin\Supplier\SupplierController::class, 'edit'])->name('edit');
+        Route::put('update/{supplier}', [\App\Http\Controllers\Admin\Supplier\SupplierController::class, 'update'])->name('update');
+    });
 });
 
 
