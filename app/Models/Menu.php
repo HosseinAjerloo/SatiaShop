@@ -28,6 +28,10 @@ class Menu extends Model
 
     public function category()
     {
-        return $this->hasOne(Category::class,'menu_id');
+        return $this->hasMany(Category::class,'menu_id');
+    }
+    public function categoryShow()
+    {
+        return $this->category()->where("status",'active')->orderBy('view_sort','desc')->get();
     }
 }

@@ -10,7 +10,7 @@ class Category extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'view_sort', 'status', 'menu_id'];
+    protected $fillable = ['name', 'view_sort', 'status', 'menu_id','category_id'];
     const CategoryRecord =
         [
             [
@@ -31,5 +31,17 @@ class Category extends Model
     {
         return $this->morphOne(File::class, 'files', 'fileable_type', 'fileable_id', 'id');
 
+    }
+    public function menu()
+    {
+        return $this->belongsTo(Menu::class,'menu_id');
+    }
+    public function parent()
+    {
+        return $this->belongsTo($this,'category_id');
+    }
+    public function chidren()
+    {
+        return $this->hasMany($this,'category_id');
     }
 }

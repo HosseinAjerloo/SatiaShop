@@ -26,7 +26,8 @@ class CategoryRequest extends FormRequest
             'file' => 'required|file|mimes:jpg,png,jpeg',
             'view_sort' => 'required|unique:menus,view_sort',
             'status' => 'required|in:active,inactive',
-            'menu_id' => 'required|exists:menus,id'
+            'menu_id' => 'required|exists:menus,id',
+            'category_id' => 'nullable|exists:categories,id',
         ];
     }
 }

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/output.css">
+    <script src="../ckeditor/ckeditor.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="toast-container" id="toast-container">
+    </div>
+
+    <header class="px-3 py-2.5 bg-2081F2 h-10 flex items-center">
+        <nav class="flex items-center justify-between w-full">
+            <div class="flex items-center space-x-reverse space-x-2">
+                <img src="../images/logo.svg" alt="">
+                <p class="font-bold text-white text-min ">
+                    سامانه مدیریت شارژ کپسول آتش نشانی
+                </p>
+            </div>
+            <img src="../images/userIcon.svg" alt="">
+
+        </nav>
+    </header>
+
+    <main class="py-8 space-y-14">
+
+
+        <section class="px-5">
+            <h1 class="font-bold text-sm">
+                افزودن کالا :
+            </h1>
+            <form action="" class="mt-5 space-y-3">
+                <div class="flex items-center space-x-reverse space-x-8">
+                    <h5 class="text-min font-light w-28">نام کالا:</h5>
+                    <input type="text" class="outline-none border border-black rounded-md w-48">
+                </div>
+                <div class="flex items-center space-x-reverse space-x-8 ">
+                    <h5 class="text-min font-light w-28">قیمت خدمات (ریال) :</h5>
+                    <input type="text" class="outline-none border border-black rounded-md w-48">
+                </div>
+                <div class="flex items-center space-x-reverse space-x-8">
+                    <h5 class="text-min font-light w-28">دستبه بندی:</h5>
+                    <select name="" id="" class="outline-none border border-black rounded-md w-48">
+                        <option value="">nokia</option>
+                        <option value="">samsung</option>
+                        <option value="">lg</option>
+                    </select>
+                </div>
+                <div class="flex items-center space-x-reverse space-x-8 ">
+                    <h5 class="text-min font-light w-28">نمایش:</h5>
+                    <input type="text" class="outline-none border border-black rounded-md w-14">
+                </div>
+                <div class="flex items-center space-x-reverse space-x-8 ">
+                    <h5 class="text-min font-light w-28">عکس محصول:</h5>
+                    <div
+                        class="border border-black rounded-md w-14 bg-2081F2 py-1.5 flex items-center justify-center space-x-1 space-x-reverse">
+                        <p class="text-min text-white">اپلود</p>
+                        <img src="../images/upload.png" alt="">
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-reverse space-x-8 ">
+                    <h5 class="text-min font-light w-28">توضیحات:</h5>
+                </div>
+                <div>
+                    <textarea name="editor1" id="editor1" rows="10" cols="80">
+                        afafaf
+                    </textarea>
+                </div>
+            </form>
+        </section>
+
+
+
+    </main>
+    <script>
+                CKEDITOR.replace( 'editor1' ,{
+                    versionCheck: false,
+                    language: 'fa',
+                    removeButtons: 'Image,Link,Source,About'
+                });
+
+
+    </script>
+    <script src="../js/toast.js"></script>
+    <script>
+        showToast("فیلد عکس نمیتواند خالی بماند");
+        $(".progress-bar div").css({'background-color':'red'})
+    </script>
+
+</body>
+
+</html>
