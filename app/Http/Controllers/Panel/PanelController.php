@@ -45,6 +45,10 @@ class PanelController extends Controller
         return view('Site.index',compact('menus'));
     }
 
+    public function product(){
+        return view('Site.product');
+    }
+
     public function contactUs()
     {
         return view('Panel.ContactUs.ContactUs');

@@ -21,6 +21,9 @@ Route::middleware('guest')->group(function () {
 });
 Route::get('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 Route::get('', [App\Http\Controllers\Panel\PanelController::class, 'index'])->name('panel.index');
+Route::get('product', [App\Http\Controllers\Panel\PanelController::class, 'product'])->name('panel.index');
+
+Route::post('addCard',[App\Http\Controllers\Site\CartController::class,'addCart'])->name('site.addCart');
 
 
 Route::middleware(['auth'])->group(function () {
