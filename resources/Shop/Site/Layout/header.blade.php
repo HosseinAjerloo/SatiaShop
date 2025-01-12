@@ -2,7 +2,7 @@
     <nav class="flex items-center justify-between w-full">
         <div class="flex items-center space-x-reverse space-x-2">
             <img src="{{asset("capsule/images/logo.svg")}}" alt="">
-            <p class="font-bold text-white text-lg ">
+            <p class="font-bold text-white text-sm ">
                 سامانه مدیریت شارژ کپسول آتش نشانی
             </p>
         </div>
