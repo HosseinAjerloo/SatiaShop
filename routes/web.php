@@ -172,10 +172,7 @@ Route::fallback(function () {
 });
 
 Route::get('test', function () {
-    dd(\App\Models\Brand::all());
-    \App\Models\Product::create(request()->all());
-    $product = \App\Models\Product::all();
-    return response()->json(['data' => $product]);
+    return view('Site.cart');
 })->name('test');
 
 

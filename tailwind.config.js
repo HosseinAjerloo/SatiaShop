@@ -25,8 +25,9 @@ module.exports = {
                 }
             },
             boxShadow:{
-                'equalTo':'5px 3px 10px rgba(0, 0, 0, 0.3),-5px -3px 10px rgba(0, 0, 0, 0.3)',
-                'inset_white':'1px 1px 10px rgba(255,255,255,.2) , inset -2px -2px 3px rgba(255,255,255,.3),inset 2px 2px  rgba(255,255,255,.2) , inset -2px -2px 3px rgba(255,255,255,.3)'
+                'equalTo':'5px 3px 5px rgba(0, 0, 0, 0.3),-5px -3px 5px rgba(0, 0, 0, 0.3)',
+                'inset_white':'1px 1px 10px rgba(255,255,255,.2) , inset -2px -2px 3px rgba(255,255,255,.3),inset 2px 2px  rgba(255,255,255,.2) , inset -2px -2px 3px rgba(255,255,255,.3)',
+
             },
             borderRadius:{
                 '50%':'50%'
