@@ -29,25 +29,84 @@
                         </div>
 
                         <div class="m-3 p-2 flex items-center justify-between shadow-equalTo rounded-md">
-                            <img src="{{asset('capsule/images/add.svg')}}" alt="" class="bg-2081F2 w-5 h-5 p-1">
-                            <div>
+                            <img src="{{asset('capsule/images/add.svg')}}" alt="" class="bg-2081F2 w-5 h-5 p-1 plus"
+                                 data-product="product-1">
+                            <div class="show-product-1-count">
                                 1
                             </div>
-                            <img src="{{asset('capsule/images/test.svg')}}" alt="" class="bg-2081F2 w-5 h-5 p-1">
+                            <img src="{{asset('capsule/images/minus-svgrepo-com.svg')}}" alt=""
+                                 class="bg-2081F2 w-5 h-5 p-1 minus"  data-product="product-1">
                         </div>
                     </div>
                 </article>
 
+
             </section>
 
         </article>
-        <article class="w-full lg:w-[24%] rounded-lg h-96 shadow-md border border-gray-300 ">
-            <div class="py-3 flex items-center justify-center">
-                <p class="font-bold text-lg">
+        <article class="w-full lg:w-[24%] rounded-lg shadow-md border py-3 border-gray-300 max-h-max space-y-3">
+            <div class="py-3 flex items-center justify-start">
+                <p class="font-bold text-lg px-4">
                     صورت حساب
                 </p>
             </div>
+            <article>
+                <div class="px-4 flex justify-between">
+                    <p class="text-sm">تعداد محصول</p>
+                    <p>
+                        <span class="font-semibold count">4</span>
+                        <span class="text-min font-bold">عدد</span>
+                    </p>
+                </div>
+            </article>
+            <article>
+                <div class="px-4 flex justify-between">
+                    <p class="text-sm">قیمت محصولات</p>
+                    <p>
+                        <span class="font-semibold amount">150000</span>
+                        <span class="text-min font-bold">تومان</span>
+                    </p>
+                </div>
+            </article>
+            <form action="" class=" w-full">
+                <input type="number" max="5" min="1" name="product[1]" id="product-1" value="1">
+                <div class="px-4 flex justify-between w-full">
+                    <button
+                        class="rounded-lg border border-2081F2 text-black w-full py-2 flex items-center justify-center hover:bg-2081F2 hover:text-white transition-all ">
+                        پرداخت
+                    </button>
+                </div>
+            </form>
         </article>
     </section>
 
+@endsection
+
+@section('script')
+    <script>
+        // add product
+        let plus = (".plus");
+        let totalAmount = 0;
+        $(plus).click(function () {
+            var product = $("#" + $(this).attr('data-product'));
+            var productMax = $(product).attr('max');
+            var number = (Number($(product).val()) + 1);
+            if (number <= productMax) {
+                $(product).val(number);
+            }
+            $('.show-' + $(this).attr('data-product') + '-count').html($(product).val())
+        });
+
+
+        //  minus product
+        let minus = (".minus");
+        $(minus).click(function () {
+            var product = $("#" + $(this).attr('data-product'));
+            var number = (Number($(product).val()) - 1);
+            if ($(product).val()>1) {
+                $(product).val(number);
+            }
+            $('.show-' + $(this).attr('data-product') + '-count').html($(product).val())
+        });
+    </script>
 @endsection
