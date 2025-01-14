@@ -5,6 +5,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Database\Seeders\Bank\BankSeeder;
+use Database\Seeders\Brand\BrandSeeder;
 use Database\Seeders\Category\CategorySeeder;
 use Database\Seeders\Menu\MenuSeeder;
 use Database\Seeders\Product\ProductSeeder;
@@ -29,6 +30,7 @@ class DatabaseSeeder extends Seeder
             Supplier::class,
             MenuSeeder::class,
             CategorySeeder::class,
+            BrandSeeder::class,
             ProductSeeder::class
         ]);
     }

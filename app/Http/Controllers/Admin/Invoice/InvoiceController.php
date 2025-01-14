@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Product;
+namespace App\Http\Controllers\Admin\Invoice;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Invoice\InvoiceRequest;
 use App\Http\Requests\Admin\Product\ProductRequest;
-use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Invoice;
 use App\Models\Product;
@@ -15,15 +13,12 @@ use App\Services\ImageService\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ProductController extends Controller
+class InvoiceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $products = Product::all();
-        return view('Admin.Product.index', compact('products'));
+        $products=Product::all();
+        return view('Admin.Product.index',compact('products'));
     }
 
     /**
@@ -40,7 +35,7 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(InvoiceRequest $request, ImageService $imageService)
+    public function store(ProductRequest $request, ImageService $imageService)
     {
         $inputs = $request->all();
         $user = Auth::user();
@@ -106,6 +101,29 @@ class ProductController extends Controller
         }
         dd($invouce);
 
+
+//        $inputs=$request->all();
+//        dd($inputs);
+//
+//            $imageService->setRootFolder('ProductStore' . DIRECTORY_SEPARATOR . "image");
+//            $image = $imageService->saveImage($request->file('file'));
+//
+//        if (!$image)
+//            return redirect()->route('admin.product.index', 'آپلودعکس به مشکل روبه رو شد');
+//
+//
+//        $product=Product::create($inputs);
+//
+//        $product->images()->create([
+//            'path' => $image,
+//            'user_id' => $user->id
+//        ]);
+//        Invoice::create([
+//            'user_id'=>$user->id,
+//            'final_amount'=>''
+//        ]);
+
+
     }
 
     /**
@@ -119,51 +137,17 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
+    public function edit(string $id)
     {
-        $categories = Category::where('status', 'active')->get();
-        $brands = Brand::where("status", 'active')->get();
-        return view('Admin.Product.edit', compact('categories', 'brands', 'product'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(ProductRequest $request, Product $product, ImageService $imageService)
+    public function update(Request $request, string $id)
     {
-        $inputs = $request->all();
-        $user = Auth::user();
-        if ($request->hasFile('file')) {
-
-
-            $imageService->setRootFolder('ProductStore' . DIRECTORY_SEPARATOR . "image");
-            $image = $imageService->saveImage($request->file('file'));
-            if (!$image)
-                return redirect()->route('admin.product.index')->withErrors(['error' => 'آپلود عکس با خطا مواجه شد']);
-
-            if (isset($product->images->path)) {
-                $imageService->deleteImage($product->images->path);
-
-                $product->images()->update([
-                    'path' => $image,
-                    'user_id' => $user->id
-                ]);
-
-            } else {
-                $product->images()->create([
-                    'path' => $image,
-                    'user_id' => $user->id
-                ]);
-            }
-
-
-        }
-        $product = $product->update($inputs);
-        if ($product) {
-            return redirect()->route('admin.product.index')->with(['success' => 'محصول ویرایش شد']);
-        } else {
-            return redirect()->route('admin.product.index')->withErrors(['error' => 'ویرایش محصول با خطا مواجه شد']);
-        }
+        //
     }
 
     /**

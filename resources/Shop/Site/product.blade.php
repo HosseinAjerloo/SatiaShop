@@ -9,32 +9,20 @@
                 <h1 class="text-xl text-rose-700 font-black py-1.5">عنوان:</h1>
                 <div class="">
                     <p class="text-sm  font-bold lg:text-balance leading-6 bg-F2F2F2 p-4 rounded-md shadow">
-                        لپ تاپ ایسوس 16 اینچی مدل TUF Gaming F16 FX607JV i7 13650HX 32GB 512GB RTX4060
+                       {{$product->title}}
                     </p>
                 </div>
                 <div class="mt-3">
                     <h1 class="text-xl text-rose-700 font-black py-1.5 ">توضیحات:</h1>
-                    <p class="text-sm lg:text-base text-justify leading-10 bg-F2F2F2 p-4 rounded-md shadow">
-                        در طی دو سال گذشته، سایز حاشیه‌های نسخه‌های پرو به طرز چشمگیری کاهش پیدا کرد. این کار اولین بار
-                        در
-                        آیفون ۱۴ پرو با حاشیه ۳.۵ میلی متری شروع شد و به آیفون ۱۵ پرو با ۲ میلی متر حاشیه رسید. اگر
-                        شایعات
-                        درست باشند، در آیفون ۱۶ پرو ما انتظار حاشیه‌هایی بین ۱.۳ میلی متر تا ۱.۴ میلی متر را داریم.
-
-                        در حالی که این کاهش حاشیه برای کاربران آیفون جذاب و راضی‌کننده است، باید گفت که حاشیه در این
-                        گوشی‌ها
-                        نقش‌های مهمی دارد. مثلا این‌که، از صفحه نمایش در برابر لمس شدن‌های ناخواسته مراقبت می‌کند.
-
-                        با این‌که کاهش حاشیه‌ها باعث زیبایی بصری بیشتر آیفون ۱۶ پرو و پرو مکس می‌شود، اما احتمال باز
-                        کردن
-                        ناخواسته برنامه‌ها را بالا می‌برد.
-                    </p>
+                    <div class="text-sm lg:text-base text-justify leading-10 bg-F2F2F2 p-4 rounded-md shadow">
+                        {!!$product->description!!}
+                    </div>
                 </div>
                 <div class=" flex-col mt-3 flex   ">
                     <h1 class=" text-md text-green-600 font-bold py-1.5 px-2 flex items-center">
                         <span>قیمت:</span>
                         <span>
-                            15000000ریال
+                            {{numberFormat($product->price)}}ریال
                         </span>
                     </h1>
                     <h1 class="text-md text-rose-700 font-bold py-1.5 flex items-center space-x-reverse space-x-1">
@@ -43,7 +31,11 @@
                             مانده درانبار:
                         </span>
                         <span>
-                             5
+                             @if($productTransaction->remain>0)
+                                 {{$productTransaction->remain}}
+                            @else
+                                 موجودی کافی نیست
+                             @endif
                         </span>
                     </h1>
 
@@ -59,7 +51,7 @@
 
             </div>
             <div class="w-full lg:w-[39%] flex items-center justify-center ">
-                <img src="{{asset('capsule/images/clock.jpg')}}" alt="" class="w-96 h-96 object-contain">
+                <img src="{{asset($product->image->path)}}" alt="" class="w-96 h-96 object-contain">
             </div>
 
         </article>

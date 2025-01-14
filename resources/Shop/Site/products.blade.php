@@ -25,137 +25,29 @@
 
 
     <section class="p-4">
-        <article class="flex items-center justify-between flex-wrap "">
-        <div class="w-full sm:w-[49%] md:w-[32%] lg:w-[24%] xl:w-[15%] shadow shadow-black/35 rounded-md p-2 mb-5">
-            <div class=" w-full flex items-center justify-center">
-                <img src="{{asset('capsule/images/redmi.webp')}}" alt="" class="w-44 h-44">
-            </div>
-            <p class="text-min mt-2">
-                پاوربانک شیائومی مدل Redmi ظرفیت 10000 میلی آمپر ساعت به همراه کابل میکرو یو اس بی
-            </p>
-            <div class="mt-2 ">
-                <div class="flex justify-between items-center">
+        <article class="flex items-center justify-between flex-wrap ">
 
-                    <span class="py-1.5 px-2 flex items-center justify-center text-min bg-2081F2 text-white rounded-md">5%</span>
-                    <p>
-                        800000
-                        <span>تومان</span>
+            @foreach($products as $product)
+                <a href="{{route('panel.product',$product->title)}}" class="w-full sm:w-[49%] md:w-[32%] lg:w-[24%] xl:w-[15%] shadow shadow-black/35 rounded-md p-2 mb-5">
+                    <div class=" w-full flex items-center justify-center">
+                        <img src="{{asset($product->image->path)}}" alt="" class="w-44 h-44">
+                    </div>
+                    <p class="text-min mt-2 overflow-hidden text-nowrap text-ellipsis  ">
+                        {{$product->title}}
+
                     </p>
-                </div>
-            </div>
-        </div>
-        <div class="w-full sm:w-[49%] md:w-[32%] lg:w-[24%] xl:w-[15%] shadow shadow-black/35 rounded-md p-2 mb-5">
-            <div class=" w-full flex items-center justify-center">
-                <img src="{{asset("capsule/images/redmi.webp")}}" alt="" class="w-44 h-44">
-            </div>
-            <p class="text-min mt-2">
-                پاوربانک شیائومی مدل Redmi ظرفیت 10000 میلی آمپر ساعت به همراه کابل میکرو یو اس بی
-            </p>
-            <div class="mt-2 ">
-                <div class="flex justify-between items-center">
+                    <div class="mt-2 ">
+                        <div class="flex justify-between items-center">
 
-                    <span class="py-1.5 px-2 flex items-center justify-center text-min bg-2081F2 text-white rounded-md">5%</span>
-                    <p>
-                        800000
-                        <span>تومان</span>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="w-full sm:w-[49%] md:w-[32%] lg:w-[24%] xl:w-[15%] shadow shadow-black/35 rounded-md p-2 mb-5">
-            <div class=" w-full flex items-center justify-center">
-                <img src="{{asset('capsule/images/redmi.webp')}}" alt="" class="w-44 h-44">
-            </div>
-            <p class="text-min mt-2">
-                پاوربانک شیائومی مدل Redmi ظرفیت 10000 میلی آمپر ساعت به همراه کابل میکرو یو اس بی
-            </p>
-            <div class="mt-2 ">
-                <div class="flex justify-between items-center">
-
-                    <span class="py-1.5 px-2 flex items-center justify-center text-min bg-2081F2 text-white rounded-md">5%</span>
-                    <p>
-                        800000
-                        <span>تومان</span>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="w-full sm:w-[49%] md:w-[32%] lg:w-[24%] xl:w-[15%] shadow shadow-black/35 rounded-md p-2 mb-5">
-            <div class=" w-full flex items-center justify-center">
-                <img src="{{asset('capsule/images/redmi.webp')}}" alt="" class="w-44 h-44">
-            </div>
-            <p class="text-min mt-2">
-                پاوربانک شیائومی مدل Redmi ظرفیت 10000 میلی آمپر ساعت به همراه کابل میکرو یو اس بی
-            </p>
-            <div class="mt-2 ">
-                <div class="flex justify-between items-center">
-
-                    <span class="py-1.5 px-2 flex items-center justify-center text-min bg-2081F2 text-white rounded-md">5%</span>
-                    <p>
-                        800000
-                        <span>تومان</span>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="w-full sm:w-[49%] md:w-[32%] lg:w-[24%] xl:w-[15%] shadow shadow-black/35 rounded-md p-2 mb-5">
-            <div class=" w-full flex items-center justify-center">
-                <img src="{{asset('capsule/images/redmi.webp')}}" alt="" class="w-44 h-44">
-            </div>
-            <p class="text-min mt-2">
-                پاوربانک شیائومی مدل Redmi ظرفیت 10000 میلی آمپر ساعت به همراه کابل میکرو یو اس بی
-            </p>
-            <div class="mt-2 ">
-                <div class="flex justify-between items-center">
-
-                    <span class="py-1.5 px-2 flex items-center justify-center text-min bg-2081F2 text-white rounded-md">5%</span>
-                    <p>
-                        800000
-                        <span>تومان</span>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="w-full sm:w-[49%] md:w-[32%] lg:w-[24%] xl:w-[15%] shadow shadow-black/35 rounded-md p-2 mb-5">
-            <div class=" w-full flex items-center justify-center">
-                <img src="{{asset('capsule/images/redmi.webp')}}" alt="" class="w-44 h-44">
-            </div>
-            <p class="text-min mt-2">
-                پاوربانک شیائومی مدل Redmi ظرفیت 10000 میلی آمپر ساعت به همراه کابل میکرو یو اس بی
-            </p>
-            <div class="mt-2 ">
-                <div class="flex justify-between items-center">
-
-                    <span class="py-1.5 px-2 flex items-center justify-center text-min bg-2081F2 text-white rounded-md">5%</span>
-                    <p>
-                        800000
-                        <span>تومان</span>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="w-full sm:w-[49%] md:w-[32%] lg:w-[24%] xl:w-[15%] shadow shadow-black/35 rounded-md p-2 mb-5">
-            <div class=" w-full flex items-center justify-center">
-                <img src="{{asset("capsule/images/redmi.webp")}}" alt="" class="w-44 h-44">
-            </div>
-            <p class="text-min mt-2 overflow-hidden text-nowrap text-ellipsis  ">
-                پاوربانک شیائومی مدل Redmi ظرفیت 10000 میلی آمپر ساعت به همراه کابل میکرو یو اس بی
-                پاوربانک شیائومی مدل Redmi ظرفیت 10000 میلی آمپر ساعت به همراه کابل میکرو یو اس بی
-                پاوربانک شیائومی مدل Redmi ظرفیت 10000 میلی آمپر ساعت به همراه کابل میکرو یو اس بی
-                پاوربانک شیائومی مدل Redmi ظرفیت 10000 میلی آمپر ساعت به همراه کابل میکرو یو اس بی
-
-            </p>
-            <div class="mt-2 ">
-                <div class="flex justify-between items-center">
-
-                    <span class="py-1.5 px-2 flex items-center justify-center text-min bg-2081F2 text-white rounded-md">5%</span>
-                    <p>
-                        800000
-                        <span>تومان</span>
-                    </p>
-                </div>
-            </div>
-        </div>
+                            <span class="py-1.5 px-2 flex items-center justify-center text-min bg-2081F2 text-white rounded-md">5%</span>
+                            <p>
+                                {{numberFormat($product->price)}}
+                                <span>ریال</span>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            @endforeach
 
 
 

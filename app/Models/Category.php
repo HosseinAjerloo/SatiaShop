@@ -44,4 +44,8 @@ class Category extends Model
     {
         return $this->hasMany($this,'category_id');
     }
+    public function productes()
+    {
+        return $this->hasMany(Product::class,'category_id');
+    }
 }

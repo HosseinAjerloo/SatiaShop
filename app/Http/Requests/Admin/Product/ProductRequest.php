@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\Product;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
 
 class ProductRequest extends FormRequest
 {
@@ -21,13 +22,23 @@ class ProductRequest extends FormRequest
      */
     public function rules(): array
     {
+        $routeCurrent = Route::current();
+
         return [
-            'supplier_id'=>'required|exists:suppliers,id',
-            'invoiceDesc'=>'required|string|min:3',
-            'product_id.*'=>'required|exists:products,id',
-            'description.*'=>'required|min:3',
-            'price.*'=>'required|numeric|min:3',
-            'amount.*'=>'required|numeric',
+                'title'=>'required|min:3',
+                'price'=>'required|numeric:min:10000',
+                'category_id'=>'required|exists:categories,id',
+                'brand_id'=>'required|exists:brands,id',
+                'status'=>'required|in:active,inactive',
+                'type'=>'required|in:goods,service',
+                'description'=>'required|min:3',
+                'file' => [$routeCurrent->getName() == 'admin.product.update' ? 'nullable' : 'required', 'file', 'mimes:jpg,png,jpeg'],
+        ];
+    }
+    public function attributes()
+    {
+        return [
+            'type' => 'نوع محصول'
         ];
     }
 }

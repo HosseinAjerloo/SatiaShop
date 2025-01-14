@@ -21,7 +21,8 @@ Route::middleware('guest')->group(function () {
 });
 Route::get('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 Route::get('', [App\Http\Controllers\Panel\PanelController::class, 'index'])->name('panel.index');
-Route::get('product', [App\Http\Controllers\Panel\PanelController::class, 'product'])->name('panel.index');
+Route::get('products/{category:name}', [App\Http\Controllers\Panel\PanelController::class, 'products'])->name('panel.products');
+Route::get('product/{product:title}', [App\Http\Controllers\Panel\PanelController::class, 'product'])->name('panel.product');
 
 Route::post('addCard',[App\Http\Controllers\Site\CartController::class,'addCart'])->name('site.addCart');
 
@@ -150,6 +151,9 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
         Route::get('', [App\Http\Controllers\Admin\Product\ProductController::class, 'index'])->name('index');
         Route::get('create', [App\Http\Controllers\Admin\Product\ProductController::class, 'create'])->name('create');
         Route::post('store', [App\Http\Controllers\Admin\Product\ProductController::class, 'store'])->name('store');
+        Route::get('edit/{product}', [App\Http\Controllers\Admin\Product\ProductController::class, 'edit'])->name('edit');
+        Route::put('update/{product}', [App\Http\Controllers\Admin\Product\ProductController::class, 'update'])->name('update');
+
     });
 
 

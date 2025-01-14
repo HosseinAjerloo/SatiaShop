@@ -15,6 +15,7 @@ use App\Models\FinanceTransaction;
 use App\Models\Invoice;
 use App\Models\Menu;
 use App\Models\Payment;
+use App\Models\Product;
 use App\Models\Service;
 use App\Models\Voucher;
 use App\Notifications\IsEmptyUserInformationNotifaction;
@@ -45,8 +46,13 @@ class PanelController extends Controller
         return view('Site.index',compact('menus'));
     }
 
-    public function product(){
-        return view('Site.product');
+    public function products(Category $category){
+        $products=$category->productes;
+        return view('Site.products',compact('products'));
+    }
+    public function product(Product $product){
+        $productTransaction=$product->productTransaction()->orderBy('created_at','desc')->first();
+        return view('Site.product',compact('product','productTransaction'));
     }
 
     public function contactUs()

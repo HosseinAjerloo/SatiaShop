@@ -13,7 +13,7 @@
                 </div>
 
                 @foreach($menu->categoryShow() as $category)
-                    <div
+                    <a href="{{route('panel.products',$category->name)}}"
                         class="flex items-start justify-center flex-col border-2 border-black/30 rounded-md  box-border bg-white w-[49%] md:w-[24%] xl:w-[18%]">
 
                         <div class="flex items-center justify-center w-full p-1.5 h-36">
@@ -26,7 +26,7 @@
                             </p>
                         </div>
 
-                    </div>
+                    </a>
                 @endforeach
 
             </div>

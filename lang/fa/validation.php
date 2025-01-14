@@ -220,7 +220,9 @@ return [
         'status'=>'وضعیت',
         'file'=>'عکس',
         'supplier_category_id'=>'دسته بندی تامین کننده',
-        'phone'=>'شماره ثابت'
+        'phone'=>'شماره ثابت',
+        'description '=>'توضیحات',
+        'title'=>'عنوان',
     ],
 
 ];
