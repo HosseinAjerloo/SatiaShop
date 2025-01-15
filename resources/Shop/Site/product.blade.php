@@ -31,7 +31,7 @@
                             مانده درانبار:
                         </span>
                         <span>
-                             @if($productTransaction->remain>0)
+                             @if($productTransaction?->remain>0)
                                  {{$productTransaction->remain}}
                             @else
                                  موجودی کافی نیست
@@ -51,7 +51,7 @@
 
             </div>
             <div class="w-full lg:w-[39%] flex items-center justify-center ">
-                <img src="{{asset($product->image->path)}}" alt="" class="w-96 h-96 object-contain">
+                <img src="{{asset($product->image->path??'')}}" alt="" class="w-96 h-96 object-contain">
             </div>
 
         </article>

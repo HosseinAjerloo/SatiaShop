@@ -31,81 +31,38 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        $products = Product::all();
-        $suppliers = Supplier::where('status', 'active')->get();
-        return view('Product.create', compact('categories', 'suppliers', 'products'));
+        $categories = Category::where('status', 'active')->get();
+        $brands = Brand::where("status", 'active')->get();
+        return view('Admin.Product.create', compact('categories', 'brands'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(InvoiceRequest $request, ImageService $imageService)
+    public function store(ProductRequest $request, ImageService $imageService)
     {
+
         $inputs = $request->all();
         $user = Auth::user();
-        $productItems = array_filter($inputs, function ($value) use ($inputs) {
-            if (is_array($value)) {
-                return $value;
-            }
-        });
-        $products = collect();
-        foreach ($productItems['product_id'] as $key => $product) {
-            $product = [];
-            foreach ($productItems as $keyValue => $input) {
-                if (isset($input[$key])) {
-                    $product[$keyValue] = $input[$key];
-                }
-            }
+        $inputs['user_id']=$user->id;
+        $product = Product::create($inputs);
+        $imageService->setRootFolder('ProductStore' . DIRECTORY_SEPARATOR . "image");
+        $image = $imageService->saveImage($request->file('file'));
 
-            $products->push($product);
-        }
-        $productsGruop = $products->groupBy('product_id');
+        if (!$image)
+            return redirect()->route('admin.product.index')->withErrors(['error' => 'آپلود عکس با خطا مواجه شد']);
 
-        $updateCollectionProduct = collect();
-        $productItem = collect();
-        $finalAmount = 0;
-        foreach ($productsGruop->all() as $groupp) {
-            $amount = 0;
-            foreach ($groupp as $item) {
-                $amount += $item['amount'];
-                $updateCollectionProduct->push(
-                    [
-                        'product_id' => $item['product_id'],
-                        'description' => $item['description'],
-                        'amount' => $amount,
-                        'price' => $item['price']
-                    ]
-                );
 
-            }
-            $productItem->push($updateCollectionProduct->last());
-        }
-
-        foreach ($productItem->toArray() as $productPrice) {
-            $finalAmount += $productPrice['amount'] * $productPrice['price'];
-        }
-        $invouce = Invoice::create([
-            'user_id' => $user->id,
-            'type_of_business' => 'buy',
-            'supplier_id' => $request->supplier_id,
-            'final_amount' => $finalAmount,
-            'description' => 'invoiceDescription'
+        $product->image()->create([
+            'path' => $image,
+            'user_id' => $user->id
         ]);
-        $invouce->invoiceItem()->createMany($productItem->all());
-        foreach ($productItem as $itemTransaction) {
-            $productTransaction=ProductTransaction::where('product_id',$itemTransaction['product_id'])->latest()->first();
-            $itemTransaction['type']='add';
-            $itemTransaction['remain']=$itemTransaction['amount'];
-            $itemTransaction['user_id']=$user->id;
-            if ($productTransaction)
-            {
-                $itemTransaction['remain']=$itemTransaction['amount']+$productTransaction->remain;
-            }
-            $invouce->productTransaction()->create($itemTransaction);
-        }
-        dd($invouce);
 
+        if ($product) {
+            return redirect()->route('admin.product.index')->with(['success' => 'محصول جدید شما اضافه  شد']);
+        } else {
+            return redirect()->route('admin.product.index')->withErrors(['error' => 'افزودن محصول با خطا مواجه شد']);
+        }
     }
 
     /**
@@ -138,19 +95,21 @@ class ProductController extends Controller
 
             $imageService->setRootFolder('ProductStore' . DIRECTORY_SEPARATOR . "image");
             $image = $imageService->saveImage($request->file('file'));
+
             if (!$image)
                 return redirect()->route('admin.product.index')->withErrors(['error' => 'آپلود عکس با خطا مواجه شد']);
 
-            if (isset($product->images->path)) {
-                $imageService->deleteImage($product->images->path);
 
-                $product->images()->update([
+            if (isset($product->images->path)) {
+
+                $imageService->deleteImage($product->images->path);
+                $product->image()->update([
                     'path' => $image,
                     'user_id' => $user->id
                 ]);
 
             } else {
-                $product->images()->create([
+                $product->image()->create([
                     'path' => $image,
                     'user_id' => $user->id
                 ]);
@@ -158,6 +117,7 @@ class ProductController extends Controller
 
 
         }
+
         $product = $product->update($inputs);
         if ($product) {
             return redirect()->route('admin.product.index')->with(['success' => 'محصول ویرایش شد']);

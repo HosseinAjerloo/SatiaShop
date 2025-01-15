@@ -41,7 +41,7 @@ class Product extends Model
         ],
     ];
     public function image(){
-        return $this->morphOne(File::class,'files','fileable_type','id');
+        return $this->morphOne(File::class,'files','fileable_type','fileable_id');
     }
     public function productTransaction(){
         return $this->hasMany(ProductTransaction::class,'product_id','id');

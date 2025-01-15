@@ -30,7 +30,7 @@
             @foreach($products as $product)
                 <a href="{{route('panel.product',$product->title)}}" class="w-full sm:w-[49%] md:w-[32%] lg:w-[24%] xl:w-[15%] shadow shadow-black/35 rounded-md p-2 mb-5">
                     <div class=" w-full flex items-center justify-center">
-                        <img src="{{asset($product->image->path)}}" alt="" class="w-44 h-44">
+                        <img src="{{asset($product->image->path??'')}}" alt="" class="w-44 h-44">
                     </div>
                     <p class="text-min mt-2 overflow-hidden text-nowrap text-ellipsis  ">
                         {{$product->title}}

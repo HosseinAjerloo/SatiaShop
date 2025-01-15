@@ -72,7 +72,8 @@
 
         <article class="  border border-t-0 border-black space-y-5 py-1.5 rounded-md rounded-se-none  rounded-ss-none">
             @foreach($products as $product)
-                <div class="p-2 h-full @if(($product->id%2)==0) bg-E9E9E9 @endif  flex items-center justify-between  divide-x-1 divide-black divide-x-reverse">
+                <div
+                    class="p-2 h-full @if(($product->id%2)==0) bg-E9E9E9 @endif  flex items-center justify-between  divide-x-1 divide-black divide-x-reverse">
                     <a href="{{route('admin.product.edit',$product->id)}}" class="w-1/5">
                         <p class="text-sky-500  text-min_sm font-bold  h-full flex items-center justify-center text-center underline underline-offset-4 ">
                             {{$product->title??''}}
@@ -116,7 +117,6 @@
 
 
                 </div>
-
 
             @endforeach
 
