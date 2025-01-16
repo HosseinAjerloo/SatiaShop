@@ -65,8 +65,11 @@
     <script>
         $(document).ready(function () {
 
+
             let addCart = $(".addCart");
             $(addCart).click(function () {
+                console.log($(this));
+
                 let productId = $(this).attr('data-id');
                 console.log(productId)
                 $.ajax({
@@ -76,6 +79,9 @@
                         _token: "{{csrf_token()}}",
                         product_id: productId
                     },
+                    error:function (error){
+                        console.log(error)
+                    }
                 });
             })
         })

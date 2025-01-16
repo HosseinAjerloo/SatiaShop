@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -15,7 +14,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('user_ip')->nullable();
+            $table->enum('status', ['addToCart', 'applyToTheBank', 'paid', 'canceled', 'canceledByTheSystem'])->default('addToCart');
             $table->decimal('final_amount', 20, 3)->nullable();
+            $table->decimal('finalPrice',20,3)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

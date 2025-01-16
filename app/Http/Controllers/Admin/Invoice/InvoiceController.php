@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Invoice;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Invoice\InvoiceRequest;
 use App\Http\Requests\Admin\Product\ProductRequest;
 use App\Models\Category;
 use App\Models\Invoice;
@@ -26,16 +27,17 @@ class InvoiceController extends Controller
      */
     public function create()
     {
+
         $categories = Category::all();
         $products = Product::all();
         $suppliers = Supplier::where('status', 'active')->get();
-        return view('Product.create', compact('categories', 'suppliers', 'products'));
+        return view('Admin.Invoice.create', compact('categories', 'suppliers', 'products'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ProductRequest $request, ImageService $imageService)
+    public function store(InvoiceRequest $request, ImageService $imageService)
     {
         $inputs = $request->all();
         $user = Auth::user();

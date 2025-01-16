@@ -87,22 +87,27 @@ class CategoryController extends Controller
     {
         $inputs = $request->all();
         $user = Auth::user();
-        if ($request->hasFile('file')) {
-            if (isset($category->image->path))
-                $imageService->deleteImage($category->image->path);
 
+        if ($request->hasFile('file')) {
             $imageService->setRootFolder('CategoryStore' . DIRECTORY_SEPARATOR . "image");
             $image = $imageService->saveImage($request->file('file'));
-
             if (!$image)
                 return redirect()->route('admin.category.index')->withErrors(['error' => 'آپلود عکس با خطا مواجه شد']);
-            $category->image()->update([
-                'path' => $image,
-                'user_id' => $user->id
-            ]);
+
+            if (isset($product->images->path)) {
+
+                $imageService->deleteImage($product->images->path);
+                $category->image()->update([
+                    'path' => $image,
+                    'user_id' => $user->id
+                ]);
+            } else {
+                $category->image()->create([
+                    'path' => $image,
+                    'user_id' => $user->id
+                ]);
+            }
         }
-
-
         $category =$category->update($inputs);
         if ($category) {
             return redirect()->route('admin.category.index')->with(['success' => 'دسته بندی شما ویرایش شد']);

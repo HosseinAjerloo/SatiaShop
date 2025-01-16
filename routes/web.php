@@ -24,7 +24,7 @@ Route::get('', [App\Http\Controllers\Panel\PanelController::class, 'index'])->na
 Route::get('products/{category:name}', [App\Http\Controllers\Panel\PanelController::class, 'products'])->name('panel.products');
 Route::get('product/{product:title}', [App\Http\Controllers\Panel\PanelController::class, 'product'])->name('panel.product');
 
-Route::post('addCard',[App\Http\Controllers\Site\CartController::class,'addCart'])->name('site.addCart');
+Route::post('addCard',[App\Http\Controllers\Panel\CartController::class,'addCart'])->name('site.addCart');
 
 
 Route::middleware(['auth'])->group(function () {
@@ -157,9 +157,9 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
     });
 
 
+
     //ADMIN SUPPLIER
 
-    //ADMINMENU
 
     Route::prefix('supplier')->name('admin.supplier.')->group(function () {
         Route::get('', [\App\Http\Controllers\Admin\Supplier\SupplierController::class, 'index'])->name('index');
@@ -167,6 +167,17 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
         Route::post('store', [\App\Http\Controllers\Admin\Supplier\SupplierController::class, 'store'])->name('store');
         Route::get('edit/{supplier}', [\App\Http\Controllers\Admin\Supplier\SupplierController::class, 'edit'])->name('edit');
         Route::put('update/{supplier}', [\App\Http\Controllers\Admin\Supplier\SupplierController::class, 'update'])->name('update');
+    });
+
+    //ADMIN INVOICE
+
+    Route::prefix('invoice')->name('admin.invoice.')->group(function () {
+        Route::get('', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'index'])->name('index');
+        Route::get('create', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'create'])->name('create');
+        Route::post('store', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'store'])->name('store');
+        Route::get('edit/{product}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'edit'])->name('edit');
+        Route::put('update/{product}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'update'])->name('update');
+
     });
 });
 
