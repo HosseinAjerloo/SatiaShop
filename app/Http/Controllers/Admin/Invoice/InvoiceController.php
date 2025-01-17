@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Invoice;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Invoice\InvoiceRequest;
 use App\Http\Requests\Admin\Product\ProductRequest;
+use App\Http\Traits\HasProduct;
 use App\Models\Category;
 use App\Models\Invoice;
 use App\Models\Product;
@@ -16,10 +17,15 @@ use Illuminate\Support\Facades\Auth;
 
 class InvoiceController extends Controller
 {
+    use HasProduct;
     public function index()
     {
         $invoices=Invoice::where('type_of_business','buy')->get();
         return view('Admin.Invoice.index',compact('invoices'));
+    }
+    public function invoiceProduct(Invoice $invoice)
+    {
+        return view('Admin.Invoice.Product.index', compact('invoice'));
     }
 
     /**
@@ -29,7 +35,7 @@ class InvoiceController extends Controller
     {
 
         $categories = Category::all();
-        $products = Product::all();
+        $products = Product::where('type','goods')->get();
         $suppliers = Supplier::where('status', 'active')->get();
         return view('Admin.Invoice.create', compact('categories', 'suppliers', 'products'));
     }
@@ -41,11 +47,12 @@ class InvoiceController extends Controller
     {
         $inputs = $request->all();
         $user = Auth::user();
-        $productItems = array_filter($inputs, function ($value) use ($inputs) {
-            if (is_array($value)) {
-                return $value;
-            }
-        });
+        $productItems = $this->separationOfArraysFromText($inputs);
+        if (!$this->arrayCountValidation($productItems))
+        {
+            return redirect()->route('admin.invoice.product.index')->withErrors(['error'=>'مقدار های داده شده باهم برابر نیست لطفا مجددا تلاش فرمایید']);
+        }
+
         $products = collect();
         foreach ($productItems['product_id'] as $key => $product) {
             $product = [];
@@ -71,7 +78,8 @@ class InvoiceController extends Controller
                         'product_id' => $item['product_id'],
                         'description' => $item['description'],
                         'amount' => $amount,
-                        'price' => $item['price']
+                        'price' => $item['price'],
+                        'type'=>'product'
                     ]
                 );
 
@@ -83,11 +91,11 @@ class InvoiceController extends Controller
             $finalAmount += $productPrice['amount'] * $productPrice['price'];
         }
         $invouce = Invoice::create([
-            'user_id' => $user->id,
+            'operator_id' => $user->id,
             'type_of_business' => 'buy',
             'supplier_id' => $request->supplier_id,
             'final_amount' => $finalAmount,
-            'description' => 'invoiceDescription'
+            'description' => $inputs['invoiceDesc']
         ]);
         $invouce->invoiceItem()->createMany($productItem->all());
         foreach ($productItem as $itemTransaction) {
@@ -101,29 +109,9 @@ class InvoiceController extends Controller
             }
             $invouce->productTransaction()->create($itemTransaction);
         }
-        dd($invouce);
+        return redirect()->route('admin.invoice.product.index')->withErrors(['success'=>'فاکتور جدید شما ایجاد شد و محصولات شما به انبار اضافه گردید']);
 
 
-//        $inputs=$request->all();
-//        dd($inputs);
-//
-//            $imageService->setRootFolder('ProductStore' . DIRECTORY_SEPARATOR . "image");
-//            $image = $imageService->saveImage($request->file('file'));
-//
-//        if (!$image)
-//            return redirect()->route('admin.product.index', 'آپلودعکس به مشکل روبه رو شد');
-//
-//
-//        $product=Product::create($inputs);
-//
-//        $product->images()->create([
-//            'path' => $image,
-//            'user_id' => $user->id
-//        ]);
-//        Invoice::create([
-//            'user_id'=>$user->id,
-//            'final_amount'=>''
-//        ]);
 
 
     }

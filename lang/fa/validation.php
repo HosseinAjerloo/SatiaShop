@@ -223,6 +223,8 @@ return [
         'phone'=>'شماره ثابت',
         'description '=>'توضیحات',
         'title'=>'عنوان',
+        'supplier_id'=>'تامین کننده',
+        'invoiceDesc'=>'توضیحات مربوط به فاکتور'
     ],
 
 ];

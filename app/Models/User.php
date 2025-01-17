@@ -26,7 +26,7 @@ class User extends Authenticatable
             'name' => "حسین",
             'family' => "آجرلو",
             'mobile' => "09186414452",
-            'type'=>'admin'
+            'type' => 'admin'
         ];
     protected $fillable = [
         'name',
@@ -84,10 +84,15 @@ class User extends Authenticatable
     {
         return Attribute::make(
             get: function () {
-                if (isset($this->name) and isset($this->family))
+                if (isset($this->name) and isset($this->family)) {
                     return $this->name . ' ' . $this->family;
-                else
+                } elseif (isset($this->name)) {
+                    return $this->name;
+                } elseif (isset($this->family)) {
+                    return $this->family;
+                } else {
                     return $this->mobile;
+                }
             });
     }
 

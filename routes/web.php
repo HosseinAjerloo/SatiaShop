@@ -172,11 +172,18 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
     //ADMIN INVOICE
 
     Route::prefix('invoice')->name('admin.invoice.')->group(function () {
-        Route::get('', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'index'])->name('index');
-        Route::get('create', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'create'])->name('create');
-        Route::post('store', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'store'])->name('store');
-        Route::get('edit/{product}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'edit'])->name('edit');
-        Route::put('update/{product}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'update'])->name('update');
+
+        Route::prefix('product')->name('product.')->group(function (){
+            Route::get('show/{invoice}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'invoiceProduct'])->name('invoiceProduct');
+            Route::get('', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'index'])->name('index');
+
+            Route::get('create', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'create'])->name('create');
+            Route::post('store', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'store'])->name('store');
+            Route::get('edit/{product}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'edit'])->name('edit');
+            Route::put('update/{product}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'update'])->name('update');
+
+        });
+
 
     });
 });

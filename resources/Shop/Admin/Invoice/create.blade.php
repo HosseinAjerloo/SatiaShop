@@ -6,13 +6,17 @@
         <h1 class="font-bold text-sm">
             افزودن محصول :
         </h1>
-        <form action="{{route('admin.product.store')}}" method="POST" enctype="multipart/form-data"
+
+        <h1 class="font-bold text-rose-500 text-md mt-3 text-center">
+            درهنگام ثبت فاکتور دقت فرمایید امکان ویرایش وجود ندارد
+        </h1>
+        <form action="{{route('admin.invoice.product.store')}}" method="POST" enctype="multipart/form-data"
               class="mt-5 space-y-3">
             @csrf
             <section class="pb-3  border-b-2 border-black/40">
                 <div class="flex items-center space-x-reverse space-x-8">
                     <h5 class="text-min font-light w-28">تامین کنندگان:</h5>
-                    <select name="category_id" id="" class="outline-none border border-black rounded-md w-48">
+                    <select name="supplier_id" id="" class="outline-none border border-black rounded-md w-48">
 
                         @foreach($suppliers as $supplier)
                             <option value="{{$supplier->id}}">{{$supplier->name}}</option>
@@ -23,8 +27,7 @@
                     <h5 class="text-min font-light w-48">توضیحات مربوط به فاکتور</h5>
                 </div>
                 <div>
-                    <textarea name="description" id="invoice_description" rows="10" cols="80">
-                    </textarea>
+                    <textarea name="invoiceDesc" id="invoice_description" rows="10" cols="80"></textarea>
                 </div>
             </section>
 
@@ -32,14 +35,12 @@
 
                 <article class="space-y-3 border-b-2 border-black/40 pb-3">
                     <div class="flex items-center space-x-reverse space-x-8">
-                        <h5 class="text-min font-light w-28"> قیکت هر واحد :</h5>
-                        <input type="text" name="price[]" class="outline-none border border-black rounded-md w-48"
-                               value="{{old('price')}}">
+                        <h5 class="text-min font-light w-28"> قیمت هر واحد :</h5>
+                        <input type="text" name="price[]" class="outline-none border border-black rounded-md w-48">
                     </div>
                     <div class="flex items-center space-x-reverse space-x-8">
                         <h5 class="text-min font-light w-28"> تعداد :</h5>
-                        <input type="number" name="amount[]" class="outline-none border border-black rounded-md w-48"
-                               value="{{old('amount')}}">
+                        <input type="number" min="1" name="amount[]" class="outline-none border border-black rounded-md w-48">
                     </div>
 
                     <div class="flex items-center space-x-reverse space-x-8">
@@ -59,8 +60,7 @@
                         <h5 class="text-min font-light w-48">توضیحات مربوط به محصول</h5>
                     </div>
                     <div>
-                    <textarea name="description[]" class="product_description w-full" rows="10" cols="80">
-                    </textarea>
+                    <textarea name="description[]" id="replace_element_1" class="w-full" rows="10" cols="80"></textarea>
                     </div>
 
                 </article>
@@ -94,38 +94,29 @@
             language: 'fa',
             removeButtons: 'Image,Link,Source,About'
         });
+        CKEDITOR.replace('replace_element_1', {
+            versionCheck: false,
+            language: 'fa',
+            removeButtons: 'Image,Link,Source,About'
+        });
 
-
-        CKEDITOR.replaceClass = function (textarea, config) {
-
-            if (textarea.classList[0] === "product_description") {
-                config.versionCheck = false;
-                config.language = 'fa';
-                return true;
-
-            } else {
-                return false;
-            }
-
-        }
 
 
     </script>
 
 
-
     <script>
-        var count = 1;
+        var count = 2;
         $('.btn-copy').click(function () {
 
             var record = '<article class="space-y-3 border-b-2 border-black/40 pb-3">' +
                 '<div class="flex items-center space-x-reverse space-x-8">' +
-                '<h5 class="text-min font-light w-28"> قیکت هر واحد :</h5>' +
+                '<h5 class="text-min font-light w-28"> قیمت هر واحد :</h5>' +
                 '<input type="text" name="price[]" class="outline-none border border-black rounded-md w-48">' +
                 '</div>' +
                 '<div class="flex items-center space-x-reverse space-x-8">' +
                 '<h5 class="text-min font-light w-28"> تعداد :</h5>' +
-                '<input type="number" name="amount[]" class="outline-none border border-black rounded-md w-48">' +
+                '<input type="number" name="amount[]" min="1" class="outline-none border border-black rounded-md w-48">' +
                 '</div>' +
                 '<div class="flex items-center space-x-reverse space-x-8">' +
                 '<h5 class="text-min font-light w-28">انتخاب محصول:</h5>' +
