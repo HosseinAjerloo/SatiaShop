@@ -77,17 +77,25 @@ class BrandController extends Controller
     {
         $user = Auth::user();
         $inputs = $request->all();
-        if ($request->has('file')) {
+
+        if ($request->hasFile('file')) {
             $imageService->setRootFolder('BrandStore' . DIRECTORY_SEPARATOR . "image");
-            $imageService->deleteImage($brand->image->path);
             $image = $imageService->saveImage($request->file('file'));
             if (!$image)
-                return redirect()->route('admin.brand.index')->withErrors(['error'=>'آپلود عکس با مشکل روبه رو شد لطفا مجددا تلاش فرماید']);
+                return redirect()->route('admin.brand.index')->withErrors(['error' => 'آپلود عکس با خطا مواجه شد']);
 
-            $brand->image()->update([
-                'user_id' => $user->id,
-                'path' => $image
-            ]);
+            if (isset($brand->image->path)) {
+                $imageService->deleteImage($brand->image->path);
+                $brand->image()->update([
+                    'path' => $image,
+                    'user_id' => $user->id
+                ]);
+            } else {
+                $brand->image()->create([
+                    'path' => $image,
+                    'user_id' => $user->id
+                ]);
+            }
         }
         $result=$brand->update($inputs);
         return $result? redirect()->route('admin.brand.index')->with(['success'=>'برند شما بروز رسانی شد']):redirect()->route('admin.brand.index')->withErrors(['error'=>'خطایی رخ داد لطفا بعدا تلاش فرمایید']);

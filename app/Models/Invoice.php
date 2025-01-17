@@ -32,10 +32,7 @@ class Invoice extends Model
     public function productTransaction(){
         return $this->hasMany(ProductTransaction::class,'invoice_id');
     }
-    public function service()
-    {
-        return $this->belongsTo(Service::class, 'service_id');
-    }
+
 
     public function bank()
     {
@@ -46,16 +43,16 @@ class Invoice extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function operator()
+    {
+        return $this->belongsTo(User::class, 'operator_id');
+    }
 
     public function payment()
     {
         return $this->hasOne(Payment::class, 'invoice_id');
     }
 
-    public function voucher()
-    {
-        return $this->hasOne(Voucher::class, 'invoice_id');
-    }
 
     public function transferm()
     {

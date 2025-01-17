@@ -94,9 +94,8 @@ class CategoryController extends Controller
             if (!$image)
                 return redirect()->route('admin.category.index')->withErrors(['error' => 'آپلود عکس با خطا مواجه شد']);
 
-            if (isset($product->images->path)) {
-
-                $imageService->deleteImage($product->images->path);
+            if (isset($category->image->path)) {
+                $imageService->deleteImage($category->image->path);
                 $category->image()->update([
                     'path' => $image,
                     'user_id' => $user->id

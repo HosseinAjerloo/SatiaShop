@@ -18,8 +18,8 @@ class InvoiceController extends Controller
 {
     public function index()
     {
-        $products=Product::all();
-        return view('Admin.Product.index',compact('products'));
+        $invoices=Invoice::where('type_of_business','buy')->get();
+        return view('Admin.Invoice.index',compact('invoices'));
     }
 
     /**

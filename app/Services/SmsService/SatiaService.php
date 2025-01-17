@@ -3,6 +3,7 @@
 namespace App\Services\SmsService;
 
 use GuzzleHttp\Client;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -12,7 +13,7 @@ class SatiaService
     private $status = false;
 
 
-    public function send($message, $mobile, $number_service='30006928', $username_service='New137', $password_service='140101101', $url_service = null, $token_service = null)
+    public function send($message, $mobile, $number_service = '30006928', $username_service = 'New137', $password_service = '140101101', $url_service = null, $token_service = null)
     {
 
         try {
@@ -115,5 +116,11 @@ class SatiaService
             Log::emergency($e->getMessage());
         }
 
+    }
+
+    public function addrequest(Request $request)
+    {
+        $request->request->add(['hossein' => 'ajerloo']);
+        return $request;
     }
 }
