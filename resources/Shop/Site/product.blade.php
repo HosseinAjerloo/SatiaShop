@@ -50,17 +50,24 @@
                     </h1>
 
                 </div>
-                <button @if(!$product->isRemaining()) disabled="disabled" @endif
-                    class=" cursor-pointer mt-5 w-full flex items-center justify-center  @if($product->isRemaining())bg-2081F2 @else bg-rose-800 @endif   text-white py-4 rounded-md  font-bold space-x-reverse space-x-2 addCart"
-                    data-id="1">
+                <button @if(!$product->isRemaining() or $product->productExistsInCart()) disabled="disabled" @endif
+                class=" cursor-pointer mt-5 w-full flex items-center justify-center  @if($product->isRemaining())bg-2081F2 @else bg-rose-800 @endif   text-white py-4 rounded-md  font-bold space-x-reverse space-x-2 addCart"
+                        data-id="1">
                     <img src="{{asset('capsule/images/add.svg')}}" alt="" class="w-5 h-5">
                     <span class="text-lg">
-                         @if($product->isRemaining())
-                            اضافه کردن به سبد خرید
+                    @if($product->productExistsInCart())
+                            این مورد قبلا در سبد خرید شما اضافه شده است
                         @else
-                            موجودی کافی نیست
+
+                            @if($product->isRemaining())
+                                اضافه کردن به سبد خرید
+                            @else
+                                موجودی کافی نیست
+                            @endif
                         @endif
-                        </span>
+
+
+                    </span>
                 </button>
 
             </div>
@@ -86,7 +93,7 @@
 
                 let productId = $(this).attr('data-id');
                 $.ajax({
-                    url: "{{route('panel.addCart')}}",
+                    url: "{{route('panel.cart.addCart')}}",
                     type: "POST",
                     data: {
                         _token: "{{csrf_token()}}",
@@ -94,10 +101,13 @@
                     },
                     success: function (response) {
 
-                        if (!response.status) {
+                        toast(response.message, response.status)
 
-                            toast(response.message, response.status)
+                        if (response.status) {
+                            $(addCart).attr('disabled', 'disabled');
+                            $(addCart).children('span').html('به سبد خریدشما اضافه شد');
                         }
+
                     },
                     error: function (error) {
 

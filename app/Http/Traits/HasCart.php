@@ -11,7 +11,7 @@ trait HasCart
     protected function addServiceToCart(Request $request, Cart $cart)
     {
         $product=$request->get('product');
-        $cart->CartItem()->create([
+        $cart->cartItem()->create([
             'product_id' => $product->id,
             'price' => $product->price,
             'amount' => 1,
@@ -21,14 +21,16 @@ trait HasCart
 
     protected function addProductToCart(Request $request, Cart $cart)
     {
+
         $product=$request->get('product');
 
         if ($product->isRemaining()) {
-            $cart->CartItem()->create([
+
+            $cart->cartItem()->create([
                 'product_id' => $product->id,
                 'price' => $product->price,
-                'amount' => 'product',
-                'type' => 'service'
+                'amount' => '1',
+                'type' => 'product'
             ]);
             return true;
         }

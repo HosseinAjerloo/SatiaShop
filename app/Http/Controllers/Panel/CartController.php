@@ -13,9 +13,16 @@ use Illuminate\Support\Facades\Auth;
 class CartController extends Controller
 {
     use HasCart;
+
+    public function index(Request $request)
+    {
+        $user = Auth::user();
+        $myCart = Cart::where('status', 'addToCart')->orWhere('user_id', $user ? $user->id : null)->orWhere('user_ip', $request->ip())->first();
+        return view('Site.cart',compact('myCart'));
+    }
+
     public function addCart(Request $request)
     {
-        Auth::logout();
         $user = Auth::user();
         $inputs = $request->all();
         $product = Product::find($inputs['product_id']);
@@ -23,7 +30,7 @@ class CartController extends Controller
             return response()->json(['message' => 'موردی یافت نشد لطفا شبکه خود را چک کنید', 'status' => false]);
 
 
-        $request->request->add(['product'=>$product]);
+        $request->request->add(['product' => $product]);
 
         $myCart = Cart::where('status', 'addToCart')->orWhere('user_id', $user ? $user->id : null)->orWhere('user_ip', $request->ip())->first();
         if (!empty($myCart)) {
@@ -31,15 +38,15 @@ class CartController extends Controller
             if ($myCartItem->count() > 0)
                 return response()->json(['message' => 'این مورد قبلا در سبد خرید شما اضافه شده است', 'status' => false]);
 
-            return $this->checkThe_conditionsOf_TheShopping_cart($request,$myCart);
+            return $this->checkThe_conditionsOf_TheShopping_cart($request, $myCart);
 
-        }else{
-            $myCart=Cart::create([
-                'user_id'=>$user ? $user->id : null,
-                'user_ip'=>$request->ip(),
-                'finalPrice'=>null
+        } else {
+            $myCart = Cart::create([
+                'user_id' => $user ? $user->id : null,
+                'user_ip' => $request->ip(),
+                'finalPrice' => null
             ]);
-            return $this->checkThe_conditionsOf_TheShopping_cart($request,$myCart);
+            return $this->checkThe_conditionsOf_TheShopping_cart($request, $myCart);
         }
 
     }

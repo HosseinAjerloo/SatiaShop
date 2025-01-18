@@ -24,7 +24,10 @@ Route::get('', [App\Http\Controllers\Panel\PanelController::class, 'index'])->na
 Route::get('products/{category:name}', [App\Http\Controllers\Panel\PanelController::class, 'products'])->name('panel.products');
 Route::get('product/{product:title}', [App\Http\Controllers\Panel\PanelController::class, 'product'])->name('panel.product');
 
-Route::post('addCard',[App\Http\Controllers\Panel\CartController::class,'addCart'])->name('panel.addCart');
+    Route::prefix('cart')->name('panel.cart.')->group(function (){
+        Route::get('',[App\Http\Controllers\Panel\CartController::class,'index'])->name('index');
+        Route::post('addCard',[App\Http\Controllers\Panel\CartController::class,'addCart'])->name('addCart');
+    });
 
 
 Route::middleware(['auth'])->group(function () {
@@ -201,8 +204,8 @@ Route::fallback(function () {
     abort(404);
 });
 
-Route::get('test', function () {
-    return view('Site.cart');
+Route::post('test', function () {
+dd(request()->all());
 })->name('test');
 
 
