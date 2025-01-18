@@ -27,6 +27,7 @@ Route::get('product/{product:title}', [App\Http\Controllers\Panel\PanelControlle
     Route::prefix('cart')->name('panel.cart.')->group(function (){
         Route::get('',[App\Http\Controllers\Panel\CartController::class,'index'])->name('index');
         Route::post('addCard',[App\Http\Controllers\Panel\CartController::class,'addCart'])->name('addCart');
+        Route::post('increase',[App\Http\Controllers\Panel\CartController::class,'increase'])->name('increase');
     });
 
 

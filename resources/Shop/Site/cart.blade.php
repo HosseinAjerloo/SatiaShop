@@ -75,8 +75,13 @@
                 @csrf
                 @foreach($myCart->cartItem as $cartItem)
 
-                    <input type="number" max="{{$cartItem->product->productRemaining()}}" min="1" name="product[{{$cartItem->product_id}}]" id="{{$cartItem->product_id}}" value="1"
-                           data-productPrice="{{$cartItem->product->price}}" class="hidden">
+                 @if($cartItem->product->type=='goods')
+                        <input type="number" max="{{$cartItem->product->productRemaining()}}" min="1" name="product[{{$cartItem->product_id}}]" id="{{$cartItem->product_id}}" value="1"
+                               data-productPrice="{{$cartItem->product->price}}" class="">
+                    @else
+                        <input type="number" max="10" min="1" name="service[{{$cartItem->product_id}}]" id="{{$cartItem->product_id}}" value="1"
+                               data-productPrice="{{$cartItem->product->price}}" class="">
+                 @endif
 
 
                 @endforeach
@@ -97,13 +102,16 @@
         // add product
         let plus = (".plus");
         $(plus).click(function () {
-            console.log()
+
             var product = $("#" + $(this).attr('data-product'));
             var productMax = $(product).attr('max');
             var number = (Number($(product).val()) + 1);
             if (number <= productMax) {
                 $(product).val(number);
             }
+            productMax=increase($(this).attr('data-product'),number)
+            console.log(productMax)
+
             $('.show-' + $(this).attr('data-product') + '-count').html($(product).val())
             priceCalculation();
 
@@ -138,5 +146,41 @@
 
         priceCalculation();
 
+        function increase(productId,amount)
+        {
+            $.ajax({
+                url: "{{route('panel.cart.increase')}}",
+                type: "POST",
+                data: {
+                    _token: "{{csrf_token()}}",
+                    product_id: productId,
+                    amount: amount,
+                },
+                success: function (response) {
+
+                    toast(response.message, response.status)
+                    if(response.maxAmount)
+                    {
+                        return response.maxAmount;
+                    }
+
+
+                },
+                error: function (error) {
+
+                    console.log('error')
+                }
+            });
+        }
+
+    </script>
+    <script>
+        function toast(message, status) {
+            showToast(message);
+            if (!status) {
+                $(".progress-bar div").css({'background-color': 'red'})
+            }
+
+        }
     </script>
 @endsection
