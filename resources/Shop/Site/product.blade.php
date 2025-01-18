@@ -52,7 +52,7 @@
                 </div>
                 <button @if(!$product->isRemaining() or $product->productExistsInCart()) disabled="disabled" @endif
                 class=" cursor-pointer mt-5 w-full flex items-center justify-center  @if($product->isRemaining())bg-2081F2 @else bg-rose-800 @endif   text-white py-4 rounded-md  font-bold space-x-reverse space-x-2 addCart"
-                        data-id="1">
+                        data-id="{{$product->id}}">
                     <img src="{{asset('capsule/images/add.svg')}}" alt="" class="w-5 h-5">
                     <span class="text-lg">
                     @if($product->productExistsInCart())

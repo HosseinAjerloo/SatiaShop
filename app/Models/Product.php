@@ -64,13 +64,16 @@ class Product extends Model
 
     public function isRemaining()
     {
-
         $cart=Cart::where('status','addToCart')->orWhere('status','applyToTheBank')->get();
 
         $cartItem=CartItem::where('product_id',$this->id)->whereIn('cart_id',$cart->pluck('id'))->get();
+
         if ($cartItem->count()>0)
         {
-            return $cartItem->sum('amount')<$this->productTransaction()->latest()->first()->remain?true:false;
+            if ($this->type=='goods')
+                return $cartItem->sum('amount')<$this->productTransaction()->latest()->first()->remain?true:false;
+
+
         }
 
         return true;
@@ -82,9 +85,15 @@ class Product extends Model
         $cartItem=CartItem::where('product_id',$this->id)->whereIn('cart_id',$cart->pluck('id'))->get();
         if ($cartItem->count()>0)
         {
-            return $this->productTransaction()->latest()->first()->remain-$cartItem->sum('amount');
+            if ($this->type=='goods')
+                return $this->productTransaction()->latest()->first()->remain-$cartItem->sum('amount');
+            else
+                return 1;
         }
+        if ($this->type=='goods')
             return $this->productTransaction()->latest()->first()->remain;
+        else
+            return 1;
 
     }
 
