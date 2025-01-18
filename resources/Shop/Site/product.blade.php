@@ -4,12 +4,12 @@
 
     <section class=" px-4 md:mt-3 w-full flex items-center justify-center">
         <article
-            class="shadow-equalTo  w-full flex-col-reverse xl:flex-row md:w-[60%] rounded-xl px-4 py-6 flex  items-center flex-wrap">
+            class="shadow-equalTo  w-full flex-col-reverse xl:flex-row  rounded-xl px-4 py-6 flex  items-center flex-wrap">
             <div class="w-full xl:w-3/5 border border-black p-4 rounded-md border-dashed ">
                 <h1 class="text-xl text-rose-700 font-black py-1.5">عنوان:</h1>
                 <div class="">
                     <p class="text-sm  font-bold lg:text-balance leading-6 bg-F2F2F2 p-4 rounded-md shadow">
-                       {{$product->title}}
+                        {{$product->title}}
                     </p>
                 </div>
                 <div class="mt-3">
@@ -31,21 +31,35 @@
                             مانده درانبار:
                         </span>
                         <span>
-                             @if($productTransaction?->remain>0)
-                                 {{$productTransaction->remain}}
+
+                             @if($product->isRemaining())
+                                {{$product->productRemaining()}}
                             @else
-                                 موجودی کافی نیست
-                             @endif
+                                موجودی کافی نیست
+                            @endif
+                        </span>
+                    </h1>
+                    <h1 class="text-md text-rose-700 font-bold py-1.5 flex items-center space-x-reverse space-x-1">
+                        <img src="{{asset("capsule/images/brand.png")}}" alt="" class="w-5 h-5">
+                        <span>
+                            برند :
+                        </span>
+                        <span>
+                            {{$product->brand->name??""}}
                         </span>
                     </h1>
 
                 </div>
-                <button
-                    class=" cursor-pointer mt-5 w-full flex items-center justify-center  bg-2081F2 text-white py-4 rounded-md  font-bold space-x-reverse space-x-2 addCart"
+                <button @if(!$product->isRemaining()) disabled="disabled" @endif
+                    class=" cursor-pointer mt-5 w-full flex items-center justify-center  @if($product->isRemaining())bg-2081F2 @else bg-rose-800 @endif   text-white py-4 rounded-md  font-bold space-x-reverse space-x-2 addCart"
                     data-id="1">
                     <img src="{{asset('capsule/images/add.svg')}}" alt="" class="w-5 h-5">
                     <span class="text-lg">
+                         @if($product->isRemaining())
                             اضافه کردن به سبد خرید
+                        @else
+                            موجودی کافی نیست
+                        @endif
                         </span>
                 </button>
 
@@ -63,27 +77,43 @@
 
 @section('script')
     <script>
+
         $(document).ready(function () {
 
 
             let addCart = $(".addCart");
             $(addCart).click(function () {
-                console.log($(this));
 
                 let productId = $(this).attr('data-id');
-                console.log(productId)
                 $.ajax({
-                    url: "{{route('site.addCart')}}",
+                    url: "{{route('panel.addCart')}}",
                     type: "POST",
                     data: {
                         _token: "{{csrf_token()}}",
                         product_id: productId
                     },
-                    error:function (error){
-                        console.log(error)
+                    success: function (response) {
+
+                        if (!response.status) {
+
+                            toast(response.message, response.status)
+                        }
+                    },
+                    error: function (error) {
+
+                        console.log('error')
                     }
                 });
             })
         })
+    </script>
+    <script>
+        function toast(message, status) {
+            showToast(message);
+            if (!status) {
+                $(".progress-bar div").css({'background-color': 'red'})
+            }
+
+        }
     </script>
 @endsection

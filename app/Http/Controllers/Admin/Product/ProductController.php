@@ -44,7 +44,7 @@ class ProductController extends Controller
 
         $inputs = $request->all();
         $user = Auth::user();
-        $inputs['user_id']=$user->id;
+        $inputs['user_id'] = $user->id;
         $product = Product::create($inputs);
         $imageService->setRootFolder('ProductStore' . DIRECTORY_SEPARATOR . "image");
         $image = $imageService->saveImage($request->file('file'));

@@ -16,7 +16,7 @@
                     </p>
                 </div>
             </a>
-            <div class="border border-black/30 rounded-md  flex items-center justify-center flex-col w-[32%]">
+            <a href="{{route('admin.product.index')}}" class="border border-black/30 rounded-md  flex items-center justify-center flex-col w-[32%]">
                 <div class="p-2">
                     <img src="{{asset("capsule/images/product.png")}}" alt="" class="w-14 h-14">
                 </div>
@@ -26,18 +26,19 @@
                         کالاهها
                     </p>
                 </div>
-            </div>
-            <div class="border border-black/30 rounded-md  flex items-center justify-center flex-col w-[32%]">
+            </a>
+            <a href="{{route('admin.invoice.service.index')}}" class="border border-black/30 rounded-md  flex items-center justify-center flex-col w-[32%]">
                 <div class="p-2">
                     <img src="{{asset("capsule/images/service.png")}}" alt="" class="w-14 h-14">
                 </div>
                 <div
                     class="flex items-center justify-center mt-3 bg-F1F1F1 w-full py-1.5 px-1 rounded-md rounded-se-none rounded-ss-none h-10">
                     <p class="text-sm font-bold text-center ">
-                        خدمات
+                        ثبت فاکتور خدمات
                     </p>
                 </div>
-            </div>
+            </a>
+
 
         </section>
         <section class="flex items-center justify-between ">
@@ -162,7 +163,7 @@
                     </p>
                 </div>
             </div>
-            <div class="border border-black/30 rounded-md  flex items-center justify-center flex-col w-[32%]">
+            <a href="{{route('admin.supplier.index')}}" class="border border-black/30 rounded-md  flex items-center justify-center flex-col w-[32%]">
                 <div class="p-2">
                     <img src="{{asset("capsule/images/supplier.png")}}" alt="" class="w-14 h-14">
                 </div>
@@ -172,7 +173,7 @@
                         تامین کنندگان
                     </p>
                 </div>
-            </div>
+            </a>
             <div class="border border-black/30 rounded-md  flex items-center justify-center flex-col w-[32%]">
                 <div class="p-2">
                     <img src="{{asset("capsule/images/ticket.png")}}" alt="" class="w-14 h-14">
@@ -207,6 +208,17 @@
                     class="flex items-center justify-center mt-3 bg-F1F1F1 w-full py-1.5 px-1 rounded-md rounded-se-none rounded-ss-none h-10">
                     <p class="text-sm font-bold text-center ">
                         برندها
+                    </p>
+                </div>
+            </a>
+            <a href="{{route('admin.invoice.product.index')}}" class="border border-black/30 rounded-md  flex items-center justify-center flex-col w-[32%]">
+                <div class="p-2">
+                    <img src="{{asset("capsule/images/productInvoice.png")}}" alt="" class="w-14 h-14">
+                </div>
+                <div
+                    class="flex items-center justify-center mt-3 bg-F1F1F1 w-full py-1.5 px-1 rounded-md rounded-se-none rounded-ss-none h-10">
+                    <p class="text-sm font-bold text-center ">
+                        ثبت فاکتور کالا
                     </p>
                 </div>
             </a>

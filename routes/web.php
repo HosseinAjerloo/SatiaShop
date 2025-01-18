@@ -24,7 +24,7 @@ Route::get('', [App\Http\Controllers\Panel\PanelController::class, 'index'])->na
 Route::get('products/{category:name}', [App\Http\Controllers\Panel\PanelController::class, 'products'])->name('panel.products');
 Route::get('product/{product:title}', [App\Http\Controllers\Panel\PanelController::class, 'product'])->name('panel.product');
 
-Route::post('addCard',[App\Http\Controllers\Panel\CartController::class,'addCart'])->name('site.addCart');
+Route::post('addCard',[App\Http\Controllers\Panel\CartController::class,'addCart'])->name('panel.addCart');
 
 
 Route::middleware(['auth'])->group(function () {
@@ -175,12 +175,20 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
 
         Route::prefix('product')->name('product.')->group(function (){
             Route::get('show/{invoice}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'invoiceProduct'])->name('invoiceProduct');
-            Route::get('', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'index'])->name('index');
-
+            Route::get('', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'productIndex'])->name('index');
             Route::get('create', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'create'])->name('create');
             Route::post('store', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'store'])->name('store');
             Route::get('edit/{product}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'edit'])->name('edit');
             Route::put('update/{product}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'update'])->name('update');
+
+        });
+        Route::prefix('service')->name('service.')->group(function (){
+            Route::get('show/{invoice}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'invoiceService'])->name('invoiceService');
+            Route::get('', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'serviceIndex'])->name('index');
+            Route::get('create', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'serviceCreate'])->name('create');
+            Route::post('store', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'serviceStore'])->name('store');
+            Route::get('edit/{service}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'serviceEdit'])->name('edit');
+            Route::put('update/{service}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'serviceUpdate'])->name('update');
 
         });
 

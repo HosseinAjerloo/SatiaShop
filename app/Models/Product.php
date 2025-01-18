@@ -54,4 +54,38 @@ class Product extends Model
     {
         return $this->belongsTo(Brand::class,'brand_id');
     }
+    public function cartItem()
+    {
+        return $this->hasMany(CartItem::class,'product_id');
+    }
+
+
+
+    public function isRemaining()
+    {
+
+        $cart=Cart::where('status','addToCart')->orWhere('status','applyToTheBank')->get();
+
+        $cartItem=CartItem::where('product_id',$this->id)->whereIn('cart_id',$cart->pluck('id'))->get();
+        if ($cartItem->count()>0)
+        {
+            return $cartItem->sum('amount')<$this->productTransaction()->latest()->first()->remain?true:false;
+        }
+
+        return true;
+    }
+    public function productRemaining()
+    {
+
+        $cart=Cart::where('status','addToCart')->orWhere('status','applyToTheBank')->get();
+
+        $cartItem=CartItem::where('product_id',$this->id)->whereIn('cart_id',$cart->pluck('id'))->get();
+        if ($cartItem->count()>0)
+        {
+            return $this->productTransaction()->latest()->first()->remain-$cartItem->sum('amount');
+        }
+
+            return $this->productTransaction()->latest()->first()->remain;
+
+    }
 }

@@ -16,12 +16,16 @@ class InvoiceItem extends Model
             'product_id',
             'price',
             'amount',
-            'description'
-
+            'description',
+            'type'
         ];
 
     public function product()
     {
         return $this->belongsTo(Product::class,'product_id');
+    }
+    public function invoice()
+    {
+        return $this->belongsTo(Invoice::class,'invoice_id');
     }
 }

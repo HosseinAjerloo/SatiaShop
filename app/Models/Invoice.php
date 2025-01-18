@@ -20,7 +20,8 @@ class Invoice extends Model
             'status',
             'type_of_business',
             'description',
-            'supplier_id'
+            'supplier_id',
+            'operator_id'
         ];
 
     public function invoiceItem(){

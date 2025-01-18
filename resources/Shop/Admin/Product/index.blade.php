@@ -79,10 +79,9 @@
                             {{$product->title??''}}
                         </p>
                     </a>
-                    <div class="w-1/5 h-full">
-                        <p class="text-black  @if(strlen($product->description)>5) overflow-hidden text-nowrap text-ellipsis @endif w-20  sm:w-28 md:w-48 text-min_sm font-bold  h-full flex items-center justify-center text-center">
-                            {{$product->description??''}}
-                        </p>
+                    <div class="w-1/5 h-full  text-min_sm font-bold  h-full flex items-center justify-center text-center @if(strlen($product->description)>5) overflow-hidden text-nowrap text-ellipsis @endif ">
+                        {!! $product->description??''!!}
+
                     </div>
                     <div class="w-1/5 h-full">
                         <p class="text-black   text-min_sm font-bold  h-full flex items-center justify-center text-center">
