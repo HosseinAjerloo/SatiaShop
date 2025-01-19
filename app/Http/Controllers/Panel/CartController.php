@@ -56,22 +56,43 @@ class CartController extends Controller
         $user = Auth::user();
         $inputs = $request->all();
         $product = Product::find($inputs['product_id']);
-
         if (!$product or !$request->has('amount'))
             return response()->json(['message' => 'موردی یافت نشد لطفا شبکه خود را چک کنید', 'status' => false]);
 
         $myCart = Cart::where('status', 'addToCart')->orWhere('user_id', $user ? $user->id : null)->orWhere('user_ip', $request->ip())->first();
-
-        if ($request->amount <= $product->productRemaining()) {
+        if ($product->isRemaining()) {
             $result = $myCart->cartItem()->where('product_id', $product->id)->update([
                 'amount' => $request->amount
             ]);
-            return response()->json(['maxAmount'=>$product->productRemaining(),'status'=>true]);
+
+            return response()->json(['maxAmount'=>$request->amount,'status'=>true]);
 
         } else {
             return response()->json(['message' => 'موجودی کافی نیست', 'status' => false,'maxAmount'=>$product->productRemaining()]);
 
         }
 
+    }
+
+    public function decrease(Request $request)
+    {
+        $user = Auth::user();
+        $inputs = $request->all();
+        $product = Product::find($inputs['product_id']);
+        if (!$product or !$request->has('amount'))
+            return response()->json(['message' => 'موردی یافت نشد لطفا شبکه خود را چک کنید', 'status' => false]);
+
+        $myCart = Cart::where('status', 'addToCart')->orWhere('user_id', $user ? $user->id : null)->orWhere('user_ip', $request->ip())->first();
+        if ($request->amount>=1) {
+            $result = $myCart->cartItem()->where('product_id', $product->id)->update([
+                'amount' => $request->amount
+            ]);
+
+            return response()->json(['maxAmount'=>$request->amount,'status'=>true]);
+
+        } else {
+            return response()->json(['message' => 'تعداد محصول نمیتواند از یک کوچک تر باشد', 'status' => false,'maxAmount'=>$product->productRemaining()]);
+
+        }
     }
 }

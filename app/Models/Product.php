@@ -86,17 +86,15 @@ class Product extends Model
         if ($cartItem->count()>0)
         {
             if ($this->type=='goods')
-                return $this->productTransaction()->latest()->first()->remain-$cartItem->sum('amount');
+                return $this->productTransaction()->latest()->first()->remain - $cartItem->sum('amount');
             else
-                return 1;
+                return 'نامحدود';
         }
         if ($this->type=='goods')
             return $this->productTransaction()->latest()->first()->remain;
         else
-            return 1;
-
+            return 'نامحدود';
     }
-
     public function productExistsInCart():bool
     {
         $user=Auth::user();

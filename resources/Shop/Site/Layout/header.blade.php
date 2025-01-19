@@ -6,10 +6,11 @@
                 سامانه مدیریت شارژ کپسول آتش نشانی
             </p>
         </div>
-       <a href="{{route('panel.cart.index')}}" class="flex items-center space-x-4 space-x-reverse">
+
+       <a   href="{{route('panel.cart.index')}}"  class="flex items-center space-x-4 space-x-reverse">
            <div class="relative">
                <img src="{{asset('capsule/images/orderWhitw.svg')}}" alt="" class="w-8 h-8">
-               <span class="absolute text-min top-0 -right-1 w-5 h-5 bg-sky-800 flex items-center justify-center text-white font-bold rounded-50%  shadow-inset_white">1</span>
+               <span class="absolute text-min top-0 -right-1 w-5 h-5 bg-sky-800 flex items-center justify-center text-white font-bold rounded-50%  shadow-inset_white">{{$countCart}}</span>
            </div>
            <img src="{{asset('capsule/images/userIcon.svg')}}" alt="">
        </a>
