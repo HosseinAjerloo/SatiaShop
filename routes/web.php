@@ -1,6 +1,8 @@
 <?php
 
 
+use App\Models\Cart;
+use App\Models\CartItem;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -30,7 +32,6 @@ Route::get('product/{product:title}', [App\Http\Controllers\Panel\PanelControlle
         Route::post('increase',[App\Http\Controllers\Panel\CartController::class,'increase'])->name('increase');
         Route::post('decrease',[App\Http\Controllers\Panel\CartController::class,'decrease'])->name('decrease');
     });
-
 
 Route::middleware(['auth'])->group(function () {
     Route::withoutMiddleware('IsEmptyUserInformation')->group(function () {
@@ -206,8 +207,9 @@ Route::fallback(function () {
     abort(404);
 });
 
-Route::post('test', function () {
-dd(request()->all());
+Route::get('test', function () {
+
+
 })->name('test');
 
 
