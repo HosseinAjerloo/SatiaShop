@@ -64,6 +64,7 @@ class CartController extends Controller
             $result = $myCart->cartItem()->where('product_id', $product->id)->update([
                 'amount' => $request->amount
             ]);
+            $this->updateTotolProceCart($myCart);
 
             return response()->json(['maxAmount'=>$request->amount,'status'=>true]);
 
@@ -87,6 +88,7 @@ class CartController extends Controller
             $result = $myCart->cartItem()->where('product_id', $product->id)->update([
                 'amount' => $request->amount
             ]);
+            $this->updateTotolProceCart($myCart);
 
             return response()->json(['maxAmount'=>$request->amount,'status'=>true]);
 

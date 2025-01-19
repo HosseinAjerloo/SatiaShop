@@ -31,13 +31,13 @@
                             </div>
 
                             <div class="m-3 p-2 flex items-center justify-between shadow-equalTo rounded-md">
-                                <img src="{{asset('capsule/images/add.svg')}}" alt="" class="bg-2081F2 w-5 h-5 p-1 plus"
+                                <img src="{{asset('capsule/images/add.svg')}}" alt="" class="bg-2081F2 w-5 h-5 p-1 plus cursor-pointer"
                                      data-product="{{$cartItem->product_id}}">
                                 <div class="show-{{$cartItem->product_id}}-count">
                                     {{$cartItem->amount}}
                                 </div>
                                 <img src="{{asset('capsule/images/manfi.svg')}}" alt=""
-                                     class="bg-2081F2 w-5 h-5 p-1 minus" data-product="{{$cartItem->product_id}}">
+                                     class="bg-2081F2 w-5 h-5 p-1 minus cursor-pointer" data-product="{{$cartItem->product_id}}">
                             </div>
                         </div>
                     </article>
@@ -66,7 +66,7 @@
                 <div class="px-4 flex justify-between">
                     <p class="text-sm">قیمت محصولات</p>
                     <p>
-                        <span class="font-semibold amount">150000</span>
+                        <span class="font-semibold amount">0</span>
                         <span class="text-min font-bold">ریال</span>
                     </p>
                 </div>
@@ -126,6 +126,7 @@
                         $(product).val(number)
                         $('.show-' + productId + '-count').html(number)
                     }
+                    priceCalculation();
 
                 },
                 error: function (error) {
@@ -134,7 +135,6 @@
                 }
             });
 
-            priceCalculation();
 
         });
 
@@ -163,6 +163,8 @@
                     if (!response.status) {
                         toast(response.message, response.status)
                     }
+                    priceCalculation();
+
                 },
                 error: function (error) {
 
@@ -170,8 +172,6 @@
                 }
             });
 
-
-            priceCalculation();
 
         });
 
