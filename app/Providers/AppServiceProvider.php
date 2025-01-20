@@ -21,7 +21,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Auth::loginUsingId(1);
 
 
         \Illuminate\Support\Facades\View::composer('Site.Layout.header', function (View $view) {

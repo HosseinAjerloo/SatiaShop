@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('bank_id')->nullable()->constrained('banks')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('invoice_id')->nullable()->constrained('invoices')->cascadeOnDelete()->cascadeOnUpdate();
             $table->enum('state',['requested','finished','failed'])->nullable();
-            $table->integer('amount')->nullable();
+            $table->decimal('amount',20, 3)->default(0);
             $table->integer('order_id')->nullable();
             $table->text('RefNum')->nullable();
             $table->text('ResNum')->nullable();

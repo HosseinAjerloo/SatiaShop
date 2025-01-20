@@ -51,13 +51,13 @@ class LoginController extends Controller
 
         $validPassword = password_verify($inputs['password'], $user->password);
 
+
         if (!$validPassword)
             return redirect()->back()->withErrors(['passwordNotMatch' => 'کلمه عبور وارد شده صحیح نمیباشد']);
 
         $remember = $simpleLoginPost->has('rememberMe') ? true : false;
 
         Auth::loginUsingId($user->id, $remember);
-
         return redirect()->intended(route('panel.index'));
     }
 

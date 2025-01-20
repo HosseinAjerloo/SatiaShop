@@ -16,7 +16,6 @@ class Invoice extends Model
             'bank_id',
             'status_bank',
             'final_amount',
-            'type',
             'status',
             'type_of_business',
             'description',
@@ -25,6 +24,8 @@ class Invoice extends Model
             'discount_collection',
             'discount_id'
         ];
+
+
 
     public function invoiceItem(){
         return $this->hasMany(InvoiceItem::class,'invoice_id');

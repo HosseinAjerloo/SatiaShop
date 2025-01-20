@@ -28,20 +28,20 @@ Route::get('', [App\Http\Controllers\Panel\PanelController::class, 'index'])->na
 Route::get('products/{category:name}', [App\Http\Controllers\Panel\PanelController::class, 'products'])->name('panel.products');
 Route::get('product/{product:title}', [App\Http\Controllers\Panel\PanelController::class, 'product'])->name('panel.product');
 
-    Route::prefix('cart')->name('panel.cart.')->group(function (){
-        Route::get('',[App\Http\Controllers\Panel\CartController::class,'index'])->name('index');
-        Route::post('addCard',[App\Http\Controllers\Panel\CartController::class,'addCart'])->name('addCart');
-        Route::post('increase',[App\Http\Controllers\Panel\CartController::class,'increase'])->name('increase');
-        Route::post('decrease',[App\Http\Controllers\Panel\CartController::class,'decrease'])->name('decrease');
-    });
-
-    //PANEL
-Route::middleware(['auth'])->name('panel.')->group(function () {
-    Route::prefix('payment')->name('payment.')->group(function (){
-        Route::post('',[App\Http\Controllers\Panel\PaymentController::class,'payment'])->name('payment');
-    });
+Route::prefix('cart')->name('panel.cart.')->group(function () {
+    Route::get('', [App\Http\Controllers\Panel\CartController::class, 'index'])->name('index');
+    Route::post('addCard', [App\Http\Controllers\Panel\CartController::class, 'addCart'])->name('addCart');
+    Route::post('increase', [App\Http\Controllers\Panel\CartController::class, 'increase'])->name('increase');
+    Route::post('decrease', [App\Http\Controllers\Panel\CartController::class, 'decrease'])->name('decrease');
 });
 
+//PANEL
+Route::middleware(['auth'])->name('panel.')->group(function () {
+    Route::prefix('payment')->name('payment.')->group(function () {
+        Route::post('', [App\Http\Controllers\Panel\PaymentController::class, 'payment'])->name('payment');
+        Route::get('paymentBack', [App\Http\Controllers\Panel\PaymentController::class, 'paymentBack'])->withoutMiddleware(Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class)->name('back');
+    });
+});
 
 
 Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
@@ -109,7 +109,6 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
     });
 
 
-
     //ADMIN SUPPLIER
 
 
@@ -125,7 +124,7 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
 
     Route::prefix('invoice')->name('admin.invoice.')->group(function () {
 
-        Route::prefix('product')->name('product.')->group(function (){
+        Route::prefix('product')->name('product.')->group(function () {
             Route::get('show/{invoice}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'invoiceProduct'])->name('invoiceProduct');
             Route::get('', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'productIndex'])->name('index');
             Route::get('create', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'create'])->name('create');
@@ -134,7 +133,7 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
             Route::put('update/{product}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'update'])->name('update');
 
         });
-        Route::prefix('service')->name('service.')->group(function (){
+        Route::prefix('service')->name('service.')->group(function () {
             Route::get('show/{invoice}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'invoiceService'])->name('invoiceService');
             Route::get('', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'serviceIndex'])->name('index');
             Route::get('create', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'serviceCreate'])->name('create');
@@ -154,7 +153,6 @@ Route::fallback(function () {
 });
 
 Route::get('test', function () {
-
 
 })->name('test');
 

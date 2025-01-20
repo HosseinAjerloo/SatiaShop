@@ -17,7 +17,6 @@ class CartController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-//        $myCart = Cart::where('status', 'addToCart')->orWhere('user_id', $user ? $user->id : null)->orWhere('user_ip', $request->ip())->first();
         $myCart = Cart::where('status', 'addToCart')->where(function ($query) use ($request, $user) {
             $query->orWhere('user_id', $user ? $user->id : null)->orWhere('user_ip', $request->ip());
 
