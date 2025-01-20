@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Panel\WalletCharging;
+namespace App\Http\Requests\Panel;
 
+use App\Rules\RuleProductCount;
 use Illuminate\Foundation\Http\FormRequest;
 
-class WalletChargingRequest extends FormRequest
+class PaymentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,13 +23,15 @@ class WalletChargingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'price'=>'numeric|min:1000|required',
-            'bank_id'=>"required|exists:banks,id",
+            'product_ids' => 'required|array|exists:products,id',
+            'product' => ['required','array',new RuleProductCount],
         ];
     }
-    public function messages()
-    {
-        return ['price.min'=>"مبلغ شارژ نباید کنتر از 1000 تومان باشد"];
-    }
 
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'product_ids' => array_keys($this->get('product'))
+        ]);
+    }
 }

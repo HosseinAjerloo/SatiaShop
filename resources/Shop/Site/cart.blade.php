@@ -71,17 +71,17 @@
                     </p>
                 </div>
             </article>
-            <form action="{{route('test')}}" class="w-full" id="form" method="POST">
+            <form action="{{route('panel.payment.payment')}}" class="w-full" id="form" method="POST">
                 @csrf
                 @foreach($myCart->cartItem as $cartItem)
 
                     @if($cartItem->product->type=='goods')
-                        <input type="number" max="{{$cartItem->product->productRemaining()}}" min="1"
+                        <input type="number"  min="1"
                                name="product[{{$cartItem->product_id}}]" id="{{$cartItem->product_id}}"
                                value="{{$cartItem->amount}}"
                                data-productPrice="{{$cartItem->product->price}}" class="hidden">
                     @else
-                        <input type="number" max="10" min="1" name="service[{{$cartItem->product_id}}]"
+                        <input type="number"  min="1" name="product[{{$cartItem->product_id}}]"
                                id="{{$cartItem->product_id}}" value="{{$cartItem->amount}}"
                                data-productPrice="{{$cartItem->product->price}}" class="hidden">
                     @endif

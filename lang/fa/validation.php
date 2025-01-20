@@ -224,7 +224,8 @@ return [
         'description '=>'توضیحات',
         'title'=>'عنوان',
         'supplier_id'=>'تامین کننده',
-        'invoiceDesc'=>'توضیحات مربوط به فاکتور'
+        'invoiceDesc'=>'توضیحات مربوط به فاکتور',
+        'product_ids'=>'محصول'
     ],
 
 ];

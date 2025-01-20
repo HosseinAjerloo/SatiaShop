@@ -21,7 +21,9 @@ class Invoice extends Model
             'type_of_business',
             'description',
             'supplier_id',
-            'operator_id'
+            'operator_id',
+            'discount_collection',
+            'discount_id'
         ];
 
     public function invoiceItem(){

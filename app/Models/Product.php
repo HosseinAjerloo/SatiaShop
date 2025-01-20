@@ -102,10 +102,31 @@ class Product extends Model
             return 'نامحدود';
     }
 
+    public function productRemainingExceptUser($user, $productCount)
+    {
+        $cart = Cart::where(fn($q) => $q->whereNull('user_id')->orWhere('user_id', "!=", $user->id))->whereIn('status', ['addToCart', 'applyToTheBank'])->get();
+        $cartItem = CartItem::where('product_id', $this->id)->whereIn('cart_id', $cart->pluck('id'))->get();
+        if ($cartItem->count() > 0) {
+            if ($this->type == 'goods') {
+                $remainProduct = $this->productTransaction()->latest()->first()->remain - $cartItem->sum('amount');
+                return ($remainProduct >= $productCount) ? true : false;
+            } else {
+                return true;
+            }
+        }
+        if ($this->type == 'goods') {
+            $remainProduct = $this->productTransaction()->latest()->first()->remain;
+            return ($remainProduct >= $productCount) ? true : false;
+        } else {
+            return true;
+        }
+
+    }
+
     public function productExistsInCart(): bool
     {
         $user = Auth::user();
-        $myCart = Cart::where('status', 'addToCart')->where(function ($query) use ( $user) {
+        $myCart = Cart::where('status', 'addToCart')->where(function ($query) use ($user) {
             $query->orWhere('user_id', $user ? $user->id : null)->orWhere('user_ip', request()->ip());
 
         })->first();

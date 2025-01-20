@@ -11,7 +11,7 @@ use Illuminate\Queue\Middleware\WithoutOverlapping;
 class SmartCleaningOfTheShoppingCart implements ShouldQueue
 {
     use Queueable;
-
+    public $timeout = 0;
     /**
      * Create a new job instance.
      */

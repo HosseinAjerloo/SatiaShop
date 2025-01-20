@@ -18,7 +18,7 @@
 
     </section>
     <form class="flex items-center justify-between space-x-reverse space-x-3 px-2 mt-5">
-        <a href="{{route('admin.invoice.product.create')}}"  class="flex items-center space-x-reverse space-x-2">
+        <a href="{{route('admin.invoice.product.create')}}" class="flex items-center space-x-reverse space-x-2">
             <img src="{{asset("capsule/images/plus.svg")}}" alt="">
 
             <h1 class="text-min font-bold">لیست فاکتور های ثبت شده</h1>
@@ -75,11 +75,11 @@
                             {{numberFormat($invoice->final_amount)??''}}
                         </p>
                     </div>
-                    <div class="w-1/5 h-full  text-min_sm font-bold  h-full flex items-center justify-center text-center @if(strlen($invoice->description)>5) overflow-hidden text-nowrap text-ellipsis @endif ">
+                    <div
+                        class="w-1/5 h-full  text-min_sm font-bold  h-full flex items-center justify-center text-center @if(strlen($invoice->description)>5) overflow-hidden text-nowrap text-ellipsis @endif ">
                         {!! $invoice->description??''!!}
 
                     </div>
-
 
 
                 </div>
