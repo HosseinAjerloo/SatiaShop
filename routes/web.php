@@ -39,7 +39,7 @@ Route::prefix('cart')->name('panel.cart.')->group(function () {
 Route::middleware(['auth'])->name('panel.')->group(function () {
     Route::prefix('payment')->name('payment.')->group(function () {
         Route::post('', [App\Http\Controllers\Panel\PaymentController::class, 'payment'])->name('payment');
-        Route::get('paymentBack', [App\Http\Controllers\Panel\PaymentController::class, 'paymentBack'])->withoutMiddleware(Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class)->name('back');
+        Route::post('paymentBack', [App\Http\Controllers\Panel\PaymentController::class, 'paymentBack'])->withoutMiddleware(Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class)->name('back');
     });
 });
 

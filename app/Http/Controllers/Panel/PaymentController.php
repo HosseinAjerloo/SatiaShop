@@ -30,6 +30,7 @@ class PaymentController extends Controller
             $inputs = $request->all();
             $bank = Bank::where('is_active', '1')->first();
             $myCart = Cart::where('status', 'addToCart')->where('user_id', $user->id)->first();
+            $myCart->finalPrice=round($myCart->finalPrice);
             $myCart->update(['status','applyToTheBank']);
             $invoice = Invoice::create([
                 'user_id' => $user->id,
@@ -51,11 +52,11 @@ class PaymentController extends Controller
             );
             $payment->update(['order_id' => $payment->id + Payment::transactionNumber]);
             $objBank = new $bank->class;
-            $objBank->setTotalPrice($myCart->finalPrice);
             $objBank->setOrderID($payment->id + Payment::transactionNumber);
+            $objBank->setTotalPrice($myCart->finalPrice);
             $objBank->setBankUrl($bank->url);
             $objBank->setTerminalId($bank->terminal_id);
-            $objBank->setUrlBack(route('panel.Purchase-through-the-bank'));
+            $objBank->setUrlBack(route('panel.payment.back'));
             $objBank->setBankModel($bank);
 
 
@@ -68,8 +69,9 @@ class PaymentController extends Controller
                 'description' => " ارتباط با بانک $bank->name",
                 'payment_id' => $payment->id,
             ]);
+//            dd($status);
             if (!$status) {
-                $invoice->update(['description' => "به دلیل عدم ارتباط با بانک $bank->name سفارش شما لغو شد "]);
+                $invoice->update(['description' => "به دلیل عدم ارتباط با بانک $bank->name سفارش شما لغو شد ",'status_bank'=>'fail']);
                 $financeTransaction->update(['description' => "به دلیل عدم ارتباط با بانک $bank->name سفارش شما لغو شد ", 'status' => 'fail']);
                 return redirect()->route('panel.cart.index')->withErrors(['error' => 'ارتباط با بانک فراهم نشد لطفا چند دقیقه بعد تلاش فرماید.']);
             }
@@ -113,6 +115,7 @@ class PaymentController extends Controller
                 . PHP_EOL
             );
             $invoice = $payment->invoice;
+
             if (!$objBank->backBank()) {
                 $payment->update(
                     [
@@ -121,7 +124,7 @@ class PaymentController extends Controller
                         'state' => 'failed'
 
                     ]);
-                $invoice->update([ 'description' => ' پرداخت موفقیت آمیز نبود ' . $objBank->transactionStatus()]);
+                $invoice->update([ 'description' => ' پرداخت موفقیت آمیز نبود ' . $objBank->transactionStatus(),'status_bank'=>'failed']);
                 $financeTransaction->update(['description' => ' پرداخت موفقیت آمیز نبود ' . $objBank->transactionStatus(), 'status' => 'fail']);
 
                 $bankErrorMessage = "درگاه بانک سامان تراکنش شمارا به دلیل " . $objBank->transactionStatus() . " ناموفق اعلام کرد باتشکر " . PHP_EOL . 'پشتیبانی بانک سامان' . PHP_EOL . '021-6422';
@@ -133,7 +136,7 @@ class PaymentController extends Controller
             $back_price = $objBank->verify($payment->amount);
 
             if ($back_price !== true or Payment::where("order_id", $inputs['ResNum'])->count() > 1) {
-                $invoice->update([ 'description' => ' پرداخت موفقیت آمیز نبود ' . $objBank->verifyTransaction($back_price)]);
+                $invoice->update([ 'description' => ' پرداخت موفقیت آمیز نبود ' . $objBank->verifyTransaction($back_price),'status_bank'=>'failed']);
                 $financeTransaction->update(['description' => ' پرداخت موفقیت آمیز نبود ' . $objBank->verifyTransaction($back_price), 'status' => 'fail']);
 
                 $bankErrorMessage = "درگاه بانک سامان تراکنش شمارا به دلیل " . $objBank->verifyTransaction($back_price) . " ناموفق اعلام کرد باتشکر " . PHP_EOL . 'پشتیبانی بانک سامان' . PHP_EOL . '021-6422';
