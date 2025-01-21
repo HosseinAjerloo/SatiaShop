@@ -1,0 +1,164 @@
+@extends('Site.Layout.master')
+
+@section('content')
+
+    <section class=" px-4 md:mt-3 w-full flex items-center justify-center space-y-2">
+        <div class="w-full   p-4 rounded-lg border border-black bg-F1F1F1 space-y-4 ">
+            <div class="flex flex-wrap justify-between items-center space-y-3 ">
+                <div
+                    class="w-full sm:w-2/4 md:w-2/5 lg:w-1/5 xl:w-1/4 flex justify-between items-center sm:justify-center">
+                    <h1 class="font-bold text-sm sm:w-1/2">نام و نام خانوادگی :</h1>
+                    <span class="text-min_sm sm:w-1/2">حسین آجرلو</span>
+                </div>
+                <div
+                    class="w-full sm:w-2/4 md:w-2/5 lg:w-1/5 xl:w-1/4 flex justify-between items-center sm:justify-center">
+                    <h1 class="font-bold text-sm sm:w-1/2">کد ملی :</h1>
+                    <span class="text-min_sm sm:w-1/2">0521378680</span>
+                </div>
+                <div
+                    class="w-full sm:w-2/4 md:w-2/5 lg:w-1/5 xl:w-1/4 flex justify-between items-center sm:justify-center">
+                    <h1 class="font-bold text-sm sm:w-1/2">تاریخ :</h1>
+                    <span class="text-min_sm sm:w-1/2">1403/02/25</span>
+                </div>
+                <div
+                    class="w-full sm:w-2/4 md:w-2/5 lg:w-1/5 xl:w-1/4 flex justify-between items-center sm:justify-center">
+                    <h1 class="font-bold text-sm sm:w-1/2">مجموع خرید :</h1>
+                    <span class="text-min_sm sm:w-1/2">1700،000،000 ریال</span>
+                </div>
+            </div>
+            <div class="flex flex-wrap justify-between items-center space-y-3 ">
+                <div
+                    class="w-full sm:w-2/4 md:w-2/5 lg:w-1/5 xl:w-1/4 flex justify-between items-center sm:justify-center">
+                    <h1 class="font-bold text-sm sm:w-1/2">نوع طرف حساب :</h1>
+                    <span class="text-min_sm sm:w-1/2">حقیقی</span>
+                </div>
+                <div
+                    class="w-full sm:w-2/4 md:w-2/5 lg:w-1/5 xl:w-1/4 flex justify-between items-center sm:justify-center">
+                    <h1 class="font-bold text-sm sm:w-1/2">شماره موبایل :</h1>
+                    <span class="text-min_sm sm:w-1/2">09186414452</span>
+                </div>
+                <div
+                    class="w-full sm:w-2/4 md:w-2/5 lg:w-1/5 xl:w-1/4 flex justify-between items-center sm:justify-center">
+                    <h1 class="font-bold text-sm sm:w-1/2">شماره ثابت :</h1>
+                    <span class="text-min_sm sm:w-1/2">08632786560</span>
+                </div>
+                <div
+                    class="w-full sm:w-2/4 md:w-2/5 lg:w-1/5 xl:w-1/4 flex justify-between items-center sm:justify-center">
+                    <h1 class="font-bold text-sm sm:w-1/2">شماره فاکتور :</h1>
+                    <span class="text-min_sm sm:w-1/2">756987</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="px-4 mt-3 md:mt-8 w-full flex items-center justify-center space-y-2 flex-col">
+        <div class="w-full flex items-center space-x-reverse space-x-4">
+            <h1 class="font-bold">فرم تحویل اقلام :</h1>
+        </div>
+    </section>
+    <section class="px-4 md:mt-3 w-full flex items-center justify-center mt-5 flex-col">
+        <article
+            class="bg-2081F2  w-full 	 py-1 flex items-center justify-between rounded-md rounded-ee-none rounded-es-none">
+            <div class="w-1/5">
+                <h1 class="text-white text-min font-bold text-center">
+                    ردیف
+                </h1>
+            </div>
+            <div class="w-1/5">
+                <h1 class="text-white text-min font-bold text-center">
+                    کالایاخدمات مصرفی
+                </h1>
+            </div>
+            <div class="w-1/5">
+                <h1 class="text-white text-min font-bold text-center">
+                    تعداد
+                </h1>
+            </div>
+            <div class="w-1/5">
+                <h1 class="text-white text-min font-bold text-center">
+                    بهای واحد(ریال)
+                </h1>
+            </div>
+            <div class="w-1/5">
+                <h1 class="text-white text-min font-bold text-center">
+                    جمع کل(ریال)
+                </h1>
+            </div>
+
+
+        </article>
+        <article class="  w-full   border border-t-0 border-black space-y-5  rounded-md rounded-se-none  rounded-ss-none">
+            <div
+                class="p-2 h-full @if((1%2)==0) bg-E9E9E9 @endif  flex items-center justify-between  divide-x-1 divide-black divide-x-reverse">
+                <a href="" class="w-1/5">
+                    <p class="  text-min_sm font-bold  h-full flex items-center justify-center text-center  ">
+                        1
+                    </p>
+                </a>
+                <div
+                    class="w-1/5 h-full  text-min_sm font-bold  h-full flex items-center justify-center text-center @if(strlen('سرویس کپسول 6 کیلوئی پودر و گاز')>5) overflow-hidden text-nowrap text-ellipsis @endif ">
+                    سرویس کپسول 6 کیلوئی پودر و گاز
+
+                </div>
+                <div class="w-1/5 h-full">
+                    <p class="text-black   text-min_sm font-bold  h-full flex items-center justify-center text-center">
+                        10
+                    </p>
+                </div>
+                <div class="w-1/5 h-full">
+                    <p class="text-black  text-sm font-bold  h-full flex items-center justify-center text-center">
+                        7،500،000
+                    </p>
+                </div>
+                <div class="w-1/5 h-full">
+                    <p class="text-black  text-sm font-bold  h-full flex items-center justify-center text-center">
+                        99،500،000
+                    </p>
+                </div>
+
+
+
+
+            </div>
+            <div
+                class="p-2 h-full @if((2%2)==0) bg-E9E9E9 @endif  flex items-center justify-between  divide-x-1 divide-black divide-x-reverse">
+                <a href="" class="w-1/5">
+                    <p class="  text-min_sm font-bold  h-full flex items-center justify-center text-center  ">
+                        1
+                    </p>
+                </a>
+                <div
+                    class="w-1/5 h-full  text-min_sm font-bold  h-full flex items-center justify-center text-center @if(strlen('سرویس کپسول 6 کیلوئی پودر و گاز')>5) overflow-hidden text-nowrap text-ellipsis @endif ">
+                    سرویس کپسول 6 کیلوئی پودر و گاز
+
+                </div>
+                <div class="w-1/5 h-full">
+                    <p class="text-black   text-min_sm font-bold  h-full flex items-center justify-center text-center">
+                        10
+                    </p>
+                </div>
+                <div class="w-1/5 h-full">
+                    <p class="text-black  text-sm font-bold  h-full flex items-center justify-center text-center">
+                        7،500،000
+                    </p>
+                </div>
+                <div class="w-1/5 h-full">
+                    <p class="text-black  text-sm font-bold  h-full flex items-center justify-center text-center">
+                        99،500،000
+                    </p>
+                </div>
+
+
+
+
+            </div>
+
+
+        </article>
+
+    </section>
+
+@endsection
+
+@section('script')
+
+@endsection
