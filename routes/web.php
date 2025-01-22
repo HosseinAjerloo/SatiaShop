@@ -153,7 +153,7 @@ Route::fallback(function () {
 });
 
 Route::get('test', function () {
-        dd('test2');
+        dd('test3');
     return view('Site.Invoice.index');
 })->name('test');
 
