@@ -71,6 +71,7 @@ class CartController extends Controller
             $query->orWhere('user_id', $user ? $user->id : null)->orWhere('user_ip', $request->ip());
 
         })->first();
+
         if ($product->isRemaining()) {
             $result = $myCart->cartItem()->where('product_id', $product->id)->update([
                 'amount' => $request->amount

@@ -58,8 +58,12 @@ trait HasCart
         $totalPrice=0;
         foreach ($myCart->cartItem as $cartItem)
         {
-            $totalPrice+=$cartItem->price*$cartItem->amount;
+            $totalPrice+=$cartItem->product->price*$cartItem->amount;
+            $cartItem->update([
+                'price'=>$cartItem->product->price
+            ]);
         }
+
         $myCart->update([
             'finalPrice'=>$totalPrice
         ]);

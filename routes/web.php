@@ -153,9 +153,7 @@ Route::fallback(function () {
 });
 
 Route::get('test', function () {
-//    $test=new \App\Services\SmsService\SatiaService();
-//    $test->send('تست','09186414452');
-//    dd('ad');
+        dd('test');
     return view('Site.Invoice.index');
 })->name('test');
 
