@@ -136,14 +136,14 @@ class PaymentController extends Controller
             $back_price = $objBank->verify($payment->amount);
 
             if ($back_price !== true or Payment::where("order_id", $inputs['ResNum'])->count() > 1) {
-                $invoice->update([ 'description' => ' پرداخت موفقیت آمیز نبود ' . $objBank->verifyTransaction($back_price),'status_bank'=>'failed']);
-                $financeTransaction->update(['description' => ' پرداخت موفقیت آمیز نبود ' . $objBank->verifyTransaction($back_price), 'status' => 'fail']);
+                $invoice->update([ 'description' => ' پرداخت موفقیت آمیز نبود ' . $objBank->transactionStatus(),'status_bank'=>'failed']);
+                $financeTransaction->update(['description' => ' پرداخت موفقیت آمیز نبود ' . $objBank->transactionStatus(), 'status' => 'fail']);
 
-                $bankErrorMessage = "درگاه بانک سامان تراکنش شمارا به دلیل " . $objBank->verifyTransaction($back_price) . " ناموفق اعلام کرد باتشکر " . PHP_EOL . 'پشتیبانی بانک سامان' . PHP_EOL . '021-6422';
+                $bankErrorMessage = "درگاه بانک سامان تراکنش شمارا به دلیل " . $objBank->transactionStatus() . " ناموفق اعلام کرد باتشکر " . PHP_EOL . 'پشتیبانی بانک سامان' . PHP_EOL . '021-6422';
 
                 $satiaService->send($bankErrorMessage, $user->mobile, env('SMS_Number'), env('SMS_Username'), env('SMS_Password'));
                 Log::channel('bankLog')->emergency(PHP_EOL . "Bank Credit VerifyTransaction Purchase Voucher : " . json_encode($request->all()) . PHP_EOL .
-                    'Bank message: ' . $objBank->verifyTransaction($back_price) .
+                    'Bank message: ' . $objBank->transactionStatus() .
                     PHP_EOL .
                     'user Id: ' . $user->id
                     . PHP_EOL
