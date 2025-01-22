@@ -115,7 +115,7 @@ class PaymentController extends Controller
                 . PHP_EOL
             );
             $invoice = $payment->invoice;
-
+            dd($objBank->backBank());
             if (!$objBank->backBank()) {
                 $payment->update(
                     [
