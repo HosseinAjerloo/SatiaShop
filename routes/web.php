@@ -153,10 +153,11 @@ Route::fallback(function () {
 });
 
 Route::get('test', function () {
-//    $test=new \App\Services\SmsService\SatiaService();
-//    $test->send('تست','09186414452');
-//    dd('ad');
-    return view('Site.Invoice.index');
+    dd(\Illuminate\Support\Facades\Auth::user());
+////    $test=new \App\Services\SmsService\SatiaService();
+////    $test->send('تست','09186414452');
+////    dd('ad');
+//    return view('Site.Invoice.index');
 })->name('test');
 
 

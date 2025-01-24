@@ -56,6 +56,7 @@
 
                 let mobile=$(".mobile").val();
                 event.preventDefault();
+                console.log(tokenCSRF);
                 $.ajax({
                     'type': "POST",
                     'url': "{{route('createCode')}}",

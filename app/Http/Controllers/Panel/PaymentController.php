@@ -10,6 +10,7 @@ use App\Models\Cart;
 use App\Models\Doller;
 use App\Models\FinanceTransaction;
 use App\Models\Invoice;
+use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Service;
 use App\Services\SmsService\SatiaService;
@@ -194,6 +195,12 @@ class PaymentController extends Controller
                     'type'=>'minus'
                 ]);
             }
+            Order::create([
+                'user_id'=>$user->id,
+                'invoice_id'=>$invoice->id,
+                'total_price'=>$invoice->final_amount
+            ]);
+
 
             $invoice->update(['status' => 'paid','description'=>'پرداخت موفقیت آمیز']);
             $myCart->delete();

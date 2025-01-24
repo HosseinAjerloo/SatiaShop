@@ -13,6 +13,8 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create(User::users);
+        $users=User::users;
+         $users['password']=password_hash('Hr_hon4774',PASSWORD_DEFAULT);
+        User::create($users);
     }
 }
