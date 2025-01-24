@@ -14,10 +14,12 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $user=Auth::user();
-
-        $financeTransactions=FinanceTransaction::where('user_id',$user->id)->orderBy('created_at','desc')->get();
-        return view('Panel.Orders.index',compact('financeTransactions'));
+        $orders = \Illuminate\Support\Facades\Auth::user()->orders()->latest()->get();
+        return view('Site.Invoice.order', compact('orders'));
+    }
+    public function orderItem(Invoice $invoice)
+    {
+        return view('Site.Invoice.index', compact('invoice'));
     }
     public function details(FinanceTransaction $financeTransaction)
     {

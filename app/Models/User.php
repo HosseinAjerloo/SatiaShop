@@ -107,4 +107,9 @@ class User extends Authenticatable
         return $query->where('name', 'like', "%" . $search['search'] . "%")->orWhere('family', 'like', "%" . $search['search'] . "%")->orWhere('mobile', 'like', "%" . $search['search'] . "%");
     }
 
+    public function orders()
+    {
+        return $this->hasMany(Order::class,'user_id');
+    }
+
 }

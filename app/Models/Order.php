@@ -9,5 +9,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Order extends Model
 {
     use HasFactory,SoftDeletes;
-    protected $table=['user_id','invoice_id','total_price'];
+    protected $fillable=['user_id','invoice_id','total_price'];
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id');
+    }
+    public function invoice()
+    {
+        return $this->belongsTo(Invoice::class,'invoice_id');
+    }
 }
