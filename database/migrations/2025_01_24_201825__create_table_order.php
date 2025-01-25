@@ -11,15 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('discounts', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->timestamp('start_date')->nullable();
-            $table->timestamp('expiration_date')->nullable();
-            $table->text('description')->nullable();
             $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->integer('percent_rate')->nullable();
-            $table->decimal('minimum_buy',20,3)->nullable();
+            $table->foreignId('invoice_id')->nullable()->constrained('invoices')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->decimal('total_price',20,3)->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('discounts');
+        Schema::dropIfExists('orders');
     }
 };

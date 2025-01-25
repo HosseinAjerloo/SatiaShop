@@ -8,12 +8,12 @@
                 <div
                     class="w-full sm:w-2/4 md:w-2/5 lg:w-1/5 xl:w-1/4 flex justify-between items-center sm:justify-center">
                     <h1 class="font-bold text-sm sm:w-1/2">نام و نام خانوادگی :</h1>
-                    <span class="text-min_sm sm:w-1/2">حسین آجرلو</span>
+                    <span class="text-min_sm sm:w-1/2">{{$invoice->user->fullName}} </span>
                 </div>
                 <div
                     class="w-full sm:w-2/4 md:w-2/5 lg:w-1/5 xl:w-1/4 flex justify-between items-center sm:justify-center">
                     <h1 class="font-bold text-sm sm:w-1/2">کد ملی :</h1>
-                    <span class="text-min_sm sm:w-1/2">0521378680</span>
+                    <span class="text-min_sm sm:w-1/2">{{$invoice->user->national_code??''}}</span>
                 </div>
                 <div
                     class="w-full sm:w-2/4 md:w-2/5 lg:w-1/5 xl:w-1/4 flex justify-between items-center sm:justify-center">
@@ -23,7 +23,7 @@
                 <div
                     class="w-full sm:w-2/4 md:w-2/5 lg:w-1/5 xl:w-1/4 flex justify-between items-center sm:justify-center">
                     <h1 class="font-bold text-sm sm:w-1/2">مجموع خرید :</h1>
-                    <span class="text-min_sm sm:w-1/2">1700،000،000 ریال</span>
+                    <span class="text-min_sm sm:w-1/2">{{numberFormat($invoice->final_amount)}}</span>
                 </div>
             </div>
             <div class="flex flex-wrap justify-between items-center space-y-3 ">
@@ -35,7 +35,7 @@
                 <div
                     class="w-full sm:w-2/4 md:w-2/5 lg:w-1/5 xl:w-1/4 flex justify-between items-center sm:justify-center">
                     <h1 class="font-bold text-sm sm:w-1/2">شماره موبایل :</h1>
-                    <span class="text-min_sm sm:w-1/2">09186414452</span>
+                    <span class="text-min_sm sm:w-1/2">{{$invoice->user->mobile??''}}</span>
                 </div>
                 <div
                     class="w-full sm:w-2/4 md:w-2/5 lg:w-1/5 xl:w-1/4 flex justify-between items-center sm:justify-center">
@@ -45,7 +45,7 @@
                 <div
                     class="w-full sm:w-2/4 md:w-2/5 lg:w-1/5 xl:w-1/4 flex justify-between items-center sm:justify-center">
                     <h1 class="font-bold text-sm sm:w-1/2">شماره فاکتور :</h1>
-                    <span class="text-min_sm sm:w-1/2">756987</span>
+                    <span class="text-min_sm sm:w-1/2">{{$invoice->id}}</span>
                 </div>
             </div>
         </div>
@@ -87,70 +87,37 @@
 
         </article>
         <article class="  w-full   border border-t-0 border-black space-y-5  rounded-md rounded-se-none  rounded-ss-none">
-            <div
-                class="p-2 h-full @if((1%2)==0) bg-E9E9E9 @endif  flex items-center justify-between  divide-x-1 divide-black divide-x-reverse">
-                <a href="" class="w-1/5">
-                    <p class="  text-min_sm font-bold  h-full flex items-center justify-center text-center  ">
-                        1
-                    </p>
-                </a>
+            @foreach($invoice->invoiceItem as $key=> $invoiceItem)
                 <div
-                    class="w-1/5 h-full  text-min_sm font-bold  h-full flex items-center justify-center text-center @if(strlen('سرویس کپسول 6 کیلوئی پودر و گاز')>5) overflow-hidden text-nowrap text-ellipsis @endif ">
-                    سرویس کپسول 6 کیلوئی پودر و گاز
+                    class="p-2 h-full @if(($key%2)==0) bg-E9E9E9 @endif  flex items-center justify-between  divide-x-1 divide-black divide-x-reverse">
+                    <a href="" class="w-1/5">
+                        <p class="  text-min_sm font-bold  h-full flex items-center justify-center text-center  ">
+                            {{$key+1}}
+                        </p>
+                    </a>
+                    <div
+                        class="w-1/5 h-full  text-min_sm font-bold  h-full flex items-center justify-center text-center @if(strlen('سرویس کپسول 6 کیلوئی پودر و گاز')>5) overflow-hidden text-nowrap text-ellipsis @endif ">
+                        {{$invoiceItem->product->title??''}}
+
+                    </div>
+                    <div class="w-1/5 h-full">
+                        <p class="text-black   text-min_sm font-bold  h-full flex items-center justify-center text-center">
+                            {{$invoiceItem->amount??''}}
+                        </p>
+                    </div>
+                    <div class="w-1/5 h-full">
+                        <p class="text-black  text-sm font-bold  h-full flex items-center justify-center text-center">
+                            {{numberFormat($invoiceItem->price)}}
+                        </p>
+                    </div>
+                    <div class="w-1/5 h-full">
+                        <p class="text-black  text-sm font-bold  h-full flex items-center justify-center text-center">
+                           {{numberFormat(($invoiceItem->price*$invoiceItem->amount))}}
+                        </p>
+                    </div>
 
                 </div>
-                <div class="w-1/5 h-full">
-                    <p class="text-black   text-min_sm font-bold  h-full flex items-center justify-center text-center">
-                        10
-                    </p>
-                </div>
-                <div class="w-1/5 h-full">
-                    <p class="text-black  text-sm font-bold  h-full flex items-center justify-center text-center">
-                        7،500،000
-                    </p>
-                </div>
-                <div class="w-1/5 h-full">
-                    <p class="text-black  text-sm font-bold  h-full flex items-center justify-center text-center">
-                        99،500،000
-                    </p>
-                </div>
-
-
-
-
-            </div>
-            <div
-                class="p-2 h-full @if((2%2)==0) bg-E9E9E9 @endif  flex items-center justify-between  divide-x-1 divide-black divide-x-reverse">
-                <a href="" class="w-1/5">
-                    <p class="  text-min_sm font-bold  h-full flex items-center justify-center text-center  ">
-                        1
-                    </p>
-                </a>
-                <div
-                    class="w-1/5 h-full  text-min_sm font-bold  h-full flex items-center justify-center text-center @if(strlen('سرویس کپسول 6 کیلوئی پودر و گاز')>5) overflow-hidden text-nowrap text-ellipsis @endif ">
-                    سرویس کپسول 6 کیلوئی پودر و گاز
-
-                </div>
-                <div class="w-1/5 h-full">
-                    <p class="text-black   text-min_sm font-bold  h-full flex items-center justify-center text-center">
-                        10
-                    </p>
-                </div>
-                <div class="w-1/5 h-full">
-                    <p class="text-black  text-sm font-bold  h-full flex items-center justify-center text-center">
-                        7،500،000
-                    </p>
-                </div>
-                <div class="w-1/5 h-full">
-                    <p class="text-black  text-sm font-bold  h-full flex items-center justify-center text-center">
-                        99،500،000
-                    </p>
-                </div>
-
-
-
-
-            </div>
+            @endforeach
 
 
         </article>

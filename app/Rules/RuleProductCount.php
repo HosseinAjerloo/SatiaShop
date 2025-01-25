@@ -20,7 +20,6 @@ class RuleProductCount implements ValidationRule
        foreach ($value as $productID=> $productCount)
        {
            $product=Product::find($productID);
-
            if ( !$product->productRemainingExceptUser($user,$productCount))
            {
                $fail( "تعداد کافی از محصول".$product->title." موجود نمیباشد لطفا از سبد خرید خود پاک فرمایید");

@@ -26,7 +26,8 @@ class User extends Authenticatable
             'name' => "حسین",
             'family' => "آجرلو",
             'mobile' => "09186414452",
-            'type' => 'admin'
+            'type' => 'admin',
+
         ];
     protected $fillable = [
         'name',
@@ -104,6 +105,11 @@ class User extends Authenticatable
     public function scopeSearch(Builder $query, $search)
     {
         return $query->where('name', 'like', "%" . $search['search'] . "%")->orWhere('family', 'like', "%" . $search['search'] . "%")->orWhere('mobile', 'like', "%" . $search['search'] . "%");
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class,'user_id');
     }
 
 }

@@ -10,6 +10,7 @@ use App\Models\Cart;
 use App\Models\Doller;
 use App\Models\FinanceTransaction;
 use App\Models\Invoice;
+use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Service;
 use App\Services\SmsService\SatiaService;
@@ -163,22 +164,24 @@ class PaymentController extends Controller
                 'amount' => $payment->amount,
                 'type' => "deposit",
                 "creadit_balance" => $balance + $payment->amount,
-                'description' => ' افزایش کیف پول',
+                'description' => ' افزایش کیف پول جهت پرداخت سفارش',
                 'payment_id' => $payment->id,
             ]);
-            $financeTransaction->update([
+
+            FinanceTransaction::create([
                 'user_id' => $user->id,
                 'amount' => $payment->amount,
                 'type' => "withdrawal",
-                "creadit_balance" => $balance + $payment->amount,
-                'description' => 'کاهش مبلغ کیف پول ',
+                "creadit_balance" => $financeTransaction->creadit_balance - $payment->amount,
+                'description' => 'برداشت از کیف پول چهت پرداخت سفارش',
                 'payment_id' => $payment->id,
             ]);
+
             $myCart = Cart::where('status', 'addToCart')->where('user_id', $user->id)->first();
 
 
             foreach ($myCart->cartItem as $cartItem) {
-                $invoice->invoiceItem->create([
+                $invoice->invoiceItem()->create([
                     'product_id'=>$cartItem->product_id,
                     'price'=>$cartItem->price,
                     'amount'=>$cartItem->amount,
@@ -194,6 +197,12 @@ class PaymentController extends Controller
                     'type'=>'minus'
                 ]);
             }
+            Order::create([
+                'user_id'=>$user->id,
+                'invoice_id'=>$invoice->id,
+                'total_price'=>$invoice->final_amount
+            ]);
+
 
             $invoice->update(['status' => 'paid','description'=>'پرداخت موفقیت آمیز']);
             $myCart->delete();

@@ -41,6 +41,11 @@ Route::middleware(['auth'])->name('panel.')->group(function () {
         Route::post('', [App\Http\Controllers\Panel\PaymentController::class, 'payment'])->name('payment');
         Route::post('paymentBack', [App\Http\Controllers\Panel\PaymentController::class, 'paymentBack'])->withoutMiddleware(Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class)->name('back');
     });
+
+    Route::prefix('order')->name('order.')->group(function (){
+       Route::get('',[App\Http\Controllers\Panel\OrderController::class,'index'])->name('order');
+       Route::get('order-item/{invoice}',[App\Http\Controllers\Panel\OrderController::class,'orderItem'])->name('order.item');
+    });
 });
 
 
@@ -153,8 +158,7 @@ Route::fallback(function () {
 });
 
 Route::get('test', function () {
-        dd('test3');
-    return view('Site.Invoice.index');
+
 })->name('test');
 
 

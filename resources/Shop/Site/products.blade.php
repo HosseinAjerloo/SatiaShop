@@ -11,15 +11,18 @@
                 <img src="{{asset("capsule/images/search.svg")}}" alt="">
             </div>
         </div>
+        @if(!\Illuminate\Support\Facades\Auth::user())
+
         <div class="flex  items-center space-x-2 space-x-reverse">
             <div class="">
-                <a href="" class="border border-2081F2 rounded-md py-1.5 px-2 text-min">
+                <a href="{{route('login.index')}}" class="border border-2081F2 rounded-md py-1.5 px-2 text-min">
                     ثبت نام / ورود
                 </a>
             </div>
             <img src="{{asset('capsule/images/order.png')}}" alt="" class="w-6 h-6">
 
         </div>
+        @endif
 
     </section>
 
