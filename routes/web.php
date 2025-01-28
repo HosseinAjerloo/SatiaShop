@@ -33,6 +33,7 @@ Route::prefix('cart')->name('panel.cart.')->group(function () {
     Route::post('addCard', [App\Http\Controllers\Panel\CartController::class, 'addCart'])->name('addCart');
     Route::post('increase', [App\Http\Controllers\Panel\CartController::class, 'increase'])->name('increase');
     Route::post('decrease', [App\Http\Controllers\Panel\CartController::class, 'decrease'])->name('decrease');
+    Route::get('destroy/{cartItem}', [App\Http\Controllers\Panel\CartController::class, 'destroy'])->name('destroy');
 });
 
 //PANEL

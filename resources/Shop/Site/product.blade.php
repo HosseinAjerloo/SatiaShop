@@ -119,6 +119,7 @@
     </script>
     <script>
         function toast(message, status) {
+            alert(message)
             showToast(message);
             if (!status) {
                 $(".progress-bar div").css({'background-color': 'red'})
