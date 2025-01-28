@@ -50,7 +50,7 @@
                                                             <section class="product-price-wrapper">
                                                                 <section class="product-discount">
                                                                     <span class="text-min_sm text-gray-400 tracking-tight">مانده در انبار </span>
-                                                                    <span class="product-discount-amount">22</span>
+                                                                    <span class="product-discount-amount">{{$product->productRemaining()}}</span>
                                                                 </section>
                                                                 <section class="product-price">{{numberFormat( ($product->price/10) )}} تومان</section>
                                                             </section>

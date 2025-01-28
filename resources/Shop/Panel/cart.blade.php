@@ -20,8 +20,8 @@
 
                     <section class="row mt-4">
                         <section class="col-md-9 mb-3">
-                            @foreach($myCart->cartItem as $cartItem)
                                 <section class="content-wrapper bg-white p-3 rounded-2">
+                            @foreach($myCart->cartItem as $cartItem)
 
                                     <section class="cart-item d-md-flex py-3">
                                         <section class="cart-img align-self-start flex-shrink-1">
@@ -30,15 +30,15 @@
                                         </section>
                                         <section class="align-self-start w-100 space-y-3">
                                             <p class="fw-bold">{{$cartItem->product->title??''}}</p>
-{{--                                            <p>--}}
-{{--                                                <span style="background-color: #523e02;"--}}
-{{--                                                     class="cart-product-selected-color me-1"></span>--}}
-{{--                                                <span> قهوه ای</span>--}}
-{{--                                            </p>--}}
-{{--                                            <p>--}}
-{{--                                                <i class="fa fa-shield-alt cart-product-selected-warranty me-1"></i>--}}
-{{--                                                <span> گارانتی اصالت و سلامت فیزیکی کالا</span>--}}
-{{--                                            </p>--}}
+                                            {{--                                            <p>--}}
+                                            {{--                                                <span style="background-color: #523e02;"--}}
+                                            {{--                                                     class="cart-product-selected-color me-1"></span>--}}
+                                            {{--                                                <span> قهوه ای</span>--}}
+                                            {{--                                            </p>--}}
+                                            {{--                                            <p>--}}
+                                            {{--                                                <i class="fa fa-shield-alt cart-product-selected-warranty me-1"></i>--}}
+                                            {{--                                                <span> گارانتی اصالت و سلامت فیزیکی کالا</span>--}}
+                                            {{--                                            </p>--}}
                                             <p>
                                                 <i class="fa fa-store-alt cart-product-selected-store me-1"></i>
                                                 <span>قیمت هرواحد:{{numberFormat(($cartItem->product->price / 10))}} تومان </span>
@@ -58,13 +58,13 @@
 
                                     </section>
 
+
                                     @endforeach
 
 
                                 </section>
                         </section>
-                        <form class="col-md-3" action="{{route('panel.payment.payment')}}"  id="form" method="POST">
-                            @csrf
+                        <section class="col-md-3" id="form">
                             @foreach($myCart->cartItem as $cartItem)
 
                                 @if($cartItem->product->type=='goods')
@@ -86,7 +86,7 @@
                                 <section class="border-bottom mb-3"></section>
                                 <section class="d-flex justify-content-between align-items-center">
                                     <p class="text-muted">جمع سبد خرید</p>
-                                    <p class="fw-bolder amount">320,000 تومان</p>
+                                    <p class="fw-bolder amount">0 تومان</p>
                                 </section>
 
                                 <p class="my-3">
@@ -100,13 +100,13 @@
 
 
                                 <section class="">
-                                    <a href="address.html" class="btn btn-danger d-block">تکمیل فرآیند خرید</a>
+                                    <a href="{{route('panel.payment.advance')}}" class="btn btn-danger d-block">تکمیل فرآیند خرید</a>
                                 </section>
 
 
 
                             </section>
-                        </form>
+                        </section>
                     </section>
                 </section>
             </section>
@@ -197,15 +197,15 @@
 
                 if ($(value).attr('data-productPrice') && $(value).attr('data-productPrice') != 'undefined') {
                     totalAmount += Number($(value).val()) * Number($(value).attr('data-productPrice'))
-                    totalAmount=(totalAmount / 10)
-                    $('.amount').html(totalAmount.toLocaleString('fa'))
+
                 }
             })
+            totalAmount=(totalAmount / 10)
+            $('.amount').html(totalAmount.toLocaleString('fa'))
 
         }
 
         priceCalculation();
-
 
     </script>
     <script>

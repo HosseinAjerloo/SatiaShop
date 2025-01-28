@@ -21,6 +21,18 @@ use Illuminate\Support\Facades\Log;
 
 class PaymentController extends Controller
 {
+    public function advance(Request $request)
+    {
+        $user = Auth::user();
+        $myCart = Cart::where('status', 'addToCart')->where(function ($query) use ($request, $user) {
+            $query->orWhere('user_id', $user ? $user->id : null)->orWhere('user_ip', $request->ip());
+
+        })->first();
+        if (!$myCart)
+            return redirect()->route('panel.index')->withErrors(['error'=>'سبد خرید شما خالی است لطفا کالایی را انتخاب کنید']);
+        $banks=Bank::where("is_active",'1')->get();
+        return view('Panel.payment',compact('banks','myCart'));
+    }
     public function payment(PaymentRequest $request)
     {
 
