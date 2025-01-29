@@ -679,7 +679,8 @@ body {
     display: flex;
     justify-content: center;
     justify-items: center;
-    max-height: 170px;
+    max-height: 240px;
+    height: 240px;
     overflow: hidden;
     margin-bottom: 1rem;
     padding: 0rem;
@@ -688,7 +689,7 @@ body {
 .product-image img {
     display: block;
     width: 100%;
-    max-width: 240px;
+    height: 100%;
     border-radius: 0.25rem;
 }
 

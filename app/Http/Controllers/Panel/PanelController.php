@@ -49,6 +49,7 @@ class PanelController extends Controller
     }
 
     public function products(Category $category){
+
         return view('Panel.products',compact('category'));
     }
     public function product(Product $product){

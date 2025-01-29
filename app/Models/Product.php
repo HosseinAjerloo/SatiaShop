@@ -95,23 +95,28 @@ class Product extends Model
 
 
         }
+        if ($this->productRemaining()){
+            return true;
+        }
+        else{
+           return false;
+        }
 
-        return true;
     }
 
     public function productRemaining()
     {
-        $cart = Cart::where('status', 'addToCart')->orWhere('status', 'applyToTheBank')->get();
 
+        $cart = Cart::where('status', 'addToCart')->orWhere('status', 'applyToTheBank')->get();
         $cartItem = CartItem::where('product_id', $this->id)->whereIn('cart_id', $cart->pluck('id'))->get();
         if ($cartItem->count() > 0) {
             if ($this->type == 'goods')
-                return $this->productTransaction()->latest()->first()->remain - $cartItem->sum('amount');
+                return ($this->productTransaction()->latest()->first()->remain??0) - $cartItem->sum('amount');
             else
                 return 'نامحدود';
         }
         if ($this->type == 'goods')
-            return $this->productTransaction()->latest()->first()->remain;
+            return $this->productTransaction()->latest()->first()->remain??0;
         else
             return 'نامحدود';
     }

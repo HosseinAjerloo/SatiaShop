@@ -22,7 +22,6 @@
                                 <section class="lazyload light-owl-nav owl-carousel owl-theme">
                                     @foreach($menu->categoryShow() as $category)
 
-                                            @for($i=0;$i<100;$i++)
                                             <section class="item">
                                                 <section class="lazyload-item-wrapper">
                                                     <section class="product">
@@ -31,7 +30,7 @@
                                                                 <img class="" src="{{$category->image?->path}}" alt="">
                                                             </section>
                                                             <section class="product-colors"></section>
-                                                            <section class="product-name"><h3> {{$category->name??''}}</h3></section>
+                                                            <section class="product-name"><h3> {{$category->removeUnderLine??''}}</h3></section>
 
                                                             <section class="product-colors">
                                                                 <section class="product-colors-item" style="background-color: white;"></section>
@@ -42,7 +41,6 @@
                                                     </section>
                                                 </section>
                                             </section>
-                                            @endfor
 
                                     @endforeach
 
@@ -101,13 +99,11 @@
                         <section class="brands dark-owl-nav owl-carousel owl-theme">
 
                             @foreach($brands as $brand)
-                                @for($i=0;$i<10;$i++)
                                     <section class="item">
                                         <section class="brand-item">
                                             <a href="#"><img class="rounded-2" src="{{$brand->image?->path}}" alt=""></a>
                                         </section>
                                     </section>
-                                @endfor
                             @endforeach
 
                         </section>

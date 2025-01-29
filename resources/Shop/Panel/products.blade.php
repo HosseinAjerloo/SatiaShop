@@ -1,10 +1,5 @@
 @extends('Panel.Layout.Master')
 @section('content')
-
-
-
-
-
         <section class="mb-8">
             <section class="container-xxl" >
                 <section class="row">
@@ -37,14 +32,14 @@
 {{--                                                                <i class="fa fa-heart"></i>--}}
 {{--                                                            </a>--}}
 {{--                                                        </section>--}}
-                                                        <a class="product-link" href="{{route('panel.product',$product->removeUnderLine)}}">
+                                                        <a class="product-link" href="{{route('panel.product',$product->title)}}">
                                                             <section class="product-image">
                                                                 <img class="" src="{{asset($product->image->path??"")}}" alt="">
                                                             </section>
                                                             <section class="product-colors"></section>
                                                             <section class="product-name">
                                                                 <h3>
-                                                                    {{$product->title??''}}
+                                                                    {{$product->removeUnderLine??''}}
                                                                     </h3>
                                                             </section>
                                                             <section class="product-price-wrapper">
