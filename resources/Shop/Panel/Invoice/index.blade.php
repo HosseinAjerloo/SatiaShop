@@ -20,7 +20,7 @@
                     <div
                         class="w-full sm:w-2/4 md:w-2/5 lg:w-1/5 xl:w-1/4 flex justify-between items-center sm:justify-center">
                         <h1 class="font-bold text-sm sm:w-1/2">تاریخ :</h1>
-                        <span class="text-min_sm sm:w-1/2">1403/02/25</span>
+                        <span class="text-min_sm sm:w-1/2">{{$invoice->invoiceDate()}}</span>
                     </div>
                     <div
                         class="w-full sm:w-2/4 md:w-2/5 lg:w-1/5 xl:w-1/4 flex justify-between items-center sm:justify-center">
@@ -99,7 +99,7 @@
                         </a>
                         <div
                             class="w-1/5 h-full  text-min_sm font-bold  h-full flex items-center justify-center text-center @if(strlen('سرویس کپسول 6 کیلوئی پودر و گاز')>5) overflow-hidden text-nowrap text-ellipsis @endif ">
-                            {{$invoiceItem->product->title??''}}
+                            {{$invoiceItem->product->removeUnderLine??''}}
 
                         </div>
                         <div class="w-1/5 h-full">

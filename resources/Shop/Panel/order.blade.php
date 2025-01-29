@@ -94,6 +94,9 @@
                                                     <a href="#"><img src="{{asset($invoiceItem->product->image->path??'')}}" alt=""></a>
                                                 @endforeach
                                             </section>
+                                            <section class="order-item-status">
+                                                <a class="btn btn-warning btn-sm mx-1" href="{{route('panel.order.invoiceDetail',$invoice->id)}}">مشاهده ریز فاکتور</a>
+                                            </section>
                                         </section>
                                         <section class="order-item-link"><a href="#">وضعیت پرداخت</a></section>
                                     </section>

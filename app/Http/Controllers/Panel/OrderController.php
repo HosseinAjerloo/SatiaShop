@@ -15,17 +15,16 @@ class OrderController extends Controller
     public function index()
     {
         $user=Auth::user();
-        $invoice =Invoice::where("user_id",$user->id)->where('type_of_business','sales')->first();
-        return view('Panel.Invoice.index', compact('invoice'));
+        $invoices =Invoice::where("user_id",$user->id)->where('type_of_business','sales')->get();
+        return view('Panel.order', compact('invoices'));
     }
     public function orderItem(Invoice $invoice)
     {
         return view('Site.Invoice.index', compact('invoice'));
     }
-    public function details(FinanceTransaction $financeTransaction)
+    public function invoiceDetail(Invoice $invoice)
     {
-        $dollar = Doller::orderBy('id', 'desc')->first();
-        return view('Panel.Orders.details',compact('financeTransaction','dollar'));
+        return view('Panel.Invoice.index',compact('invoice'));
     }
     public function Expectation()
     {
