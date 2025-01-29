@@ -18,6 +18,7 @@
                                 </section>
                             </section>
                             <!-- start vontent header -->
+
                             <section class="lazyload-wrapper" >
                                 <section class="lazyload light-owl-nav owl-carousel owl-theme">
                                     @foreach($menu->categoryShow() as $category)
