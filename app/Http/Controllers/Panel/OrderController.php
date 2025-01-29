@@ -14,8 +14,9 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = \Illuminate\Support\Facades\Auth::user()->orders()->latest()->get();
-        return view('Site.Invoice.order', compact('orders'));
+        $user=Auth::user();
+        $invoice =Invoice::where("user_id",$user->id)->where('type_of_business','sales')->get();
+        return view('Panel.order', compact('invoice'));
     }
     public function orderItem(Invoice $invoice)
     {

@@ -23,7 +23,7 @@ class CartController extends Controller
         })->first();
         if (!$myCart)
             return redirect()->route('panel.index')->withErrors(['error'=>'سبد خرید شما خالی است لطفا کالایی را انتخاب کنید']);
-        return view('Site.cart', compact('myCart'));
+        return view('Panel.cart', compact('myCart'));
     }
 
     public function addCart(Request $request)
@@ -44,7 +44,7 @@ class CartController extends Controller
         if (!empty($myCart)) {
             $myCartItem = CartItem::where('product_id', $product->id)->whereIn('cart_id', [$myCart->id])->get();
             if ($myCartItem->count() > 0)
-                return response()->json(['message' => 'این مورد قبلا در سبد خرید شما اضافه شده است', 'status' => false]);
+                return response()->json(['message' => 'این مورد قبلا به سبد خرید شما اضافه شده است', 'status' => false]);
 
             return $this->checkThe_conditionsOf_TheShopping_cart($request, $myCart);
 
@@ -111,5 +111,25 @@ class CartController extends Controller
             return response()->json(['message' => 'تعداد محصول نمیتواند از یک کوچک تر باشد', 'status' => false, 'maxAmount' => $product->productRemaining()]);
 
         }
+    }
+    public function destroy(CartItem $cartItem,Request $request)
+    {
+        $user = Auth::user();
+        $myCart = Cart::where('status', 'addToCart')->where(function ($query) use ($request, $user) {
+            $query->orWhere('user_id', $user ? $user->id : null)->orWhere('user_ip', $request->ip());
+
+        })->first();
+        $cartItem->delete();
+        $this->updateTotolProceCart($myCart);
+
+        if ($myCart->cartItem()->count()>0)
+        {
+            return redirect()->route('panel.cart.index')->with('success','محصول شما از سبد خرید حذف شد');
+        }
+        return redirect()->route('panel.index')->with('success','محصول شما از سبد خرید حذف شد');
+
+
+
+
     }
 }

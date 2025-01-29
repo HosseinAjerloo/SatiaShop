@@ -9,6 +9,7 @@ use App\Http\Requests\Panel\WalletCharging\WalletChargingRequest;
 use App\Http\Traits\HasConfig;
 use App\Jobs\SendAppAlertsJob;
 use App\Models\Bank;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Doller;
 use App\Models\FinanceTransaction;
@@ -43,16 +44,17 @@ class PanelController extends Controller
     public function index()
     {
         $menus=Menu::where("status",'active')->orderBy('view_sort','asc')->get();
-        return view('Site.index',compact('menus'));
+        $brands=Brand::where('status','active')->get();
+        return view('Panel.index',compact('menus','brands'));
     }
 
     public function products(Category $category){
-        $products=$category->productes;
-        return view('Site.products',compact('products'));
+        return view('Panel.products',compact('category'));
     }
     public function product(Product $product){
         $productTransaction=$product->productTransaction()->orderBy('created_at','desc')->first();
-        return view('Site.product',compact('product','productTransaction'));
+
+        return view('Panel.product',compact('product','productTransaction'));
     }
 
 

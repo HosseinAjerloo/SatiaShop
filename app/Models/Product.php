@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Product extends Model
 {
@@ -43,6 +44,19 @@ class Product extends Model
         ],
     ];
 
+    protected function title():Attribute
+    {
+        return Attribute::make(
+            set: fn($value)=>str_replace(' ','-',$value)
+        );
+    }
+
+    protected function removeUnderLine():Attribute
+    {
+        return Attribute::make(
+            get: fn()=>str_replace('-',' ',$this->title)
+        );
+    }
     public function image()
     {
         return $this->morphOne(File::class, 'files', 'fileable_type', 'fileable_id');

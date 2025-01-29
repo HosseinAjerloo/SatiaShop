@@ -33,11 +33,13 @@ Route::prefix('cart')->name('panel.cart.')->group(function () {
     Route::post('addCard', [App\Http\Controllers\Panel\CartController::class, 'addCart'])->name('addCart');
     Route::post('increase', [App\Http\Controllers\Panel\CartController::class, 'increase'])->name('increase');
     Route::post('decrease', [App\Http\Controllers\Panel\CartController::class, 'decrease'])->name('decrease');
+    Route::get('destroy/{cartItem}', [App\Http\Controllers\Panel\CartController::class, 'destroy'])->name('destroy');
 });
 
 //PANEL
 Route::middleware(['auth'])->name('panel.')->group(function () {
     Route::prefix('payment')->name('payment.')->group(function () {
+        Route::get('advance',[App\Http\Controllers\Panel\PaymentController::class, 'advance'])->name('advance');
         Route::post('', [App\Http\Controllers\Panel\PaymentController::class, 'payment'])->name('payment');
         Route::post('paymentBack', [App\Http\Controllers\Panel\PaymentController::class, 'paymentBack'])->withoutMiddleware(Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class)->name('back');
     });
