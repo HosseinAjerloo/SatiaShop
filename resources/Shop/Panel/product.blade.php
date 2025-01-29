@@ -158,14 +158,17 @@
                                                     {{--                                                            </a>--}}
                                                     {{--                                                        </section>--}}
                                                     <a class="product-link"
-                                                       href="{{route('panel.product',$product->removeUnderLine)}}">
+                                                       href="{{route('panel.product',$product->title)}}">
                                                         <section class="product-image">
                                                             <img class="" src="{{asset($product->image->path??"")}}"
                                                                  alt="">
                                                         </section>
                                                         <section class="product-colors"></section>
-                                                        <section class="product-name"><h3>دستگاه آبمیوه گیری دنویر با کد
-                                                                1016</h3></section>
+                                                        <section class="product-name">
+                                                            <h3>
+                                                                {{$product->removeUnderLine}}
+                                                            </h3>
+                                                        </section>
                                                         <section class="product-price-wrapper">
                                                             <section class="product-discount">
                                                                 <span class="text-min_sm text-gray-400 tracking-tight">مانده در انبار </span>

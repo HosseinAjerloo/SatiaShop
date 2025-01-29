@@ -54,10 +54,13 @@
                                  aria-labelledby="dropdownMenuButton1">
                             <section><a class="dropdown-item" href="my-profile.html"><i class="fa fa-user-circle"></i>پروفایل
                                     کاربری</a></section>
-                            <section><a class="dropdown-item" href="my-orders.html"><i class="fa fa-newspaper"></i>سفارشات</a>
+                            <section><a class="dropdown-item" href="{{route('panel.order.index')}}"><i class="fa fa-newspaper"></i>سفارشات</a>
                             </section>
-                            <section><a class="dropdown-item" href="my-favorites.html"><i class="fa fa-heart"></i>لیست
-                                    علاقه مندی</a></section>
+{{--                            <section>--}}
+{{--                                <a class="dropdown-item" href="my-favorites.html">--}}
+{{--                                    <i class="fa fa-heart"></i>لیست--}}
+{{--                                    علاقه مندی</a>--}}
+{{--                            </section>--}}
                             <section>
                                 <hr class="dropdown-divider">
                             </section>
@@ -94,11 +97,11 @@
                                                  alt="">
                                             <section class="w-100 text-truncate">
                                                 <a class="text-decoration-none text-dark" href="#">
-                                                    {{$cartItem->product->title??''}}
+                                                    {{$cartItem->product->removeUnderLine??''}}
                                                 </a>
                                             </section>
                                             <section class="flex-shrink-1">
-                                                <a class="text-muted text-decoration-none p-1" href="#">
+                                                <a class="text-muted text-decoration-none p-1" href="{{route('panel.cart.destroy',$cartItem->id)}}">
                                                     <i class="fa fa-trash-alt"></i></a>
                                             </section>
                                         </section>
@@ -112,7 +115,7 @@
                                         <section>مبلغ قابل پرداخت</section>
                                         <section> {{numberFormat(($myCart->finalPrice / 10))}} ریال</section>
                                     </section>
-                                    <section class=""><a class="btn btn-danger btn-sm d-block" href="cart.html">ثبت
+                                    <section class=""><a class="btn btn-danger btn-sm d-block" href="{{route('panel.payment.advance')}}">ثبت
                                             سفارش</a></section>
                                 </section>
                             </section>

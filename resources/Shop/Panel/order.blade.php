@@ -23,7 +23,7 @@
                                 <span class="sidebar-nav-item-title"><a class="p-3" href="my-profile.html">ویرایش حساب</a></span>
                             </section>
                             <section class="sidebar-nav-item">
-                                <span class="sidebar-nav-item-title"><a class="p-3" href="#">خروج از حساب کاربری</a></span>
+                                <span class="sidebar-nav-item-title"><a class="p-3" href="{{route('logout')}}">خروج از حساب کاربری</a></span>
                             </section>
 
                         </section>
@@ -65,33 +65,41 @@
                         <!-- end content header -->
 
 
-                        <section class="order-wrapper">
+                        @foreach($invoices as $invoice)
+                            <section class="order-wrapper">
 
-                            <section class="order-item">
-                                <section class="d-flex justify-content-center my-4">
-                                    <a class="btn btn-info btn-sm mx-1" href="#">در انتظار پرداخت</a>
-                                    <a class="btn btn-warning btn-sm mx-1" href="#">در حال پردازش</a>
-                                    <a class="btn btn-success btn-sm mx-1" href="#">تحویل شده</a>
-                                    <a class="btn btn-danger btn-sm mx-1" href="#">مرجوعی</a>
-                                    <a class="btn btn-dark btn-sm mx-1" href="#">لغو شده</a>
-                                </section>
-                                <section class="d-flex justify-content-between">
-                                    <section>
-                                        <section class="order-item-date"><i class="fa fa-calendar-alt"></i>  24 مهر 1399</section>
-                                        <section class="order-item-id"><i class="fa fa-id-card-alt"></i>کد سفارش : 14893857</section>
-                                        <section class="order-item-status"><i class="fa fa-clock"></i> در انتظار پرداخت</section>
-                                        <section class="order-item-products">
-                                            <a href="#"><img src="{{asset("shop/assets/images/products/1.jpg")}}" alt=""></a>
-                                            <a href="#"><img src="{{asset('shop/assets/images/products/2.jpg')}}" alt=""></a>
-                                        </section>
+                                <section class="order-item">
+                                    <section class="d-flex justify-content-center my-4">
+{{--                                        <a class="btn btn-info btn-sm mx-1" href="#">در انتظار پرداخت</a>--}}
+{{--                                        <a class="btn btn-warning btn-sm mx-1" href="#">در حال پردازش</a>--}}
+
+                                        <a class="btn  btn-sm mx-1 @if($invoice->statusPayment()) btn-success @else btn btn-danger  @endif" href="#">
+                                            @if($invoice->statusPayment())
+                                                پرداخت شده
+                                            @else
+                                                پرداخت ناموفق
+                                            @endif
+                                        </a>
+
+{{--                                        <a class="btn btn-dark btn-sm mx-1" href="#">لغو شده</a>--}}
                                     </section>
-                                    <section class="order-item-link"><a href="#">پرداخت سفارش</a></section>
+                                    <section class="d-flex justify-content-between">
+                                        <section>
+                                            <section class="order-item-date"><i class="fa fa-calendar-alt"></i> {{$invoice->invoiceDate()}}</section>
+                                            <section class="order-item-id"><i class="fa fa-id-card-alt"></i>کد سفارش : {{$invoice->id}}</section>
+                                            <section class="order-item-status"><i class="fa fa-clock"></i>{{$invoice->invoiceTime()}}</section>
+                                            <section class="order-item-status"><i class="fa fa-sticky-note"></i>{{$invoice->description}}</section>
+                                            <section class="order-item-products">
+                                                @foreach($invoice->invoiceItem as $invoiceItem)
+                                                    <a href="#"><img src="{{asset($invoiceItem->product->image->path??'')}}" alt=""></a>
+                                                @endforeach
+                                            </section>
+                                        </section>
+                                        <section class="order-item-link"><a href="#">وضعیت پرداخت</a></section>
+                                    </section>
                                 </section>
                             </section>
-
-
-
-                        </section>
+                        @endforeach
 
 
                     </section>

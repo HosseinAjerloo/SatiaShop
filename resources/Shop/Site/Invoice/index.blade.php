@@ -1,4 +1,4 @@
-@extends('Site.Layout.master')
+@extends('Panel.Layout.Master')
 
 @section('content')
 

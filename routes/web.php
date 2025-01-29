@@ -45,7 +45,7 @@ Route::middleware(['auth'])->name('panel.')->group(function () {
     });
 
     Route::prefix('order')->name('order.')->group(function (){
-       Route::get('',[App\Http\Controllers\Panel\OrderController::class,'index'])->name('order');
+       Route::get('',[App\Http\Controllers\Panel\OrderController::class,'index'])->name('index');
        Route::get('order-item/{invoice}',[App\Http\Controllers\Panel\OrderController::class,'orderItem'])->name('order.item');
     });
 });

@@ -22,7 +22,7 @@ class RuleProductCount implements ValidationRule
            $product=Product::find($productID);
            if ( !$product->productRemainingExceptUser($user,$productCount))
            {
-               $fail( "تعداد کافی از محصول".$product->title." موجود نمیباشد لطفا از سبد خرید خود پاک فرمایید");
+               $fail( " تعداد کافی از محصول ".$product->removeUnderLine." موجود نمیباشد لطفا از سبد خرید خود پاک فرمایید ");
            }
 
        }

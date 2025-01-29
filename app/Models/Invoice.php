@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Morilog\Jalali\Jalalian;
 
 class Invoice extends Model
 {
@@ -87,5 +88,17 @@ class Invoice extends Model
             "transmission" => "انتقال حواله کارت هدیه پرفکت مانی",
             default => ''
         };
+    }
+    public function statusPayment():bool
+    {
+        return $this->status=='paid'?true:false;
+    }
+    public function invoiceDate():string
+    {
+        return Jalalian::forge($this->create_at)->format('%A %d %B %Y'); // جمعه، 23 اسفند 97
+    }
+    public function invoiceTime():string
+    {
+        return Jalalian::forge($this->create_at)->format('H:i:s'); // جمعه، 23 اسفند 97
     }
 }

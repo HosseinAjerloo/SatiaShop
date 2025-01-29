@@ -35,13 +35,12 @@ class PaymentController extends Controller
     }
     public function payment(PaymentRequest $request)
     {
-
         try {
             $user = Auth::user();
             $balance = Auth::user()->getCreaditBalance();
 
             $inputs = $request->all();
-            $bank = Bank::where('is_active', '1')->first();
+            $bank = Bank::find($inputs['payment_type']);
             $myCart = Cart::where('status', 'addToCart')->where('user_id', $user->id)->first();
             $myCart->finalPrice=round($myCart->finalPrice);
             $myCart->update(['status','applyToTheBank']);
@@ -122,13 +121,22 @@ class PaymentController extends Controller
             $bank = $payment->bank;
             $objBank = new $bank->class;
             $objBank->setBankModel($bank);
+            $myCart = Cart::where('status', 'addToCart')->where('user_id', $user->id)->first();
+            $invoice = $payment->invoice;
+            foreach ($myCart->cartItem as $cartItem) {
+                $invoice->invoiceItem()->create([
+                    'product_id' => $cartItem->product_id,
+                    'price' => $cartItem->price,
+                    'amount' => $cartItem->amount,
+                    'type' => $cartItem->type
+                ]);
+            }
+
             Log::channel('bankLog')->emergency(PHP_EOL . "Return from the bank and the bank's response to the purchase order " . PHP_EOL . json_encode($request->all()) . PHP_EOL .
                 'Bank message: ' . PHP_EOL . $objBank->transactionStatus() . PHP_EOL .
                 'user ID :' . $user->id
                 . PHP_EOL
             );
-            $invoice = $payment->invoice;
-            dd($objBank->backBank());
             if (!$objBank->backBank()) {
                 $payment->update(
                     [
@@ -189,16 +197,10 @@ class PaymentController extends Controller
                 'payment_id' => $payment->id,
             ]);
 
-            $myCart = Cart::where('status', 'addToCart')->where('user_id', $user->id)->first();
 
 
             foreach ($myCart->cartItem as $cartItem) {
-                $invoice->invoiceItem()->create([
-                    'product_id'=>$cartItem->product_id,
-                    'price'=>$cartItem->price,
-                    'amount'=>$cartItem->amount,
-                    'type'=>$cartItem->type
-                ]);
+
                 $productTransaction = $cartItem->product->productTransaction()->latest()->first();
                 \App\Models\ProductTransaction::create([
                     'user_id' => $user->id,

@@ -155,13 +155,13 @@
                                     <p class="fw-bold amount"> تومان</p>
                                 </section>
 
-                                <section class="">
+                                <section class="mt-3">
                                     <section id="payment-button"
                                              class="text-warning border border-warning text-center py-2 pointer rounded-2 d-block">
                                         نوع پرداخت را انتخاب کن
                                     </section>
-                                    <button id="final-level" href="my-orders.html" class="btn btn-danger d-none">ثبت سفارش و
-                                        گرفتن کد رهگیری</button>
+                                    <section id="final-level" href="my-orders.html" class="btn btn-danger d-none">ثبت سفارش و
+                                        گرفتن کد رهگیری</section>
                                 </section>
 
                             </section>
@@ -200,5 +200,10 @@
         }
 
         priceCalculation();
+    </script>
+    <script>
+        $("#final-level").click(function (){
+            $("#form").submit();
+        })
     </script>
 @endsection

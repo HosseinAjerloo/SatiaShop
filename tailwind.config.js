@@ -34,6 +34,7 @@ module.exports = {
                 'DFEDFF': '#DFEDFF',
                 'CCCCCC': '#CCCCCC',
                 'EEEEEE': '#EEEEEE',
+                'ff253a':'#ff253a',
                 black_blur: 'rgba(0,0,0, 0.7)'
             },
             borderWidth:{

@@ -25,6 +25,7 @@ class PaymentRequest extends FormRequest
         return [
             'product_ids' => 'required|array|exists:products,id',
             'product' => ['required','array',new RuleProductCount],
+            'payment_type'=>'required|exists:banks,id'
         ];
     }
 

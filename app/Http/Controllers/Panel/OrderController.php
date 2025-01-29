@@ -15,8 +15,8 @@ class OrderController extends Controller
     public function index()
     {
         $user=Auth::user();
-        $invoice =Invoice::where("user_id",$user->id)->where('type_of_business','sales')->get();
-        return view('Panel.order', compact('invoice'));
+        $invoice =Invoice::where("user_id",$user->id)->where('type_of_business','sales')->first();
+        return view('Panel.Invoice.index', compact('invoice'));
     }
     public function orderItem(Invoice $invoice)
     {
