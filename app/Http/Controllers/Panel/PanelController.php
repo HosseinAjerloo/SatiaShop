@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Panel;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Panel\Purchase\PurchaseRequest;
-use App\Http\Requests\Panel\Purchase\PurchaseThroughTheBankRequest;
-use App\Http\Requests\Panel\WalletCharging\WalletChargingRequest;
+
 use App\Http\Traits\HasConfig;
 use App\Jobs\SendAppAlertsJob;
 use App\Models\Bank;
@@ -23,6 +21,7 @@ use App\Notifications\IsEmptyUserInformationNotifaction;
 use App\Services\BankService\Saman;
 use App\Services\SmsService\SatiaService;
 use Carbon\Carbon;
+use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use AyubIRZ\PerfectMoneyAPI\PerfectMoneyAPI;
@@ -43,19 +42,25 @@ class PanelController extends Controller
 
     public function index()
     {
+        $breadcrumbs=Breadcrumbs::render('panel.index')->getData()['breadcrumbs'];
+
         $menus=Menu::where("status",'active')->orderBy('view_sort','asc')->get();
         $brands=Brand::where('status','active')->get();
-        return view('Panel.index',compact('menus','brands'));
+        return view('Panel.index',compact('menus','brands','breadcrumbs'));
     }
 
     public function products(Category $category){
 
-        return view('Panel.products',compact('category'));
+        $breadcrumbs=Breadcrumbs::render('panel.products',$category)->getData()['breadcrumbs'];
+
+        return view('Panel.products',compact('category','breadcrumbs'));
     }
     public function product(Product $product){
+
+        $breadcrumbs=Breadcrumbs::render('panel.product',$product)->getData()['breadcrumbs'];
         $productTransaction=$product->productTransaction()->orderBy('created_at','desc')->first();
 
-        return view('Panel.product',compact('product','productTransaction'));
+        return view('Panel.product',compact('product','productTransaction','breadcrumbs'));
     }
 
 

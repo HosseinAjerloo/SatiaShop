@@ -6,14 +6,13 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class EmailFailed extends Component
+class Breadcrumb extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct(public string $type)
+    public function __construct(public  $breadcrumbs=[])
     {
-        //
     }
 
     /**
@@ -21,6 +20,6 @@ class EmailFailed extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.email-failed');
+        return view('components.breadcrumb');
     }
 }

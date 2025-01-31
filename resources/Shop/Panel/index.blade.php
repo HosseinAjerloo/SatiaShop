@@ -1,22 +1,6 @@
 @extends('Panel.Layout.Master')
 @section('content')
-    <section class="mb-8">
-        <section class="container-xxl">
-            <section class="row">
-                <section class="col">
-                    <section class="content-wrapper bg-white p-3 rounded-2">
-                        <!-- start vontent header -->
-                        <section class=" py-2 flex  ">
-                            <a class="w-[80px] h-[30px]  breadcrumb flex items-center justify-center text-white">
-                                خانه
-                            </a>
-                            <a class="w-[80px] h-[30px]  breadcrumb"></a>
-                        </section>
-                    </section>
-                </section>
-            </section>
-        </section>
-    </section>
+
     @foreach($menus as $menu)
 
         <section class="mb-8">
