@@ -16,4 +16,21 @@ class ProductTransaction extends Model
         'amount','remain'
         ,'type'
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class,'product_id');
+    }
+    public function invoice()
+    {
+        return $this->belongsTo(Invoice::class,'invoice_id');
+    }
+    public function getType()
+    {
+        return $this->type=='add'?'افزایش':'کاهش';
+    }
 }

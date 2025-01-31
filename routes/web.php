@@ -63,10 +63,8 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
     Route::get('dollar-price', [App\Http\Controllers\Admin\DollarController::class, 'index'])->name('panel.admin.dollar-price');
     Route::get('dollar-price-submit', [App\Http\Controllers\Admin\DollarController::class, 'priceSubmit'])->name('panel.admin.dollar-price-submit');
 
-    Route::prefix('user')->group(function () {
-        Route::get('/', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('panel.admin.user.index');
-        Route::get('inactive/{user}', [App\Http\Controllers\Admin\UserController::class, 'inactive'])->name('panel.admin.user.inactive');
-        Route::post('search', [App\Http\Controllers\Admin\UserController::class, 'search'])->name('panel.admin.user.search');
+    Route::prefix('user')->name('admin.user.')->group(function () {
+        Route::get('/', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('index');
     });
 
 
@@ -152,6 +150,15 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
         });
 
 
+
+
+    });
+
+    Route::prefix('product-transaction')->name('admin.product.transaction.')->group(function (){
+        Route::get('',[App\Http\Controllers\Admin\ProductTransaction\ProductTransactionController::class,'index'])->name('index');
+    });
+    Route::prefix('order')->name('admin.order')->group(function (){
+//           Route::get('',[App\Http\Controllers\Admin\Order\OrderController::Clَ])
     });
 });
 
