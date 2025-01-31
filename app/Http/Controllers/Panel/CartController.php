@@ -7,6 +7,7 @@ use App\Http\Traits\HasCart;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Product;
+use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,6 +17,7 @@ class CartController extends Controller
 
     public function index(Request $request)
     {
+
         $user = Auth::user();
         $myCart = Cart::where('status', 'addToCart')->where(function ($query) use ($request, $user) {
             $query->orWhere('user_id', $user ? $user->id : null)->orWhere('user_ip', $request->ip());
@@ -23,7 +25,9 @@ class CartController extends Controller
         })->first();
         if (!$myCart)
             return redirect()->route('panel.index')->withErrors(['error'=>'سبد خرید شما خالی است لطفا کالایی را انتخاب کنید']);
-        return view('Panel.cart', compact('myCart'));
+        $breadcrumbs=Breadcrumbs::render('panel.cart.index')->getData()['breadcrumbs'];
+
+        return view('Panel.cart', compact('myCart','breadcrumbs'));
     }
 
     public function addCart(Request $request)

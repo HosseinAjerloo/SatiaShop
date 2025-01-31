@@ -15,6 +15,7 @@ use App\Models\Payment;
 use App\Models\Service;
 use App\Services\SmsService\SatiaService;
 use Carbon\Carbon;
+use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -31,7 +32,9 @@ class PaymentController extends Controller
         if (!$myCart)
             return redirect()->route('panel.index')->withErrors(['error'=>'سبد خرید شما خالی است لطفا کالایی را انتخاب کنید']);
         $banks=Bank::where("is_active",'1')->get();
-        return view('Panel.payment',compact('banks','myCart'));
+        $breadcrumbs=Breadcrumbs::render('panel.payment.advance')->getData()['breadcrumbs'];
+
+        return view('Panel.payment',compact('banks','myCart','breadcrumbs'));
     }
     public function payment(PaymentRequest $request)
     {

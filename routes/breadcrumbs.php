@@ -15,4 +15,14 @@ Breadcrumbs::for('panel.product', function (BreadcrumbTrail $trail, $product) {
     $trail->push($product->removeUnderLine, route('panel.product',$product->removeUnderLine));
 
 });
+Breadcrumbs::for('panel.cart.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('panel.index');
+    $trail->push('سبد خرید', route('panel.cart.index'));
+
+});
+Breadcrumbs::for('panel.payment.advance', function (BreadcrumbTrail $trail) {
+    $trail->parent('panel.cart.index');
+    $trail->push('پرداخت', route('panel.payment.advance'));
+
+});
 
