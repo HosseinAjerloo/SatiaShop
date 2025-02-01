@@ -42,6 +42,15 @@ class FinanceTransaction extends Model
     {
         $query->select('user_id')->distinct()->orderBy('user_id','asc')->whereDate('created_at',">=",$date)->limit(10);
     }
+    public function getType()
+    {
+        if($this->type=='deposit')
+        return 'افزایش';
+        if($this->type=='withdrawal')
+        return 'کاهش';
+        if($this->type=='bank')
+        return 'پرداخت ناموفق';
+    }
 
 
 }

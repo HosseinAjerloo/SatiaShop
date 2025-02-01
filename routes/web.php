@@ -3,6 +3,7 @@
 
 use App\Models\Cart;
 use App\Models\CartItem;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -156,7 +157,14 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
 
     Route::prefix('product-transaction')->name('admin.product.transaction.')->group(function (){
         Route::get('',[App\Http\Controllers\Admin\ProductTransaction\ProductTransactionController::class,'index'])->name('index');
+        Route::get('details/{product}',[App\Http\Controllers\Admin\ProductTransaction\ProductTransactionController::class,'details'])->name('details');
     });
+
+    Route::prefix('finance-transaction')->name('admin.finance.transaction.')->group(function (){
+        Route::get('',action: [App\Http\Controllers\Admin\FinanceTransAction\FinanceTransActionController::class,'index'])->name('index');
+        Route::get('details/{finance}',[App\Http\Controllers\Admin\FinanceTransAction\FinanceTransActionController::class,'details'])->name('details');
+    });
+
     Route::prefix('order')->name('admin.order')->group(function (){
 //           Route::get('',[App\Http\Controllers\Admin\Order\OrderController::Clَ])
     });
@@ -167,9 +175,7 @@ Route::fallback(function () {
     abort(404);
 });
 
-Route::get('test', function () {
 
-})->name('test');
 
 
 
