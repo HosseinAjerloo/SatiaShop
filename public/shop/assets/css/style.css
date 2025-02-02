@@ -846,33 +846,4 @@ body {
     line-height: 2rem;
     font-size: 0.8rem;
 }
-.breadcrumb{
-    background-color: #ff253a;
-    position: relative;
-    border-radius:5px;
-    margin-right: 25px;
-}
-.breadcrumb:nth-child(1){
 
-    margin-right: 0;
-}
-.breadcrumb:after {
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background-color: white;
-    top: 5px;
-    right: -9px;
-    transform: rotate(44deg);
-}
-    .breadcrumb:before {
-        content: '';
-        position: absolute;
-        width: 20px;
-        height: 20px;
-        background-color: #ff253a;
-        left: -8px;
-        top: 5px;
-        transform: rotate(45deg);
-}

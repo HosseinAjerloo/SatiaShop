@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Supplier\SupplierRequest;
 use App\Models\Supplier;
 use App\Models\SupplierCategory;
+use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
 
 class SupplierController extends Controller
@@ -16,7 +17,9 @@ class SupplierController extends Controller
     public function index()
     {
         $suppliers = Supplier::all();
-        return view('Admin.Supplier.index', compact('suppliers'));
+        $breadcrumbs = Breadcrumbs::render('admin.supplier.index')->getData()['breadcrumbs'];
+
+        return view('Admin.Supplier.index', compact('suppliers','breadcrumbs'));
     }
 
     /**
@@ -24,8 +27,9 @@ class SupplierController extends Controller
      */
     public function create()
     {
+        $breadcrumbs = Breadcrumbs::render('admin.supplier.create')->getData()['breadcrumbs'];
         $supplierCategory = SupplierCategory::where("status", 'active')->get();
-        return view('Admin.supplier.create', compact('supplierCategory'));
+        return view('Admin.supplier.create', compact('supplierCategory','breadcrumbs'));
     }
 
     /**
@@ -52,8 +56,8 @@ class SupplierController extends Controller
     public function edit(Supplier $supplier)
     {
         $supplierCategory = SupplierCategory::where("status", 'active')->get();
-
-        return view('Admin.Supplier.edit', compact('supplier', 'supplierCategory'));
+        $breadcrumbs = Breadcrumbs::render('admin.supplier.edit',$supplier)->getData()['breadcrumbs'];
+        return view('Admin.Supplier.edit', compact('supplier', 'supplierCategory','breadcrumbs'));
     }
 
     /**

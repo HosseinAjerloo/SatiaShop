@@ -111,6 +111,33 @@ body{
         width: 100%;
     }
 }
+.breadcrumb{
+    position: relative;
+    border-radius:5px;
+    margin-right: 25px;
+    margin-top: 10px;
+}
+
+
+.breadcrumb:after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    top: 5px;
+    right: -9px;
+    transform: rotate(44deg);
+}
+.breadcrumb:before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: -8px;
+    top: 5px;
+    transform: rotate(45deg);
+}
 
 
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Brand\BrandRequest;
 use App\Models\Brand;
 use App\Services\ImageService\ImageService;
+use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +18,9 @@ class BrandController extends Controller
     public function index()
     {
         $brands = Brand::all();
-        return view('Admin.Brand.index', compact('brands'));
+        $breadcrumbs = Breadcrumbs::render('admin.brand.index')->getData()['breadcrumbs'];
+
+        return view('Admin.Brand.index', compact('brands','breadcrumbs'));
     }
 
     /**
@@ -25,7 +28,9 @@ class BrandController extends Controller
      */
     public function create()
     {
-        return view('Admin.Brand.create');
+        $breadcrumbs = Breadcrumbs::render('admin.brand.create')->getData()['breadcrumbs'];
+
+        return view('Admin.Brand.create',compact('breadcrumbs'));
     }
 
     /**
@@ -67,7 +72,8 @@ class BrandController extends Controller
      */
     public function edit(Brand $brand)
     {
-        return view('Admin.Brand.edit', compact('brand'));
+        $breadcrumbs = Breadcrumbs::render('admin.brand.edit',$brand)->getData()['breadcrumbs'];
+        return view('Admin.Brand.edit', compact('brand','breadcrumbs'));
     }
 
     /**

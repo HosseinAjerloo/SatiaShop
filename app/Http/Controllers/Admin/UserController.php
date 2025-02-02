@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\SearchRequest;
 use App\Models\User;
+use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -12,7 +13,9 @@ class UserController extends Controller
     public function index()
     {
         $users=User::orderBy('id','desc')->paginate(15,['*'],'pageUser');
-        return view('Admin.User.index',compact('users'));
+        $breadcrumbs=Breadcrumbs::render('admin.user.index')->getData()['breadcrumbs'];
+
+        return view('Admin.User.index',compact('users','breadcrumbs'));
     }
     public function inactive(User $user)
     {

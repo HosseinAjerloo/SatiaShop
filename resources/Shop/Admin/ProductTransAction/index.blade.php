@@ -32,35 +32,35 @@
     <section class="px-2 mt-5">
         <article
             class="bg-2081F2 px-2 py-1 flex items-center justify-between rounded-md rounded-ee-none rounded-es-none">
-           
+
             <div class="w-1/5">
                 <h1 class="text-white text-min font-bold text-center">
                     نام محصول
                 </h1>
             </div>
-         
-          
+
+
             <div class="w-1/5">
                 <h1 class="text-white text-min font-bold text-center">
                    مشاهده جزئیات
                 </h1>
             </div>
-         
+
 
         </article>
 
         <article class="  border border-t-0 border-black space-y-5 py-1.5 rounded-md rounded-se-none  rounded-ss-none">
-            @foreach($productTransactions as $productTransaction)
-                <div class="p-2 h-full @if(($productTransaction->id%2)==0) bg-E9E9E9 @endif  flex items-center justify-between  divide-x-1 divide-black divide-x-reverse">
-                
+            @foreach($productTransactions as $key=> $productTransaction)
+                <div class="p-2 h-full @if(($key%2)==0) bg-E9E9E9 @endif  flex items-center justify-between  divide-x-1 divide-black divide-x-reverse">
+
                     <div class="w-1/5 h-full">
                         <p class="text-black  text-min_sm font-bold  h-full flex items-center justify-center text-center">
                            {{$productTransaction->product->removeUnderLine??''}}
                         </p>
                     </div>
-                
 
-                
+
+
                     <a href="{{route('admin.product.transaction.details',$productTransaction->id)}}" class="w-1/5 h-full">
                         <p class="text-sky-500 cursor-pointer underline underline-offset-2 decoration-solid  text-sm font-bold  h-full flex items-center justify-center text-center">
                            ....

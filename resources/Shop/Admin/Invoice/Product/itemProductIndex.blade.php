@@ -50,7 +50,7 @@
 
 
                 <article class="   border-black space-y-5 py-1.5 rounded-md rounded-se-none  rounded-ss-none">
-                    @foreach($invoice->invoiceItem as $invoiceItem)
+                    @foreach($invoice->invoiceItem  as $key=> $invoiceItem)
                         <article
                             class="bg-2081F2 px-2 py-1 flex items-center justify-between rounded-md rounded-ee-none rounded-es-none">
                             <div class="w-1/5">

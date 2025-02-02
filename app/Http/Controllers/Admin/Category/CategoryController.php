@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\Category\CategoryRequest;
 use App\Models\Category;
 use App\Models\Menu;
 use App\Services\ImageService\ImageService;
+use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,8 +19,9 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
+        $breadcrumbs=Breadcrumbs::render('admin.category.index')->getData()['breadcrumbs'];
 
-        return view('Admin.ProductCategory.index', compact('categories'));
+        return view('Admin.ProductCategory.index', compact('categories','breadcrumbs'));
     }
 
     /**
@@ -29,7 +31,9 @@ class CategoryController extends Controller
     {
         $menus = Menu::where("status", 'active')->get();
         $categories = Category::where("status", 'active')->get();
-        return view('Admin.ProductCategory.create', compact('menus', 'categories'));
+        $breadcrumbs=Breadcrumbs::render('admin.category.create')->getData()['breadcrumbs'];
+
+        return view('Admin.ProductCategory.create', compact('menus', 'categories','breadcrumbs'));
 
     }
 
@@ -77,7 +81,9 @@ class CategoryController extends Controller
     {
         $menus = Menu::where("status", 'active')->get();
         $categories = Category::where("status", 'active')->get()->except($category->id);
-        return view('Admin.ProductCategory.edit', compact('menus', 'categories', 'category'));
+        $breadcrumbs=Breadcrumbs::render('admin.category.edit',$category)->getData()['breadcrumbs'];
+
+        return view('Admin.ProductCategory.edit', compact('menus', 'categories', 'category','breadcrumbs'));
     }
 
     /**

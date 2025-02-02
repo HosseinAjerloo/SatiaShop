@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Setting\SettingRequest;
 use App\Models\Setting;
 use App\Services\ImageService\ImageService;
+use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +18,9 @@ class SettingController extends Controller
     public function index()
     {
         $setting=Setting::first();
-        return view('Admin.Setting.index',compact('setting'));
+        $breadcrumbs=Breadcrumbs::render('admin.setting.index')->getData()['breadcrumbs'];
+
+        return view('Admin.Setting.index',compact('setting','breadcrumbs'));
 
     }
 
@@ -50,7 +53,8 @@ class SettingController extends Controller
      */
     public function edit(Setting $setting)
     {
-        return view('Admin.Setting.edit', compact('setting'));
+        $breadcrumbs=Breadcrumbs::render('admin.setting.edit',$setting)->getData()['breadcrumbs'];
+        return view('Admin.Setting.edit', compact('setting','breadcrumbs'));
 
     }
 

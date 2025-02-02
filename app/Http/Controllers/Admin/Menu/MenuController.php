@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Menu;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Menu\MenuRequest;
 use App\Models\Menu;
+use Diglactic\Breadcrumbs\Breadcrumbs;
 
 class MenuController extends Controller
 {
@@ -14,7 +15,9 @@ class MenuController extends Controller
     public function index()
     {
         $menus=Menu::orderBy('view_sort','asc')->get();
-        return view('Admin.Menu.index',compact('menus'));
+        $breadcrumbs=Breadcrumbs::render('admin.menu.index')->getData()['breadcrumbs'];
+
+        return view('Admin.Menu.index',compact('menus','breadcrumbs'));
     }
 
     /**
@@ -22,7 +25,9 @@ class MenuController extends Controller
      */
     public function create()
     {
-        return view('Admin.Menu.create');
+        $breadcrumbs=Breadcrumbs::render('admin.menu.create')->getData()['breadcrumbs'];
+
+        return view('Admin.Menu.create',compact('breadcrumbs'));
     }
 
     /**
@@ -48,7 +53,9 @@ class MenuController extends Controller
      */
     public function edit(Menu $menu)
     {
-        return view('Admin.Menu.edit', compact('menu'));
+        $breadcrumbs=Breadcrumbs::render('admin.menu.edit',$menu)->getData()['breadcrumbs'];
+
+        return view('Admin.Menu.edit', compact('menu','breadcrumbs'));
     }
 
     /**

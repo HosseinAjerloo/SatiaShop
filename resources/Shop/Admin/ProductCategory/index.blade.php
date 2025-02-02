@@ -61,8 +61,8 @@
         </article>
 
         <article class="  border border-t-0 border-black space-y-5 py-1.5 rounded-md rounded-se-none  rounded-ss-none">
-            @foreach($categories as $category)
-                <div class="p-2 h-full @if(($category->id%2)==0) bg-E9E9E9 @endif  flex items-center justify-between  divide-x-1 divide-black divide-x-reverse">
+            @foreach($categories as $key=> $category)
+                <div class="p-2 h-full @if(($key%2)==0) bg-E9E9E9 @endif  flex items-center justify-between  divide-x-1 divide-black divide-x-reverse">
                     <a href="{{route('admin.category.edit',$category->id)}}" class="w-1/5">
                         <p class="text-black  text-min_sm font-bold  h-full flex items-center justify-center text-center underline underline-offset-4 text-sky-500">
                             {{$category->name??''}}

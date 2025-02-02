@@ -12,6 +12,7 @@ use App\Models\Product;
 use App\Models\ProductTransaction;
 use App\Models\Supplier;
 use App\Services\ImageService\ImageService;
+use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,7 +24,9 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        return view('Admin.Product.index', compact('products'));
+        $breadcrumbs=Breadcrumbs::render('admin.product.index')->getData()['breadcrumbs'];
+
+        return view('Admin.Product.index', compact('products','breadcrumbs'));
     }
 
     /**
@@ -33,7 +36,9 @@ class ProductController extends Controller
     {
         $categories = Category::where('status', 'active')->get();
         $brands = Brand::where("status", 'active')->get();
-        return view('Admin.Product.create', compact('categories', 'brands'));
+        $breadcrumbs=Breadcrumbs::render('admin.product.create')->getData()['breadcrumbs'];
+
+        return view('Admin.Product.create', compact('categories', 'brands','breadcrumbs'));
     }
 
     /**
@@ -80,7 +85,9 @@ class ProductController extends Controller
     {
         $categories = Category::where('status', 'active')->get();
         $brands = Brand::where("status", 'active')->get();
-        return view('Admin.Product.edit', compact('categories', 'brands', 'product'));
+        $breadcrumbs=Breadcrumbs::render('admin.product.edit',$product)->getData()['breadcrumbs'];
+
+        return view('Admin.Product.edit', compact('categories', 'brands', 'product','breadcrumbs'));
     }
 
     /**

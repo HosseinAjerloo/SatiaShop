@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,8 +15,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-
-        return view('Admin.index');
+        $breadcrumbs=Breadcrumbs::render('panel.admin')->getData()['breadcrumbs'];
+        return view('Admin.index',compact('breadcrumbs'));
     }
 
     /**
