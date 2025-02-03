@@ -16,7 +16,7 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        $suppliers = Supplier::all();
+        $suppliers = Supplier::Search()->get();
         $breadcrumbs = Breadcrumbs::render('admin.supplier.index')->getData()['breadcrumbs'];
 
         return view('Admin.Supplier.index', compact('suppliers','breadcrumbs'));

@@ -13,13 +13,13 @@ class FinanceTransActionController extends Controller
     {
         $breadcrumbs=Breadcrumbs::render('admin.finance.transaction.index')->getData()['breadcrumbs'];
 
-        $financeTransactions=FinanceTransaction::orderBy('user_id','desc')->get()->unique('user_id');
+        $financeTransactions=FinanceTransaction::Search()->orderBy('user_id','desc')->get()->unique('user_id');
         return view('Admin.FinanceTransAction.index',compact('financeTransactions','breadcrumbs'));
     }
     public function details(FinanceTransaction $finance){
 
         $breadcrumbs=Breadcrumbs::render('admin.finance.transaction.details',$finance)->getData()['breadcrumbs'];
-        $financeTransactions=FinanceTransaction::orderBy('user_id','desc')->where('user_id',$finance->user_id)->get();
-        return view('Admin.FinanceTransAction.details',compact('financeTransactions','breadcrumbs'));
+        $financeTransactions=FinanceTransaction::Search()->orderBy('user_id','desc')->where('user_id',$finance->user_id)->get();
+        return view('Admin.FinanceTransAction.details',compact('financeTransactions','breadcrumbs','finance'));
     }
 }

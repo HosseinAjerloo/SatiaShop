@@ -17,7 +17,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $brands = Brand::all();
+        $brands = Brand::Search()->get();
         $breadcrumbs = Breadcrumbs::render('admin.brand.index')->getData()['breadcrumbs'];
 
         return view('Admin.Brand.index', compact('brands','breadcrumbs'));

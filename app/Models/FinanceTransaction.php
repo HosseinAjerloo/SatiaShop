@@ -16,6 +16,15 @@ class FinanceTransaction extends Model
 
     protected $fillable = ['user_id', 'payment_id', 'voucher_id', 'voucher_id', 'amount', 'type', 'creadit_balance', 'description', 'time_price_of_dollars','status','siteService_id'];
 
+    public function scopeSearch(Builder $query): void
+    {
+        $query->when(request()->input('date'),function ($query){
+            $query->whereDate('created_at',">=",Carbon::now()->subMonths(request()->input('date'))->toDateString());
+        })->when(request()->input('name'),function ($query){
+            $users=User::where('mobile','like',"%".request()->input('name')."%")->get()->pluck('id');
+            $query->whereIn('user_id',$users);
+        });
+    }
     public function voucher()
     {
         return $this->belongsTo(Voucher::class, 'voucher_id');
