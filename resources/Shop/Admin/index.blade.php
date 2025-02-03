@@ -188,7 +188,7 @@
 
         </section>
         <section class="flex items-center justify-between ">
-            <div class="border border-black/30 rounded-md  flex items-center justify-center flex-col w-[32%]">
+            <a href="{{route('admin.finance.transaction.index')}}" class="border border-black/30 rounded-md  flex items-center justify-center flex-col w-[32%]">
                 <div class="p-2">
                     <img src="{{asset("capsule/images/financeTransaction.png")}}" alt="" class="w-14 h-14">
                 </div>
@@ -198,7 +198,7 @@
                         معین اشخاص
                     </p>
                 </div>
-            </div>
+            </a>
             <a href="{{route('admin.brand.index')}}"
                class="border border-black/30 rounded-md  flex items-center justify-center flex-col w-[32%]">
                 <div class="p-2">

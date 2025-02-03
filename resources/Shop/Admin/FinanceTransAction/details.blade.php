@@ -19,15 +19,10 @@
     </section>
     <form class="flex items-center justify-between space-x-reverse space-x-3 px-2 mt-5">
         <div  class="flex items-center space-x-reverse space-x-2">
-            <img src="{{asset("capsule/images/productTransaction.png")}}" alt="">
+            <img src="{{asset("capsule/images/financeTransaction.png")}}" alt="">
             <h1 class="text-min font-bold">لیست جزئیات انبار یک محصول</h1>
         </div>
-        <div class="border border-black flex items-center py-1.5 px-2 rounded-md">
-            <input type="text" placeholder="شماره فاکتور را وارد کنید ..."
-                   class="placeholder:text-min placeholder:text-black/35 outline-none">
-            <img src="{{asset('capsule/images/search.svg')}}" alt="">
 
-        </div>
     </form>
     <section class="px-2 mt-5">
         <article
@@ -59,10 +54,10 @@
             </div>
             <div class="w-1/5">
                 <h1 class="text-white text-min font-bold text-center">
-                تاریخ              
+                تاریخ
               </h1>
             </div>
-            
+
 
         </article>
 
@@ -79,11 +74,7 @@
                           {{ $financeTransaction->getType()}}
                         </p>
                     </div>
-                    <div class="w-1/5 h-full">
-                        <p class="text-black  text-min_sm font-bold  h-full flex items-center justify-center text-center">
-                            {{$productTransaction->invoice_id??''}}
-                        </p>
-                    </div>
+
                     <div class="w-1/5 h-full">
                         <p class="text-black  text-min_sm font-bold  h-full flex items-center justify-center text-center">
                             {{numberFormat(($financeTransaction->amount / 10))}}
@@ -102,7 +93,7 @@
                     </div>
                     <div class="w-1/5 h-full">
                         <p class="text-black  text-min_sm font-bold  h-full flex items-center justify-center text-center">
-                            {{$financeTransaction->description??''}}
+                            {{\Morilog\Jalali\Jalalian::forge($financeTransaction->created_at)->format(' H:i:s Y/m/d')}}
                         </p>
                     </div>
 

@@ -19,8 +19,8 @@
     </section>
     <form class="flex items-center justify-between space-x-reverse space-x-3 px-2 mt-5">
         <div  class="flex items-center space-x-reverse space-x-2">
-            <img src="{{asset("capsule/images/productTransaction.png")}}" alt="">
-            <h1 class="text-min font-bold">لیست انبار</h1>
+            <img src="{{asset("capsule/images/financeTransaction.png")}}" alt="">
+            <h1 class="text-min font-bold">معین اشخاص کاربر</h1>
         </div>
         <div class="border border-black flex items-center py-1.5 px-2 rounded-md">
             <input type="text" placeholder="شماره موبایل کاربر را وارد کنید ..."
