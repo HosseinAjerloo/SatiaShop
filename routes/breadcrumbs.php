@@ -122,7 +122,7 @@ Breadcrumbs::for('admin.brand.create', function (BreadcrumbTrail $trail) {
     $trail->push('ایجاد برند جدید', route('admin.brand.create'));
 });
 Breadcrumbs::for('admin.finance.transaction.index', function (BreadcrumbTrail $trail) {
-    $trail->parent('panel.index');
+    $trail->parent('panel.admin');
     $trail->push('معین اشخاص', route('admin.finance.transaction.index'));
 });
 Breadcrumbs::for('admin.finance.transaction.details', function (BreadcrumbTrail $trail,$finance) {
