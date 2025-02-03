@@ -16,10 +16,12 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::all();
+
+        $categories = Category::Search()->get();
         $breadcrumbs=Breadcrumbs::render('admin.category.index')->getData()['breadcrumbs'];
+//        $request->
 
         return view('Admin.ProductCategory.index', compact('categories','breadcrumbs'));
     }

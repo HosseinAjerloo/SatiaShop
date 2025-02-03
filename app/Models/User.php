@@ -4,12 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Http\Traits\HasConfig;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
+
 
 class User extends Authenticatable
 {
@@ -42,6 +44,15 @@ class User extends Authenticatable
         "is_active",
         "type"
     ];
+    public function scopeSearch(Builder $query): void
+    {
+
+        $query->when(request()->input('date'),function ($query){
+            $query->whereDate('created_at',">=",Carbon::now()->subMonths(request()->input('date'))->toDateString());
+        })->when(request()->input('name'),function ($query){
+            $query->where('mobile','like',"%".request()->input('name')."%");
+        });
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -102,10 +113,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id', 'id', 'id');
     }
 
-    public function scopeSearch(Builder $query, $search)
-    {
-        return $query->where('name', 'like', "%" . $search['search'] . "%")->orWhere('family', 'like', "%" . $search['search'] . "%")->orWhere('mobile', 'like', "%" . $search['search'] . "%");
-    }
+
 
     public function orders()
     {

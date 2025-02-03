@@ -15,7 +15,7 @@ class ProductTransactionController extends Controller
 
         $breadcrumbs = Breadcrumbs::render('admin.product.transaction.index')->getData()['breadcrumbs'];
 
-        $productTransactions = ProductTransaction::orderBy('product_id', 'desc')->get()->unique('product_id');
+        $productTransactions = ProductTransaction::Search()->orderBy('product_id', 'desc')->get()->unique('product_id');
         return view('Admin.ProductTransaction.index', compact('productTransactions', 'breadcrumbs'));
     }
 
@@ -23,8 +23,8 @@ class ProductTransactionController extends Controller
     {
 
         $breadcrumbs = Breadcrumbs::render('admin.product.transaction.details',$product)->getData()['breadcrumbs'];
-        $productTransactions = ProductTransaction::orderBy('product_id', 'desc')->where('product_id', $product->id)->get();
-        return view('Admin.ProductTransaction.details', compact('productTransactions', 'breadcrumbs'));
+        $productTransactions = ProductTransaction::Search()->orderBy('product_id', 'desc')->where('product_id', $product->id)->get();
+        return view('Admin.ProductTransaction.details', compact('productTransactions', 'breadcrumbs','product'));
 
     }
 }

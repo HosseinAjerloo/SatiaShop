@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-
+use Illuminate\Database\Eloquent\Builder;
 class Category extends Model
 {
     use HasFactory, SoftDeletes;
@@ -27,6 +28,16 @@ class Category extends Model
                 'menu_id' => 2
             ]
         ];
+
+    public function scopeSearch(Builder $query): void
+    {
+
+        $query->when(request()->input('date'),function ($query){
+            $query->whereDate('created_at',">=",Carbon::now()->subMonths(request()->input('date'))->toDateString());
+        })->when(request()->input('name'),function ($query){
+            $query->where('name','like',"%".request()->input('name')."%");
+        });
+    }
 
     protected function name():Attribute
     {

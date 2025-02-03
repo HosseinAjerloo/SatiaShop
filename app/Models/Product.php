@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Builder;
 
 class Product extends Model
 {
@@ -43,6 +45,15 @@ class Product extends Model
             'user_id' => 1
         ],
     ];
+    public function scopeSearch(Builder $query): void
+    {
+
+        $query->when(request()->input('date'),function ($query){
+            $query->whereDate('created_at',">=",Carbon::now()->subMonths(request()->input('date'))->toDateString());
+        })->when(request()->input('name'),function ($query){
+            $query->where('title','like',"%".request()->input('name')."%");
+        });
+    }
 
     protected function title():Attribute
     {

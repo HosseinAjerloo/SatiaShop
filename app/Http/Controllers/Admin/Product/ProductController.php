@@ -23,7 +23,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::Search()->get();
         $breadcrumbs=Breadcrumbs::render('admin.product.index')->getData()['breadcrumbs'];
 
         return view('Admin.Product.index', compact('products','breadcrumbs'));

@@ -25,6 +25,8 @@
 
 @include('Admin.Layout.script')
 @yield('script')
+@stack('search')
+
 </body>
 
 @include('Admin.Layout.footer')

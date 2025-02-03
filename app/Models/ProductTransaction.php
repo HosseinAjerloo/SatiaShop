@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,6 +18,18 @@ class ProductTransaction extends Model
         'amount','remain'
         ,'type'
     ];
+    public function scopeSearch(Builder $query): void
+    {
+
+        $query->when(request()->input('date'),function ($query){
+            $query->whereDate('created_at',">=",Carbon::now()->subMonths(request()->input('date'))->toDateString());
+        })->when(request()->input('name'),function ($query){
+            $products=Product::where('title','like',"%".request()->input('name')."%")->get()->pluck('id');
+            $query->whereIn('product_id',$products);
+        })->when(request()->input('invoice'),function ($query){
+            $query->where('invoice_id',request()->input('invoice'));
+        });
+    }
     public function user()
     {
         return $this->belongsTo(User::class,'user_id');

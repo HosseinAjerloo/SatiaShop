@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users=User::orderBy('id','desc')->paginate(15,['*'],'pageUser');
+        $users=User::Search()->orderBy('id','desc')->paginate(15,['*'],'pageUser');
         $breadcrumbs=Breadcrumbs::render('admin.user.index')->getData()['breadcrumbs'];
 
         return view('Admin.User.index',compact('users','breadcrumbs'));
