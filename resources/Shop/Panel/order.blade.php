@@ -51,18 +51,16 @@
 
 
 
-                        <!-- start content header -->
-                        <section class="content-header mb-">
-                            <section class="d-flex justify-content-between align-items-center">
-                                <h2 class="content-header-title content-header-title-small">
-                                    در انتظار پرداخت
-                                </h2>
-                                <section class="content-header-link">
-                                    <!--<a href="#">مشاهده همه</a>-->
-                                </section>
-                            </section>
-                        </section>
-                        <!-- end content header -->
+{{--                        <section class="content-header mb-">--}}
+{{--                            <section class="d-flex justify-content-between align-items-center">--}}
+{{--                                <h2 class="content-header-title content-header-title-small">--}}
+{{--                                    در انتظار پرداخت--}}
+{{--                                </h2>--}}
+{{--                                <section class="content-header-link">--}}
+{{--                                    <!--<a href="#">مشاهده همه</a>-->--}}
+{{--                                </section>--}}
+{{--                            </section>--}}
+{{--                        </section>--}}
 
 
                         @foreach($invoices as $invoice)

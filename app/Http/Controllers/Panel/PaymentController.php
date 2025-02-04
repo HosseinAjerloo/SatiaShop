@@ -230,7 +230,7 @@ class PaymentController extends Controller
             $invoice->update(['status' => 'paid','description'=>'پرداخت موفقیت آمیز']);
             $myCart->delete();
 
-            return redirect()->route('panel.deliveryVoucherBankView', [$invoice, $payment]);
+            return redirect()->route('order.invoiceDetail', $invoice);
         } catch (\Exception $e) {
             Log::channel('bankLog')->emergency(PHP_EOL . "Purchase validation from the payment gateway : " .  $e->getMessage() . PHP_EOL);
             SendAppAlertsJob::dispatch('(هنگام برگشت از بانک جهت اعتبارسنجی پرداخت کاربر خطایی به وجود آمد لطفا برسی کنید)')->onQueue('perfectmoney');

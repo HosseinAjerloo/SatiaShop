@@ -15,13 +15,10 @@ class OrderController extends Controller
     public function index()
     {
         $user=Auth::user();
-        $invoices =Invoice::where("user_id",$user->id)->where('type_of_business','sales')->get();
+        $invoices =Invoice::where("user_id",$user->id)->orderBy('created_at','desc')->where('type_of_business','sales')->get();
         return view('Panel.order', compact('invoices'));
     }
-    public function orderItem(Invoice $invoice)
-    {
-        return view('Site.Invoice.index', compact('invoice'));
-    }
+
     public function invoiceDetail(Invoice $invoice)
     {
         return view('Panel.Invoice.index',compact('invoice'));
