@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\View;
@@ -31,7 +32,10 @@ class AppServiceProvider extends ServiceProvider
 
             })->first();
                 $categories=Category::where('status','active')->orderBy('view_sort','asc')->limit(7)->get();
-                $view->with(['myCart' => $myCart,'categories'=>$categories]);
+                $products=Product::where("status",'active')->orderBy('created_at','desc')->limit(6)->get();
+
+
+                $view->with(['myCart' => $myCart,'categories'=>$categories,'products'=>$products]);
 
 
 

@@ -28,7 +28,7 @@ Route::get('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'
 Route::get('', [App\Http\Controllers\Panel\PanelController::class, 'index'])->name('panel.index');
 Route::get('products/{category:name}', [App\Http\Controllers\Panel\PanelController::class, 'products'])->name('panel.products');
 Route::get('product/{product:title}', [App\Http\Controllers\Panel\PanelController::class, 'product'])->name('panel.product');
-
+Route::post('find-product', [App\Http\Controllers\Panel\PanelController::class, 'findProductWithAjax'])->name('panel.product.find');
 Route::prefix('cart')->name('panel.cart.')->group(function () {
     Route::get('', [App\Http\Controllers\Panel\CartController::class, 'index'])->name('index');
     Route::post('addCard', [App\Http\Controllers\Panel\CartController::class, 'addCart'])->name('addCart');

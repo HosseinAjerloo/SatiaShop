@@ -2,15 +2,27 @@
 //start search
 $(document).ready(function() {
 
+    $(".searchIcon").click(function (){
+        alert('ad')
+    })
 
+    $(".search-result-type").click(function (){
+        window.location.href = $(this).data("value");
+    })
     $("#search").focusin(function() {
         $(".search-result").removeClass("visually-hidden");
         $(".search-box").addClass("search-box-active");
     }).add(".search-result").focusout(function() {
+
         if ( !$(".search-result").is(':focus') ) {
-            $(".search-result").addClass("visually-hidden");
             $(".search-box").removeClass("search-box-active");
+            setTimeout(function (){
+                $(".search-result").addClass("visually-hidden");
+            },100)
         }
+
+
+
     });
 
 

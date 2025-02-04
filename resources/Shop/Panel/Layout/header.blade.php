@@ -18,26 +18,18 @@
                 <section class="mt-3 mt-md-auto search-wrapper">
                     <section class="search-box">
                         <section class="search-textbox">
-                            <span><i class="fa fa-search"></i></span>
+                            <span class="searchIcon"><i class="fa fa-search"></i></span>
                             <input id="search" type="text" class="" placeholder="جستجو ..." autocomplete="off">
                         </section>
                         <section class="search-result visually-hidden">
-                            <section class="search-result-title">نتایج جستجو برای <span class="search-words">"موبایل شیا"</span><span
-                                    class="search-result-type">در دسته بندی ها</span></section>
-                            <section class="search-result-item"><a class="text-decoration-none" href="#"><i
-                                        class="fa fa-link"></i> دسته موبایل و وسایل جانبی</a></section>
 
-                            <section class="search-result-title">نتایج جستجو برای <span class="search-words">"موبایل شیا"</span><span
-                                    class="search-result-type">در برندها</span></section>
-                            <section class="search-result-item"><a class="text-decoration-none" href="#"><i
-                                        class="fa fa-link"></i> برند شیائومی</a></section>
-                            <section class="search-result-item"><a class="text-decoration-none" href="#"><i
-                                        class="fa fa-link"></i> برند توشیبا</a></section>
-                            <section class="search-result-item"><a class="text-decoration-none" href="#"><i
-                                        class="fa fa-link"></i> برند شیانگ پینگ</a></section>
-
-                            <section class="search-result-title">نتایج جستجو برای <span class="search-words">"موبایل شیا"</span><span
-                                    class="search-result-type">در کالاها</span></section>
+                           @foreach($products as $product)
+                                <section class="search-result-title">
+                                    نتایج جستجو برای
+                                    <span class="search-words">{{$product->removeUnderLine}}</span>
+                                    <span class="search-result-type cursor-pointer" data-value="{{route('panel.product',$product->title)}}">در کالاها</span>
+                                </section>
+                           @endforeach
                             <section class="search-result-item"><span class="search-no-result">موردی یافت نشد</span>
                             </section>
                         </section>
@@ -54,13 +46,14 @@
                                  aria-labelledby="dropdownMenuButton1">
                             <section><a class="dropdown-item" href="my-profile.html"><i class="fa fa-user-circle"></i>پروفایل
                                     کاربری</a></section>
-                            <section><a class="dropdown-item" href="{{route('panel.order.index')}}"><i class="fa fa-newspaper"></i>سفارشات</a>
+                            <section><a class="dropdown-item" href="{{route('panel.order.index')}}"><i
+                                        class="fa fa-newspaper"></i>سفارشات</a>
                             </section>
-{{--                            <section>--}}
-{{--                                <a class="dropdown-item" href="my-favorites.html">--}}
-{{--                                    <i class="fa fa-heart"></i>لیست--}}
-{{--                                    علاقه مندی</a>--}}
-{{--                            </section>--}}
+                            {{--                            <section>--}}
+                            {{--                                <a class="dropdown-item" href="my-favorites.html">--}}
+                            {{--                                    <i class="fa fa-heart"></i>لیست--}}
+                            {{--                                    علاقه مندی</a>--}}
+                            {{--                            </section>--}}
                             <section>
                                 <hr class="dropdown-divider">
                             </section>
@@ -101,7 +94,8 @@
                                                 </a>
                                             </section>
                                             <section class="flex-shrink-1">
-                                                <a class="text-muted text-decoration-none p-1" href="{{route('panel.cart.destroy',$cartItem->id)}}">
+                                                <a class="text-muted text-decoration-none p-1"
+                                                   href="{{route('panel.cart.destroy',$cartItem->id)}}">
                                                     <i class="fa fa-trash-alt"></i></a>
                                             </section>
                                         </section>
@@ -115,7 +109,8 @@
                                         <section>مبلغ قابل پرداخت</section>
                                         <section> {{numberFormat(($myCart->finalPrice / 10))}} ریال</section>
                                     </section>
-                                    <section class=""><a class="btn btn-danger btn-sm d-block" href="{{route('panel.payment.advance')}}">ثبت
+                                    <section class=""><a class="btn btn-danger btn-sm d-block"
+                                                         href="{{route('panel.payment.advance')}}">ثبت
                                             سفارش</a></section>
                                 </section>
                             </section>
@@ -846,7 +841,7 @@
                     <section class="border-start my-2 mx-1"></section>
                     @foreach($categories as $category)
 
-                    <section class="navbar-item"><a href="#">{{$category->removeUnderLine??""}}</a></section>
+                        <section class="navbar-item"><a href="#">{{$category->removeUnderLine??""}}</a></section>
                     @endforeach
 
 
