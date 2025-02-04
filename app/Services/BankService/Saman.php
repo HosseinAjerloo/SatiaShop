@@ -4,6 +4,7 @@ namespace App\Services\BankService;
 
 
 use App\Models\Bank;
+use Psy\Util\Str;
 
 class Saman extends Service
 {
@@ -130,8 +131,9 @@ class Saman extends Service
 
     public function verifyTransaction($ErrorCode)
     {
-
+        $ErrorCode=(string)$ErrorCode;
         $return_value = match ($ErrorCode) {
+
             "-1" => "خطای داخلی شبکه مالی",
             "-3" => "ورودیها حاوی کارکترهای غیرمجاز میباشند.",
             "-4" => "ed Authentication Merchant ) کلمه عبور یا کد فروشنده اشتباه است)",

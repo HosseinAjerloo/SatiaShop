@@ -25,5 +25,5 @@
 
     @vite('resources/css/app.css')
 
-    <title>فروشگاه آمازون</title>
+    <title>فروشگاه 125 یار</title>
 </head>
