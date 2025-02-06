@@ -9,7 +9,7 @@
         "ayubirz/perfect-money-api": "dev-master",
         "diglactic/laravel-breadcrumbs": "^9.0",
         "fedeisas/laravel-mail-css-inliner": "^5.3",
-        "intervention/image": "^3.8",
+        "intervention/image": "^3.11",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
         "morilog/jalali": "^3.4"
