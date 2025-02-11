@@ -29,9 +29,10 @@
                 <select name="category_id" id="" class="outline-none border border-black rounded-md w-48">
                     <option value="">دسته اصلی</option>
 
-                    @foreach($categories as $category)
+                    @foreach($categories as $categorySelect)
+
                         <option
-                            @selected(old('category_id',$category->id)==$category->id) value="{{$category->id}}">{{$category->name??''}}</option>
+                            @selected(old('category_id',$category->category_id)==$categorySelect->id) value="{{$categorySelect->id}}">{{$categorySelect->removeUnderLine??''}}</option>
                     @endforeach
                 </select>
             </div>

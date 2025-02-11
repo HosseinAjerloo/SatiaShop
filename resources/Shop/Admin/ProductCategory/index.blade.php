@@ -91,7 +91,7 @@
                     </div>
                     <div class="w-1/5 h-full">
                         <p class="text-black  text-min_sm font-bold  h-full flex items-center justify-center text-center">
-                            {{$category->parent->name??'منوی اصلی'}}
+                            {{$category->parent->name??'دسته اصلی'}}
                         </p>
                     </div>
 
