@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="{{asset('shop/assets/css/product.css')}}">
     <link rel="stylesheet" href="{{asset('shop/assets/css/profile.css')}}">
     <link rel="stylesheet" href="{{asset('shop/assets/css/login.css')}}">
-    <script src="{{asset("shop/assets/js/jQuery-3.5.1.min.js")}}" ></script>
+    <script src="{{asset("shop/assets/js/jquery-3.5.1.min.js")}}" ></script>
     <script src="{{asset('capsule/js/toast.js')}}"></script>
 
     @vite('resources/css/app.css')
