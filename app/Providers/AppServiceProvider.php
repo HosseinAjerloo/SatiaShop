@@ -33,9 +33,8 @@ class AppServiceProvider extends ServiceProvider
             })->first();
                 $categories=Category::where('status','active')->orderBy('view_sort','asc')->limit(7)->get();
                 $products=Product::where("status",'active')->orderBy('created_at','desc')->limit(6)->get();
-
-
-                $view->with(['myCart' => $myCart,'categories'=>$categories,'products'=>$products]);
+                $categoryMenus=Category::where("status",'active')->whereNull('category_id')->get();
+                $view->with(['myCart' => $myCart,'categories'=>$categories,'products'=>$products,'categoryMenus'=>$categoryMenus]);
 
 
 
