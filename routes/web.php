@@ -175,7 +175,7 @@ Route::fallback(function () {
 });
 
 Route::get('test',function (){
-//    return redirect()->route('panel.index')->with(['success-SweetAlert'=>'test']);
+    return redirect()->route('panel.index')->with(['success-SweetAlert'=>'test']);
 });
 
 

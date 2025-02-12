@@ -83,7 +83,7 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         $menus = Menu::where("status", 'active')->get();
-        $categories=Category::withCount('chidren')->having('chidren_count',"<",3)->where("status", 'active')->except($category->id);
+        $categories=Category::withCount('chidren')->having('chidren_count',"<",3)->where("status", 'active')->get()->except($category->id);
         $breadcrumbs=Breadcrumbs::render('admin.category.edit',$category)->getData()['breadcrumbs'];
 
         return view('Admin.ProductCategory.edit', compact('menus', 'categories', 'category','breadcrumbs'));
