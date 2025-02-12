@@ -175,7 +175,7 @@ Route::fallback(function () {
 });
 
 Route::get('test',function (){
-    dd(\Illuminate\Support\Facades\Auth::hasUser());
+//    return redirect()->route('panel.index')->with(['success-SweetAlert'=>'test']);
 });
 
 

@@ -19,7 +19,7 @@
     </section>
     <form id="form" class="flex items-center justify-between space-x-reverse space-x-3 px-2 mt-5"
           action="{{route('admin.product.index')}}">
-        <a href="{{route('admin.category.create')}}" class="flex items-center space-x-reverse space-x-2">
+        <a href="{{route('admin.product.create')}}" class="flex items-center space-x-reverse space-x-2">
             <img src="{{asset("capsule/images/plus.svg")}}" alt="">
             <h1 class="text-min font-bold">لیست محصولات</h1>
         </a>

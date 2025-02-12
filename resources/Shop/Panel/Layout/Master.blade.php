@@ -6,6 +6,9 @@
 
 @include('Toast.error')
 @include('Toast.success')
+@include('Panel.SweetAlert.success')
+@include('Panel.SweetAlert.error')
+
 
 
 <main id="main-body-one-col" class="main-body">
