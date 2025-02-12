@@ -175,6 +175,7 @@ Route::fallback(function () {
 });
 
 Route::get('test',function (){
+    return view('Panel.myProfile');
     return redirect()->route('panel.index')->with(['error-SweetAlert'=>'طا در انجام']);
 });
 
