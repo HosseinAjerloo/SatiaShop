@@ -20,7 +20,7 @@
             </div>
             <div class="p-1.5 border border-black/75 rounded-md h-10">
                 <div class=" flex items-center  space-x-1 space-x-reverse h-full">
-                    <img src="{{asset("capsule/images/key.svg")}}" alt="">
+                    <img src="{{asset("capsule/images/key-black.svg")}}" alt="">
                     <input type="text" placeholder="کلمه عبور"
                            class="px-1.5 placeholder:text-min h-full outline-none bg-transparent" name="password">
                     <img src="{{asset("capsule/images/eye.svg")}}" alt="">

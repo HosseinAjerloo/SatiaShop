@@ -13,32 +13,32 @@
 
             <div class="flex items-center justify-between space-x-reverse space-x-2 w-full  ">
                 <div class="flex items-center  border-2 px-2 h-12 rounded-md border-black">
-                    <img src="{{asset('capsule/images/svgPhone.svg')}}" alt="" class="w-6 h-6">
+                    <img src="{{asset('capsule/images/phone.svg')}}" alt="" class="w-6 h-6">
                     <input type="text"
                            class=" mobile w-full h-full inline-block outline-none px-2 placeholder:text-center placeholder:text-sm"
                            placeholder="شماره همراه  (*********09)" name="mobile" >
                 </div>
-                <button type="button" class="text-mini-base bg-gradient-to-b from-80C714 to-268832 w-24   h-12 text-white rounded-md text-center flex items-center justify-center cursor-pointer send">
+                <button type="button" class="text-mini-base bg-2081F2 w-24   h-12 text-white rounded-md text-center flex items-center justify-center cursor-pointer send">
                     ارسال
                     کد
                 </button>
 
             </div>
             <div class="flex items-center space-x-reverse space-x-2 w-full border-black border-2 px-2 h-12 rounded-md">
-                <img src="{{asset('capsule/images/key.svg')}}" alt="" class="w-6 h-6">
+                <img src="{{asset('capsule/images/key-black.svg')}}" alt="" class="w-6 h-6">
                 <input type="text"
                        class="w-full h-full py-1.5 outline-none px-2  placeholder:text-center  placeholder:text-sm"
                        placeholder="کد ارسال شده به تلفن همراه " name="code">
             </div>
             <div class="flex items-center space-x-reverse space-x-2 w-full border-black border-2 px-2 h-12 rounded-md">
-                <img src="{{asset('capsule/images/key.svg')}}" alt="" class="w-6 h-6">
+                <img src="{{asset('capsule/images/key-black.svg')}}" alt="" class="w-6 h-6">
                 <input type="password"
                        class="w-full h-full py-1.5 outline-none px-2  placeholder:text-center  placeholder:text-sm"
                        placeholder="کلمه عبور جدید (حروف و عدد)" name="password">
             </div>
             <div class="flex items-center justify-center text-mini-mini-base text-center leading-6 text-black/35 font-bold time w-full">
             </div>
-            <button  class="bg-gradient-to-b from-FFB01B to-DE9408 text-sm w-52 h-10 rounded-md text-white font-bold">
+            <button  class=" bg-2081F2 text-sm w-52 h-10 rounded-md text-white font-bold">
                 ورود به
                 حساب کاربری
             </button>
