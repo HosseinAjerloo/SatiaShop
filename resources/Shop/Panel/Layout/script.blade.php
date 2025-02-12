@@ -2,6 +2,7 @@
 <script src="{{asset("shop/assets/js/bootstrap/bootstrap.min.js")}}" ></script>
 <script src="{{asset("shop/assets/js/bootstrap/bootstrap.bundle.min.js")}}" ></script>
 <script src="{{asset('shop/assets/plugins/owlcarousel/owl.carousel.min.js')}}"></script>
+<script src="{{asset('shop/assets/js/sweetalert2@11.js')}}"></script>
 
 
 <script>

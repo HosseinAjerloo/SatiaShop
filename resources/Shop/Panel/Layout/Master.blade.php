@@ -6,8 +6,7 @@
 
 @include('Toast.error')
 @include('Toast.success')
-@include('Panel.SweetAlert.success')
-@include('Panel.SweetAlert.error')
+
 
 
 
@@ -45,6 +44,8 @@
 @include('Panel.Layout.footer')
 @include('Panel.Layout.script')
 @yield('script')
+@include('Panel.SweetAlert.success')
+@include('Panel.SweetAlert.error')
 
 </body>
 </html>

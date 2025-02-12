@@ -88,7 +88,7 @@ class PaymentController extends Controller
             if (!$status) {
                 $invoice->update(['description' => "به دلیل عدم ارتباط با بانک $bank->name سفارش شما لغو شد ",'status_bank'=>'fail']);
                 $financeTransaction->update(['description' => "به دلیل عدم ارتباط با بانک $bank->name سفارش شما لغو شد ", 'status' => 'fail']);
-                return redirect()->route('panel.cart.index')->withErrors(['error' => 'ارتباط با بانک فراهم نشد لطفا چند دقیقه بعد تلاش فرماید.']);
+                return redirect()->route('panel.cart.index')->withErrors(['error-SweetAlert' => 'ارتباط با بانک فراهم نشد لطفا چند دقیقه بعد تلاش فرماید.']);
             }
             $token = $status;
             session()->put('payment', $payment->id);
@@ -108,7 +108,7 @@ class PaymentController extends Controller
         } catch (\Exception $e) {
             SendAppAlertsJob::dispatch('در ارتباط با بانک در پروژه کپسول خطایی پیش آمدر لطفا ارتباط خود را برسی کنید')->onQueue('perfectmoney');
             Log::emergency(PHP_EOL . $e->getMessage() . PHP_EOL);
-            return redirect()->route('panel.cart.index')->withErrors(['error' => 'ارتباط با بانک فراهم نشد لطفا چند دقیقه بعد تلاش فرماید.']);
+            return redirect()->route('panel.cart.index')->withErrors(['error-SweetAlert' => 'ارتباط با بانک فراهم نشد لطفا چند دقیقه بعد تلاش فرماید.']);
         }
     }
     public function paymentBack(Request $request)
@@ -154,7 +154,7 @@ class PaymentController extends Controller
                 $bankErrorMessage = "درگاه بانک سامان تراکنش شمارا به دلیل " . $objBank->transactionStatus() . " ناموفق اعلام کرد باتشکر " . PHP_EOL . 'پشتیبانی بانک سامان' . PHP_EOL . '021-6422';
                 $satiaService->send($bankErrorMessage, $user->mobile, env('SMS_Number'), env('SMS_Username'), env('SMS_Password'));
 
-                return redirect()->route('panel.index')->withErrors(['error' => ' پرداخت موفقیت آمیز نبود ' . $objBank->transactionStatus()]);
+                return redirect()->route('panel.index')->withErrors(['error-SweetAlert' => ' پرداخت موفقیت آمیز نبود ' . $objBank->transactionStatus()]);
             }
 
             $back_price = $objBank->verify($payment->amount);
@@ -178,7 +178,7 @@ class PaymentController extends Controller
                     'user Id: ' . $user->id
                     . PHP_EOL
                 );
-                return redirect()->route('panel.index')->withErrors(['not_paid'=>$objBank->verifyTransaction($back_price)]);
+                return redirect()->route('panel.index')->withErrors(['error-SweetAlert'=>$objBank->verifyTransaction($back_price)]);
             }
 
             $payment->update(
@@ -230,12 +230,12 @@ class PaymentController extends Controller
             $invoice->update(['status' => 'paid','description'=>'پرداخت موفقیت آمیز']);
             $myCart->delete();
 
-            return redirect()->route('order.invoiceDetail', $invoice);
+            return redirect()->route('order.invoiceDetail', $invoice)->with(['success-SweetAlert'=>'پرداخت باموفقیت انجام شد']);
         } catch (\Exception $e) {
             Log::channel('bankLog')->emergency(PHP_EOL . "Purchase validation from the payment gateway : " .  $e->getMessage() . PHP_EOL);
             SendAppAlertsJob::dispatch('(هنگام برگشت از بانک جهت اعتبارسنجی پرداخت کاربر خطایی به وجود آمد لطفا برسی کنید)')->onQueue('perfectmoney');
 
-            return redirect()->route('panel.index')->withErrors(['error' => "خطایی رخ داد لطفا جهت پیگیری پرداخت با پشتیبانی تماس حاصل فرمایید باتشکر"]);
+            return redirect()->route('panel.index')->withErrors(['error-SweetAlert' => "خطایی رخ داد لطفا جهت پیگیری پرداخت با پشتیبانی تماس حاصل فرمایید باتشکر"]);
 
         }
     }
