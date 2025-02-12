@@ -1,4 +1,4 @@
-<header class="px-3 bg-2081F2 h-10 flex items-center">
+<header class="px-3 py-4 bg-2081F2 h-10 flex items-center">
     <nav class="flex items-center justify-between w-full">
         <div class="flex items-center space-x-reverse space-x-2">
             <img src="{{asset('capsule/images/logo.svg')}}" alt="">
