@@ -58,8 +58,16 @@
                             <section>
                                 <hr class="dropdown-divider">
                             </section>
-                            <section><a class="dropdown-item" href="{{route('logout')}}"><i
-                                        class="fa fa-sign-out-alt"></i>خروج</a>
+                            <section>
+                                <a class="dropdown-item"
+                                   href="{{\Illuminate\Support\Facades\Auth::user()?route('logout'):route('login.index')}}">
+                                    <i class="fa fa-sign-out-alt"></i>
+                                    @if(\Illuminate\Support\Facades\Auth::user())
+                                        خروج
+                                    @else
+                                        ورود
+                                    @endif
+                                </a>
                             </section>
 
                         </section>

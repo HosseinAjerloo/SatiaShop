@@ -175,7 +175,7 @@ Route::fallback(function () {
 });
 
 Route::get('test',function (){
-    dd(config('ImageConfig'));
+    dd(\Illuminate\Support\Facades\Auth::hasUser());
 });
 
 
