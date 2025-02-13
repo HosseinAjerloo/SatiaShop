@@ -21,7 +21,7 @@
             <div class="flex items-center space-x-reverse space-x-8">
                 <h5 class="text-min font-light w-28"> عنوان محصول :</h5>
                 <input type="text" name="title" class="outline-none border border-black rounded-md w-48"
-                       value="{{old('title',$product->title)}}">
+                       value="{{old('title',$product->removeUnderLine)}}">
             </div>
             <div class="flex items-center space-x-reverse space-x-8">
                 <h5 class="text-min font-light w-28"> قیمت(ریال) :</h5>

@@ -7,12 +7,12 @@ Breadcrumbs::for('panel.index', function (BreadcrumbTrail $trail) {
 });
 Breadcrumbs::for('panel.products', function (BreadcrumbTrail $trail,$category) {
     $trail->parent('panel.index');
-    $trail->push($category->removeUnderLine, route('panel.products',$category->removeUnderLine));
+    $trail->push($category->removeUnderLine, route('panel.products',$category->name));
 });
 
 Breadcrumbs::for('panel.product', function (BreadcrumbTrail $trail, $product) {
     $trail->parent('panel.products',$product->category);
-    $trail->push($product->removeUnderLine, route('panel.product',$product->removeUnderLine));
+    $trail->push($product->removeUnderLine, route('panel.product',$product->title));
 
 });
 Breadcrumbs::for('panel.cart.index', function (BreadcrumbTrail $trail) {

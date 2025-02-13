@@ -42,7 +42,7 @@ class Category extends Model
     protected function name():Attribute
     {
         return Attribute::make(
-            set: fn($value)=>str_replace(' ','-',$value)
+            set: fn($value)=>preg_replace("/(\s){1,}/imu",'-',$value)
         );
     }
 
