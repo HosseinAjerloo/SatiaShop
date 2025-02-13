@@ -49,6 +49,14 @@ Route::middleware(['auth'])->name('panel.')->group(function () {
        Route::get('',[App\Http\Controllers\Panel\OrderController::class,'index'])->name('index');
        Route::get('invoice-detail-report/{invoice}',[App\Http\Controllers\Panel\OrderController::class,'invoiceDetail'])->name('invoiceDetail');
     });
+
+
+    Route::prefix('my-profile')->name('my-profile.')->group(function (){
+        Route::get('',[App\Http\Controllers\Panel\UserController::class,'index'])->name("index");
+        Route::put('update',[App\Http\Controllers\Panel\UserController::class,'update'])->name('update');
+
+    });
+
 });
 
 
@@ -175,8 +183,6 @@ Route::fallback(function () {
 });
 
 Route::get('test',function (){
-    return view('Panel.myProfile');
-    return redirect()->route('panel.index')->with(['error-SweetAlert'=>'طا در انجام']);
 });
 
 

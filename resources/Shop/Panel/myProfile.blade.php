@@ -8,30 +8,24 @@
 
 
                     <section class="content-wrapper bg-white p-3 rounded-2 mb-3">
-                        <!-- start sidebar nav-->
                         <section class="sidebar-nav">
+                            {{--                            <section class="sidebar-nav-item">--}}
+                            {{--                                <span class="sidebar-nav-item-title"><a class="p-3" href="my-orders.html">سفارش های من</a></span>--}}
+                            {{--                            </section>--}}
+                            {{--                            <section class="sidebar-nav-item">--}}
+                            {{--                                <span class="sidebar-nav-item-title"><a class="p-3" href="my-addresses.html">آدرس های من</a></span>--}}
+                            {{--                            </section>--}}
+                            {{--                            <section class="sidebar-nav-item">--}}
+                            {{--                                <span class="sidebar-nav-item-title"><a class="p-3" href="my-favorites.html">لیست علاقه مندی</a></span>--}}
+                            {{--                            </section>--}}
                             <section class="sidebar-nav-item">
-                                <span class="sidebar-nav-item-title"><a class="p-3"
-                                                                        href="my-orders.html">سفارش های من</a></span>
+                                <span class="sidebar-nav-item-title"><a class="p-3" href="{{route('panel.order.index')}}">سفارشات من</a></span>
                             </section>
                             <section class="sidebar-nav-item">
-                                <span class="sidebar-nav-item-title"><a class="p-3"
-                                                                        href="my-addresses.html">آدرس های من</a></span>
-                            </section>
-                            <section class="sidebar-nav-item">
-                                <span class="sidebar-nav-item-title"><a class="p-3" href="my-favorites.html">لیست علاقه مندی</a></span>
-                            </section>
-                            <section class="sidebar-nav-item">
-                                <span class="sidebar-nav-item-title"><a class="p-3"
-                                                                        href="my-profile.html">ویرایش حساب</a></span>
-                            </section>
-                            <section class="sidebar-nav-item">
-                                <span class="sidebar-nav-item-title"><a class="p-3"
-                                                                        href="#">خروج از حساب کاربری</a></span>
+                                <span class="sidebar-nav-item-title"><a class="p-3" href="{{route('logout')}}">خروج از حساب کاربری</a></span>
                             </section>
 
                         </section>
-                        <!--end sidebar nav-->
                     </section>
 
                 </aside>
@@ -68,13 +62,14 @@
                                                     aria-label="Close"></button>
                                         </section>
                                         <section class="modal-body">
-                                            <form class="row" action="#">
-
+                                            <form class="row" id="form" action="{{route('panel.my-profile.update')}}" method="POST">
+                                                @csrf
+                                                @method('PUT')
                                                 <section class="col-12 mb-2">
                                                     <label for="address" class="form-label mb-1">نشانی</label>
                                                     <input type="text" class="form-control form-control-sm" id="address"
                                                            placeholder="نشانی"
-                                                           value="{{\Illuminate\Support\Facades\Auth::user()->address??''}}">
+                                                           value="{{old('address',$user->address??'')}}" name="address">
 
                                                 </section>
 
@@ -86,14 +81,14 @@
                                                     <label for="first_name" class="form-label mb-1">نام </label>
                                                     <input type="text" class="form-control form-control-sm"
                                                            id="first_name" placeholder="نام " name="name"
-                                                    value="{{\Illuminate\Support\Facades\Auth::user()->name??''}}">
+                                                           value="{{old('name',$user->name??'')}}">
                                                 </section>
 
                                                 <section class="col-6 mb-2">
                                                     <label for="last_name" class="form-label mb-1">نام خانوادگی</label>
                                                     <input type="text" class="form-control form-control-sm"
                                                            id="last_name" placeholder="نام خانوادگی " name="family"
-                                                           value="{{\Illuminate\Support\Facades\Auth::user()->family??''}}">
+                                                           value="{{old('family',$user->family??'')}}">
 
                                                 </section>
 
@@ -101,27 +96,40 @@
                                                     <label for="mobile" class="form-label mb-1">شماره موبایل</label>
                                                     <input type="text" class="form-control form-control-sm" id="mobile"
                                                            placeholder="شماره موبایل"
-                                                           value="{{\Illuminate\Support\Facades\Auth::user()->mobile??''}}">
+                                                           value="{{old('mobile',$user->mobile??'')}}" name="mobile">
 
                                                 </section>
                                                 <section class="col-6 mb-2">
                                                     <label for="mobile" class="form-label mb-1">شماره ثابت</label>
                                                     <input type="text" class="form-control form-control-sm" id="mobile"
-                                                           value="{{\Illuminate\Support\Facades\Auth::user()->tel??''}}">
+                                                           value="{{old('tel',$user->tel??'')}}" name="tel" placeholder="شماره ثابت (08600000000)">
                                                 </section>
 
                                                 <section class="col-6 mb-2">
                                                     <label for="mobile" class="form-label mb-1">ایمیل</label>
                                                     <input type="text" class="form-control form-control-sm" id="mobile"
                                                            placeholder="ایمیل"
-                                                           value="{{\Illuminate\Support\Facades\Auth::user()->email??''}}">
+                                                           value="{{old('email',$user->email??'')}}" name="email">
+                                                </section>
+                                                <section class="col-6 mb-2">
+                                                    <label for="mobile" class="form-label mb-1">کدملی</label>
+                                                    <input type="text" class="form-control form-control-sm" id="mobile"
+                                                           placeholder="کدملی"
+                                                           value="{{old('national_code',$user->national_code??'')}}" name="national_code">
+                                                </section>
+                                                <section class="col-12 mb-2">
+                                                    <label for="address" class="form-label mb-1">رمز عبور</label>
+                                                    <input type="text" class="form-control form-control-sm" id="address"
+                                                           placeholder="رمز عبور"
+                                                           value="" name="password">
+
                                                 </section>
 
 
                                             </form>
                                         </section>
                                         <section class="modal-footer py-1">
-                                            <button type="button" class="btn btn-sm btn-primary">ثبت ویرایش</button>
+                                            <button type="button" class="btn btn-sm btn-primary submit">ثبت ویرایش</button>
                                             <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">
                                                 بستن
                                             </button>
@@ -143,14 +151,14 @@
                             <section class="col-6 border-bottom my-2 py-2">
                                 <section class="field-title">نام خانوادگی</section>
                                 <section class="field-value overflow-auto">
-                                    {{\Illuminate\Support\Facades\Auth::user()->family??''}}
+                                    {{$user->family??''}}
                                 </section>
                             </section>
 
                             <section class="col-6 border-bottom my-2 py-2">
                                 <section class="field-title">شماره تلفن همراه</section>
                                 <section class="field-value overflow-auto">
-                                    {{\Illuminate\Support\Facades\Auth::user()->mobile??''}}
+                                    {{$user->mobile??''}}
 
                                 </section>
                             </section>
@@ -158,14 +166,14 @@
                             <section class="col-6 border-bottom my-2 py-2">
                                 <section class="field-title">ایمیل</section>
                                 <section class="field-value overflow-auto">
-                                    {{\Illuminate\Support\Facades\Auth::user()->email??''}}
+                                    {{$user->email??''}}
                                 </section>
                             </section>
 
                             <section class="col-6 my-2 py-2">
                                 <section class="field-title">کد ملی</section>
                                 <section class="field-value overflow-auto">
-                                    {{\Illuminate\Support\Facades\Auth::user()->national_code??''}}
+                                    {{$user->national_code??''}}
                                 </section>
                             </section>
 
@@ -183,4 +191,12 @@
         </section>
     </section>
 
+@endsection
+@section('script')
+
+    <script>
+        $(".submit").click(function (){
+                $("#form").submit();
+        });
+    </script>
 @endsection
