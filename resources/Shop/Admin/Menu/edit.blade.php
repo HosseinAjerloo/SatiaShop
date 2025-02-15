@@ -4,7 +4,7 @@
 
     <section class="px-5">
         <h1 class="font-bold text-sm">
-            افزودن منو جدید :
+            ویرایش منو :
         </h1>
         <form action="{{route('admin.menu.update',$menu->id)}}" method="POST"  class="mt-5 space-y-3">
             @csrf
@@ -36,7 +36,7 @@
 
 
             <div class="flex items-center justify-center  w-full">
-               <button class="bg-2081F2 rounded-md py-1.5 w-full text-white">ارسال</button>
+               <button class="bg-2081F2 rounded-md py-1.5 w-full text-white">ثبت</button>
             </div>
         </form>
     </section>

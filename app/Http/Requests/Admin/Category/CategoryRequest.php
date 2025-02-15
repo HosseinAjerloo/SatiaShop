@@ -25,7 +25,7 @@ class CategoryRequest extends FormRequest
         $routeCurrent = Route::current();
         return [
             'name' => 'required|min:3',
-            'file' => [$routeCurrent->getName() == 'admin.category.update' ? 'nullable' : 'required', 'file', 'mimes:jpg,png,jpeg'],
+            'file' => [$routeCurrent->getName() == 'admin.category.update' ? 'nullable' : 'required', 'file', 'mimes:jpg,png,jpeg','max:'.env('FILE_SIZE')],
             'view_sort' => 'required',
             'status' => 'required|in:active,inactive',
             'menu_id' => 'required|exists:menus,id',

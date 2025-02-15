@@ -23,7 +23,7 @@ class SettingRequest extends FormRequest
     {
         return [
             'name'=>'required|min:3',
-            'file'=>'nullable|file|mimes:jpg,png,jpeg'
+            'file'=>'nullable|file|mimes:jpg,png,jpeg|'.'max:'.env('FILE_SIZE').' '
         ];
     }
 }

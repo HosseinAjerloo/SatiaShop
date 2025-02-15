@@ -49,9 +49,11 @@
                     <p class="text-min text-white">اپلود</p>
                     <img src="{{asset('capsule/images/upload.png')}}" alt="">
                 </div>
-                <input type="file" name="file" class="hidden" id="upload">
+                <p class="text-base text-green-500 file-name"></p>
+
+                <input type="file" name="file" class="hidden" id="upload" onchange="changed(event)">
             </div>
-            
+
 
             <div class="flex items-center justify-center  w-full">
                 <button class="bg-2081F2 rounded-md py-1.5 w-full text-white">ارسال</button>
@@ -68,6 +70,14 @@
                 $("#upload").trigger('click')
             })
         })
+
+        let fileName=document.getElementsByClassName('file-name');
+        function  changed(event){
+            if(event.target.files[0])
+            {
+                fileName[0].textContent=event.target.files[0].name
+            }
+        }
     </script>
 
 @endsection

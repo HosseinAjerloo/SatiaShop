@@ -15,15 +15,15 @@
                 <div class=" flex items-center  space-x-1 space-x-reverse h-full">
                     <img src="{{asset('capsule/images/phone.svg')}}" alt="">
                     <input type="text" placeholder="نام کاربری"
-                           class="px-1.5 placeholder:text-min h-full outline-none bg-transparent"  name="mobile">
+                           class="px-1.5 placeholder:text-min h-full outline-none bg-transparent" name="mobile">
                 </div>
             </div>
             <div class="p-1.5 border border-black/75 rounded-md h-10">
                 <div class=" flex items-center  space-x-1 space-x-reverse h-full">
                     <img src="{{asset("capsule/images/key-black.svg")}}" alt="">
-                    <input type="text" placeholder="کلمه عبور"
+                    <input type="password" placeholder="کلمه عبور"
                            class="px-1.5 placeholder:text-min h-full outline-none bg-transparent" name="password">
-                    <img src="{{asset("capsule/images/eye.svg")}}" alt="">
+                    <img src="{{asset("capsule/images/eye.svg")}}" alt="" class="cursor-pointer eye">
 
                 </div>
             </div>
@@ -31,7 +31,7 @@
                 <div class=" flex items-center  space-x-1 space-x-reverse h-full">
                     <label for="" class="text-min">مرا به خاطر بسپار</label>
                     <input type="checkbox"
-                           class="px-1.5 placeholder:text-min h-full outline-none bg-transparent"  name="rememberMe">
+                           class="px-1.5 placeholder:text-min h-full outline-none bg-transparent" name="rememberMe">
                 </div>
             </div>
 
@@ -54,4 +54,19 @@
 
         </form>
     </section>
+@endsection
+@section('script-tag')
+
+    <script>
+        $(document).ready(function () {
+            $(".eye").click(function () {
+                let inputPassword = $(this).siblings()[1];
+                if ($(inputPassword).attr('type') === 'text') {
+                    $(inputPassword).attr('type', 'password')
+                } else {
+                    $(inputPassword).attr('type', 'text')
+                }
+            })
+        })
+    </script>
 @endsection

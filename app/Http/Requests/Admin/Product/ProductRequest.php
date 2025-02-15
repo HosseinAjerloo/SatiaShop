@@ -32,7 +32,11 @@ class ProductRequest extends FormRequest
                 'status'=>'required|in:active,inactive',
                 'type'=>'required|in:goods,service',
                 'description'=>'required|min:3',
-                'file' => [$routeCurrent->getName() == 'admin.product.update' ? 'nullable' : 'required', 'file', 'mimes:jpg,png,jpeg'],
+                'file' => [
+                    $routeCurrent->getName() == 'admin.product.update' ? 'nullable' : 'required',
+                    'file',
+                    'mimes:jpg,png,jpeg',
+                    'max:'.env('FILE_SIZE')],
         ];
     }
     public function attributes()

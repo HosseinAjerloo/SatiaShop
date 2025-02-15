@@ -28,7 +28,8 @@ class BrandRequest extends FormRequest
                 'status' => 'required|in:active,inactive',
                 'file' => [
                     $route->getName() == 'admin.brand.update'?'nullable':'required',
-                    'file','mimes:jpg,png,jpeg'
+                    'file','mimes:jpg,png,jpeg',
+                    'max:'.env('FILE_SIZE')
                 ],
             ];
 
