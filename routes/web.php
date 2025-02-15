@@ -172,8 +172,9 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
         Route::get('details/{finance}',[App\Http\Controllers\Admin\FinanceTransAction\FinanceTransActionController::class,'details'])->name('details');
     });
 
-    Route::prefix('order')->name('admin.order')->group(function (){
-//           Route::get('',[App\Http\Controllers\Admin\Order\OrderController::Clَ])
+    Route::prefix('order')->name('admin.order.')->group(function (){
+           Route::get('',[App\Http\Controllers\Admin\Order\OrderController::class,'invoice'])->name('invoice');
+           Route::get('invoice/details/{invoice}',[App\Http\Controllers\Admin\Order\OrderController::class,'invoiceDetails'])->name('invoiceDetails');
     });
 });
 

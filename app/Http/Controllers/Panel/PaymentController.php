@@ -55,7 +55,14 @@ class PaymentController extends Controller
                 'status' => 'not_paid',
                 'type_of_business' => 'sales'
             ]);
-
+            foreach ($myCart->cartItem as $cartItem) {
+                $invoice->invoiceItem()->create([
+                    'product_id' => $cartItem->product_id,
+                    'price' => $cartItem->price,
+                    'amount' => $cartItem->amount,
+                    'type' => $cartItem->type
+                ]);
+            }
             $payment = Payment::create(
                 [
                     'bank_id' => $bank->id,
@@ -126,14 +133,7 @@ class PaymentController extends Controller
             $objBank->setBankModel($bank);
             $myCart = Cart::where('status', 'addToCart')->where('user_id', $user->id)->first();
             $invoice = $payment->invoice;
-            foreach ($myCart->cartItem as $cartItem) {
-                $invoice->invoiceItem()->create([
-                    'product_id' => $cartItem->product_id,
-                    'price' => $cartItem->price,
-                    'amount' => $cartItem->amount,
-                    'type' => $cartItem->type
-                ]);
-            }
+
 
             Log::channel('bankLog')->emergency(PHP_EOL . "Return from the bank and the bank's response to the purchase order " . PHP_EOL . json_encode($request->all()) . PHP_EOL .
                 'Bank message: ' . PHP_EOL . $objBank->transactionStatus() . PHP_EOL .

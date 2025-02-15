@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -26,7 +28,16 @@ class Invoice extends Model
             'discount_id'
         ];
 
+    public function scopeSearch(Builder $query): void
+    {
 
+        $query->when(request()->input('date'),function ($query){
+            $query->whereDate('created_at',">=",Carbon::now()->subMonths(request()->input('date'))->toDateString());
+        })->when(request()->input('name'),function ($query){
+            $user=User::where('mobile',request()->input('name'))->first();
+            $query->where('user_id',$user->id);
+        });
+    }
 
     public function invoiceItem(){
         return $this->hasMany(InvoiceItem::class,'invoice_id');
@@ -63,32 +74,16 @@ class Invoice extends Model
     }
 
 
+
     public function transferm()
     {
         return $this->hasOne(Transmission::class, 'invoice_id');
     }
 
 
-    public function voucherAmount()
-    {
-        if ($this->service_id) {
-            return $this->service->amount;
-        } elseif ($this->service_id_custom) {
-            return $this->service_id_custom;
-        } else {
-            return false;
-        }
-    }
 
-    public function persianType()
-    {
-        return match ($this->type) {
-            "service" => "خرید کارت هدیه پرفکت مانی",
-            "wallet" => "افزایش کیف پول",
-            "transmission" => "انتقال حواله کارت هدیه پرفکت مانی",
-            default => ''
-        };
-    }
+
+
     public function statusPayment():bool
     {
         return $this->status=='paid'?true:false;
