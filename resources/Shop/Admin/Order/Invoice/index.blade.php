@@ -67,6 +67,11 @@
 
             <div class="w-1/5">
                 <h1 class="text-white text-min font-bold text-center">
+                    مبلغ کل (تومان)
+                </h1>
+            </div>
+            <div class="w-1/5">
+                <h1 class="text-white text-min font-bold text-center">
                     مشاهده جزئیات
                 </h1>
             </div>
@@ -106,6 +111,11 @@
                     <div class="w-1/5 h-full">
                         <p class="text-black  text-min_sm font-bold  h-full flex items-center justify-center text-center">
                             {{$invoiceOrder->statusPayment()?'پرداخت شده':'پرداخت انجام نشده'}}
+                        </p>
+                    </div>
+                    <div class="w-1/5 h-full">
+                        <p class="text-black  text-min_sm font-bold  h-full flex items-center justify-center text-center">
+                            {{numberFormat(($invoiceOrder->final_amount/10))}}
                         </p>
                     </div>
 
