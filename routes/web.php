@@ -175,6 +175,7 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
     Route::prefix('order')->name('admin.order.')->group(function (){
            Route::get('',[App\Http\Controllers\Admin\Order\OrderController::class,'invoice'])->name('invoice');
            Route::get('invoice/details/{invoice}',[App\Http\Controllers\Admin\Order\OrderController::class,'invoiceDetails'])->name('invoiceDetails');
+           Route::get('index',[App\Http\Controllers\Admin\Order\OrderController::class,'index'])->name('index');
     });
 });
 
