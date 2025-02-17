@@ -30,7 +30,7 @@
                                                         <a class="product-link"
                                                            href="{{ $category->chidren()->count()?route('panel.underCategory',$category->name):route('panel.products',$category->name)}}">
                                                             <section class="product-image">
-                                                                <img class="" src="{{$category->image?->path}}" alt="">
+                                                                <img class="" src="{{asset($category->image?->path)}}" alt="">
                                                             </section>
                                                             <section class="product-colors"></section>
                                                             <section class="product-name">
