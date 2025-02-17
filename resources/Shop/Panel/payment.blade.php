@@ -160,8 +160,9 @@
                                              class="text-warning border border-warning text-center py-2 pointer rounded-2 d-block">
                                         نوع پرداخت را انتخاب کن
                                     </section>
-                                    <section id="final-level" href="my-orders.html" class="btn btn-danger d-none">ثبت سفارش و
-                                        گرفتن کد رهگیری</section>
+                                    <section id="final-level" href="my-orders.html" class="btn btn-danger d-none">
+                                        پرداخت و گرفتن کد رهگیری
+                                    </section>
                                 </section>
 
                             </section>

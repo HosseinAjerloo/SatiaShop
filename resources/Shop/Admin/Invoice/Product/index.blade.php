@@ -66,12 +66,12 @@
                         </p>
                     </a>
                     <div class="w-1/5">
-                        <p class="text-sky-500  text-min_sm font-bold  h-full flex items-center justify-center text-center underline underline-offset-4 ">
+                        <p class=" text-min_sm font-bold  h-full flex items-center justify-center text-center   ">
                             {{$invoice->supplier->name??''}}
                         </p>
                     </div>
                     <div class="w-1/5">
-                        <p class="text-sky-500  text-min_sm font-bold  h-full flex items-center justify-center text-center underline underline-offset-4 ">
+                        <p class="  text-min_sm font-bold  h-full flex items-center justify-center text-center  ">
                             {{numberFormat($invoice->final_amount)??''}}
                         </p>
                     </div>
