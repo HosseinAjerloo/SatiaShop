@@ -58,6 +58,7 @@ class LoginController extends Controller
         $remember = $simpleLoginPost->has('rememberMe') ? true : false;
 
         Auth::loginUsingId($user->id, $remember);
+        $this->ipConnectionToUserID();
         return redirect()->intended(route('panel.index'));
     }
 

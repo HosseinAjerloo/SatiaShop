@@ -2,10 +2,12 @@
 
 namespace App\Http\Traits;
 
+use App\Models\Cart;
 use App\Models\Otp;
 use App\Models\User;
 use App\Services\SmsService\SatiaService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
@@ -54,6 +56,13 @@ trait HasLogin
     {
         $user = $this->user;
         return $user->password ? true : false;
+    }
+
+    protected function ipConnectionToUserID()
+    {
+        $user=Auth::user();
+        $myCart = Cart::where('status', 'addToCart')->first();
+        $myCart->update(['user_id'=>$user->id]);
     }
 
 
