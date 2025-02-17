@@ -118,9 +118,4 @@ class SatiaService
 
     }
 
-    public function addrequest(Request $request)
-    {
-        $request->request->add(['hossein' => 'ajerloo']);
-        return $request;
-    }
 }

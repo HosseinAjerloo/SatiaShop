@@ -162,7 +162,8 @@
 
             $.each(products, function (index, value) {
                 if (!productSelect.includes(value.id + '')) {
-                    html += "<option value='" + value.id + "' " + ((value.id) % 2 == 0 ? 'selected=selected' : '') + " >" + value.title + "</option>"
+                    let title=value.title
+                    html += "<option value='" + value.id + "' " + ((value.id) % 2 == 0 ? 'selected=selected' : '') + " >" + title.replaceAll('-',' ') + "</option>"
                 }
 
             })
@@ -190,12 +191,14 @@
 
 
                 $.each(products, function (productsIndex, productsIndexValue) {
+                    let title=productsIndexValue.title
+
                     if (select === productsIndexValue.id + '') {
-                        $(value).append("<option value='" + productsIndexValue.id + "' selected='selected'>" + productsIndexValue.title + "</option>")
+                        $(value).append("<option value='" + productsIndexValue.id + "' selected='selected'>" + title.replaceAll('-',' ') + "</option>")
                     }
 
                     if (!productSelect.includes(productsIndexValue.id + '')) {
-                        $(value).append("<option value='" + productsIndexValue.id + "'>" + productsIndexValue.title + "</option>")
+                        $(value).append("<option value='" + productsIndexValue.id + "'>" + title.replaceAll('-',' ') + "</option>")
 
                     }
 

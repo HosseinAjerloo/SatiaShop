@@ -4,7 +4,7 @@
 
     <section class="px-5">
         <h1 class="font-bold text-sm">
-            ویرایش دسته بندی :
+            ویرایش محصول یا سرویس :
         </h1>
         <form action="{{route('admin.product.update',$product->id)}}" method="POST" enctype="multipart/form-data"
               class="mt-5 space-y-3">

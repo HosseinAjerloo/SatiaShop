@@ -35,7 +35,7 @@
 
                 <article class="space-y-3 border-b-2 border-black/40 pb-3">
                     <div class="flex items-center space-x-reverse space-x-8">
-                        <h5 class="text-min font-light w-28"> قیمت هر واحد :</h5>
+                        <h5 class="text-min font-light w-28"> قیمت هر واحد (ریال):</h5>
                         <input type="text" name="price[]" class="outline-none border border-black rounded-md w-48">
                     </div>
                     <div class="flex items-center space-x-reverse space-x-8">
@@ -50,7 +50,7 @@
 
                             @foreach($products as $product)
                                 <option @if($product->id==1) selected="selected"
-                                        @endif  value="{{$product->id}}">{{$product->title}}</option>
+                                        @endif  value="{{$product->id}}">{{$product->removeUnderLine}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -111,7 +111,7 @@
 
             var record = '<article class="space-y-3 border-b-2 border-black/40 pb-3">' +
                 '<div class="flex items-center space-x-reverse space-x-8">' +
-                '<h5 class="text-min font-light w-28"> قیمت هر واحد :</h5>' +
+                '<h5 class="text-min font-light w-28"> قیمت هر واحد(ریال) :</h5>' +
                 '<input type="text" name="price[]" class="outline-none border border-black rounded-md w-48">' +
                 '</div>' +
                 '<div class="flex items-center space-x-reverse space-x-8">' +
@@ -169,8 +169,9 @@
 
 
             $.each(products, function (index, value) {
+                let title=value.title;
                 if (!productSelect.includes(value.id + '')) {
-                    html += "<option value='" + value.id + "' " + ((value.id) % 2 == 0 ? 'selected=selected' : '') + " >" + value.title + "</option>"
+                    html += "<option value='" + value.id + "' " + ((value.id) % 2 == 0 ? 'selected=selected' : '') + " >" + title.replaceAll('-' ,' ') + "</option>"
                 }
 
             })
@@ -198,12 +199,14 @@
 
 
                 $.each(products, function (productsIndex, productsIndexValue) {
+                    let title=productsIndexValue.title;
+
                     if (select === productsIndexValue.id + '') {
-                        $(value).append("<option value='" + productsIndexValue.id + "' selected='selected'>" + productsIndexValue.title + "</option>")
+                        $(value).append("<option value='" + productsIndexValue.id + "' selected='selected'>" + title.replaceAll('-',' ') + "</option>")
                     }
 
                     if (!productSelect.includes(productsIndexValue.id + '')) {
-                        $(value).append("<option value='" + productsIndexValue.id + "'>" + productsIndexValue.title + "</option>")
+                        $(value).append("<option value='" + productsIndexValue.id + "'>" + title.replaceAll('-',' ') + "</option>")
 
                     }
 
