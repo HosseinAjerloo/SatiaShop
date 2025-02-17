@@ -60,9 +60,11 @@ trait HasLogin
 
     protected function ipConnectionToUserID()
     {
+
         $user=Auth::user();
-        $myCart = Cart::where('status', 'addToCart')->first();
-        $myCart->update(['user_id'=>$user->id]);
+        $myCart = Cart::where('status', 'addToCart')->where('user_ip',\request()->ip())->first();
+       if ($myCart)
+           $myCart->update(['user_id'=>$user->id,'ip']);
     }
 
 
