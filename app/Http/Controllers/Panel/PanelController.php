@@ -49,6 +49,13 @@ class PanelController extends Controller
         return view('Panel.index',compact('menus','brands','breadcrumbs'));
     }
 
+    public function underCategory(Category $category)
+    {
+        $brands=Brand::where('status','active')->get();
+        $breadcrumbs=Breadcrumbs::render('panel.underCategory',$category)->getData()['breadcrumbs'];
+        return view('Panel.underCategory',compact('category','brands','breadcrumbs'));
+    }
+
     public function products(Category $category){
 
         $breadcrumbs=Breadcrumbs::render('panel.products',$category)->getData()['breadcrumbs'];

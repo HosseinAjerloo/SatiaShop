@@ -26,6 +26,7 @@ Route::get('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'
 
 
 Route::get('', [App\Http\Controllers\Panel\PanelController::class, 'index'])->name('panel.index');
+Route::get('under-category/{category:name}', [App\Http\Controllers\Panel\PanelController::class, 'underCategory'])->name('panel.underCategory');
 Route::get('products/{category:name}', [App\Http\Controllers\Panel\PanelController::class, 'products'])->name('panel.products');
 Route::get('product/{product:title}', [App\Http\Controllers\Panel\PanelController::class, 'product'])->name('panel.product');
 Route::post('find-product', [App\Http\Controllers\Panel\PanelController::class, 'findProductWithAjax'])->name('panel.product.find');

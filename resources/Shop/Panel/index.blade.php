@@ -28,7 +28,7 @@
                                             <section class="lazyload-item-wrapper">
                                                 <section class="product">
                                                     <a class="product-link"
-                                                       href="{{route('panel.products',$category->name)}}">
+                                                       href="{{ $category->chidren()->count()?route('panel.underCategory',$category->name):route('panel.products',$category->name)}}">
                                                         <section class="product-image">
                                                             <img class="" src="{{$category->image?->path}}" alt="">
                                                         </section>
