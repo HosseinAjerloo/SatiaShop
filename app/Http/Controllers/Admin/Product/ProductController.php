@@ -136,8 +136,10 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Product $product)
     {
-        //
+        $type=$product->getTypePersian;
+        $result = $product->delete();
+        return $result ? redirect()->route('admin.product.index')->with(['success' => 'حذف '.$type.' با موفقیت انجام شد']) : redirect()->route('admin.product.index')->withErrors(['error' => 'حذف '.$type.' با خطا روبه رو شد']);
     }
 }

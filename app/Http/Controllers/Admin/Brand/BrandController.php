@@ -111,8 +111,13 @@ class BrandController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Brand $brand)
     {
-        //
+        if ($brand->productes()->count())
+        {
+            return redirect()->route('admin.brand.index')->withErrors(['error' => 'این برند دارای محصولاتی میباشد لطفا ابتدا محصولات مربوط به این برند را به برند دیگیری انتقال دهید.']);
+        }
+        $result = $brand->delete();
+        return $result ? redirect()->route('admin.brand.index')->with(['success' => 'حذف برند با موفقیت انجام شد']) : redirect()->route('admin.brand.index')->withErrors(['error' => 'حذف برند با خطا مواجه شد']);
     }
 }

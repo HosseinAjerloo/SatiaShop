@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Menu;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Menu\MenuRequest;
+use App\Models\Category;
 use App\Models\Menu;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 
@@ -72,8 +73,14 @@ class MenuController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Menu $menu)
     {
-        //
+        if ($menu->category()->count())
+        {
+            return redirect()->route('admin.menu.index')->withErrors(['error' => 'این منو دسته هایی مرتبط با خود دارد لطفا محل نمایش دسته های مربوط به این منو را در منو دیگر قرار دهید']);
+        }
+        $result = $menu->delete();
+        return $result ? redirect()->route('admin.menu.index')->with(['success' => 'حذف منو با موفقیت انجام شد']) : redirect()->route('admin.category.index')->withErrors(['error' => 'حذف منو با خطا مواجه شد']);
     }
+
 }

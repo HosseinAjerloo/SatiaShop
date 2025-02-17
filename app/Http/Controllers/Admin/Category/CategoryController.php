@@ -21,10 +21,10 @@ class CategoryController extends Controller
     {
 
         $categories = Category::Search()->get();
-        $breadcrumbs=Breadcrumbs::render('admin.category.index')->getData()['breadcrumbs'];
+        $breadcrumbs = Breadcrumbs::render('admin.category.index')->getData()['breadcrumbs'];
 //        $request->
 
-        return view('Admin.ProductCategory.index', compact('categories','breadcrumbs'));
+        return view('Admin.ProductCategory.index', compact('categories', 'breadcrumbs'));
     }
 
     /**
@@ -33,10 +33,10 @@ class CategoryController extends Controller
     public function create()
     {
         $menus = Menu::where("status", 'active')->get();
-        $categories=Category::withCount('chidren')->having('chidren_count',"<",3)->where("status", 'active')->get();
-        $breadcrumbs=Breadcrumbs::render('admin.category.create')->getData()['breadcrumbs'];
+        $categories = Category::withCount('chidren')->having('chidren_count', "<", 3)->where("status", 'active')->get();
+        $breadcrumbs = Breadcrumbs::render('admin.category.create')->getData()['breadcrumbs'];
 
-        return view('Admin.ProductCategory.create', compact('menus', 'categories','breadcrumbs'));
+        return view('Admin.ProductCategory.create', compact('menus', 'categories', 'breadcrumbs'));
 
     }
 
@@ -83,10 +83,10 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         $menus = Menu::where("status", 'active')->get();
-        $categories=Category::withCount('chidren')->having('chidren_count',"<",3)->where("status", 'active')->get()->except($category->id);
-        $breadcrumbs=Breadcrumbs::render('admin.category.edit',$category)->getData()['breadcrumbs'];
+        $categories = Category::withCount('chidren')->having('chidren_count', "<", 3)->where("status", 'active')->get()->except($category->id);
+        $breadcrumbs = Breadcrumbs::render('admin.category.edit', $category)->getData()['breadcrumbs'];
 
-        return view('Admin.ProductCategory.edit', compact('menus', 'categories', 'category','breadcrumbs'));
+        return view('Admin.ProductCategory.edit', compact('menus', 'categories', 'category', 'breadcrumbs'));
     }
 
     /**
@@ -116,7 +116,7 @@ class CategoryController extends Controller
                 ]);
             }
         }
-        $category =$category->update($inputs);
+        $category = $category->update($inputs);
         if ($category) {
             return redirect()->route('admin.category.index')->with(['success' => 'دسته بندی شما ویرایش شد']);
         } else {
@@ -127,8 +127,13 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Category $category)
     {
-        //
+        if ($category->productes()->count())
+        {
+            return redirect()->route('admin.category.index')->withErrors(['error' => 'این دسته دارای محصولاتی میباشد لطفا ابتدا محصولات مربوط به این دسته را به دسته دیگیری انتقال دهید.']);
+        }
+        $result = $category->delete();
+        return $result ? redirect()->route('admin.category.index')->with(['success' => 'حذف دسته با موفقیت انجام شد']) : redirect()->route('admin.category.index')->withErrors(['error' => 'حذف دسته با خطا مواجه شد']);
     }
 }

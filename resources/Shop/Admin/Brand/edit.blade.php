@@ -53,6 +53,14 @@
 
                 <input type="file" name="file" class="hidden" id="upload" onchange="changed(event)">
             </div>
+            <a href="{{route('admin.brand.destroy',$brand)}}" class="flex items-center space-x-reverse space-x-8 ">
+                <h5 class="text-min font-light w-28">حذف برند:</h5>
+                <div
+                    class=" border border-black rounded-md px-2 bg-red-500 py-1.5 flex items-center justify-center space-x-1 space-x-reverse">
+                    <p class="text-min text-white font-bold">حذف کردن</p>
+                    <img src="{{asset('capsule/images/delete.svg')}}" alt="" class="w-5">
+                </div>
+            </a>
 
 
             <div class="flex items-center justify-center  w-full">

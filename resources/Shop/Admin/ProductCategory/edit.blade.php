@@ -21,7 +21,7 @@
             <div class="flex items-center space-x-reverse space-x-8">
                 <h5 class="text-min font-light w-28">نام دسته بندی:</h5>
                 <input type="text" name="name" class="outline-none border border-black rounded-md w-48"
-                       value="{{old('name',$category->name)}}">
+                       value="{{old('name',$category->removeUnderLine)}}">
             </div>
 
             <div class="flex items-center space-x-reverse space-x-8">
@@ -79,12 +79,17 @@
                 <input type="file" name="file" class="hidden" id="upload" onchange="changed(event)">
             </div>
 
-            <div class="flex items-center space-x-reverse space-x-8 ">
-                <h5 class="text-min font-light w-28">توضیحات:</h5>
-            </div>
+            <a href="{{route('admin.category.destroy',$category)}}" class="flex items-center space-x-reverse space-x-8 ">
+                <h5 class="text-min font-light w-28">حذف دسته:</h5>
+                <div
+                    class=" border border-black rounded-md px-2 bg-red-500 py-1.5 flex items-center justify-center space-x-1 space-x-reverse">
+                    <p class="text-min text-white font-bold">حذف کردن</p>
+                    <img src="{{asset('capsule/images/delete.svg')}}" alt="" class="w-5">
+                </div>
+            </a>
 
             <div class="flex items-center justify-center  w-full">
-                <button class="bg-2081F2 rounded-md py-1.5 w-full text-white">ارسال</button>
+                <button class="bg-2081F2 rounded-md py-1.5 w-full text-white">ویرایش</button>
             </div>
         </form>
     </section>

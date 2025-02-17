@@ -30,9 +30,17 @@
                 </div>
             </div>
             <div class="flex items-center space-x-reverse space-x-8 ">
-                <h5 class="text-min font-light w-28">نمایش:</h5>
+                <h5 class="text-min font-light w-28">ترتیب نمایش:</h5>
                 <input type="text" class="outline-none border border-black rounded-md w-14" name="view_sort" value="{{old('view_sort',$menu->view_sort)}}">
             </div>
+            <a href="{{route('admin.menu.destroy',$menu)}}" class="flex items-center space-x-reverse space-x-8 ">
+                <h5 class="text-min font-light w-28">حذف دسته:</h5>
+                <div
+                    class=" border border-black rounded-md px-2 bg-red-500 py-1.5 flex items-center justify-center space-x-1 space-x-reverse">
+                    <p class="text-min text-white font-bold">حذف کردن</p>
+                    <img src="{{asset('capsule/images/delete.svg')}}" alt="" class="w-5">
+                </div>
+            </a>
 
 
             <div class="flex items-center justify-center  w-full">

@@ -84,6 +84,7 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
         Route::post('store', [\App\Http\Controllers\Admin\Menu\MenuController::class, 'store'])->name('store');
         Route::get('edit/{menu}', [\App\Http\Controllers\Admin\Menu\MenuController::class, 'edit'])->name('edit');
         Route::put('update/{menu}', [\App\Http\Controllers\Admin\Menu\MenuController::class, 'update'])->name('update');
+        Route::get('destroy/{menu}', [\App\Http\Controllers\Admin\Menu\MenuController::class, 'destroy'])->name('destroy');
     });
 
     //ADMINSETTING
@@ -100,6 +101,7 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
         Route::post('store', [\App\Http\Controllers\Admin\Category\CategoryController::class, 'store'])->name('store');
         Route::get('edit/{category}', [\App\Http\Controllers\Admin\Category\CategoryController::class, 'edit'])->name('edit');
         Route::put('update/{category}', [\App\Http\Controllers\Admin\Category\CategoryController::class, 'update'])->name('update');
+        Route::get('destroy/{category}', [\App\Http\Controllers\Admin\Category\CategoryController::class, 'destroy'])->name('destroy');
     });
 
     //BRAND
@@ -110,6 +112,7 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
         Route::post('store', [App\Http\Controllers\Admin\Brand\BrandController::class, 'store'])->name('store');
         Route::get('edit/{brand}', [\App\Http\Controllers\Admin\Brand\BrandController::class, 'edit'])->name('edit');
         Route::put('update/{brand}', [\App\Http\Controllers\Admin\Brand\BrandController::class, 'update'])->name('update');
+        Route::get('destroy/{brand}', [\App\Http\Controllers\Admin\Brand\BrandController::class, 'destroy'])->name('destroy');
     });
     //ADMIN ADD PRODUCT
 
@@ -119,6 +122,7 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
         Route::post('store', [App\Http\Controllers\Admin\Product\ProductController::class, 'store'])->name('store');
         Route::get('edit/{product}', [App\Http\Controllers\Admin\Product\ProductController::class, 'edit'])->name('edit');
         Route::put('update/{product}', [App\Http\Controllers\Admin\Product\ProductController::class, 'update'])->name('update');
+        Route::get('destroy/{product}', [App\Http\Controllers\Admin\Product\ProductController::class, 'destroy'])->name('destroy');
 
     });
 

@@ -35,7 +35,7 @@
 
                     @foreach($categories as $category)
                         <option
-                            @selected(old('category_id',$product->category_id)==$category->id) value="{{$category->id}}">{{$category->name??''}}</option>
+                            @selected(old('category_id',$product->category_id)==$category->id) value="{{$category->id}}">{{$category->removeUnderLine??''}}</option>
                     @endforeach
                 </select>
             </div>
@@ -94,9 +94,14 @@
                 <input type="file" name="file" class="hidden" id="upload" onchange="changed(event)">
             </div>
 
-            <div class="flex items-center space-x-reverse space-x-8 ">
-                <h5 class="text-min font-light w-28">توضیحات:</h5>
-            </div>
+            <a href="{{route('admin.product.destroy',$product)}}" class="flex items-center space-x-reverse space-x-8 ">
+                <h5 class="text-min font-light w-28">حذف محصول:</h5>
+                <div
+                    class=" border border-black rounded-md px-2 bg-red-500 py-1.5 flex items-center justify-center space-x-1 space-x-reverse">
+                    <p class="text-min text-white font-bold">حذف کردن</p>
+                    <img src="{{asset('capsule/images/delete.svg')}}" alt="" class="w-5">
+                </div>
+            </a>
             <div>
                     <textarea name="description" id="editor1" rows="10" cols="80">
                         {{$product->description??''}}

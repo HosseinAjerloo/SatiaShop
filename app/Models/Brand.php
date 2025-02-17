@@ -38,4 +38,8 @@ class Brand extends Model
     {
         return $this->morphOne(File::class,'files','fileable_type','fileable_id');
     }
+    public function productes()
+    {
+        return $this->hasMany(Product::class,'brand_id');
+    }
 }

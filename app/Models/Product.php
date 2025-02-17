@@ -59,7 +59,7 @@ class Product extends Model
     {
 
         return Attribute::make(
-            
+
             set: fn($value)=>preg_replace("/(\s){1,}/imu",'-',$value)
         );
     }
@@ -171,4 +171,10 @@ class Product extends Model
         return false;
 
     }
+    public function  getTypePersian():Attribute{
+        return  Attribute::make(
+          get: fn()=>$this->type=='goods'?'کالا' :'سرویس'
+        );
+    }
+
 }
