@@ -188,9 +188,7 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
 Route::fallback(function () {
     abort(404);
 });
-Route::get('test', function (\Illuminate\Http\Request $request) {
-session(['cart_id'=>57]);
-});
+
 
 
 
