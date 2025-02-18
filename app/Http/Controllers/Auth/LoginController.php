@@ -139,7 +139,10 @@ class LoginController extends Controller
                 'password' => password_hash($inputs['password'], PASSWORD_DEFAULT)
             ]);
             $code->update(['seen_at' => date('Y/m/d H:i:s', time())]);
+            $cart=\session()->get('cart_id');
             Auth::loginUsingId($user->id);
+            \session(['cart_id'=>$cart]);
+
             return redirect()->intended(route('panel.index'));
         } else {
             return redirect()->route('register', $otp->token)->withErrors(['expiration_at' => "کد وارد شده صحیح نمیباشد "]);
