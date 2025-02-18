@@ -17,12 +17,13 @@ class CartController extends Controller
 
     public function index(Request $request)
     {
-
         $user = Auth::user();
-        $myCart = Cart::where('status', 'addToCart')->where(function ($query) use ($request, $user) {
-            $query->orWhere('user_id', $user ? $user->id : null)->orWhere('user_ip', $request->ip());
-
+        $myCart = Cart::where('status', 'addToCart')->when($user,function ($query) use ($user) {
+            $query->where('user_id',  $user->id);
+        })->when(!$user,function ($query){
+            $query->where('id', session()->get('cart_id'));
         })->first();
+
         if (!$myCart)
             return redirect()->route('panel.index')->withErrors(['error'=>'سبد خرید شما خالی است لطفا کالایی را انتخاب کنید']);
         $breadcrumbs=Breadcrumbs::render('panel.cart.index')->getData()['breadcrumbs'];
@@ -41,10 +42,12 @@ class CartController extends Controller
 
         $request->request->add(['product' => $product]);
 
-        $myCart = Cart::where('status', 'addToCart')->where(function ($query) use ($request, $user) {
-            $query->orWhere('user_id', $user ? $user->id : null)->orWhere('user_ip', $request->ip());
-
+        $myCart = Cart::where('status', 'addToCart')->when($user,function ($query) use ($user) {
+            $query->where('user_id',  $user->id);
+        })->when(!$user,function ($query){
+            $query->where('id', session()->get('cart_id'));
         })->first();
+
         if (!empty($myCart)) {
             $myCartItem = CartItem::where('product_id', $product->id)->whereIn('cart_id', [$myCart->id])->get();
             if ($myCartItem->count() > 0)
@@ -58,6 +61,7 @@ class CartController extends Controller
                 'user_ip' => $request->ip(),
                 'finalPrice' => null
             ]);
+            session(['cart_id'=>$myCart->id]);
             return $this->checkThe_conditionsOf_TheShopping_cart($request, $myCart);
         }
 
@@ -71,10 +75,12 @@ class CartController extends Controller
         if (!$product or !$request->has('amount'))
             return response()->json(['message' => 'موردی یافت نشد لطفا شبکه خود را چک کنید', 'status' => false]);
 
-        $myCart = Cart::where('status', 'addToCart')->where(function ($query) use ($request, $user) {
-            $query->orWhere('user_id', $user ? $user->id : null)->orWhere('user_ip', $request->ip());
-
+        $myCart = Cart::where('status', 'addToCart')->when($user,function ($query) use ($user) {
+            $query->where('user_id',  $user->id);
+        })->when(!$user,function ($query){
+            $query->where('id', session()->get('cart_id'));
         })->first();
+
 
         if ($product->isRemaining()) {
             $result = $myCart->cartItem()->where('product_id', $product->id)->update([
@@ -99,10 +105,13 @@ class CartController extends Controller
         if (!$product or !$request->has('amount'))
             return response()->json(['message' => 'موردی یافت نشد لطفا شبکه خود را چک کنید', 'status' => false]);
 
-        $myCart = Cart::where('status', 'addToCart')->where(function ($query) use ($request, $user) {
-            $query->orWhere('user_id', $user ? $user->id : null)->orWhere('user_ip', $request->ip());
 
+        $myCart = Cart::where('status', 'addToCart')->when($user,function ($query) use ($user) {
+            $query->where('user_id',  $user->id);
+        })->when(!$user,function ($query){
+            $query->where('id', session()->get('cart_id'));
         })->first();
+
         if ($request->amount >= 1) {
             $result = $myCart->cartItem()->where('product_id', $product->id)->update([
                 'amount' => $request->amount
@@ -119,10 +128,13 @@ class CartController extends Controller
     public function destroy(CartItem $cartItem,Request $request)
     {
         $user = Auth::user();
-        $myCart = Cart::where('status', 'addToCart')->where(function ($query) use ($request, $user) {
-            $query->orWhere('user_id', $user ? $user->id : null)->orWhere('user_ip', $request->ip());
 
+        $myCart = Cart::where('status', 'addToCart')->when($user,function ($query) use ($user) {
+            $query->where('user_id',  $user->id);
+        })->when(!$user,function ($query){
+            $query->where('id', session()->get('cart_id'));
         })->first();
+
         $cartItem->delete();
         $this->updateTotolProceCart($myCart);
 

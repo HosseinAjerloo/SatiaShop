@@ -25,10 +25,14 @@ class PaymentController extends Controller
     public function advance(Request $request)
     {
         $user = Auth::user();
-        $myCart = Cart::where('status', 'addToCart')->where(function ($query) use ($request, $user) {
-            $query->orWhere('user_id', $user ? $user->id : null)->orWhere('user_ip', $request->ip());
 
+
+        $myCart = Cart::where('status', 'addToCart')->when($user,function ($query) use ($user) {
+            $query->where('user_id',  $user->id);
+        })->when(!$user,function ($query){
+            $query->where('id', session()->get('cart_id'));
         })->first();
+
         if (!$myCart)
             return redirect()->route('panel.index')->with(['error'=>'سبد خرید شما خالی است لطفا کالایی را انتخاب کنید']);
         $banks=Bank::where("is_active",'1')->get();

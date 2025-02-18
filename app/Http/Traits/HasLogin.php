@@ -62,9 +62,11 @@ trait HasLogin
     {
 
         $user=Auth::user();
-        $myCart = Cart::where('status', 'addToCart')->where('user_ip',\request()->ip())->first();
-       if ($myCart)
+        $myCart = Cart::where('status', 'addToCart')->where('id', session()->get('cart_id'))->first();
+       if ($myCart){
            $myCart->update(['user_id'=>$user->id,'ip']);
+           $this->myCartMerge();
+       }
     }
 
 

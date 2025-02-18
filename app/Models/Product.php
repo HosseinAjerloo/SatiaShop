@@ -158,10 +158,13 @@ class Product extends Model
     public function productExistsInCart(): bool
     {
         $user = Auth::user();
-        $myCart = Cart::where('status', 'addToCart')->where(function ($query) use ($user) {
-            $query->orWhere('user_id', $user ? $user->id : null)->orWhere('user_ip', request()->ip());
 
+        $myCart = Cart::where('status', 'addToCart')->when($user,function ($query) use ($user) {
+            $query->where('user_id',  $user->id);
+        })->when(!$user,function ($query){
+            $query->where('id', session()->get('cart_id'));
         })->first();
+
         if (!empty($myCart)) {
             $myCartItem = CartItem::where('product_id', $this->id)->whereIn('cart_id', [$myCart->id])->get();
             if ($myCartItem->count() > 0)

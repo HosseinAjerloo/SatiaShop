@@ -5,6 +5,7 @@ namespace App\Http\Traits;
 use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 trait HasCart
 {
@@ -67,5 +68,42 @@ trait HasCart
         $myCart->update([
             'finalPrice'=>$totalPrice
         ]);
+    }
+
+    protected function myCartMerge()
+    {
+        $user=Auth::user();
+        $myCart = Cart::where('status', 'addToCart')->where('user_id', $user->id)->orderBy('id','desc')->get();
+
+        if ($myCart->count())
+        {
+            $lastCreateCart=$myCart->first();
+            $lastCreateCartItem=$lastCreateCart->cartItem;
+
+            $theOtherCarts=$myCart->except($lastCreateCart->id);
+            foreach ($theOtherCarts as $theOtherCart)
+            {
+                if ($theOtherCart->cartItem()->count())
+                {
+                    foreach ($theOtherCart->cartItem as $cartItem)
+                    {
+                        if (in_array($cartItem->product_id,$lastCreateCartItem->pluck('product_id')->toArray()))
+                        {
+                            $item=$lastCreateCartItem->where('product_id',$cartItem->product_id)->first();
+                            $item->update(['amount'=>$item->amount+$cartItem->amount]);
+                        }
+                        else{
+                            $lastCreateCart->cartItem()->create($cartItem->toArray());
+                        }
+                    }
+                }
+                $theOtherCart->forceDelete();
+            }
+            $myCart = Cart::where('status', 'addToCart')->where('user_id', $user->id)->orderBy('id','desc')->first();
+            \session(['cart_id'=>$myCart->id]);
+            $this->updateTotolProceCart($myCart);
+
+        }
+
     }
 }

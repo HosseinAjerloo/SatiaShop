@@ -4,7 +4,9 @@
 use App\Models\Cart;
 use App\Models\CartItem;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Traits\HasCart;
 
 Route::middleware('guest')->group(function () {
     Route::name('login.')->prefix('login')->group(function () {
@@ -41,20 +43,20 @@ Route::prefix('cart')->name('panel.cart.')->group(function () {
 //PANEL
 Route::middleware(['auth'])->name('panel.')->group(function () {
     Route::prefix('payment')->name('payment.')->group(function () {
-        Route::get('advance',[App\Http\Controllers\Panel\PaymentController::class, 'advance'])->name('advance');
+        Route::get('advance', [App\Http\Controllers\Panel\PaymentController::class, 'advance'])->name('advance');
         Route::post('', [App\Http\Controllers\Panel\PaymentController::class, 'payment'])->name('payment');
         Route::post('paymentBack', [App\Http\Controllers\Panel\PaymentController::class, 'paymentBack'])->withoutMiddleware(Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class)->name('back');
     });
 
-    Route::prefix('order')->name('order.')->group(function (){
-       Route::get('',[App\Http\Controllers\Panel\OrderController::class,'index'])->name('index');
-       Route::get('invoice-detail-report/{invoice}',[App\Http\Controllers\Panel\OrderController::class,'invoiceDetail'])->name('invoiceDetail');
+    Route::prefix('order')->name('order.')->group(function () {
+        Route::get('', [App\Http\Controllers\Panel\OrderController::class, 'index'])->name('index');
+        Route::get('invoice-detail-report/{invoice}', [App\Http\Controllers\Panel\OrderController::class, 'invoiceDetail'])->name('invoiceDetail');
     });
 
 
-    Route::prefix('my-profile')->name('my-profile.')->group(function (){
-        Route::get('',[App\Http\Controllers\Panel\UserController::class,'index'])->name("index");
-        Route::put('update',[App\Http\Controllers\Panel\UserController::class,'update'])->name('update');
+    Route::prefix('my-profile')->name('my-profile.')->group(function () {
+        Route::get('', [App\Http\Controllers\Panel\UserController::class, 'index'])->name("index");
+        Route::put('update', [App\Http\Controllers\Panel\UserController::class, 'update'])->name('update');
 
     });
 
@@ -163,24 +165,22 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
         });
 
 
-
-
     });
 
-    Route::prefix('product-transaction')->name('admin.product.transaction.')->group(function (){
-        Route::get('',[App\Http\Controllers\Admin\ProductTransaction\ProductTransactionController::class,'index'])->name('index');
-        Route::get('details/{product}',[App\Http\Controllers\Admin\ProductTransaction\ProductTransactionController::class,'details'])->name('details');
+    Route::prefix('product-transaction')->name('admin.product.transaction.')->group(function () {
+        Route::get('', [App\Http\Controllers\Admin\ProductTransaction\ProductTransactionController::class, 'index'])->name('index');
+        Route::get('details/{product}', [App\Http\Controllers\Admin\ProductTransaction\ProductTransactionController::class, 'details'])->name('details');
     });
 
-    Route::prefix('finance-transaction')->name('admin.finance.transaction.')->group(function (){
-        Route::get('',action: [App\Http\Controllers\Admin\FinanceTransAction\FinanceTransActionController::class,'index'])->name('index');
-        Route::get('details/{finance}',[App\Http\Controllers\Admin\FinanceTransAction\FinanceTransActionController::class,'details'])->name('details');
+    Route::prefix('finance-transaction')->name('admin.finance.transaction.')->group(function () {
+        Route::get('', action: [App\Http\Controllers\Admin\FinanceTransAction\FinanceTransActionController::class, 'index'])->name('index');
+        Route::get('details/{finance}', [App\Http\Controllers\Admin\FinanceTransAction\FinanceTransActionController::class, 'details'])->name('details');
     });
 
-    Route::prefix('order')->name('admin.order.')->group(function (){
-           Route::get('',[App\Http\Controllers\Admin\Order\OrderController::class,'invoice'])->name('invoice');
-           Route::get('invoice/details/{invoice}',[App\Http\Controllers\Admin\Order\OrderController::class,'invoiceDetails'])->name('invoiceDetails');
-           Route::get('index',[App\Http\Controllers\Admin\Order\OrderController::class,'index'])->name('index');
+    Route::prefix('order')->name('admin.order.')->group(function () {
+        Route::get('', [App\Http\Controllers\Admin\Order\OrderController::class, 'invoice'])->name('invoice');
+        Route::get('invoice/details/{invoice}', [App\Http\Controllers\Admin\Order\OrderController::class, 'invoiceDetails'])->name('invoiceDetails');
+        Route::get('index', [App\Http\Controllers\Admin\Order\OrderController::class, 'index'])->name('index');
     });
 });
 
@@ -188,7 +188,9 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
 Route::fallback(function () {
     abort(404);
 });
-
+Route::get('test', function (\Illuminate\Http\Request $request) {
+session(['cart_id'=>57]);
+});
 
 
 

@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\RegisterPasswordRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Auth\SendCodeWithSmsRequest;
 use App\Http\Requests\Auth\SimpleLoginPost;
+use App\Http\Traits\HasCart;
 use App\Http\Traits\HasLogin;
 use App\Models\Otp;
 use App\Models\User;
@@ -20,7 +21,7 @@ use Illuminate\View\View;
 
 class LoginController extends Controller
 {
-    use HasLogin;
+    use HasLogin,HasCart;
 
     /**
      * Display a listing of the resource.
@@ -33,7 +34,9 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         if (Auth::check()) {
+            $cart=\session()->get('cart_id');
             Auth::logout();
+            \session(['cart_id'=>$cart]);
         }
         return redirect()->route('panel.index');
 
@@ -56,8 +59,9 @@ class LoginController extends Controller
             return redirect()->back()->withErrors(['passwordNotMatch' => 'کلمه عبور وارد شده صحیح نمیباشد']);
 
         $remember = $simpleLoginPost->has('rememberMe') ? true : false;
-
+        $cart=\session()->get('cart_id');
         Auth::loginUsingId($user->id, $remember);
+        \session(['cart_id'=>$cart]);
         $this->ipConnectionToUserID();
         return redirect()->intended(route('panel.index'));
     }
@@ -92,11 +96,10 @@ class LoginController extends Controller
         $otp->update(['seen_at' => date('Y-m-d H:i:s')]);
         $inputs = $request->all();
         $user = User::where('mobile', $otp->mobile)->first();
-        $result=$user->update([
+        $result = $user->update([
             'password' => password_hash($inputs['password'], PASSWORD_DEFAULT)
         ]);
-        return  $result? redirect()->route('login.index')->with(['success'=>'کلمه عبور شما ویرایش شد']):redirect()->route('login.index')->withErrors(['token' => 'عملیات ویرایش کلمه عبور با شکست روبه رو شد لطفا چند دقیقه دیگر تلاش فرمایید']);
-
+        return $result ? redirect()->route('login.index')->with(['success' => 'کلمه عبور شما ویرایش شد']) : redirect()->route('login.index')->withErrors(['token' => 'عملیات ویرایش کلمه عبور با شکست روبه رو شد لطفا چند دقیقه دیگر تلاش فرمایید']);
 
 
     }

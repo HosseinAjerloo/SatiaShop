@@ -27,13 +27,15 @@ class AppServiceProvider extends ServiceProvider
 
         \Illuminate\Support\Facades\View::composer('Panel.Layout.header', function (View $view) {
             $user = Auth::user();
-            $myCart = Cart::where('status', 'addToCart')->where(function ($query) use ($user) {
-                $query->orWhere('user_id', $user ? $user->id : null)->orWhere('user_ip', request()->ip());
-
+            $myCart = Cart::where('status', 'addToCart')->when($user,function ($query) use ($user) {
+                $query->where('user_id',  $user->id);
+            })->when(!$user,function ($query){
+                $query->where('id', session()->get('cart_id'));
             })->first();
                 $categories=Category::where('status','active')->orderBy('view_sort','asc')->limit(7)->get();
                 $products=Product::where("status",'active')->orderBy('created_at','desc')->limit(6)->get();
                 $categoryMenus=Category::where("status",'active')->whereNull('category_id')->get();
+
                 $view->with(['myCart' => $myCart,'categories'=>$categories,'products'=>$products,'categoryMenus'=>$categoryMenus]);
 
 

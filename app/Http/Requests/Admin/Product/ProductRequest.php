@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin\Product;
 
+use App\Rules\CustomUniqueTitle;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +26,7 @@ class ProductRequest extends FormRequest
         $routeCurrent = Route::current();
 
         return [
-                'title'=>'required|min:3',
+                'title'=>['required','min:3',new CustomUniqueTitle],
                 'price'=>'required|numeric:min:10000',
                 'category_id'=>'required|exists:categories,id',
                 'brand_id'=>'required|exists:brands,id',
