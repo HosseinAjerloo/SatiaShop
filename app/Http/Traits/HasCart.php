@@ -100,7 +100,6 @@ trait HasCart
                 $theOtherCart->forceDelete();
             }
             $myCart = Cart::where('status', 'addToCart')->where('user_id', $user->id)->orderBy('id','desc')->first();
-            \session(['cart_id'=>$myCart->id]);
             $this->updateTotolProceCart($myCart);
 
         }

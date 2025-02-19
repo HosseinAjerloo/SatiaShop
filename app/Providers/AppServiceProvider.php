@@ -36,6 +36,8 @@ class AppServiceProvider extends ServiceProvider
                 $products=Product::where("status",'active')->orderBy('created_at','desc')->limit(6)->get();
                 $categoryMenus=Category::where("status",'active')->whereNull('category_id')->get();
 
+                if ($myCart)
+                    session(['cart_id'=>$myCart->id]);
                 $view->with(['myCart' => $myCart,'categories'=>$categories,'products'=>$products,'categoryMenus'=>$categoryMenus]);
 
 
