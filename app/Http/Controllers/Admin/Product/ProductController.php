@@ -99,18 +99,16 @@ class ProductController extends Controller
         $user = Auth::user();
         if ($request->hasFile('file')) {
 
-
             $imageService->setRootFolder('ProductStore' . DIRECTORY_SEPARATOR . "image");
             $image = $imageService->saveImage($request->file('file'));
 
             if (!$image)
                 return redirect()->route('admin.product.index')->withErrors(['error' => 'آپلود عکس با خطا مواجه شد']);
 
+            if (isset($product->image->path)) {
 
-            if (isset($product->images->path)) {
-
-                $imageService->deleteImage($product->images->path);
-                $product->image()->update([
+                $imageService->deleteImage($product->image->path);
+                $result=$product->image()->update([
                     'path' => $image,
                     'user_id' => $user->id
                 ]);
