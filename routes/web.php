@@ -188,10 +188,7 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
 Route::fallback(function () {
     abort(404);
 });
-//Route::get('test',function (){
-//   $sms=new \App\Services\SmsService\SatiaService();
-//   $sms->send('test','0916414452');
-//});
+
 
 
 

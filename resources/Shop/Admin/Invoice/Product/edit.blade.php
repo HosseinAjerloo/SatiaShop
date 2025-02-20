@@ -72,10 +72,6 @@
                 </section>
             @endforeach
 
-            <div class="flex items-center justify-center w-2/5 lg:w-2/6 xl:w-1/5">
-                <button type="button" class="btn-copy bg-2081F2 rounded-md py-1.5 w-full text-white">افزودن کالای جدید
-                </button>
-            </div>
             <div class="flex items-center justify-center  w-full">
                 <button class="bg-2081F2 rounded-md py-1.5 w-full text-white">ارسال</button>
             </div>
