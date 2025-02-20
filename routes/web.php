@@ -150,8 +150,8 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
             Route::get('', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'productIndex'])->name('index');
             Route::get('create', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'create'])->name('create');
             Route::post('store', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'store'])->name('store');
-            Route::get('edit/{product}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'edit'])->name('edit');
-            Route::put('update/{product}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'update'])->name('update');
+            Route::get('edit/{invoice}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'editProduct'])->name('edit');
+            Route::put('update/{invoice}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'updateProduct'])->name('update');
 
         });
         Route::prefix('service')->name('service.')->group(function () {
@@ -188,6 +188,10 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
 Route::fallback(function () {
     abort(404);
 });
+//Route::get('test',function (){
+//   $sms=new \App\Services\SmsService\SatiaService();
+//   $sms->send('test','0916414452');
+//});
 
 
 

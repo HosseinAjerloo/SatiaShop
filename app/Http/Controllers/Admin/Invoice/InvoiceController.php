@@ -118,6 +118,96 @@ class InvoiceController extends Controller
 
     }
 
+    public function editProduct(Invoice $invoice)
+    {
+        $products = Product::where('type', 'goods')->where('status', 'active')->get();
+        $suppliers = Supplier::where('status', 'active')->get();
+        return view('Admin.Invoice.Product.edit', compact('suppliers', 'products', 'invoice'));
+
+    }
+
+//    public function updateProduct(InvoiceRequest $request, Invoice $invoice)
+//    {
+//        $inputs = $request->all();
+//        $user = Auth::user();
+//        $productItems = $this->separationOfArraysFromText($inputs);
+//        if (!$this->arrayCountValidation($productItems)) {
+//            return redirect()->route('admin.invoice.product.index')->withErrors(['error' => 'مقدار های داده شده باهم برابر نیست لطفا مجددا تلاش فرمایید']);
+//        }
+//        $products = collect();
+//        foreach ($productItems['product_id'] as $key => $product) {
+//
+//            $product = [];
+//            foreach ($productItems as $keyValue => $input) {
+//                if (isset($input[$key])) {
+//                    $product[$keyValue] = $input[$key];
+//                }
+//            }
+//            $product['id'] = str_contains($key, "id:") ? explode(":", $key)[1] : null;
+//
+//
+//            $products->push($product);
+//        }
+//        $productsGruop = $products->groupBy('product_id');
+//
+//
+//        $updateCollectionProduct = collect();
+//        $productItem = collect();
+//        $finalAmount = 0;
+//        foreach ($productsGruop->all() as $groupp) {
+//            $amount = 0;
+//            foreach ($groupp as $item) {
+//                $amount += $item['amount'];
+//                $updateCollectionProduct->push(
+//                    [
+//                        'product_id' => $item['product_id'],
+//                        'description' => $item['description'],
+//                        'amount' => $amount,
+//                        'price' => $item['price'],
+//                        'type' => 'product',
+//                        'id' => $item['id']
+//                    ]
+//                );
+//
+//            }
+//            $productItem->push($updateCollectionProduct->last());
+//        }
+//
+//        foreach ($productItem->toArray() as $productPrice) {
+//            $finalAmount += $productPrice['amount'] * $productPrice['price'];
+//        }
+//        $invoice->update([
+//            'operator_id' => $user->id,
+//            'type_of_business' => 'buy',
+//            'supplier_id' => $request->supplier_id,
+//            'final_amount' => $finalAmount,
+//            'description' => $inputs['invoiceDesc']
+//        ]);
+//
+//        foreach ($productItem as $itemTransaction) {
+//            $productTransaction = ProductTransaction::where('product_id', $itemTransaction['product_id'])->latest()->first();
+//            $itemTransaction['type'] = 'add';
+//            $itemTransaction['remain'] = $itemTransaction['amount'];
+//            $itemTransaction['user_id'] = $user->id;
+//            if ($productTransaction) {
+//                $itemTransaction['remain'] = $itemTransaction['amount'] + $productTransaction->remain;
+//            }
+//
+////            $invouce->productTransaction()->create($itemTransaction);
+//            if ($itemTransaction['id']) {
+//                InvoiceItem::find($itemTransaction['id'])->update($itemTransaction);
+//            } else {
+//                $invoice->invoiceItem()->create($itemTransaction);
+//            }
+//
+//
+//        }
+//        dd('end');
+//        return redirect()->route('admin.invoice.product.index')->with(['success' => 'فاکتور جدید شما ایجاد شد و محصولات شما به انبار اضافه گردید']);
+//
+//
+//    }
+
     public function serviceIndex()
     {
         $invoice = InvoiceItem::where('type', 'service')->get()->unique('invoice_id')->pluck('invoice_id');
