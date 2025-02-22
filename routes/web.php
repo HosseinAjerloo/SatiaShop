@@ -12,6 +12,8 @@ Route::middleware('guest')->group(function () {
     Route::name('login.')->prefix('login')->group(function () {
         Route::get('', [App\Http\Controllers\Auth\LoginController::class, 'index'])->name('index');
         Route::get('simple-login', [App\Http\Controllers\Auth\LoginController::class, 'simpleLogin'])->name('simple');
+        Route::get('sso_link', [App\Http\Controllers\Auth\LoginController::class, 'ssoLink'])->name('ssoLink');
+        Route::get('login-with-sso', [App\Http\Controllers\Auth\LoginController::class, 'loginWithSso'])->name('loginWithSso');
         Route::post('simple-login', [App\Http\Controllers\Auth\LoginController::class, 'simpleLoginPost'])->name('simple-post');
     });
     Route::get('register', [App\Http\Controllers\Auth\LoginController::class, 'register'])->name('register');

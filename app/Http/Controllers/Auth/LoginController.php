@@ -149,6 +149,25 @@ class LoginController extends Controller
         }
 
     }
+    public function loginWithSso(Request $request)
+    {
+            dd($request,$request->all());
+    }
+
+    public function ssoLink()
+    {
+        $state = Str::uuid()->toString();
+        session(['state' => $state]);
+        $query = http_build_query([
+            'client_id' => env('AUTH_CLIENT_ID'),
+            'redirect_uri' => route('login.loginWithSso'),
+            'response_type' => 'code',
+            'scope' => '',
+            'state' => $state,
+            // 'prompt' => '', // "none", "consent", or "login"
+        ]);
+        return redirect()->away( env('AUTH_AUTHORIZE_URL') . $query);
+    }
 
     public function createCode(SendCodeWithSmsRequest $request)
     {
@@ -156,4 +175,6 @@ class LoginController extends Controller
         $token->route = route('register.post', $token->token);
         return \response()->json(['message' => $token]);
     }
+
+
 }
