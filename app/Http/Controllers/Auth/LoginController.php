@@ -164,7 +164,7 @@ class LoginController extends Controller
             'response_type' => 'code',
             'scope' => '',
             'state' => $state,
-             'prompt' => 'login', // "none", "consent", or "login"
+            // 'prompt' => '', // "none", "consent", or "login"
         ]);
         return redirect()->away( env('AUTH_AUTHORIZE_URL') . $query);
     }
