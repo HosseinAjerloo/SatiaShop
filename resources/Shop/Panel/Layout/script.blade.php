@@ -342,5 +342,54 @@
 
     }
 </script>
+<script>
+    function updateCartView(response) {
+        $('.count-cart').html(response.cartItems.length)
+        $('.cart-show-items').remove();
+        let totalPrice = 0;
+        let html = `
+                                <section class="header-cart-dropdown cart-show-items">
+                                        <section class="border-bottom d-flex justify-content-between p-2">
+                                            <span class="text-muted">${response.cartItems.length} کالا</span>
+                                            <a class="text-decoration-none text-info" href="{{route('panel.cart.index')}}">مشاهده سبد خرید </a>
+                                        </section>`;
+        for (const value of response.cartItems) {
+            html = html +
+                `<section class="header-cart-dropdown-body-item d-flex justify-content-start align-items-center">
+                                                <img class="flex-shrink-1"
+                                                     src="${value.image_path}"
+                                                    alt="">
+                                                <section class="w-100 text-truncate">
+                                                    <a class="text-decoration-none text-dark" href="">
+                                                        ${value.title}
+                                                    </a>
+                                                </section>
+                                            <section class="flex-shrink-1">
+                                                <a class="text-muted text-decoration-none p-1" href="${value.deleteRoute}">
+                                                    <i class="fa fa-trash-alt"></i>
+                                                </a>
+                                            </section>
+                                </section>`;
+
+            totalPrice += Number(value.price)
+
+        }
+        totalPrice = (totalPrice / 10).toLocaleString()
+        html = html + ` <section
+                                    class="header-cart-dropdown-footer border-top d-flex justify-content-between align-items-center p-2">
+                                    <section class="">
+                                        <section>مبلغ قابل پرداخت</section>
+                                        <section> ${totalPrice} تومان</section>
+                                    </section>
+                                    <section class="">
+                                        <a class="btn btn-danger btn-sm d-block" href="{{route('panel.payment.advance')}}">
+                                            ثبت سفارش
+                                        </a>
+                                    </section>
+                                </section>
+                                </section>`;
+        $(".parent-cart-item").append(html);
+    }
+</script>
 
 

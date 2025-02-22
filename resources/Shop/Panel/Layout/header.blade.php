@@ -77,10 +77,10 @@
 
                         </section>
                     </section>
-                    <section class="header-cart d-inline ps-3 border-start position-relative">
+                    <section class="header-cart d-inline ps-3 border-start position-relative parent-cart-item">
                         <a class="btn btn-link position-relative text-dark header-cart-link" href="javascript:void(0)">
-                            <i class="fa fa-shopping-cart"></i> <span style="top: 80%;"
-                                                                      class="position-absolute start-0 translate-middle badge rounded-pill bg-danger">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span style="top: 80%;" class="position-absolute start-0 translate-middle badge rounded-pill bg-danger count-cart">
                                 @if($myCart)
                                     {{$myCart->cartItem()->count()}}
                                 @else
@@ -89,7 +89,7 @@
                             </span>
                         </a>
                         @if($myCart and $myCart->cartItem()->count()>0)
-                            <section class="header-cart-dropdown">
+                            <section class="header-cart-dropdown cart-show-items">
                                 <section class="border-bottom d-flex justify-content-between p-2">
                                     <span class="text-muted">{{$myCart->cartItem()->count()}} کالا</span>
                                     <a class="text-decoration-none text-info" href="{{route('panel.cart.index')}}">مشاهده
@@ -121,11 +121,13 @@
                                     class="header-cart-dropdown-footer border-top d-flex justify-content-between align-items-center p-2">
                                     <section class="">
                                         <section>مبلغ قابل پرداخت</section>
-                                        <section> {{numberFormat(($myCart->finalPrice / 10))}} ریال</section>
+                                        <section> {{numberFormat(($myCart->finalPrice / 10))}} تومان</section>
                                     </section>
-                                    <section class=""><a class="btn btn-danger btn-sm d-block"
-                                                         href="{{route('panel.payment.advance')}}">ثبت
-                                            سفارش</a></section>
+                                    <section class="">
+                                        <a class="btn btn-danger btn-sm d-block" href="{{route('panel.payment.advance')}}">
+                                            ثبت سفارش
+                                        </a>
+                                    </section>
                                 </section>
                             </section>
                         @endif

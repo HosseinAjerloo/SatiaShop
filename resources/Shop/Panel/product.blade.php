@@ -452,6 +452,7 @@
                     success: function (response) {
 
                         toast(response.message, response.status)
+                        updateCartView(response);
 
                         if (response.status) {
                             $(addCart).attr('disabled', 'disabled');

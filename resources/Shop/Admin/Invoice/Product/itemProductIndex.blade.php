@@ -18,8 +18,9 @@
 
     </section>
     <div class="flex items-center justify-between space-x-reverse space-x-3 px-4  mt-5">
-        <div class="flex items-center space-x-reverse space-x-2">
+        <div class="flex flex-col items-center space-x-reverse space-x-2">
             <h1 class="text-min font-bold ">لیست فاکتور های ثبت شده</h1>
+            <a href="{{route('admin.invoice.product.edit',$invoice)}}" class="mt-2 px-2 py-1.5 bg-2081F2 rounded-lg text-white">ویرایش فاکتور</a>
         </div>
         <div class="border border-black flex items-center py-1.5  rounded-md">
             <input type="text" placeholder="نام محصول ثبت شده را وارد نمائید ..."

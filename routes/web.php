@@ -35,6 +35,7 @@ Route::post('find-product', [App\Http\Controllers\Panel\PanelController::class, 
 Route::prefix('cart')->name('panel.cart.')->group(function () {
     Route::get('', [App\Http\Controllers\Panel\CartController::class, 'index'])->name('index');
     Route::post('addCard', [App\Http\Controllers\Panel\CartController::class, 'addCart'])->name('addCart');
+    Route::post('addCard', [App\Http\Controllers\Panel\CartController::class, 'addCart'])->name('addCart');
     Route::post('increase', [App\Http\Controllers\Panel\CartController::class, 'increase'])->name('increase');
     Route::post('decrease', [App\Http\Controllers\Panel\CartController::class, 'decrease'])->name('decrease');
     Route::get('destroy/{cartItem}', [App\Http\Controllers\Panel\CartController::class, 'destroy'])->name('destroy');
@@ -159,9 +160,8 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
             Route::get('', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'serviceIndex'])->name('index');
             Route::get('create', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'serviceCreate'])->name('create');
             Route::post('store', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'serviceStore'])->name('store');
-            Route::get('edit/{service}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'serviceEdit'])->name('edit');
-            Route::put('update/{service}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'serviceUpdate'])->name('update');
-
+            Route::get('edit/{invoice}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'serviceEdit'])->name('edit');
+            Route::put('update/{invoice}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'serviceUpdate'])->name('update');
         });
 
 
@@ -188,7 +188,6 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
 Route::fallback(function () {
     abort(404);
 });
-
 
 
 

@@ -81,34 +81,34 @@
 
 
 
-{{--    <section class="mb-3">--}}
-{{--        <section class="container-xxl">--}}
-{{--            <!-- two column-->--}}
-{{--            <section class="row py-4">--}}
-{{--                <section class="col-12 col-md-6 mt-2 mt-md-0"><img class="d-block rounded-2 w-100"--}}
-{{--                                                                   src="assets/images/ads/two-col-1.jpg" alt="">--}}
-{{--                </section>--}}
-{{--                <section class="col-12 col-md-6 mt-2 mt-md-0"><img class="d-block rounded-2 w-100"--}}
-{{--                                                                   src="assets/images/ads/two-col-2.jpg" alt="">--}}
-{{--                </section>--}}
-{{--            </section>--}}
+    {{--    <section class="mb-3">--}}
+    {{--        <section class="container-xxl">--}}
+    {{--            <!-- two column-->--}}
+    {{--            <section class="row py-4">--}}
+    {{--                <section class="col-12 col-md-6 mt-2 mt-md-0"><img class="d-block rounded-2 w-100"--}}
+    {{--                                                                   src="assets/images/ads/two-col-1.jpg" alt="">--}}
+    {{--                </section>--}}
+    {{--                <section class="col-12 col-md-6 mt-2 mt-md-0"><img class="d-block rounded-2 w-100"--}}
+    {{--                                                                   src="assets/images/ads/two-col-2.jpg" alt="">--}}
+    {{--                </section>--}}
+    {{--            </section>--}}
 
-{{--        </section>--}}
-{{--    </section>--}}
-
-
+    {{--        </section>--}}
+    {{--    </section>--}}
 
 
-{{--    <section class="mb-3">--}}
-{{--        <section class="container-xxl">--}}
-{{--            <!-- one column -->--}}
-{{--            <section class="row py-4">--}}
-{{--                <section class="col"><img class="d-block rounded-2 w-100"--}}
-{{--                                          src="{{asset("shop/assets/images/ads/one-col-1.jpg")}}" alt=""></section>--}}
-{{--            </section>--}}
 
-{{--        </section>--}}
-{{--    </section>--}}
+
+    {{--    <section class="mb-3">--}}
+    {{--        <section class="container-xxl">--}}
+    {{--            <!-- one column -->--}}
+    {{--            <section class="row py-4">--}}
+    {{--                <section class="col"><img class="d-block rounded-2 w-100"--}}
+    {{--                                          src="{{asset("shop/assets/images/ads/one-col-1.jpg")}}" alt=""></section>--}}
+    {{--            </section>--}}
+
+    {{--        </section>--}}
+    {{--    </section>--}}
 
 @endsection
 @section('script')
@@ -130,8 +130,9 @@
                     },
                     success: function (response) {
 
-                        toast(response.message, response.status)
 
+                        toast(response.message, response.status)
+                        updateCartView(response);
                         if (response.status) {
                             $(addCart).attr('disabled', 'disabled');
                             $(addCart).children('span').html('به سبد خریدشما اضافه شد');
@@ -140,7 +141,6 @@
                     },
                     error: function (error) {
 
-                        console.log('error')
                     }
                 });
             })
@@ -154,6 +154,8 @@
             }
 
         }
+
+
     </script>
 
 @endsection

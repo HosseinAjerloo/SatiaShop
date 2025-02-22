@@ -40,18 +40,31 @@ trait HasCart
     }
     public function checkThe_conditionsOf_TheShopping_cart(Request $request,Cart $myCart){
         $product=$request->get('product');
-
         if ($product->type == 'service' ) {
 
             $this->addServiceToCart($request,$myCart);
             $this->updateTotolProceCart($myCart);
-            return response()->json(['message' => 'سرویس به سبد خرید شما اضافه شد', 'status' => true]);
+            $cartItems=$myCart->cartItem()->get();
+            foreach ($cartItems as $item)
+            {
+                $item->image_path=asset($item->product->image->path);
+                $item->title=$item->product->removeUnderLine;
+                $item->deleteRoute=route('panel.cart.destroy',$item->id);
+            }
+            return response()->json(['message' => 'سرویس به سبد خرید شما اضافه شد', 'status' => true,'cartItems'=>$cartItems]);
 
         } else {
             $result=$this->addProductToCart($request,$myCart);
             $this->updateTotolProceCart($myCart);
-            return $result?  response()->json(['message' => 'کالا به سبد خرید شما اضافه شد', 'status' => true]):
-                response()->json(['message' => 'موجودی محصول انتخابی کافی نیست', 'status' => false]) ;
+            $cartItems=$myCart->cartItem()->get();
+            foreach ($cartItems as $item)
+            {
+                $item->image_path=asset($item->product->image->path);
+                $item->title=$item->product->removeUnderLine;
+                $item->deleteRoute=route('panel.cart.destroy',$item->id);
+            }
+            return $result?  response()->json(['message' => 'کالا به سبد خرید شما اضافه شد', 'status' => true,'cartItems'=>$cartItems]):
+                response()->json(['message' => 'موجودی محصول انتخابی کافی نیست', 'status' => false,'cartItems'=>$cartItems]) ;
         }
     }
     protected function updateTotolProceCart(Cart $myCart)

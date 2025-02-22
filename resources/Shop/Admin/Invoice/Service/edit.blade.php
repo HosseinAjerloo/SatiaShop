@@ -6,8 +6,7 @@
         <h1 class="font-bold text-sm">
             ویرایش فاکتور کالاها :
         </h1>
-
-        <form action="{{route('admin.invoice.product.update',$invoice)}}" method="POST" enctype="multipart/form-data"
+        <form action="{{route('admin.invoice.service.update',$invoice)}}" method="POST" enctype="multipart/form-data"
               class="mt-5 space-y-3">
             @method('PUT')
             @csrf
@@ -40,11 +39,7 @@
                             <input type="text" name="price[{{$item->id}}]" class="outline-none border border-black rounded-md w-48"
                                    value="{{$item->price}}">
                         </div>
-                        <div class="flex items-center space-x-reverse space-x-8">
-                            <h5 class="text-min font-light w-28"> تعداد :</h5>
-                            <input type="number" min="1" name="amount[{{$item->id}}]"
-                                   class="outline-none border border-black rounded-md w-48" value="{{$item->amount}}">
-                        </div>
+
 
                         <div class="flex items-center space-x-reverse space-x-8">
                             <h5 class="text-min font-light w-28">انتخاب محصول:</h5>
@@ -117,10 +112,6 @@
                 '<div class="flex items-center space-x-reverse space-x-8">' +
                 '<h5 class="text-min font-light w-28"> قیمت هر واحد(ریال) :</h5>' +
                 '<input type="text" name="price[]" class="outline-none border border-black rounded-md w-48">' +
-                '</div>' +
-                '<div class="flex items-center space-x-reverse space-x-8">' +
-                '<h5 class="text-min font-light w-28"> تعداد :</h5>' +
-                '<input type="number" name="amount[]" min="1" class="outline-none border border-black rounded-md w-48">' +
                 '</div>' +
                 '<div class="flex items-center space-x-reverse space-x-8">' +
                 '<h5 class="text-min font-light w-28">انتخاب محصول:</h5>' +
@@ -236,24 +227,24 @@
         changeFunction()
     </script>
     <script>
+        // گرفتن تمام عناصر با نام کلاس مشخص شده
+
+
+        window.onload = function () {
             // گرفتن تمام عناصر با نام کلاس مشخص شده
+            var editors = document.getElementsByClassName('ele');
+
+            for (let value of editors)
+            {
+                CKEDITOR.replace(value,{
+                    versionCheck: false,
+                    language: 'fa',
+                    removeButtons: 'Image,Link,Source,About'
+                });
 
 
-            window.onload = function () {
-                // گرفتن تمام عناصر با نام کلاس مشخص شده
-                var editors = document.getElementsByClassName('ele');
-
-                for (let value of editors)
-                {
-                        CKEDITOR.replace(value,{
-                            versionCheck: false,
-                            language: 'fa',
-                            removeButtons: 'Image,Link,Source,About'
-                        });
-
-
-                }
             }
+        }
 
 
 

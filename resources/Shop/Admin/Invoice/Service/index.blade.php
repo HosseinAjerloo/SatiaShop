@@ -60,7 +60,7 @@
             @foreach($invoices as $key=> $invoice)
                 <div
                     class="p-2 h-full @if(($key%2)==0) bg-E9E9E9 @endif  flex items-center justify-between  divide-x-1 divide-black divide-x-reverse">
-                    <a href="{{route('admin.invoice.product.invoiceProduct',$invoice->id)}}" class="w-1/5">
+                    <a href="{{route('admin.invoice.service.invoiceService',$invoice->id)}}" class="w-1/5">
                         <p class="text-sky-500  text-min_sm font-bold  h-full flex items-center justify-center text-center underline underline-offset-4 ">
                             {{$invoice->operator->fullName??''}}
                         </p>

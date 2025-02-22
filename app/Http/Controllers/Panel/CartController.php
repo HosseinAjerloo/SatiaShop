@@ -50,8 +50,15 @@ class CartController extends Controller
 
         if (!empty($myCart)) {
             $myCartItem = CartItem::where('product_id', $product->id)->whereIn('cart_id', [$myCart->id])->get();
+            $cartItems=$myCart->cartItem()->get();
+            foreach ($cartItems as $item)
+            {
+                $item->image_path=asset($item->product->image->path);
+                $item->title=$item->product->removeUnderLine;
+                $item->deleteRoute=route('panel.cart.destroy',$item->id);
+            }
             if ($myCartItem->count() > 0)
-                return response()->json(['message' => 'این مورد قبلا به سبد خرید شما اضافه شده است', 'status' => false]);
+                return response()->json(['message' => 'این مورد قبلا به سبد خرید شما اضافه شده است', 'status' => false,'cartItems'=>$cartItems]);
 
             return $this->checkThe_conditionsOf_TheShopping_cart($request, $myCart);
 
@@ -144,8 +151,20 @@ class CartController extends Controller
         }
         return redirect()->route('panel.index')->with('success','محصول شما از سبد خرید حذف شد');
 
+    }
+    public function getCountNumberOfCartItem()
+    {
+        $user=Auth::user();
+        $myCart = Cart::where('status', 'addToCart')->when($user,function ($query) use ($user) {
+            $query->where('user_id',  $user->id);
+        })->when(!$user,function ($query){
+            $query->where('id', session()->get('cart_id'));
+        })->first();
 
+        if ($myCart)
+            return response()->json(['status'=>true,'countItem'=>$myCart->cartItem]);
 
+        return response()->json(['status'=>false]);
 
     }
 }
