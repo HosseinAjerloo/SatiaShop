@@ -189,6 +189,7 @@ class LoginController extends Controller
             $responseUser = Http::withHeaders([
                 'Authorization' => $responseObj->token_type . ' ' . $responseObj->access_token,
             ]);
+            dd($responseUser);
             if($responseUser->successful()) {
                 $userObj = $responseUser->object();
                 $user = User::firstOrCreate([
