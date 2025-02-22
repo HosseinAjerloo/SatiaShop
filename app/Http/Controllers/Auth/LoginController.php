@@ -189,22 +189,21 @@ class LoginController extends Controller
             $responseUser = Http::withHeaders([
                 'Authorization' => $responseObj->token_type . ' ' . $responseObj->access_token,
             ])->get('https://oauth.satia.co/api/user');
-            dd($responseUser);
-            if($responseUser->successful()) {
-                $userObj = $responseUser->object();
-                $user = User::firstOrCreate([
-                    'mobile' => $userObj->mobile,
-                    'email'=>$userObj->user
-                ], [
-                   'name'=>$userObj->first_name??'',
-                    'family'=>$userObj->last_name??''
-                ]);
-
-                    auth()->login($user, true);
-                    session(['login_type' => 'sso']);
-                    session()->forget('state');
-                    return redirect()->route('panel.index');
-                }
+//            if($responseUser->successful()) {
+//                $userObj = $responseUser->object();
+//                $user = User::firstOrCreate([
+//                    'mobile' => $userObj->mobile,
+//                    'email'=>$userObj->user
+//                ], [
+//                   'name'=>$userObj->first_name??'',
+//                    'family'=>$userObj->last_name??''
+//                ]);
+//
+//                    auth()->login($user, true);
+//                    session(['login_type' => 'sso']);
+//                    session()->forget('state');
+//                    return redirect()->route('panel.index');
+//                }
             }
 
 
