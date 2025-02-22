@@ -186,6 +186,7 @@ class LoginController extends Controller
                 'code' => $request->code,
             ]);
             $responseObj = $response->object();
+            dd($responseObj);
             $responseUser = Http::withHeaders([
                 'Authorization' => $responseObj->token_type . ' ' . $responseObj->access_token,
             ])->get('https://oauth.satia.co/api/user');
