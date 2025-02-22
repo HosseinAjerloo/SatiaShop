@@ -13,8 +13,10 @@ use App\Models\Otp;
 use App\Models\User;
 use App\Services\SmsService\SatiaService;
 use Carbon\Carbon;
+use http\Exception\InvalidArgumentException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
@@ -149,23 +151,44 @@ class LoginController extends Controller
         }
 
     }
-    public function loginWithSso(Request $request)
-    {
-            dd($request,$request->all());
-    }
+
 
     public function ssoLink()
     {
         $state = Str::uuid()->toString();
         session(['state' => $state]);
         $query = http_build_query([
-            'client_id' => 4,
+            'client_id' => env('AUTH_CLIENT_ID'),
             'redirect_uri' => route('login.loginWithSso'),
             'response_type' => 'code',
             'scope' => '',
             'state' => $state,
+            // 'prompt' => '', // "none", "consent", or "login"
         ]);
         return redirect()->away( env('AUTH_AUTHORIZE_URL') . $query);
+    }
+
+    public function loginWithSso(Request $request)
+    {
+        if ($request->filled('code')) {
+            $state = session('state');
+            throw_unless(
+                strlen($state) > 0 && $state === $request->state,
+                InvalidArgumentException::class,
+                'Invalid state value.'
+            );
+
+            $response = Http::asForm()->post(env('AUTH_TOKEN_URL'), [
+                'grant_type' => 'authorization_code',
+                'client_id' => env('AUTH_CLIENT_ID'),
+                'client_secret' => env('AUTH_SECRET'),
+                'redirect_uri' => route('login.loginWithSso'),
+                'code' => $request->code,
+            ]);
+            dd($response,$response->json(),$response,$request->all());
+
+
+        }
     }
 
     public function createCode(SendCodeWithSmsRequest $request)
