@@ -159,7 +159,7 @@ class LoginController extends Controller
         $state = Str::uuid()->toString();
         session(['state' => $state]);
         $query = http_build_query([
-            'client_id' => env('AUTH_CLIENT_ID'),
+            'client_id' => 4,
             'redirect_uri' => route('login.loginWithSso'),
             'response_type' => 'code',
             'scope' => '',
