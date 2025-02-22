@@ -185,10 +185,28 @@ class LoginController extends Controller
                 'redirect_uri' => route('login.loginWithSso'),
                 'code' => $request->code,
             ]);
-            dd($response,$response->json(),$response,$request->all());
+            $responseObj = $response->object();
+            $responseUser = Http::withHeaders([
+                'Authorization' => $responseObj->token_type . ' ' . $responseObj->access_token,
+            ]);
+            if($responseUser->successful()) {
+                $userObj = $responseUser->object();
+                $user = User::firstOrCreate([
+                    'mobile' => $userObj->mobile,
+                    'email'=>$userObj->user
+                ], [
+                   'name'=>$userObj->first_name??'',
+                    'family'=>$userObj->last_name??''
+                ]);
+
+                    auth()->login($user, true);
+                    session(['login_type' => 'sso']);
+                    session()->forget('state');
+                    return redirect()->route('panel.index');
+                }
+            }
 
 
-        }
     }
 
     public function createCode(SendCodeWithSmsRequest $request)
