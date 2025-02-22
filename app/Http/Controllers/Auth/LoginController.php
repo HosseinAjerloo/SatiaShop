@@ -188,8 +188,7 @@ class LoginController extends Controller
             $responseObj = $response->object();
             $responseUser = Http::withHeaders([
                 'Authorization' => $responseObj->token_type . ' ' . $responseObj->access_token,
-            ]);
-            dd($responseUser);
+            ])->get('https://oauth.satia.co/api/user');
             if($responseUser->successful()) {
                 $userObj = $responseUser->object();
                 $user = User::firstOrCreate([
