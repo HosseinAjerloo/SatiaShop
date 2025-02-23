@@ -8,21 +8,21 @@
     </div>
 
     <section class="flex items-center justify-center">
-        <form action="{{route('login.simple-post')}}" class="space-y-3.5 " method="POST">
+        <form action="{{route('login.simple-post')}}" class="space-y-3.5 flex items-center justify-center flex-col" method="POST" >
             @csrf
 
-            <div class="p-1.5 border border-black/75 rounded-md h-10">
+            <div class="p-1.5 border border-black/75 rounded-md h-10 w-3/5">
                 <div class=" flex items-center  space-x-1 space-x-reverse h-full">
                     <img src="{{asset('capsule/images/phone.svg')}}" alt="">
                     <input type="text" placeholder="نام کاربری"
-                           class="px-1.5 placeholder:text-min h-full outline-none bg-transparent" name="mobile">
+                           class="px-1.5 placeholder:text-min h-full outline-none bg-transparent focus:text-black focus:bg-white" name="mobile">
                 </div>
             </div>
-            <div class="p-1.5 border border-black/75 rounded-md h-10">
-                <div class=" flex items-center  space-x-1 space-x-reverse h-full">
+            <div class="p-1.5 border border-black/75 rounded-md h-10   w-3/5">
+                <div class=" flex items-center justify-between h-full ">
                     <img src="{{asset("capsule/images/key-black.svg")}}" alt="">
                     <input type="password" placeholder="کلمه عبور"
-                           class="px-1.5 placeholder:text-min h-full outline-none bg-transparent" name="password">
+                           class="px-1.5 placeholder:text-min h-full outline-none focus:text-black focus:bg-white" name="password">
                     <img src="{{asset("capsule/images/eye.svg")}}" alt="" class="cursor-pointer eye">
 
                 </div>
@@ -31,7 +31,7 @@
                 <div class=" flex items-center  space-x-1 space-x-reverse h-full">
                     <label for="" class="text-min">مرا به خاطر بسپار</label>
                     <input type="checkbox"
-                           class="px-1.5 placeholder:text-min h-full outline-none bg-transparent" name="rememberMe">
+                           class="px-1.5 placeholder:text-min h-full outline-none " name="rememberMe">
                 </div>
             </div>
 
@@ -43,7 +43,7 @@
                 <a  href="{{route('login.ssoLink')}}" class="flex items-center  h-full">
                     <div class="bg-rose-500 px-16 py-1.5 rounded-md text-white text-center flex items-center justify-center space-x-3 space-x-reverse">
                         <img src="{{asset('capsule/images/logo-jadid.png')}}" alt="" class="w-8 ">
-                        <span class="block">ورود با پنجره سایتا</span>
+                        <span class="block text-sm">ورود با پنجره سایتا</span>
                     </div>
                 </a>
             </div>
