@@ -231,6 +231,7 @@ class InvoiceController extends Controller
         $products = Product::where('type', 'service')->where('status', 'active')->get();
         $suppliers = Supplier::where('status', 'active')->get();
         return view('Admin.Invoice.Service.create', compact('suppliers', 'products'));
+
     }
 
     public function serviceStore(ServiceRequest $request)
