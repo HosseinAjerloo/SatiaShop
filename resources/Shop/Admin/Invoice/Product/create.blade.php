@@ -7,9 +7,7 @@
             افزودن محصول :
         </h1>
 
-        <h1 class="font-bold text-rose-500 text-md mt-3 text-center">
-            درهنگام ثبت فاکتور دقت فرمایید امکان ویرایش وجود ندارد
-        </h1>
+
         <form action="{{route('admin.invoice.product.store')}}" method="POST" enctype="multipart/form-data"
               class="mt-5 space-y-3">
             @csrf
