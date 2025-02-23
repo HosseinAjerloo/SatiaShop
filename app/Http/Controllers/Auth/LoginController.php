@@ -185,6 +185,7 @@ class LoginController extends Controller
                 'redirect_uri' => route('login.loginWithSso'),
                 'code' => $request->code,
             ]);
+            $responseObj = $response->object();
             $responseUser = Http::withHeaders([
                 'Authorization' => $responseObj->token_type . ' ' . $responseObj->access_token,
             ])->get('https://oauth.satia.co/api/user');
