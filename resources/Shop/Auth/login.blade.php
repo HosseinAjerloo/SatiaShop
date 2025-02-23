@@ -35,10 +35,15 @@
                 </div>
             </div>
 
-            <div class="p-1.5  rounded-md h-10">
+            <div class="p-1.5 flex items-center space-x-4 space-x-reverse  rounded-md h-10">
                 <div class=" flex items-center  space-x-1 space-x-reverse h-full">
                     <button class="bg-2081F2 px-16 py-1.5 rounded-md text-white text-center">ورود</button>
                 </div>
+
+                <a class=" flex items-center  space-x-1 space-x-reverse h-full bg-2081F2 px-16 py-2.5 rounded-md text-white text-center">
+                  ورود
+                    <img src="{{asset('capsule/images/logo-jadid.png')}}" alt="" class="w-8 ">
+                </a>
             </div>
 
             <div class="p-1.5  rounded-md h-10 space-x-reverse space-x-3">
