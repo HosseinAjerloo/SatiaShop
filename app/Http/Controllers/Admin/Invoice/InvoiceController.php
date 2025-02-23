@@ -221,7 +221,7 @@ class InvoiceController extends Controller
     public function invoiceService(Invoice $invoice)
     {
         $breadcrumbs = Breadcrumbs::render('admin.invoice.service.invoiceService',$invoice)->getData()['breadcrumbs'];
-        return view('Admin.Invoice.Service.itemProductIndex', compact('invoice','breadcrumbs'));
+        return view('Admin.Invoice.Service.itemProductindex', compact('invoice','breadcrumbs'));
 
     }
 
