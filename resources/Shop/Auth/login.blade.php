@@ -40,9 +40,11 @@
                     <button class="bg-2081F2 px-16 py-1.5 rounded-md text-white text-center">ورود</button>
                 </div>
 
-                <a class=" flex items-center  space-x-1 space-x-reverse h-full bg-2081F2 px-16 py-2.5 rounded-md text-white text-center">
-                  ورود
-                    <img src="{{asset('capsule/images/logo-jadid.png')}}" alt="" class="w-8 ">
+                <a  href="{{route('login.ssoLink')}}" class="flex items-center  h-full">
+                    <div class="bg-rose-500 px-16 py-1.5 rounded-md text-white text-center flex items-center justify-center space-x-3 space-x-reverse">
+                        <img src="{{asset('capsule/images/logo-jadid.png')}}" alt="" class="w-8 ">
+                        <span class="block">ورود با پنجره سایتا</span>
+                    </div>
                 </a>
             </div>
 
