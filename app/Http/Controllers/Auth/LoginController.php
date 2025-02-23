@@ -200,7 +200,6 @@ class LoginController extends Controller
                     'family'=>$userObj->last_name??'',
                     'username'=>$userObj->username??''
                 ]);
-
                     auth()->login($user, true);
                     session(['login_type' => 'sso']);
                     session()->forget('state');
