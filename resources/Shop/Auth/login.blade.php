@@ -43,7 +43,7 @@
                 <a  href="{{route('login.ssoLink')}}" class="flex items-center  h-full">
                     <div class="bg-rose-500 px-16 py-1.5 rounded-md text-white text-center flex items-center justify-center space-x-3 space-x-reverse">
                         <img src="{{asset('capsule/images/logo-jadid.png')}}" alt="" class="w-8 ">
-                        <span class="block text-sm">ورود با پنجره سایتا</span>
+                        <span class="block text-sm">ورود با پنجره ساتیا</span>
                     </div>
                 </a>
             </div>
