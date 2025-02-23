@@ -14,6 +14,7 @@ use App\Models\Product;
 use App\Models\ProductTransaction;
 use App\Models\Supplier;
 use App\Services\ImageService\ImageService;
+use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -210,15 +211,17 @@ class InvoiceController extends Controller
 
     public function serviceIndex()
     {
+        $breadcrumbs = Breadcrumbs::render('admin.invoice.service.index')->getData()['breadcrumbs'];
         $invoice = InvoiceItem::where('type', 'service')->get()->unique('invoice_id')->pluck('invoice_id');
         $invoices = Invoice::where('type_of_business', 'buy')->whereIn('id', $invoice)->get();
-        return view('Admin.Invoice.Service.index', compact('invoices'));
+        return view('Admin.Invoice.Service.index', compact('invoices','breadcrumbs'));
     }
 
 
     public function invoiceService(Invoice $invoice)
     {
-        return view('Admin.Invoice.Service.itemProductIndex', compact('invoice'));
+        $breadcrumbs = Breadcrumbs::render('admin.invoice.service.invoiceService',$invoice)->getData()['breadcrumbs'];
+        return view('Admin.Invoice.Service.itemProductIndex', compact('invoice','breadcrumbs'));
 
     }
 
@@ -291,9 +294,10 @@ class InvoiceController extends Controller
 
     public function serviceEdit(Invoice $invoice)
     {
+        $breadcrumbs = Breadcrumbs::render('admin.invoice.service.edit',$invoice)->getData()['breadcrumbs'];
         $products = Product::where('type', 'goods')->where('status', 'active')->get();
         $suppliers = Supplier::where('status', 'active')->get();
-        return view('Admin.Invoice.Service.edit', compact('suppliers', 'products', 'invoice'));
+        return view('Admin.Invoice.Service.edit', compact('suppliers', 'products', 'invoice','breadcrumbs'));
 
     }
 

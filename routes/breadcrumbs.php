@@ -88,6 +88,19 @@ Breadcrumbs::for('admin.setting.edit', function (BreadcrumbTrail $trail,$setting
     $trail->parent('admin.setting.index');
     $trail->push('ویرایش تنظیمات نرم افزار', route('admin.setting.edit',$setting));
 });
+Breadcrumbs::for('admin.order.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('panel.admin');
+    $trail->push('سفارشات نهایی شده', route('admin.order.index'));
+});
+Breadcrumbs::for('admin.order.invoiceDetails', function (BreadcrumbTrail $trail,$invoice) {
+    $trail->parent(getRoutNameWithUri());
+    $trail->push('لیست جزئیات سفارشات کاربر', route('admin.order.invoiceDetails',$invoice));
+});
+
+Breadcrumbs::for('admin.order.invoice', function (BreadcrumbTrail $trail) {
+    $trail->parent('panel.admin');
+    $trail->push('لیست تمامی سفارشات', route('admin.order.invoice'));
+});
 
 Breadcrumbs::for('admin.user.index', function (BreadcrumbTrail $trail) {
     $trail->parent('panel.admin');
@@ -135,6 +148,20 @@ Breadcrumbs::for('admin.finance.transaction.details', function (BreadcrumbTrail 
     $trail->push('معین اشخاص کاربر', route('admin.finance.transaction.details',$finance));
 });
 
+
+
+Breadcrumbs::for('admin.invoice.service.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('panel.admin');
+    $trail->push('لیست فاکتور سرویس', route('admin.invoice.service.index'));
+});
+Breadcrumbs::for('admin.invoice.service.invoiceService', function (BreadcrumbTrail $trail,$invoice) {
+    $trail->parent('admin.invoice.service.index');
+    $trail->push('نمایش سرویس های فاکتور', route('admin.invoice.service.invoiceService',$invoice));
+});
+Breadcrumbs::for('admin.invoice.service.edit', function (BreadcrumbTrail $trail,$invoice) {
+    $trail->parent('admin.invoice.service.invoiceService',$invoice);
+    $trail->push('ویرایش فاکتور سرویس', route('admin.invoice.service.edit',$invoice));
+});
 
 
 
