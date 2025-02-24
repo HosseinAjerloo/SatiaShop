@@ -52,6 +52,9 @@ class Product extends Model
             $query->whereDate('created_at',">=",Carbon::now()->subMonths(request()->input('date'))->toDateString());
         })->when(request()->input('name'),function ($query){
             $query->where('title','like',"%".request()->input('name')."%");
+        })->when(request()->input('customDate'),function ($query){
+            $date=date('Y-m-d',changeFormatNumberToDate(request()->input('customDate')));
+            $query->whereDate('created_at',">=",$date);
         });
     }
 
@@ -124,9 +127,13 @@ class Product extends Model
         $cartItem = CartItem::where('product_id', $this->id)->whereIn('cart_id', $cart->pluck('id'))->get();
         if ($cartItem->count() > 0) {
             if ($this->type == 'goods')
-                return ($this->productTransaction()->latest()->first()->remain??0) - $cartItem->sum('amount');
-            else
+            {
+                $total=($this->productTransaction()->latest()->first()->remain??0) - $cartItem->sum('amount');
+                return  $total>0?$total:0;
+            }
+            else{
                 return 'نامحدود';
+            }
         }
         if ($this->type == 'goods')
             return $this->productTransaction()->latest()->first()->remain??0;

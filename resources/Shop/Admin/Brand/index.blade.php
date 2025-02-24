@@ -12,7 +12,7 @@
         <div class="submit_date cursor-pointer border-black rounded-md p-1" data-date="6">
             <img src="{{asset("capsule/images/6Mount.svg")}}" alt="">
         </div>
-        <div class="border-black rounded-md p-1 submit_date cursor-pointer">
+        <div class="border-black rounded-md p-1 observer-example cursor-pointer">
             <img src="{{asset("capsule/images/date.svg")}}" alt="">
         </div>
 
@@ -30,6 +30,8 @@
 
         </div>
         <input type="hidden" name="date" id="input_date">
+        <input class="customDate" type="hidden" name="customDate" />
+
     </form>
     <section class="px-2 mt-5">
         <article
@@ -43,6 +45,11 @@
             <div class="w-1/5">
                 <h1 class="text-white text-min font-bold text-center">
                     وضعیت
+                </h1>
+            </div>
+            <div class="w-1/5">
+                <h1 class="text-white text-min font-bold text-center">
+                    تاریخ
                 </h1>
             </div>
 
@@ -66,6 +73,13 @@
                             @else
                                 غیرفعال
                             @endif
+                        </p>
+                    </div>
+                    <div class="w-1/5 h-full">
+                        <p class="text-black  text-sm font-bold  h-full flex items-center justify-center text-center">
+
+                                {{\Morilog\Jalali\Jalalian::forge($brand->created_at)->format('H:i:s Y/m/d')}}
+
                         </p>
                     </div>
                 </div>

@@ -34,6 +34,9 @@ class Menu extends Model
             $query->whereDate('created_at',">=",Carbon::now()->subMonths(request()->input('date'))->toDateString());
         })->when(request()->input('name'),function ($query){
             $query->where('name','like',"%".request()->input('name')."%");
+        })->when(request()->input('customDate'),function ($query){
+            $date=date('Y-m-d',changeFormatNumberToDate(request()->input('customDate')));
+            $query->whereDate('created_at',">=",$date);
         });
     }
     public function category()

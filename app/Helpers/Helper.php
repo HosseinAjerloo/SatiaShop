@@ -15,8 +15,10 @@ function getRoutNameWithUri($path=null)
         return $route->action['as'];
     }
     return '/';
-
-
+}
+function changeFormatNumberToDate($date)
+{
+      return substr($date,0,10);
 }
 
 

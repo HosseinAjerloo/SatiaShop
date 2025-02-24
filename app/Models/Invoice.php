@@ -36,6 +36,9 @@ class Invoice extends Model
         })->when(request()->input('name'),function ($query){
             $user=User::where('mobile',request()->input('name'))->first();
             $query->where('user_id',$user->id);
+        })->when(request()->input('customDate'),function ($query){
+            $date=date('Y-m-d',changeFormatNumberToDate(request()->input('customDate')));
+            $query->whereDate('created_at',">=",$date);
         });
     }
 

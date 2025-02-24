@@ -12,7 +12,7 @@
         <div class="submit_date cursor-pointer border-black rounded-md p-1" data-date="6">
             <img src="{{asset("capsule/images/6Mount.svg")}}" alt="">
         </div>
-        <div class="border-black rounded-md p-1 submit_date cursor-pointer">
+        <div class="border-black rounded-md p-1 observer-example cursor-pointer">
             <img src="{{asset("capsule/images/date.svg")}}" alt="">
         </div>
 
@@ -31,6 +31,7 @@
 
         </div>
         <input type="hidden" name="date" id="input_date">
+        <input class="customDate" type="hidden" name="customDate" />
     </form>
     <section class="px-2 mt-5">
         <article

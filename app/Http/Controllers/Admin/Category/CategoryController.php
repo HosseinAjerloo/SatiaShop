@@ -22,8 +22,6 @@ class CategoryController extends Controller
 
         $categories = Category::Search()->get();
         $breadcrumbs = Breadcrumbs::render('admin.category.index')->getData()['breadcrumbs'];
-//        $request->
-
         return view('Admin.ProductCategory.index', compact('categories', 'breadcrumbs'));
     }
 
