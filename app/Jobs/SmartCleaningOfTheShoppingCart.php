@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\Cart;
+use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Log;
@@ -20,22 +21,32 @@ class SmartCleaningOfTheShoppingCart implements ShouldQueue
         $this->onQueue('CleaningOfTheShoppingCart');
     }
 
+    public function middleware(): array
+    {
+        return [new WithoutOverlapping('SmartCleaningOfTheShoppingCart')];
+    }
+
     /**
      * Execute the job.
      */
     public function handle(): void
     {
-        $carts = Cart::where('status', 'addToCart')->orWhere('status', 'applyToTheBank')->get();
-        if ($carts) {
-            foreach ($carts as $cart) {
+        $now=Carbon::now();
+        $addToCarts = Cart::where('status', 'addToCart')->orWhere('status','applyToTheBank')->whereDate('created_at',$now->toDateString())->get();
+        if ($addToCarts) {
+            foreach ($addToCarts as $cart) {
                 if ($cart->cartItem()->count() > 0) {
                     $cartItem = $cart->cartItem()->latest()->first();
-                    $lastTime = \Illuminate\Support\Carbon::now()->subMinutes(10)->toDateTimeString();
+                    $cart->status=='addToCart'?env('DeleteBasedOnAddCartType'):env('DeleteBasedOnApplyToTheBankType');
+                    $lastTime = $now->subMinutes($cart->status=='addToCart'?env('DeleteBasedOnAddCartType'):env('DeleteBasedOnApplyToTheBankType'))->toDateTimeString();
                     if ($cartItem->created_at <= $lastTime) {
                         $cart->update(['status' => 'canceledByTheSystem']);
+                        $cart->delete();
                     }
                 }
             }
         }
+
+
     }
 }

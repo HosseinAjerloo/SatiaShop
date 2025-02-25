@@ -3,7 +3,7 @@
 @include('Admin.Layout.header')
 @yield('header')
 
-<main class="py-8">
+<main class="py-8 container mx-auto">
 
     @if(isset($breadcrumbs))
         <section class=" hidden sm:flex">

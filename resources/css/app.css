@@ -5,17 +5,19 @@
 
 @layer base{
     @font-face {
-        font-family: 'vazir';
-        src: url('../../public/capsule/fonts/vazir.woff');
-
+        font-family: 'IRANSans';
+        src: url('../../public/shop/assets/fonts/IRANSans/IRANSansWeb_Light.woff'),
+        url('../../public/shop/assets/fonts/IRANSans/IRANSansWeb_Light.woff') format('truetype');
+        font-weight: normal;
     }
+
 
 }
 *{
-    font-family: 'vazir';
+    font-family: 'IRANSans';
 }
 body{
-    font-family: 'vazir';
+    font-family: 'IRANSans';
     direction: rtl;
 }
 

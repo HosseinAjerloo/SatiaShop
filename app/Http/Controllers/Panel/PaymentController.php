@@ -50,7 +50,6 @@ class PaymentController extends Controller
             $bank = Bank::find($inputs['payment_type']);
             $myCart = Cart::where('status', 'addToCart')->where('user_id', $user->id)->first();
             $myCart->finalPrice=round($myCart->finalPrice);
-            $myCart->update(['status','applyToTheBank']);
             $invoice = Invoice::create([
                 'user_id' => $user->id,
                 'bank_id' => $bank->id,
@@ -103,6 +102,7 @@ class PaymentController extends Controller
             }
             $token = $status;
             session()->put('payment', $payment->id);
+            session()->put('cart_id', $myCart->id);
             session()->put('financeTransaction', $financeTransaction->id);
             Log::channel('bankLog')->emergency(PHP_EOL . 'Connection with the bank payment gateway '
                 . PHP_EOL .
@@ -115,6 +115,7 @@ class PaymentController extends Controller
                 'user ID: ' . $user->id
                 . PHP_EOL
             );
+            $myCart->update(['status','applyToTheBank']);
             return $objBank->connectionToBank($token);
         } catch (\Exception $e) {
             SendAppAlertsJob::dispatch('در ارتباط با بانک در پروژه کپسول خطایی پیش آمدر لطفا ارتباط خود را برسی کنید')->onQueue('perfectmoney');
@@ -135,7 +136,7 @@ class PaymentController extends Controller
             $bank = $payment->bank;
             $objBank = new $bank->class;
             $objBank->setBankModel($bank);
-            $myCart = Cart::where('status', 'addToCart')->where('user_id', $user->id)->first();
+            $myCart = Cart::where('id', session()->get('cart_id'))->where('user_id', $user->id)->first();
             $invoice = $payment->invoice;
 
 

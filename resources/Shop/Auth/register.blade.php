@@ -16,7 +16,7 @@
                     <img src="{{asset('capsule/images/phone.svg')}}" alt="" class="w-6 h-6">
                     <input type="text"
                            class=" mobile w-full h-full inline-block outline-none px-2 placeholder:text-center placeholder:text-sm"
-                           placeholder="شماره همراه  (*********09)" name="mobile" >
+                           placeholder="شماره همراه  (*********09)" name="mobile" value="{{old('mobile')}}">
                 </div>
                 <button type="button" class="text-mini-base bg-2081F2 w-24   h-12 text-white rounded-md text-center flex items-center justify-center cursor-pointer send">
                     ارسال
@@ -28,7 +28,7 @@
                 <img src="{{asset('capsule/images/key-black.svg')}}" alt="" class="w-6 h-6">
                 <input type="text"
                        class="w-full h-full py-1.5 outline-none px-2  placeholder:text-center  placeholder:text-sm"
-                       placeholder="کد ارسال شده به تلفن همراه " name="code">
+                       placeholder="کد ارسال شده به تلفن همراه " name="code" value="{{old('code')}}">
             </div>
             <div class="flex items-center space-x-reverse space-x-2 w-full border-black border-2 px-2 h-12 rounded-md">
                 <img src="{{asset('capsule/images/key-black.svg')}}" alt="" class="w-6 h-6">
@@ -38,7 +38,7 @@
             </div>
             <div class="flex items-center justify-center text-mini-mini-base text-center leading-6 text-black/35 font-bold time w-full">
             </div>
-            <button  class=" bg-2081F2 text-sm w-52 h-10 rounded-md text-white font-bold">
+            <button type="button"  class=" bg-2081F2 text-sm w-52 h-10 rounded-md text-white font-bold submit">
                 ورود به
                 حساب کاربری
             </button>
@@ -66,27 +66,10 @@
                         $(sendBtn).attr("disabled","disabled");
                         $(sendBtn).removeClass('bg-gradient-to-b from-80C714 to-268832');
                         $(sendBtn).addClass('bg-gray-400');
-
+                        toast('پیامک به شماره موبایل وارده ارسال شد',true);
                     },
                     error: function (error) {
-                        let html = '<section class="container p-2 absolute space-y-2 max-w-max">' +
-                            '<div  class="toast transition-all duration-300 transform  flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">' +
-                            '<div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-orange-500 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200">' +
-                            '<svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">' +
-                            '<path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z"/>' +
-                            '</svg>' +
-                            '<span class="sr-only">Warning icon</span>' +
-                            '</div>' +
-                            '<div class="ms-3 text-sm font-normal">'+error.responseJSON.message+'</div>' +
-                            '<button type="button" class="close-toast ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-warning" aria-label="Close">' +
-                            '<span class="sr-only">Close</span>' +
-                            '<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">' +
-                            '<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>' +
-                            '</svg>' +
-                            '</button>' +
-                            ' </div>' +
-                            '</section>'
-                        $('.errors').append(html)
+                        toast(error.responseJSON.message,false);
                         close();
                     }
                 })
@@ -122,21 +105,16 @@
             var now = new Date("{{\Carbon\Carbon::now()->subMinutes(3)->toDateTimeString()}}")
 
 
-            // Update the count down every 1 second
             var x = setInterval(function () {
                 now.setSeconds(now.getSeconds() + 1)
 
 
-                // Get today's date and time
 
-                // Find the distance between now and the count down date
                 var distance = countDownDate - now;
-                // Time calculations for days, hours, minutes and seconds
 
                 var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                // console.log(minutes)
-                // Display the result in the element with id="demo"
+
                 var text = '';
                 if (minutes > 0) {
                     text += 'مدت زمان باقی مانده تا دریافت مجدد کد ' + minutes + ' دقیقه و ' + seconds + ' ثانیه  '
@@ -145,7 +123,6 @@
                 }
                 document.getElementsByClassName("time")[0].innerHTML = text
 
-                // If the count down is finished, write some text
                 if (distance < 0) {
                     document.getElementsByClassName("time")[0].innerHTML = ''
 
@@ -159,6 +136,29 @@
 
                 form.action = message.route
             }, 1000);
+        }
+        $('.submit').click(function (e){
+            e.preventDefault();
+            if($('#form').attr("action")!='')
+            {
+                $('#form').submit();
+                return;
+            }
+            toast('لطفا شماره موبایل خود را وارد کنید وسپس بر روی دکمه ارسال کد کلید کنید',false)
+
+        })
+
+
+    </script>
+
+
+    <script>
+        function toast(message, status) {
+            showToast(message);
+            if (!status) {
+                $(".progress-bar div").css({'background-color': 'red'})
+            }
+
         }
     </script>
 @endsection

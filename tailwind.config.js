@@ -5,7 +5,7 @@ module.exports = {
         extend: {
             fontSize:{
                 min:'0.750rem',
-                min_sm:'0.650rem'
+                min_sm:'0.900rem'
             },
             colors:{
                 '2081F2':'#2081F2',
