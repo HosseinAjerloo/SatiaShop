@@ -40,14 +40,15 @@
                 <section><a class="text-decoration-none text-muted d-inline-block my-2" href="#">فرصت های شغلی</a></section>
                 <section><a class="text-decoration-none text-muted d-inline-block my-2" href="#">سوالات متداول</a></section>
             </section>
+            <section class="col-md">
+                <section class="col">
+                    <section class="fw-bold">125 یار</section>
+                    <section class="text-muted footer-intro">ما همواره تلاش می کنیم بهترین خدمات را به مشتریان ساتیا ارائه کنیم. به شما کمک می کنیم بهترین انتخاب را داشته باشید و با اطمینان خاطر خرید را انجام بدهید و در کوتاه ترین زمان ممکن کالای خود را دریافت کنید. همچنین ما 24 ساعته در هفت روز هفته به مشتریان مان خدمات ارائه می دهیم.</section>
+                </section>
+            </section>
 
         </section>
-        <section class="row my-5">
-            <section class="col">
-                <section class="fw-bold">125 یار</section>
-                <section class="text-muted footer-intro">ما همواره تلاش می کنیم بهترین خدمات را به مشتریان ساتیا ارائه کنیم. به شما کمک می کنیم بهترین انتخاب را داشته باشید و با اطمینان خاطر خرید را انجام بدهید و در کوتاه ترین زمان ممکن کالای خود را دریافت کنید. همچنین ما 24 ساعته در هفت روز هفته به مشتریان مان خدمات ارائه می دهیم.</section>
-            </section>
-        </section>
+
 
         <section class="row border-top pt-4">
             <section class="col">
