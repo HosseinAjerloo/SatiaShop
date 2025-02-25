@@ -145,7 +145,7 @@
                             <section class="col-6 border-bottom mb-2 py-2">
                                 <section class="field-title">نام</section>
                                 <section
-                                    class="field-value overflow-auto">{{\Illuminate\Support\Facades\Auth::user()->fullName??""}}</section>
+                                    class="field-value overflow-auto">{{\Illuminate\Support\Facades\Auth::user()->name??""}}</section>
                             </section>
 
                             <section class="col-6 border-bottom my-2 py-2">

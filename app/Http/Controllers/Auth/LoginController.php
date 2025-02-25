@@ -36,9 +36,18 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         if (Auth::check()) {
+            $state = Str::uuid()->toString();
+            session()->put('state', $state);
+            $query = http_build_query([
+                'client_id' => env('AUTH_CLIENT_ID'),
+                'redirect_uri' => route('logout'),
+                'state' => $state,
+            ]);
             $cart=\session()->get('cart_id');
             Auth::logout();
             \session(['cart_id'=>$cart]);
+            return redirect(env('AUTH_LOGOUT_URL') . $query);
+
         }
         return redirect()->route('panel.index');
 
@@ -188,7 +197,7 @@ class LoginController extends Controller
             $responseObj = $response->object();
             $responseUser = Http::withHeaders([
                 'Authorization' => $responseObj->token_type . ' ' . $responseObj->access_token,
-            ])->get('https://oauth.satia.co/api/user');
+            ])->get(env('AUTH_USER_URL'));
 
             if($responseUser->successful()) {
                 $userObj = $responseUser->object();

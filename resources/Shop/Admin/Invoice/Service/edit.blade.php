@@ -35,7 +35,7 @@
 
                     <article class="space-y-3 border-b-2 border-black/40 pb-3">
                         <div class="flex items-center space-x-reverse space-x-8">
-                            <h5 class="text-min font-light w-28"> قیمت هر واحد (ریال):</h5>
+                            <h5 class="text-min font-light w-28"> قیمت هر واحد(ریال):</h5>
                             <input type="text" name="price[{{$item->id}}]" class="outline-none border border-black rounded-md w-48"
                                    value="{{$item->price}}">
                         </div>

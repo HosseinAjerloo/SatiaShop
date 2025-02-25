@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <section class="px-5">
+    <section class="px-5 mt-4">
         <h1 class="font-bold text-sm">
             افزودن منو جدید :
         </h1>

@@ -7,7 +7,7 @@
             <section class="row">
                 <section class="col">
                     <!-- start vontent header -->
-                    <section class="content-header">
+                    <section class="content-header py-2">
                         <section class="d-flex justify-content-between align-items-center">
                             <h2 class="content-header-title">
                                 <span>سبد خرید شما</span>
@@ -29,7 +29,7 @@
                                                 src="{{$cartItem->product->image->path??''}}" alt="">
                                         </section>
                                         <section class="align-self-start w-100 space-y-3">
-                                            <p class="fw-bold">{{$cartItem->product->title??''}}</p>
+                                            <p class="fw-bold">{{$cartItem->product->removeUnderLine??''}}</p>
                                             {{--                                            <p>--}}
                                             {{--                                                <span style="background-color: #523e02;"--}}
                                             {{--                                                     class="cart-product-selected-color me-1"></span>--}}
@@ -91,11 +91,8 @@
 
                                 <p class="my-3">
                                     <i class="fa fa-info-circle me-1"></i>
-                                    کاربر گرامی خرید شما هنوز نهایی نشده است.
-                                    برای ثبت سفارش و تکمیل خرید ابتدا باید وارد سایت شوید و از قسمت تکمیل پروفایل
-                                    اطلاعات
-                                    پروفایلی خودتان را تکمیل کنید تا در صورت بروز مشکل کارشناسان ما بتوانند با شما
-                                    تماس حاصل فرماییند باتشکر تیم توسعه دهنده سایتا
+                                    کاربر گرامی خرید شما هنوز نهایی نشده است  برای ادامه سفارش ابتدا روی افزودن به سبد خرید و سپس روی دکمه مشاهده سبد خرید کلیک نمایید.
+
                                 </p>
 
 

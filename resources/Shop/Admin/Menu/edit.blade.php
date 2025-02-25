@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <section class="px-5">
+    <section class="px-5 mt-4">
         <h1 class="font-bold text-sm">
             ویرایش منو :
         </h1>
@@ -44,7 +44,7 @@
 
 
             <div class="flex items-center justify-center  w-full">
-               <button class="bg-2081F2 rounded-md py-1.5 w-full text-white">ثبت</button>
+               <button class="bg-2081F2 rounded-md py-1.5 w-full text-white">ویرایش</button>
             </div>
         </form>
     </section>
