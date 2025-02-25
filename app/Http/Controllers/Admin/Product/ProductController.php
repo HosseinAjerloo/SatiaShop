@@ -23,7 +23,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::Search()->get();
+        $products = Product::Search()->orderBy('created_at','desc')->paginate(20,['*'],'productPage')->withQueryString();
+
         $breadcrumbs=Breadcrumbs::render('admin.product.index')->getData()['breadcrumbs'];
 
         return view('Admin.Product.index', compact('products','breadcrumbs'));

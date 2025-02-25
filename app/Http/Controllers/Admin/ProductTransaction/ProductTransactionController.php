@@ -27,7 +27,7 @@ class ProductTransactionController extends Controller
             });
 
         }
-        return view('Admin.ProductTransaction.index', compact('productTransactions', 'breadcrumbs'));
+        return view('Admin.ProductTransAction.index', compact('productTransactions', 'breadcrumbs'));
     }
 
     public function details(Product $product)

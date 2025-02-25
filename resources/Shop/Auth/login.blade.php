@@ -52,7 +52,7 @@
 
                 <a href="{{route('register')}}" class="text-min text-blue-800 font-bold  underline underline-offset-4">
                     ثبت نام </a>
-                <a href="" class="text-min text-blue-800 font-bold  underline underline-offset-4">کلمه عبور را فراموش
+                <a href="{{ route('forgotPassword') }}" class="text-min text-blue-800 font-bold  underline underline-offset-4">کلمه عبور را فراموش
                     کرده اید</a>
 
 

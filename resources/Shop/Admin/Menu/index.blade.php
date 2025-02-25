@@ -30,12 +30,12 @@
 
         </div>
         <input type="hidden" name="date" id="input_date">
-        <input class="customDate" type="hidden" name="customDate" />
+        <input class="customDate" type="hidden" name="customDate"  id="customDate"/>
 
     </form>
     <section class="px-2 mt-5">
         <article
-            class="bg-2081F2 px-2 py-1 flex items-center justify-between rounded-md rounded-ee-none rounded-es-none">
+            class="bg-2081F2 px-2 py-3 flex items-center justify-between rounded-md rounded-ee-none rounded-es-none">
             <div class="w-1/5">
                 <h1 class="text-white text-min font-bold text-center">
                    #
@@ -58,7 +58,11 @@
                     وضعیت
                 </h1>
             </div>
-
+            <div class="w-1/5">
+                <h1 class="text-white text-min font-bold text-center">
+                    تاریخ ایجاد
+                </h1>
+            </div>
         </article>
 
         <article class="  border border-t-0 border-black space-y-5 py-1.5 rounded-md rounded-se-none  rounded-ss-none">
@@ -91,6 +95,12 @@
                             @endif
                         </p>
                     </div>
+                    <div class="w-1/5 h-full">
+                        <p class="text-black  text-min_sm font-bold  h-full flex items-center justify-center text-center">
+                            {{\Morilog\Jalali\Jalalian::forge($menu->created_at)->format('H:i:s Y/m/d')}}
+
+                        </p>
+                    </div>
                 </div>
 
 
@@ -98,34 +108,8 @@
 
         </article>
     </section>
+    <x-paginate :items="$menus"/>
+
 
 @endsection
-@push('search')
-    <script>
-        $(document).ready(function () {
-            $(".submit_date").click(function () {
-                $(".submit_date").removeClass('border')
-                $(this).addClass('border')
-                $('#input_date').val($(this).data('date'))
-                permissionRequest();
-                $('#form').submit()
-
-            });
-
-            $(".search").click(function () {
-                permissionRequest();
-                $('#form').submit();
-            })
-
-            function permissionRequest() {
-                if ($('#input_search').val() === '')
-                    $("#input_search").removeAttr('name')
-
-                if ($('#input_date').val() === '')
-                    $("#input_date").removeAttr('name')
-            }
-        })
-
-    </script>
-@endpush
 

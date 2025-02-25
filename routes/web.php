@@ -19,7 +19,7 @@ Route::middleware('guest')->group(function () {
     Route::get('register', [App\Http\Controllers\Auth\LoginController::class, 'register'])->name('register');
     Route::post('register/{otp:token}', [App\Http\Controllers\Auth\LoginController::class, 'registerUser'])->name('register.post');
     Route::get('forgot-password', [App\Http\Controllers\Auth\LoginController::class, 'forgotPassword'])->name('forgotPassword');
-    Route::post('forgot-password', [App\Http\Controllers\Auth\LoginController::class, 'sendLinkForget'])->name('post.forgotPassword');
+    Route::post('forgot-password', [App\Http\Controllers\Auth\LoginController::class, 'sendCodeForget'])->name('post.forgotPassword');
     Route::get('forgot-password/{otp:token}', [App\Http\Controllers\Auth\LoginController::class, 'forgotPasswordToken'])->name('forgotPassword.token');
     Route::get('update-password/{otp:token}', [App\Http\Controllers\Auth\LoginController::class, 'updatePassword'])->name('update.Password');
     Route::post('update-password/{otp:token}', [App\Http\Controllers\Auth\LoginController::class, 'updatePasswordPost'])->name('post.update.Password');

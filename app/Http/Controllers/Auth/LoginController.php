@@ -83,7 +83,7 @@ class LoginController extends Controller
         return view('Auth.forgot');
     }
 
-    public function sendLinkForget(SendCodeWithSmsRequest $request)
+    public function sendCodeForget(SendCodeWithSmsRequest $request)
     {
         $message = 'باسلام جهت تغییر کلمه عبور خود روی لینک زیر کلیک کنید' . PHP_EOL;
         $token = $this->generateCode($request, $message);
@@ -101,8 +101,8 @@ class LoginController extends Controller
 
     public function updatePasswordPost(RegisterPasswordRequest $request, Otp $otp)
     {
-        if (!empty($otp->seen_at))
-            return redirect()->route('login.index')->withErrors(['token' => 'لینک ارسالی معتبر نمیباشد']);
+        $expiration = Carbon::now()->subMinutes(3)->toDateTimeString();
+        $otp = $otp->where('created_at', ">", $expiration)->where('token', $otp->token)->whereNull('seen_at')->first();
 
         $otp->update(['seen_at' => date('Y-m-d H:i:s')]);
         $inputs = $request->all();
@@ -117,13 +117,11 @@ class LoginController extends Controller
 
     public function forgotPasswordToken(Request $request, Otp $otp)
     {
-        if (!empty($otp->seen))
-            return redirect()->route('login.simple')->withErrors(['invalidOtp' => 'لینک وارد شده معتبر نمیباشد']);
-
-        if (!Session::has('user'))
-            Session::put(['user' => User::where('mobile', $otp->mobile)->first()->id]);
-
-        $otp->update(['seen_at' => date('Y-m-d H:i:s')]);
+        $expiration = Carbon::now()->subMinutes(3)->toDateTimeString();
+        $otp = $otp->where('created_at', ">", $expiration)->where('token', $otp->token)->whereNull('seen_at')->first();
+        if (!$otp) {
+            return redirect()->route('login.index')->withErrors(['expiration_at' => "مدت زمان استفاده از لینک ارسالی گذشته است "]);
+        }
         return view('Auth.updatePassword', compact('otp'));
     }
 

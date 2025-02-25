@@ -15,7 +15,9 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $menus=Menu::Search()->orderBy('view_sort','asc')->get();
+        
+        $menus=Menu::Search()->orderBy('created_at','desc')->paginate(20,['*'],'productPage')->withQueryString();
+        
         $breadcrumbs=Breadcrumbs::render('admin.menu.index')->getData()['breadcrumbs'];
 
         return view('Admin.Menu.index',compact('menus','breadcrumbs'));

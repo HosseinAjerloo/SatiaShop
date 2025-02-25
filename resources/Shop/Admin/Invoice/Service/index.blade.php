@@ -32,7 +32,7 @@
     </form>
     <section class="px-2 mt-5">
         <article
-            class="bg-2081F2 px-2 py-1 flex items-center justify-between rounded-md rounded-ee-none rounded-es-none">
+            class="bg-2081F2 px-2 py-3 flex items-center justify-between rounded-md rounded-ee-none rounded-es-none">
             <div class="w-1/5">
                 <h1 class="text-white text-min font-bold text-center">
                     کاربر ثبت کننده
