@@ -28,6 +28,9 @@ class ProductTransaction extends Model
             $query->whereIn('product_id',$products);
         })->when(request()->input('invoice'),function ($query){
             $query->where('invoice_id',request()->input('invoice'));
+        })->when(request()->input('customDate'),function ($query){
+            $date=date('Y-m-d',changeFormatNumberToDate(request()->input('customDate')));
+            $query->whereDate('created_at',">=",$date);
         });
     }
     public function user()

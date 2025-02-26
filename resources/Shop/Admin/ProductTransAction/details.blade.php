@@ -12,7 +12,7 @@
         <div class="submit_date cursor-pointer border-black rounded-md p-1" data-date="6">
             <img src="{{asset("capsule/images/6Mount.svg")}}" alt="">
         </div>
-        <div class="border-black rounded-md p-1 submit_date cursor-pointer">
+        <div class="border-black rounded-md p-1 observer-example cursor-pointer">
             <img src="{{asset("capsule/images/date.svg")}}" alt="">
         </div>
 
@@ -30,6 +30,8 @@
 
         </div>
         <input type="hidden" name="date" id="input_date">
+        <input class="customDate" type="hidden" name="customDate" id="customDate" />
+
     </form>
     <section class="px-2 mt-5">
         <article
@@ -119,33 +121,7 @@
 
         </article>
     </section>
+    <x-paginate :items="$productTransactions"/>
 
 @endsection
-@push('search')
-    <script>
-        $(document).ready(function () {
-            $(".submit_date").click(function () {
-                $(".submit_date").removeClass('border')
-                $(this).addClass('border')
-                $('#input_date').val($(this).data('date'))
-                permissionRequest();
-                $('#form').submit()
 
-            });
-
-            $(".search").click(function () {
-                permissionRequest();
-                $('#form').submit();
-            })
-
-            function permissionRequest() {
-                if ($('#input_search').val() === '')
-                    $("#input_search").removeAttr('name')
-
-                if ($('#input_date').val() === '')
-                    $("#input_date").removeAttr('name')
-            }
-        })
-
-    </script>
-@endpush

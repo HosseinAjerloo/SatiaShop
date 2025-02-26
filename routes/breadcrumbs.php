@@ -93,7 +93,9 @@ Breadcrumbs::for('admin.order.index', function (BreadcrumbTrail $trail) {
     $trail->push('سفارشات نهایی شده', route('admin.order.index'));
 });
 Breadcrumbs::for('admin.order.invoiceDetails', function (BreadcrumbTrail $trail,$invoice) {
-    $trail->parent(getRoutNameWithUri());
+    if (getRoutNameWithUri()!=null)
+        session()->put(['referer'=>getRoutNameWithUri()]);
+    $trail->parent(session()->get('referer'));
     $trail->push('لیست جزئیات سفارشات کاربر', route('admin.order.invoiceDetails',$invoice));
 });
 

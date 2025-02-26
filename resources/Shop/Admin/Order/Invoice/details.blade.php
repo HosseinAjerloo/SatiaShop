@@ -54,7 +54,7 @@
         </article>
 
         <article class="  border border-t-0 border-black space-y-5 py-1.5 rounded-md rounded-se-none  rounded-ss-none">
-            @foreach($invoice->invoiceItem as $key=> $invoiceItem)
+            @foreach($invoiceItems as $key=> $invoiceItem)
                 <div class="p-2 h-full @if(($key%2)==0) bg-E9E9E9 @endif  flex items-center justify-between  divide-x-1 divide-black divide-x-reverse">
                     <div class="w-1/5 h-full">
                         <p class="text-black  text-min_sm font-bold  h-full flex items-center justify-center text-center">
@@ -101,33 +101,7 @@
 
         </article>
     </section>
+    <x-paginate :items="$invoiceItems"/>
 
 @endsection
-@push('search')
-    <script>
-        $(document).ready(function () {
-            $(".submit_date").click(function () {
-                $(".submit_date").removeClass('border')
-                $(this).addClass('border')
-                $('#input_date').val($(this).data('date'))
-                permissionRequest();
-                $('#form').submit()
 
-            });
-
-            $(".search").click(function () {
-                permissionRequest();
-                $('#form').submit();
-            })
-
-            function permissionRequest() {
-                if ($('#input_search').val() === '')
-                    $("#input_search").removeAttr('name')
-
-                if ($('#input_date').val() === '')
-                    $("#input_date").removeAttr('name')
-            }
-        })
-
-    </script>
-@endpush

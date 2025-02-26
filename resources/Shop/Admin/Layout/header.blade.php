@@ -1,5 +1,5 @@
-<header class="px-3 py-2.5 bg-2081F2 h-10 flex items-center">
-    <nav class="flex items-center justify-between w-full">
+<header class="px-3 py-4 bg-2081F2 h-14 flex items-center">
+    <nav class="flex items-center justify-between w-full py-4">
         <a href="{{route('panel.admin')}}" class="flex items-center space-x-reverse space-x-2">
             <img src="{{asset("capsule/images/logo.svg")}}" alt="">
             <p class="font-bold text-white text-min ">

@@ -19,7 +19,7 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $categories = Category::Search()->orderBy('created_at','desc')->paginate(20,['*'],'categoryPage')->withQueryString();
+        $categories = Category::Search()->orderBy('created_at','desc')->paginate(20,['*'],'page')->withQueryString();
         $breadcrumbs = Breadcrumbs::render('admin.category.index')->getData()['breadcrumbs'];
         return view('Admin.ProductCategory.index', compact('categories', 'breadcrumbs'));
     }

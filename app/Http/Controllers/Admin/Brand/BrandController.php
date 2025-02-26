@@ -17,7 +17,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $brands = Brand::Search()->get();
+        $brands = Brand::Search()->orderBy('created_at','desc')->paginate(20,['*'],'page')->withQueryString();
         $breadcrumbs = Breadcrumbs::render('admin.brand.index')->getData()['breadcrumbs'];
 
         return view('Admin.Brand.index', compact('brands','breadcrumbs'));
