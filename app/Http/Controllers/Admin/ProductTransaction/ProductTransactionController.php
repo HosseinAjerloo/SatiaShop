@@ -49,6 +49,6 @@ class ProductTransactionController extends Controller
     {
         $breadcrumbs = Breadcrumbs::render('admin.product.transaction.details',$product)->getData()['breadcrumbs'];
         $productTransactions = ProductTransaction::Search()->orderBy('created_at', 'desc')->where('product_id', $product->id)->paginate(20,['*'],'page')->withQueryString();
-        return view('Admin.ProductTransaction.details', compact('productTransactions', 'breadcrumbs','product'));
+        return view('Admin.ProductTransAction.details', compact('productTransactions', 'breadcrumbs','product'));
     }
 }
