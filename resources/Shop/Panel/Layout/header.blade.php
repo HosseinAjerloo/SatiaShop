@@ -52,6 +52,14 @@
                                     پروفایل کاربری
                                 </a>
                             </section>
+                            @if(\Illuminate\Support\Facades\Auth::user()?->type=='admin')
+                                <section>
+                                    <a class="dropdown-item" href="{{route('panel.admin')}}">
+                                        <i class="fas fa-user-cog"></i>
+                                        ورود به پنل ادمین
+                                    </a>
+                                </section>
+                            @endif
                             <section><a class="dropdown-item" href="{{route('panel.order.index')}}"><i
                                         class="fa fa-newspaper"></i>سفارشات</a>
                             </section>

@@ -210,7 +210,7 @@ class LoginController extends Controller
                     auth()->login($user, true);
                     session(['login_type' => 'sso']);
                     session()->forget('state');
-                    return redirect()->route('panel.index');
+                    return redirect()->route('panel.admin');
                 }
             }
 
