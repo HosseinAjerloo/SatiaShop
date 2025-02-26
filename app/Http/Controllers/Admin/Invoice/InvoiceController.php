@@ -213,7 +213,7 @@ class InvoiceController extends Controller
     {
         $breadcrumbs = Breadcrumbs::render('admin.invoice.service.index')->getData()['breadcrumbs'];
         $invoice = InvoiceItem::where('type', 'service')->get()->unique('invoice_id')->pluck('invoice_id');
-        $invoices = Invoice::where('type_of_business', 'buy')->whereIn('id', $invoice)->get();
+        $invoices = Invoice::search()->where('type_of_business', 'buy')->whereIn('id', $invoice)->orderBy('created_at','desc')->paginate(20,['*'],'page')->withQueryString();
         return view('Admin.Invoice.Service.index', compact('invoices','breadcrumbs'));
     }
 
@@ -222,7 +222,6 @@ class InvoiceController extends Controller
     {
         $breadcrumbs = Breadcrumbs::render('admin.invoice.service.invoiceService',$invoice)->getData()['breadcrumbs'];
         return view('Admin.Invoice.Service.itemProductindex', compact('invoice','breadcrumbs'));
-
     }
 
 

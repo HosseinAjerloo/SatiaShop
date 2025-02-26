@@ -3,32 +3,35 @@
 @section('content')
 
     <section class="flex items-center justify-center space-x-reverse space-x-3">
-        <div class="border border-black rounded-md p-1">
+        <div class=" border-black rounded-md p-1 submit_date cursor-pointer" data-date="1">
             <img src="{{asset("capsule/images/1Mount.svg")}}" alt="">
         </div>
-        <div>
+        <div class="submit_date cursor-pointer border-black rounded-md p-1" data-date="3">
             <img src="{{asset("capsule/images/3Mount.svg")}}" alt="">
         </div>
-        <div>
+        <div class="submit_date cursor-pointer border-black rounded-md p-1" data-date="6">
             <img src="{{asset("capsule/images/6Mount.svg")}}" alt="">
         </div>
-        <div>
+        <div class="border-black rounded-md p-1 observer-example cursor-pointer">
             <img src="{{asset("capsule/images/date.svg")}}" alt="">
         </div>
 
     </section>
-    <form class="flex items-center justify-between space-x-reverse space-x-3 px-2 mt-5">
-        <a href="{{route('admin.invoice.service.create')}}"  class="flex items-center space-x-reverse space-x-2">
+    <form id="form" class="flex items-center justify-between space-x-reverse space-x-3 px-2 mt-5"
+          action="{{route('admin.invoice.service.index')}}">
+        <a href="{{route('admin.brand.create')}}" class="flex items-center space-x-reverse space-x-2">
             <img src="{{asset("capsule/images/plus.svg")}}" alt="">
-
-            <h1 class="text-min font-bold">لیست فاکتور های ثبت شده</h1>
+            <h1 class="text-min font-bold">لیست برند های موجود</h1>
         </a>
         <div class="border border-black flex items-center py-1.5 px-2 rounded-md">
-            <input type="text" placeholder="کاربر  ثبت کننده را وارد نمائید ..."
-                   class="placeholder:text-min placeholder:text-black/35 outline-none">
-            <img src="{{asset('capsule/images/search.svg')}}" alt="">
+            <input type="text" placeholder="شماره برند را وارد نمائید ..."
+                   class="placeholder:text-min placeholder:text-black/35 outline-none" name="name" id="input_search">
+            <img src="{{asset('capsule/images/search.svg')}}" alt="" class="search cursor-pointer">
 
         </div>
+        <input type="hidden" name="date" id="input_date">
+        <input class="customDate" type="hidden" name="customDate" id="customDate"/>
+
     </form>
     <section class="px-2 mt-5">
         <article
@@ -53,6 +56,11 @@
                     توضیحات مربوط به فاکتور
                 </h1>
             </div>
+            <div class="w-1/5">
+                <h1 class="text-white text-min font-bold text-center">
+                    تاریخ ایجاد
+                </h1>
+            </div>
 
         </article>
 
@@ -75,12 +83,16 @@
                             {{numberFormat($invoice->final_amount)??''}}
                         </p>
                     </div>
-                    <div class="w-1/5 h-full  text-min_sm font-bold  h-full flex items-center justify-center text-center @if(strlen($invoice->description)>5) overflow-hidden text-nowrap text-ellipsis @endif ">
+                    <div class="w-1/5 h-full  text-min_sm font-bold   flex items-center justify-center text-center @if(strlen($invoice->description)>5) overflow-hidden text-nowrap text-ellipsis @endif ">
                         {!! $invoice->description??''!!}
 
                     </div>
 
 
+                    <div class="w-1/5 h-full  text-min_sm font-bold   flex items-center justify-center text-center @if(strlen($invoice->description)>5) overflow-hidden text-nowrap text-ellipsis @endif ">
+                        {{\Morilog\Jalali\Jalalian::forge($invoice->created_at)->format('H:i:s Y/m/d')}}
+
+                    </div>
 
                 </div>
 
@@ -88,5 +100,6 @@
 
         </article>
     </section>
+    <x-paginate :items="$invoices"/>
 
 @endsection
