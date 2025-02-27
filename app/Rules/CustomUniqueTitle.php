@@ -16,7 +16,8 @@ class CustomUniqueTitle implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         $value=preg_replace("/(\s){1,}/imu",'-',$value);
-        $product=Product::where('title',$value)->first();
+        $product=Product::where('title',$value)->get();
+        if ($product->count()>1)
          $product?$fail('عنوان این محصول قبلا ذخیره شده است لطفا عنوان محصول را تغییر دهید'):'';
 
     }
