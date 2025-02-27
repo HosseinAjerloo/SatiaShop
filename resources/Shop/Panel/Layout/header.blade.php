@@ -210,7 +210,7 @@
                     <section class="offcanvas-header">
                         <h5 class="offcanvas-title" id="offcanvasExampleLabel">
                             <a class="text-decoration-none" href="index.html">
-                                <img src="{{asset('shop/assets/images/logo/8.png')}}" alt="logo">
+                                <img src="{{asset('capsule/images/logo.svg')}}" alt="logo">
                             </a>
                         </h5>
                         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
