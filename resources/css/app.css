@@ -50,6 +50,16 @@ body{
     visibility: visible;
     animation: fadein 0.5s, fadeout 0.5s 4.5s;
 }
+.affect-shadow{
+    box-shadow: 0 0 0 2px #a6a6a6;
+}
+.picker{
+    height: 0;
+    transform: scale(0);
+    position: absolute;
+
+}
+
 @keyframes fadein {
     from {
         opacity: 0;

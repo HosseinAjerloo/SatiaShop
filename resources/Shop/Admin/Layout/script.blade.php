@@ -1,32 +1,27 @@
 
 
 <script>
-            $('.observer-example').persianDatepicker({
-                observer: true,
+    $(".date").click(function (){
+        $(".picker").css(
+            {
+                'height':'auto',
+                'transform':'scale(1)',
+                'transition':'.5s',
+                'transitionDelay':'1s',
+                'position':'relative'
+            });
 
-                format: 'LLLL',
-                altField: '.customDate',
-                initialValue: false,
-                autoClose: true,
-                calendar:{
-                    'persian': {
-                        'locale': 'fa',
-                        'showHint': false
-                    },
-                    'gregorian': {
-                        'locale': 'en',
-                        'showHint': false
-                    }
-                },
-                onSelect: function (){
-                    $("#input_search").removeAttr('name')
-                    $("#input_date").removeAttr('name')
-                    $('#form').submit();
-
-
-                }
-
-            })
+    })
+    $('.startDate').persianDatepicker({
+        observer: true,
+        format: 'YYYY/MM/DD',
+        altField: '.observer-example-alt'
+    });
+    $('.endDate').persianDatepicker({
+        observer: true,
+        format: 'YYYY/MM/DD',
+        altField: '.observer-example-alt'
+    });
             $(document).ready(function(){
                 $(".submit_date").click(function (){
                     $(".submit_date").removeClass('border')
