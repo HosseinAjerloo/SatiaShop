@@ -194,6 +194,3 @@ Route::fallback(function () {
 
 
 
-
-
-
