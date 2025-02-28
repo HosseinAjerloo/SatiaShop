@@ -29,7 +29,7 @@ class SupplierController extends Controller
     {
         $breadcrumbs = Breadcrumbs::render('admin.supplier.create')->getData()['breadcrumbs'];
         $supplierCategory = SupplierCategory::where("status", 'active')->get();
-        return view('Admin.supplier.create', compact('supplierCategory','breadcrumbs'));
+        return view('Admin.Supplier.create', compact('supplierCategory','breadcrumbs'));
     }
 
     /**

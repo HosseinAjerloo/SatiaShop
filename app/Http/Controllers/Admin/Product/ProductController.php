@@ -47,7 +47,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request, ImageService $imageService)
     {
-
+            dd($request->all());
         $inputs = $request->all();
         $user = Auth::user();
         $inputs['user_id'] = $user->id;

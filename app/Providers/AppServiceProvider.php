@@ -24,7 +24,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
 
-
         \Illuminate\Support\Facades\View::composer('Panel.Layout.header', function (View $view) {
             $user = Auth::user();
             $myCart = Cart::where('status', 'addToCart')->when($user,function ($query) use ($user) {
