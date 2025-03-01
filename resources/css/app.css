@@ -173,6 +173,25 @@ body{
 }
 
 
+.editPro{
+    clip-path: circle(50px);
+    transform: translate(-50%,-50%) ;
+    transition: .5s;
+    opacity: 0;
+    background-color: #3f6c9f;
+    visibility: visible;
+    z-index: -20;
+}
+.editProActive{
+    transform: translate(-50%,-50%);
+    clip-path: circle(100%);
+    transition: .5s,.5s;
+    transition-delay: 0s,.5s;
+    background-color: transparent;
 
+    opacity:1;
+    visibility: visible;
+    z-index: 20;
+}
 
 
