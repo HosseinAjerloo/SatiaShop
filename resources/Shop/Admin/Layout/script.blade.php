@@ -68,9 +68,16 @@
                         }
 
                 })
-
                         $(".profile").click(function (){
+                            console.log($(this).attr('src'))
                          $(".profileBox").toggleClass('active')
+                            if( $('.profileBox').hasClass('active'))                             {
+                               $(this).attr('src',"{{asset('capsule/images/2025-03-01_14-15-45.svg')}}")
+                            }
+                            else {
+                                $(this).attr('src',"{{asset('capsule/images/userIcon.svg')}}")
+
+                            }
                     })
             })
 
