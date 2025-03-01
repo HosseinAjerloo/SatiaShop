@@ -23,6 +23,13 @@ class FinanceTransaction extends Model
         })->when(request()->input('name'),function ($query){
             $users=User::where('mobile','like',"%".request()->input('name')."%")->get()->pluck('id');
             $query->whereIn('user_id',$users);
+        })->when(request()->input('startDate'),function ($query){
+            $date=date('Y-m-d',changeFormatNumberToDate(request()->input('startDate')));
+            $query->whereDate('created_at',">=",$date);
+
+        })->when(request()->input('endDate'),function ($query){
+            $date=date('Y-m-d',changeFormatNumberToDate(request()->input('endDate')));
+            $query->whereDate('created_at',"<=",$date);
         });
     }
     public function voucher()

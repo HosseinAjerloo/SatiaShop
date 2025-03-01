@@ -28,9 +28,13 @@ class ProductTransaction extends Model
             $query->whereIn('product_id',$products);
         })->when(request()->input('invoice'),function ($query){
             $query->where('invoice_id',request()->input('invoice'));
-        })->when(request()->input('customDate'),function ($query){
-            $date=date('Y-m-d',changeFormatNumberToDate(request()->input('customDate')));
+        })->when(request()->input('startDate'),function ($query){
+            $date=date('Y-m-d',changeFormatNumberToDate(request()->input('startDate')));
             $query->whereDate('created_at',">=",$date);
+
+        })->when(request()->input('endDate'),function ($query){
+            $date=date('Y-m-d',changeFormatNumberToDate(request()->input('endDate')));
+            $query->whereDate('created_at',"<=",$date);
         });
     }
     public function user()

@@ -61,6 +61,13 @@
                     $('#form').submit();
                 })
 
+                    $(".searchInput").on('keydown',function (event){
+                        if(event.key=='Enter')
+                        {
+                            event.preventDefault();
+                        }
+
+                })
             })
 
 

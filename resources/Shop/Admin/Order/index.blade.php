@@ -4,11 +4,11 @@
 
 
 
-    <x-Search-date routeSearch="{{route('admin.menu.index')}}" routeList="null"
+    <x-Search-date routeSearch="{{route('admin.order.index')}}" routeList="null"
     name='لیست تمامی سفارشات' placeholder='شماره موبایل کاربر را وارد نمائید ...' imagePath='{{asset("capsule/images/order.png")}}'
     />
-    
-    
+
+
     <section class="px-2 mt-5">
         <article
             class="bg-2081F2 px-2 py-3 flex items-center justify-between rounded-md rounded-ee-none rounded-es-none">

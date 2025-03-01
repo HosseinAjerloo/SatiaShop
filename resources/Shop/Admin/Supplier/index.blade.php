@@ -2,37 +2,8 @@
 
 @section('content')
 
-    <section class="flex items-center justify-center space-x-reverse space-x-3">
-        <div class=" border-black rounded-md p-1 submit_date cursor-pointer" data-date="1">
-            <img src="{{asset("capsule/images/1Mount.svg")}}" alt="">
-        </div>
-        <div class="submit_date cursor-pointer border-black rounded-md p-1" data-date="3">
-            <img src="{{asset("capsule/images/3Mount.svg")}}" alt="">
-        </div>
-        <div class="submit_date cursor-pointer border-black rounded-md p-1" data-date="6">
-            <img src="{{asset("capsule/images/6Mount.svg")}}" alt="">
-        </div>
-        <div class="border-black rounded-md p-1 observer-example cursor-pointer">
-            <img src="{{asset("capsule/images/date.svg")}}" alt="">
-        </div>
-
-    </section>
-    <form id="form" class="flex items-center justify-between space-x-reverse space-x-3 px-2 mt-5"
-          action="{{route('admin.supplier.index')}}">
-        <a href="{{route('admin.supplier.create')}}" class="flex items-center space-x-reverse space-x-2">
-            <img src="{{asset("capsule/images/plus.svg")}}" alt="">
-            <h1 class="text-min font-bold">لیست تامین کنندگان</h1>
-        </a>
-
-        <div class="border border-black flex items-center py-1.5 px-2 rounded-md">
-            <input type="text" placeholder="نام تامین کننده را وارد نمائید ..."
-                   class="placeholder:text-min placeholder:text-black/35 outline-none" name="name" id="input_search">
-            <img src="{{asset('capsule/images/search.svg')}}" alt="" class="search cursor-pointer">
-
-        </div>
-        <input type="hidden" name="date" id="input_date">
-        <input class="customDate" type="hidden" name="customDate" id="customDate"/>
-    </form>
+    <x-Search-date routeSearch="{{route('admin.supplier.index')}}" routeList="{{route('admin.supplier.create')}}"
+                   name="لیست تامین کنندگان"  placeholder='نام تامین کننده را وارد نمائید ...' imagePath='null'/>
     <section class="px-2 mt-5">
         <article
             class="bg-2081F2 px-2 py-3 flex items-center justify-between rounded-md rounded-ee-none rounded-es-none">

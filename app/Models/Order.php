@@ -28,9 +28,13 @@ class Order extends Model
         })->when(request()->input('name'),function ($query){
             $user=User::where('mobile',request()->input('name'))->first();
             $query->where('user_id',$user->id);
-        })->when(request()->input('customDate'),function ($query){
-            $date=date('Y-m-d',changeFormatNumberToDate(request()->input('customDate')));
+        })->when(request()->input('startDate'),function ($query){
+            $date=date('Y-m-d',changeFormatNumberToDate(request()->input('startDate')));
             $query->whereDate('created_at',">=",$date);
+
+        })->when(request()->input('endDate'),function ($query){
+            $date=date('Y-m-d',changeFormatNumberToDate(request()->input('endDate')));
+            $query->whereDate('created_at',"<=",$date);
         });
     }
 }

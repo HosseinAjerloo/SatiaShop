@@ -53,7 +53,12 @@
                     توضیحات مربوط به فاکتور
                 </h1>
             </div>
-            
+            <div class="w-1/5">
+                <h1 class="text-white text-min font-bold text-center">
+                    تاریخ ایجاد
+                </h1>
+            </div>
+
 
         </article>
 
@@ -81,6 +86,12 @@
                         {!! $invoice->description??''!!}
 
                     </div>
+                    <div
+                        class="w-1/5  text-min_sm font-bold  h-full flex items-center justify-center text-center @if(strlen($invoice->description)>5) overflow-hidden text-nowrap text-ellipsis @endif ">
+                        {{\Morilog\Jalali\Jalalian::forge($invoice->created_at)->format('H:i:s Y/m/d')}}
+
+                    </div>
+
 
 
                 </div>

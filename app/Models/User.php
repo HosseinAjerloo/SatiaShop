@@ -51,9 +51,13 @@ class User extends Authenticatable
             $query->whereDate('created_at',">=",Carbon::now()->subMonths(request()->input('date'))->toDateString());
         })->when(request()->input('name'),function ($query){
             $query->where('mobile','like',"%".request()->input('name')."%");
-        })->when(request()->input('customDate'),function ($query){
-            $date=date('Y-m-d',changeFormatNumberToDate(request()->input('customDate')));
+        })->when(request()->input('startDate'),function ($query){
+            $date=date('Y-m-d',changeFormatNumberToDate(request()->input('startDate')));
             $query->whereDate('created_at',">=",$date);
+
+        })->when(request()->input('endDate'),function ($query){
+            $date=date('Y-m-d',changeFormatNumberToDate(request()->input('endDate')));
+            $query->whereDate('created_at',"<=",$date);
         });
     }
 

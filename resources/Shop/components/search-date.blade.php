@@ -27,11 +27,9 @@
            </div>
        </div>
 
-
-
 </section>
 <form id="form" class="flex items-center justify-between space-x-reverse space-x-3 px-2 mt-5" action="{{$routeSearch}}">
-  
+
    <a @if($routeList!='null') href="{{$routeList}}" @endif class="flex items-center space-x-reverse space-x-2">
 
     @if ($imagePath!='null')
@@ -42,12 +40,14 @@
     @endif
             <h1 class="text-min font-bold">{{$name}}</h1>
     </a>
-    <div class="border border-black flex items-center py-1.5 px-2 rounded-md">
-        <input type="text" placeholder="{{$placeholder}}"class="placeholder:text-min placeholder:text-black/35 outline-none" name="name" id="input_search">
-       
-                <img src=" {{asset('capsule/images/search.svg')}}"  alt="" class="search cursor-pointer">
+   @if($attributes->get('shoSearch')!='false')
+        <div class="border border-black flex items-center py-1.5 px-2 rounded-md">
+            <input type="text" placeholder="{{$placeholder}}"class="placeholder:text-min placeholder:text-black/35 outline-none searchInput" name="name" id="input_search">
 
-    </div>
+            <img src=" {{asset('capsule/images/search.svg')}}"  alt="" class="search cursor-pointer">
+
+        </div>
+   @endif
     <input type="hidden" name="date" id="input_date">
     <input class="startDate" type="hidden" name="startDate" id="startDate"/>
     <input class="endDate" type="hidden" name="endDate" id="endDate"/>

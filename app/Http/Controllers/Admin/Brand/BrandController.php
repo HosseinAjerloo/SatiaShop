@@ -36,7 +36,7 @@ class BrandController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, ImageService $imageService)
+    public function store(BrandRequest $request, ImageService $imageService)
     {
         $inputs = $request->all();
         $user = Auth::user();
