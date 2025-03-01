@@ -68,6 +68,10 @@
                         }
 
                 })
+
+                        $(".profile").click(function (){
+                         $(".profileBox").toggleClass('active')
+                    })
             })
 
 

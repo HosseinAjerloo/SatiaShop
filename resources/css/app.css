@@ -150,7 +150,26 @@ body{
     top: 5px;
     transform: rotate(45deg);
 }
+.profileBox{
+    transition: .5s;
+    transform: translateY(0)  scale(.78);
+    opacity: 0;
+    visibility: hidden;
+    border:3px solid #378dd3;
+    box-shadow: 0 0 3px 3px #363636;
+    border-radius: 15px;
+    backdrop-filter: blur(35px);
 
+
+}
+.active{
+    transition: .5s ,.5s;
+    transition-delay: 0s,.35s;
+    transform: translateY(-60px) scale(1);
+    opacity: 1;
+    visibility: visible;
+    z-index: 100;
+}
 
 
 
