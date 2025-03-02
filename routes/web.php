@@ -68,6 +68,7 @@ Route::middleware(['auth'])->name('panel.')->group(function () {
 
 Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
     Route::get('/', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('panel.admin');
+    Route::put('update', [App\Http\Controllers\Admin\AdminController::class, 'updateUser'])->name('admin.updateUser');
     Route::get('login-another-user/{user}', [App\Http\Controllers\Admin\AdminController::class, 'loginAnotherUser'])->name('panel.admin.login-another-user');
     Route::get('tickets', [App\Http\Controllers\Admin\TicketController::class, 'index'])->name('panel.admin.tickets');
     Route::get('ticket/close/{ticket}', [App\Http\Controllers\Admin\TicketController::class, 'closeTicket'])->name('panel.admin.tickets.close');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\User\UpdateUserProfile;
 use App\Models\User;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
@@ -19,52 +20,18 @@ class AdminController extends Controller
         return view('Admin.index',compact('breadcrumbs'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function updateUser(UpdateUserProfile $request)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $user=Auth::user();
+            $inputs=$request->safe()->all();
+            if (password_verify($inputs['oldPass'],$user->password))
+            {
+                $result=$user->update($inputs);
+                return $result? redirect()->back()->with(['success'=>'اطلاعات کاربری شما با موفقیت بروز رسانی شد']):redirect()->back()->withErrors(['error'=>'خطایی رخ دادا لطفا چند دقیه دیگر تلاش فرمایید.']);
+            }
+            else{
+                return redirect()->back()->withErrors(['error'=>'خطایی رخ دادا لطفا چند دقیه دیگر تلاش فرمایید.']);
+            }
     }
     public function loginAnotherUser(Request $request,User $user)
     {

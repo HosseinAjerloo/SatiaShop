@@ -1,14 +1,12 @@
-
-
 <script>
-    $(".date").click(function (){
+    $(".date").click(function () {
         $(".picker").css(
             {
-                'height':'auto',
-                'transform':'scale(1)',
-                'transition':'.5s',
-                'transitionDelay':'1s',
-                'position':'relative'
+                'height': 'auto',
+                'transform': 'scale(1)',
+                'transition': '.5s',
+                'transitionDelay': '1s',
+                'position': 'relative'
             });
 
     })
@@ -22,68 +20,72 @@
         format: 'YYYY/MM/DD',
         altField: '#endDate'
     });
-            $(document).ready(function(){
-                $(".submit_date").click(function (){
-                    $(".submit_date").removeClass('border')
-                    $(this).addClass('border')
-                    $('#input_date').val($(this).data('date'))
-                    $('#startDate').val('');
-                    $('#endDate').val('');
-                    permissionRequest();
-                    $('#form').submit()
+    $(document).ready(function () {
+        $(".submit_date").click(function () {
+            $(".submit_date").removeClass('border')
+            $(this).addClass('border')
+            $('#input_date').val($(this).data('date'))
+            $('#startDate').val('');
+            $('#endDate').val('');
+            permissionRequest();
+            $('#form').submit()
 
-                });
+        });
 
-                $(".search").click(function (){
-                    $('#startDate').val('');
-                    $('#endDate').val('');
-                    permissionRequest();
-                    $('#form').submit();
-                })
+        $(".search").click(function () {
+            $('#startDate').val('');
+            $('#endDate').val('');
+            permissionRequest();
+            $('#form').submit();
+        })
 
-                function permissionRequest()
-                {
-                    if ($('#input_search').val()==='')
-                        $("#input_search").removeAttr('name')
+        function permissionRequest() {
+            if ($('#input_search').val() === '')
+                $("#input_search").removeAttr('name')
 
-                    if ($('#input_date').val()==='')
-                        $("#input_date").removeAttr('name')
+            if ($('#input_date').val() === '')
+                $("#input_date").removeAttr('name')
 
-                    if ($('#startDate').val()==='')
-                        $("#startDate").removeAttr('name')
+            if ($('#startDate').val() === '')
+                $("#startDate").removeAttr('name')
 
-                    if ($('#endDate').val()==='')
-                        $("#endDate").removeAttr('name')
-                }
+            if ($('#endDate').val() === '')
+                $("#endDate").removeAttr('name')
+        }
 
-                $('.submit-date').click(function(){
-                    permissionRequest();
-                    $('#form').submit();
-                })
+        $('.submit-date').click(function () {
+            permissionRequest();
+            $('#form').submit();
+        })
 
-                    $(".searchInput").on('keydown',function (event){
-                        if(event.key=='Enter')
-                        {
-                            event.preventDefault();
-                        }
+        $(".searchInput").on('keydown', function (event) {
+            if (event.key == 'Enter') {
+                event.preventDefault();
+            }
 
-                })
-                        $(".profile").click(function (){
-                         $(".profileBox").toggleClass('active')
-                            if( $('.profileBox').hasClass('active'))                             {
-                               $(this).attr('src',"{{asset('capsule/images/2025-03-01_14-15-45.svg')}}")
-                            }
-                            else {
-                                $(this).attr('src',"{{asset('capsule/images/userIcon.svg')}}")
-                            }
-                    })
-                        $('.updatePro').click(function (){
-                            $(".editPro").toggleClass('editProActive')
-                        })
+        })
+        $(".profile").click(function () {
+            $(".profileBox").toggleClass('active')
+            if ($('.profileBox').hasClass('active')) {
+                $(this).attr('src', "{{asset('capsule/images/2025-03-01_14-15-45.svg')}}")
+            } else {
+                $(this).attr('src', "{{asset('capsule/images/userIcon.svg')}}")
+            }
+        })
+        $('.updatePro').click(function () {
+            $(".editPro").toggleClass('editProActive')
+            $(".profile").trigger('click')
 
+        })
+        $('.close-profile').click(function () {
+            $(".editPro").toggleClass('editProActive')
 
-            })
+        })
+        $(".editPro").css({
+            top: window.innerHeight / 2
+        })
 
+    })
 
 
 </script>
