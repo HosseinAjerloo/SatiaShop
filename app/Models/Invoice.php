@@ -30,12 +30,18 @@ class Invoice extends Model
 
     public function scopeSearch(Builder $query): void
     {
-
         $query->when(request()->input('date'),function ($query){
             $query->whereDate('created_at',">=",Carbon::now()->subMonths(request()->input('date'))->toDateString());
         })->when(request()->input('name'),function ($query){
+            $routeName= \Illuminate\Support\Facades\Route::current()->getName() ;
+            if ($routeName=='admin.invoice.service.index' or $routeName=='admin.invoice.product.index')
+                $column='operator_id';
+            else
+                $column='user_id';
+
             $user=User::where('mobile',request()->input('name'))->first();
-            $query->where('user_id',$user->id);
+            if ($user)
+            $query->where($column,$user->id);
         })->when(request()->input('startDate'),function ($query){
             $date=date('Y-m-d',changeFormatNumberToDate(request()->input('startDate')));
             $query->whereDate('created_at',">=",$date);

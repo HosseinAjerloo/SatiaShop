@@ -156,6 +156,20 @@ Breadcrumbs::for('admin.invoice.service.index', function (BreadcrumbTrail $trail
     $trail->parent('panel.admin');
     $trail->push('لیست فاکتور سرویس', route('admin.invoice.service.index'));
 });
+Breadcrumbs::for('admin.invoice.product.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('panel.admin');
+    $trail->push('لیست فاکتور کالا', route('admin.invoice.product.index'));
+});
+
+Breadcrumbs::for('admin.invoice.product.invoiceProduct', function (BreadcrumbTrail $trail,$invoice) {
+    $trail->parent('admin.invoice.product.index');
+    $trail->push('نمایش کالاهای فاکتور', route('admin.invoice.product.invoiceProduct',$invoice));
+});
+
+Breadcrumbs::for('admin.invoice.product.edit', function (BreadcrumbTrail $trail,$invoice) {
+    $trail->parent('admin.invoice.product.invoiceProduct',$invoice);
+    $trail->push('ویرایش فاکتور کالا', route('admin.invoice.product.edit',$invoice));
+});
 Breadcrumbs::for('admin.invoice.service.invoiceService', function (BreadcrumbTrail $trail,$invoice) {
     $trail->parent('admin.invoice.service.index');
     $trail->push('نمایش سرویس های فاکتور', route('admin.invoice.service.invoiceService',$invoice));

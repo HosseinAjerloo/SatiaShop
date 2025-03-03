@@ -15,6 +15,7 @@ use App\Models\ProductTransaction;
 use App\Models\Supplier;
 use App\Services\ImageService\ImageService;
 use Diglactic\Breadcrumbs\Breadcrumbs;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,14 +27,17 @@ class InvoiceController extends Controller
 
     public function productIndex()
     {
+        $breadcrumbs = Breadcrumbs::render('admin.invoice.product.index')->getData()['breadcrumbs'];
+
         $invoice = InvoiceItem::where('type', 'product')->get()->unique('invoice_id')->pluck('invoice_id');
-        $invoices = Invoice::where('type_of_business', 'buy')->whereIn('id', $invoice)->get();
-        return view('Admin.Invoice.Product.index', compact('invoices'));
+        $invoices = Invoice::search()->where('type_of_business', 'buy')->whereIn('id', $invoice)->get();
+        return view('Admin.Invoice.Product.index', compact('invoices', 'breadcrumbs'));
     }
 
     public function invoiceProduct(Invoice $invoice)
     {
-        return view('Admin.Invoice.Product.itemProductIndex', compact('invoice'));
+        $breadcrumbs = Breadcrumbs::render('admin.invoice.product.invoiceProduct', $invoice)->getData()['breadcrumbs'];
+        return view('Admin.Invoice.Product.itemProductIndex', compact('invoice', 'breadcrumbs'));
     }
 
     /**
@@ -122,9 +126,12 @@ class InvoiceController extends Controller
 
     public function editProduct(Invoice $invoice)
     {
+        $breadcrumbs = Breadcrumbs::render('admin.invoice.product.edit', $invoice)->getData()['breadcrumbs'];
+
+
         $products = Product::where('type', 'goods')->where('status', 'active')->get();
         $suppliers = Supplier::where('status', 'active')->get();
-        return view('Admin.Invoice.Product.edit', compact('suppliers', 'products', 'invoice'));
+        return view('Admin.Invoice.Product.edit', compact('suppliers', 'products', 'invoice','breadcrumbs'));
 
     }
 
@@ -213,15 +220,15 @@ class InvoiceController extends Controller
     {
         $breadcrumbs = Breadcrumbs::render('admin.invoice.service.index')->getData()['breadcrumbs'];
         $invoice = InvoiceItem::where('type', 'service')->get()->unique('invoice_id')->pluck('invoice_id');
-        $invoices = Invoice::search()->where('type_of_business', 'buy')->whereIn('id', $invoice)->orderBy('created_at','desc')->paginate(20,['*'],'page')->withQueryString();
-        return view('Admin.Invoice.Service.index', compact('invoices','breadcrumbs'));
+        $invoices = Invoice::search()->where('type_of_business', 'buy')->whereIn('id', $invoice)->orderBy('created_at', 'desc')->paginate(20, ['*'], 'page')->withQueryString();
+        return view('Admin.Invoice.Service.index', compact('invoices', 'breadcrumbs'));
     }
 
 
     public function invoiceService(Invoice $invoice)
     {
-        $breadcrumbs = Breadcrumbs::render('admin.invoice.service.invoiceService',$invoice)->getData()['breadcrumbs'];
-        return view('Admin.Invoice.Service.itemProductindex', compact('invoice','breadcrumbs'));
+        $breadcrumbs = Breadcrumbs::render('admin.invoice.service.invoiceService', $invoice)->getData()['breadcrumbs'];
+        return view('Admin.Invoice.Service.itemProductindex', compact('invoice', 'breadcrumbs'));
     }
 
 
@@ -294,10 +301,10 @@ class InvoiceController extends Controller
 
     public function serviceEdit(Invoice $invoice)
     {
-        $breadcrumbs = Breadcrumbs::render('admin.invoice.service.edit',$invoice)->getData()['breadcrumbs'];
+        $breadcrumbs = Breadcrumbs::render('admin.invoice.service.edit', $invoice)->getData()['breadcrumbs'];
         $products = Product::where('type', 'goods')->where('status', 'active')->get();
         $suppliers = Supplier::where('status', 'active')->get();
-        return view('Admin.Invoice.Service.edit', compact('suppliers', 'products', 'invoice','breadcrumbs'));
+        return view('Admin.Invoice.Service.edit', compact('suppliers', 'products', 'invoice', 'breadcrumbs'));
 
     }
 

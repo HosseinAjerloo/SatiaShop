@@ -2,10 +2,10 @@
 
 @section('content')
 
-   
 
-    <x-Search-date routeSearch="{{route('admin.invoice.service.index')}}" routeList="{{route('admin.invoice.service.create')}}" 
-    name="لیست سرویس ها"  placeholder='نام کالارا وارد نمایید' imagePath='null'/>
+
+    <x-Search-date routeSearch="{{route('admin.invoice.service.index')}}" routeList="{{route('admin.invoice.service.create')}}"
+    name="لیست سرویس ها"  placeholder='شماره موبایل کاربر ثبت کننده را وارد فرمایید' imagePath='null'/>
 
     <section class="px-2 mt-5">
         <article

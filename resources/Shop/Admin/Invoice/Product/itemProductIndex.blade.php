@@ -2,31 +2,13 @@
 
 @section('content')
 
-    <section class="flex items-center justify-center space-x-reverse space-x-3">
-        <div class="border border-black rounded-md p-1">
-            <img src="{{asset("capsule/images/1Mount.svg")}}" alt="">
-        </div>
-        <div>
-            <img src="{{asset("capsule/images/3Mount.svg")}}" alt="">
-        </div>
-        <div>
-            <img src="{{asset("capsule/images/6Mount.svg")}}" alt="">
-        </div>
-        <div>
-            <img src="{{asset("capsule/images/date.svg")}}" alt="">
-        </div>
 
-    </section>
     <div class="flex items-center justify-between space-x-reverse space-x-3 px-4  mt-5">
         <div class="flex flex-col items-center space-x-reverse space-x-2">
             <h1 class="text-min font-bold ">لیست فاکتور های ثبت شده</h1>
-            <a href="{{route('admin.invoice.product.edit',$invoice)}}" class="mt-2 px-4 py-1.5 bg-2081F2 rounded-lg text-white text-sm">ویرایش فاکتور</a>
         </div>
-        <div class="border border-black flex items-center py-1.5  rounded-md">
-            <input type="text" placeholder="نام محصول ثبت شده را وارد نمائید ..."
-                   class="placeholder:text-min placeholder:text-black/35 outline-none">
-            <img src="{{asset('capsule/images/search.svg')}}" alt="">
-
+        <div class="flex flex-col items-center space-x-reverse space-x-2">
+            <a href="{{route('admin.invoice.product.edit',$invoice)}}" class="mt-2 px-4 py-1.5 bg-2081F2 rounded-lg text-white text-sm">ویرایش فاکتور</a>
         </div>
     </div>
     <section class=" mt-5">

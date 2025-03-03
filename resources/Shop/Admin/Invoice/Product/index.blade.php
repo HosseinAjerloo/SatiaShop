@@ -2,34 +2,8 @@
 
 @section('content')
 
-    <section class="flex items-center justify-center space-x-reverse space-x-3">
-        <div class="border border-black rounded-md p-1">
-            <img src="{{asset("capsule/images/1Mount.svg")}}" alt="">
-        </div>
-        <div>
-            <img src="{{asset("capsule/images/3Mount.svg")}}" alt="">
-        </div>
-        <div>
-            <img src="{{asset("capsule/images/6Mount.svg")}}" alt="">
-        </div>
-        <div>
-            <img src="{{asset("capsule/images/date.svg")}}" alt="">
-        </div>
-
-    </section>
-    <form class="flex items-center justify-between space-x-reverse space-x-3 px-2 mt-5">
-        <a href="{{route('admin.invoice.product.create')}}" class="flex items-center space-x-reverse space-x-2">
-            <img src="{{asset("capsule/images/plus.svg")}}" alt="">
-
-            <h1 class="text-min font-bold">لیست فاکتور های ثبت شده</h1>
-        </a>
-        <div class="border border-black flex items-center py-1.5 px-2 rounded-md">
-            <input type="text" placeholder="کاربر  ثبت کننده را وارد نمائید ..."
-                   class="placeholder:text-min placeholder:text-black/35 outline-none">
-            <img src="{{asset('capsule/images/search.svg')}}" alt="">
-
-        </div>
-    </form>
+    <x-Search-date routeSearch="{{route('admin.invoice.product.index')}}" routeList="{{route('admin.invoice.service.create')}}"
+                   name="لیست سرویس ها"  placeholder='شماره موبایل کاربر ثبت کننده را وارد فرمایید' imagePath='null'/>
     <section class="px-2 mt-5">
         <article
             class="bg-2081F2 px-2 py-3 flex items-center justify-between rounded-md rounded-ee-none rounded-es-none">

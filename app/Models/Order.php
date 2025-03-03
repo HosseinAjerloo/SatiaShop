@@ -27,6 +27,7 @@ class Order extends Model
             $query->whereDate('created_at',">=",Carbon::now()->subMonths(request()->input('date'))->toDateString());
         })->when(request()->input('name'),function ($query){
             $user=User::where('mobile',request()->input('name'))->first();
+            if ($user)
             $query->where('user_id',$user->id);
         })->when(request()->input('startDate'),function ($query){
             $date=date('Y-m-d',changeFormatNumberToDate(request()->input('startDate')));

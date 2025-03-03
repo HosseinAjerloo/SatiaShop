@@ -20,7 +20,6 @@ class OrderController extends Controller
     public function invoice()
     {
         $breadcrumbs = Breadcrumbs::render('admin.order.invoice')->getData()['breadcrumbs'];
-
         $invoiceOrders=Invoice::Search()->where('type_of_business','sales')->orderBy('created_at','desc')->paginate(20,['*'],'page')->withQueryString();
        return view('Admin.Order.Invoice.index',compact('invoiceOrders','breadcrumbs'));
     }
