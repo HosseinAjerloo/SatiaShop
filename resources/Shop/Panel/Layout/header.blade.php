@@ -163,7 +163,7 @@
                                 @foreach($categoryMenus as $category)
 
                                     <section class="sublist-item">
-                                        <section class="sublist-item-toggle">{{$category->removeUnderLine??''}}</section>
+                                        <a href="{{route('panel.products',$category->name)}}" class="sublist-item-toggle flex">{{$category->removeUnderLine??''}}</a>
                                         <section class="sublist-item-sublist">
 
                                             @foreach($category->chidren as $child)
