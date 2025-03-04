@@ -113,7 +113,9 @@
                                     @endif
 
                                 @endforeach
-                            <input type="radio" class="hidden"  name="payment_type" value="{{$bank->id}}" id="b{{$bank->id}}"/>
+                                @foreach($banks as $bank)
+                                    <input type="radio" class="hidden"  name="payment_type" value="{{$bank->id}}" id="b{{$bank->id}}"/>
+                                @endforeach
 
                             <section class="content-wrapper bg-white p-3 rounded-2 cart-total-price">
 {{--                                <section class="d-flex justify-content-between align-items-center">--}}
