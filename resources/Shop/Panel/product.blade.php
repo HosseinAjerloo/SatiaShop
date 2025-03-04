@@ -173,7 +173,15 @@
                                                         <section class="product-price-wrapper">
                                                             <section class="product-discount">
                                                                 <span class="text-min_sm text-gray-400 tracking-tight">مانده در انبار </span>
-                                                                <span class="product-discount-amount">22</span>
+                                                                <span class="product-discount-amount">
+                                                                    <span>
+                                                                        @if($product->isRemaining())
+                                                                            {{$product->productRemaining()}}
+                                                                            @else
+                                                                                   0
+                                                                        @endif
+                                                                    </span>
+                                                                </span>
                                                             </section>
                                                             <section
                                                                 class="product-price">{{numberFormat( ($product->price/10) )}}
