@@ -46,9 +46,10 @@ class InvoiceController extends Controller
     public function create()
     {
 
+        $breadcrumbs = Breadcrumbs::render('admin.invoice.product.create')->getData()['breadcrumbs'];
         $products = Product::where('type', 'goods')->where('status', 'active')->get();
         $suppliers = Supplier::where('status', 'active')->get();
-        return view('Admin.Invoice.Product.create', compact('suppliers', 'products'));
+        return view('Admin.Invoice.Product.create', compact('suppliers', 'products','breadcrumbs'));
     }
 
     /**
@@ -127,7 +128,6 @@ class InvoiceController extends Controller
     public function editProduct(Invoice $invoice)
     {
         $breadcrumbs = Breadcrumbs::render('admin.invoice.product.edit', $invoice)->getData()['breadcrumbs'];
-
 
         $products = Product::where('type', 'goods')->where('status', 'active')->get();
         $suppliers = Supplier::where('status', 'active')->get();
@@ -234,9 +234,11 @@ class InvoiceController extends Controller
 
     public function serviceCreate()
     {
+
+        $breadcrumbs = Breadcrumbs::render('admin.invoice.service.create')->getData()['breadcrumbs'];
         $products = Product::where('type', 'service')->where('status', 'active')->get();
         $suppliers = Supplier::where('status', 'active')->get();
-        return view('Admin.Invoice.Service.create', compact('suppliers', 'products'));
+        return view('Admin.Invoice.Service.create', compact('suppliers', 'products','breadcrumbs'));
 
     }
 

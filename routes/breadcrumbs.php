@@ -165,6 +165,10 @@ Breadcrumbs::for('admin.invoice.product.invoiceProduct', function (BreadcrumbTra
     $trail->parent('admin.invoice.product.index');
     $trail->push('نمایش کالاهای فاکتور', route('admin.invoice.product.invoiceProduct',$invoice));
 });
+Breadcrumbs::for('admin.invoice.product.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.invoice.product.index');
+    $trail->push('افزودن کالا به انبار', route('admin.invoice.product.create'));
+});
 
 Breadcrumbs::for('admin.invoice.product.edit', function (BreadcrumbTrail $trail,$invoice) {
     $trail->parent('admin.invoice.product.invoiceProduct',$invoice);
@@ -173,6 +177,11 @@ Breadcrumbs::for('admin.invoice.product.edit', function (BreadcrumbTrail $trail,
 Breadcrumbs::for('admin.invoice.service.invoiceService', function (BreadcrumbTrail $trail,$invoice) {
     $trail->parent('admin.invoice.service.index');
     $trail->push('نمایش سرویس های فاکتور', route('admin.invoice.service.invoiceService',$invoice));
+});
+
+Breadcrumbs::for('admin.invoice.service.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.invoice.service.index');
+    $trail->push('ثبت فاکتور سرویس', route('admin.invoice.service.create'));
 });
 Breadcrumbs::for('admin.invoice.service.edit', function (BreadcrumbTrail $trail,$invoice) {
     $trail->parent('admin.invoice.service.invoiceService',$invoice);
