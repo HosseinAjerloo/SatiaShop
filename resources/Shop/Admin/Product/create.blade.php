@@ -27,7 +27,7 @@
 
                     @foreach($categories as $category)
                         <option
-                            @selected(old('category_id')==$category->id) value="{{$category->id}}">{{$category->name??''}}</option>
+                            @selected(old('category_id')==$category->id) value="{{$category->id}}">{{$category->removeUnderLine??''}}</option>
                     @endforeach
                 </select>
             </div>
