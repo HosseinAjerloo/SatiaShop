@@ -149,7 +149,7 @@ class PaymentController extends Controller
                 $payment->update(
                     [
                         'RefNum' => $inputs['RefNum']??null,
-                        'ResNum' => $inputs['ResNum'],
+                        'ResNum' => $payment->order_id,
                         'state' => 'failed'
 
                     ]);
@@ -163,11 +163,11 @@ class PaymentController extends Controller
             }
 
             $back_price = $objBank->verify($payment->amount);
-            if ($back_price !== true or Payment::where("order_id", $inputs['ResNum'])->count() > 1) {
+            if ($back_price !== true or Payment::where("order_id", $payment->order_id)->count() > 1) {
                 $payment->update(
                     [
                         'RefNum' => $inputs['RefNum']??null,
-                        'ResNum' => $inputs['ResNum'],
+                        'ResNum' => $payment->order_id,
                         'state' => 'failed'
 
                     ]);
@@ -189,7 +189,7 @@ class PaymentController extends Controller
             $payment->update(
                 [
                     'RefNum' => $inputs['RefNum'],
-                    'ResNum' => $inputs['ResNum'],
+                    'ResNum' => $payment->order_id,
                     'state' => 'finished'
                 ]);
 
