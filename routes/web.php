@@ -1,8 +1,10 @@
 <?php
 
 
+use App\Models\Bank;
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\Payment;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -185,9 +187,29 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
         Route::get('invoice/details/{invoice}', [App\Http\Controllers\Admin\Order\OrderController::class, 'invoiceDetails'])->name('invoiceDetails');
         Route::get('index', [App\Http\Controllers\Admin\Order\OrderController::class, 'index'])->name('index');
     });
+
+    Route::prefix('bank')->name('admin.bank.')->group(function (){
+       Route::get('',[App\Http\Controllers\Admin\Bank\BankController::class,'index'])->name('index');
+    });
 });
 
 
 Route::fallback(function () {
     abort(404);
+});
+
+
+Route::get('test',function (){
+    $bank = Bank::find(2);
+
+    $objBank = new $bank->class;
+    $objBank->setOrderID(5000);
+    $objBank->setTotalPrice(10000);
+    $objBank->setBankUrl($bank->url);
+    $objBank->setTerminalId($bank->terminal_id);
+    $objBank->setUrlBack(route('panel.payment.back'));
+    $objBank->setBankModel($bank);
+    $status = $objBank->payment();
+    return $objBank->connectionToBank($status);
+
 });

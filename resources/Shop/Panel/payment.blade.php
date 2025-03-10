@@ -64,7 +64,7 @@
                                         </section>
                                     </section>
                                 </section>
-                                <section class="payment-select">
+                                <section class="payment-select changeBank">
 
                                     {{--                                    <section class="payment-alert alert alert-primary d-flex align-items-center p-2" role="alert">--}}
                                     {{--                                        <i class="fa fa-info-circle flex-shrink-0 me-2"></i>--}}
@@ -74,18 +74,10 @@
                                     {{--                                    </section>--}}
                                     @foreach($banks as $bank)
 
-                                        <label for="b{{$bank->id}}" class="col-12 col-md-4 payment-wrapper mb-2 pt-2">
-                                            <section class="mb-2">
-                                                <i class="fa fa-credit-card mx-1"></i>
-                                                پرداخت آنلاین
-                                            </section>
-                                            <section class="mb-2">
-                                                <i class="fa fa-calendar-alt mx-1"></i>
-
-                                                {{$bank->name??''}}
-                                            </section>
+                                        <label for="b{{$bank->id}}" class="col-12 col-md-4 payment-wrapper mb-2 pt-2" selected="selected">
+                                            <section class="mb-2"><i class="fa fa-credit-card mx-1"></i>پرداخت آنلاین</section>
+                                            <section class="mb-2"><i class="fa fa-calendar-alt mx-1"></i>{{$bank->name??''}}</section>
                                         </label>
-
                                         <section class="mb-2"></section>
 
                                     @endforeach
@@ -209,4 +201,5 @@
             $("#form").submit();
         })
     </script>
+    
 @endsection
