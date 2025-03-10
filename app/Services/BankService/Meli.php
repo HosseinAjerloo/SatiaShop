@@ -270,24 +270,16 @@ class Meli extends Service
             if ($arrres->ResCode != -1 && $arrres->ResCode == 0) {
                 $Refid = $arrres->SystemTraceNo;
                 if ($Refid == '') {
-                    return 0;
+                    return $arrres->ResCode ;
                 }
                 $RefNo = $arrres->RetrivalRefNo;
                 request()->request->add(['RefNum'=>$Token]);
-                return true;
+                return $ResCode ;
             } else {
                 return 0;
             }
-        } else {
-            if ($ResCode == "-1") {
-                return  -3333;
-            } elseif ($ResCode == 101) {
-                return -2222;
-            } else {
-                return  503;
-            }
-
         }
+        return  $ResCode;
     }
 
     public function connectionToBank($token)
