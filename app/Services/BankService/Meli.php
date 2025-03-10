@@ -94,6 +94,7 @@ class Meli extends Service
 
     public function transactionStatus()
     {
+        dd(request()->all());
         return $this->verifyTransaction($this->verify());
     }
 

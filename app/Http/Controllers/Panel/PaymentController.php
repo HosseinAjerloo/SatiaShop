@@ -98,7 +98,7 @@ class PaymentController extends Controller
             if (!$status) {
                 $invoice->update(['description' => "به دلیل عدم ارتباط با بانک $bank->name سفارش شما لغو شد ",'status_bank'=>'fail']);
                 $financeTransaction->update(['description' => "به دلیل عدم ارتباط با بانک $bank->name سفارش شما لغو شد ", 'status' => 'fail']);
-                return redirect()->route('panel.cart.index')->with(['error-SweetAlert' => 'ارتباط با بانک فراهم نشد لطفا چند دقیقه بعد تلاش فadaddadadadرماید.']);
+                return redirect()->route('panel.cart.index')->with(['error-SweetAlert' => 'ارتباط با بانک فراهم نشد لطفا چند دقیقه بعد تلاش فرماید.']);
             }
             $token = $status;
             session()->put('payment', $payment->id);
