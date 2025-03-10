@@ -218,7 +218,6 @@ Route::post('back',function (){
     $bank = Bank::find(2);
     $objBank = new $bank->class;
     $objBank->setBankModel($bank);
-    dd($objBank->backBank());
     if (!$objBank->backBank()) {
         dd($objBank->transactionStatus());
     }

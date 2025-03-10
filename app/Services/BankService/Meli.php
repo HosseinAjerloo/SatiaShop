@@ -71,6 +71,7 @@ class Meli extends Service
     {
         $Token = request()->input("token");
         $ResCode = request()->input("ResCode");
+        dd(request()->all());
         if (isset($Token) and isset($ResCode)) {
             return true;
         } else
