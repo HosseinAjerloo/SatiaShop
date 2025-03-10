@@ -99,7 +99,7 @@ class Meli extends Service
 
     public function verifyTransaction($ErrorCode)
     {
-        $ErrorDesc = $ErrorCode;
+        $ErrorDesc =(string) $ErrorCode;
         if ($ErrorCode == "0")
             $ErrorDesc = "تراکنش موفق";
         else if ($ErrorCode == "1")
