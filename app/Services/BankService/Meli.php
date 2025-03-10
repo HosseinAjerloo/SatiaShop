@@ -274,7 +274,7 @@ class Meli extends Service
                 }
                 $RefNo = $arrres->RetrivalRefNo;
                 request()->request->add(['RefNum'=>$Token]);
-                return 1;
+                return true;
             } else {
                 return 0;
             }

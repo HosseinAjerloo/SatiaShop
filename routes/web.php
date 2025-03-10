@@ -225,4 +225,7 @@ Route::post('back',function (){
     if (!$objBank->backBank()) {
         dd($objBank->transactionStatus());
     }
+    $back_price = $objBank->verify(10000);
+    dd($back_price);
+
 })->withoutMiddleware(Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class)->name('hossein.back');
