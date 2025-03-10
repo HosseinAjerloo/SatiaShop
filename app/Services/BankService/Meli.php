@@ -273,13 +273,13 @@ class Meli extends Service
             if ($arrres->ResCode != -1 && $arrres->ResCode == 0) {
                 $Refid = $arrres->SystemTraceNo;
                 if ($Refid == '') {
-                    return $arrres->ResCode ;
+                    return 1050 ;
                 }
                 $RefNo = $arrres->RetrivalRefNo;
                 request()->request->add(['RefNum'=>$Token]);
                 return true ;
             } else {
-                return $ResCode??1050;
+                return 1050;
             }
         }
         return  $ResCode??1050;
