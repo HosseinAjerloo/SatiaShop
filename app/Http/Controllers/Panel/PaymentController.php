@@ -146,6 +146,7 @@ class PaymentController extends Controller
                 . PHP_EOL
             );
             if (!$objBank->backBank()) {
+                dd('one',$inputs,$request->all());
                 $payment->update(
                     [
                         'RefNum' => $inputs['RefNum']??null,
@@ -164,6 +165,8 @@ class PaymentController extends Controller
 
             $back_price = $objBank->verify($payment->amount);
             if ($back_price !== true or Payment::where("order_id", $payment->order_id)->count() > 1) {
+                dd('two',$inputs,$request->all(),$back_price);
+
                 $payment->update(
                     [
                         'RefNum' => $inputs['RefNum']??null,
