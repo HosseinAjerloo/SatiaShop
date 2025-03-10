@@ -94,7 +94,6 @@ class Meli extends Service
 
     public function transactionStatus()
     {
-        dd(request()->all());
         return $this->verifyTransaction($this->verify());
     }
 
@@ -247,6 +246,9 @@ class Meli extends Service
             $ErrorDesc = "تراکنش توسط خریدار لغو شده است";
         else if ($ErrorCode == "1021")
             $ErrorDesc = "درگاه غیر فعال است";
+
+        else if ($ErrorCode == "1050")
+            $ErrorDesc = "تراکنش نا موفق بود در صورت کسر مبلغ از حساب شما حداکثر پس از 72 ساعت مبلغ به حسابتان برمی گردد";
         return $ErrorDesc;
     }
 
@@ -263,9 +265,8 @@ class Meli extends Service
         $key = $this->objectBank->password;
         $ResCode = request()->input('ResCode');
         $Token = request()->input('token');
-        dd(request()->all());
 
-        if ($ResCode == 0) {
+        if (isset($ResCode)and $ResCode == 0) {
 
             $this->data = array('Token' => $Token, 'SignData' => $this->encrypt_pkcs7_meli($Token, $key));
             $arrres = $this->cullRequest('https://sadad.shaparak.ir/vpg/api/v0/Advice/Verify');
@@ -278,10 +279,10 @@ class Meli extends Service
                 request()->request->add(['RefNum'=>$Token]);
                 return $ResCode ;
             } else {
-                return 0;
+                return 1050;
             }
         }
-        return  $ResCode;
+        return  1050;
     }
 
     public function connectionToBank($token)

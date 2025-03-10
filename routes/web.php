@@ -203,6 +203,7 @@ Route::get('test2',function (){
 });
 
 Route::get('test',function (){
+
     $bank = Bank::find(2);
 
     $objBank = new $bank->class;
