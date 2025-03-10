@@ -198,28 +198,3 @@ Route::fallback(function () {
     abort(404);
 });
 
-Route::get('test2',function (){
-   return redirect()->route('test',['parametr'=>1]);
-});
-
-Route::get('test',function (){
-    $bank = Bank::find(1);
-
-    $objBank = new $bank->class;
-    $objBank->setBankModel($bank);
-    $back_price = $objBank->verify(10000);
-    dd($back_price);
-
-})->name('test');
-
-Route::post('back',function (){
-    $bank = Bank::find(2);
-    $objBank = new $bank->class;
-    $objBank->setBankModel($bank);
-    if (!$objBank->backBank()) {
-        dd($objBank->transactionStatus());
-    }
-    $back_price = $objBank->verify(10000);
-    dd($back_price);
-
-})->withoutMiddleware(Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class)->name('hossein.back');
