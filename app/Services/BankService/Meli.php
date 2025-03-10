@@ -270,20 +270,21 @@ class Meli extends Service
             if ($arrres->ResCode != -1 && $arrres->ResCode == 0) {
                 $Refid = $arrres->SystemTraceNo;
                 if ($Refid == '') {
-                    return array(0, $arrres->ResCode);
+                    return 0;
                 }
                 $RefNo = $arrres->RetrivalRefNo;
-                return array(1, 0);
+                request()->request->add(['RefNum'=>$Token]);
+                return 1;
             } else {
-                return array(0, $arrres->ResCode);
+                return 0;
             }
         } else {
             if ($ResCode == "-1") {
-                return array(0, -3333);
+                return  -3333;
             } elseif ($ResCode == 101) {
-                return array(0, -2222);
+                return -2222;
             } else {
-                return array(0, 503);
+                return  503;
             }
 
         }

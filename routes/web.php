@@ -198,11 +198,15 @@ Route::fallback(function () {
     abort(404);
 });
 
+Route::get('test2',function (){
+   return redirect()->route('test',['parametr'=>1]);
+});
 
 Route::get('test',function (){
     $bank = Bank::find(2);
 
     $objBank = new $bank->class;
+
     $objBank->setOrderID(5000);
     $objBank->setTotalPrice(10000);
     $objBank->setBankUrl($bank->url);
@@ -212,7 +216,7 @@ Route::get('test',function (){
     $status = $objBank->payment();
     return $objBank->connectionToBank($status);
 
-});
+})->name('test');
 
 Route::post('back',function (){
     $bank = Bank::find(2);

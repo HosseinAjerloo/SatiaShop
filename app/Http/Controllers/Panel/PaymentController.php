@@ -46,7 +46,7 @@ class PaymentController extends Controller
             $user = Auth::user();
             $balance = Auth::user()->getCreaditBalance();
 
-            $inputs = $request->all();
+            $inputs = array_merge(request()->all(),request()->request->all());
             $bank = Bank::find($inputs['payment_type']);
             $myCart = Cart::where('status', 'addToCart')->where('user_id', $user->id)->first();
             $myCart->finalPrice=round($myCart->finalPrice);
@@ -130,7 +130,7 @@ class PaymentController extends Controller
 
             $user = Auth::user();
             $balance = Auth::user()->getCreaditBalance();
-            $inputs = $request->all();
+            $inputs = array_merge(request()->all(),request()->request->all());
             $payment = Payment::find(session()->get('payment'));
             $financeTransaction = FinanceTransaction::find(session()->get('financeTransaction'));
             $bank = $payment->bank;
@@ -148,7 +148,7 @@ class PaymentController extends Controller
             if (!$objBank->backBank()) {
                 $payment->update(
                     [
-                        'RefNum' => null,
+                        'RefNum' => $inputs['RefNum']??null,
                         'ResNum' => $inputs['ResNum'],
                         'state' => 'failed'
 
@@ -166,7 +166,7 @@ class PaymentController extends Controller
             if ($back_price !== true or Payment::where("order_id", $inputs['ResNum'])->count() > 1) {
                 $payment->update(
                     [
-                        'RefNum' => null,
+                        'RefNum' => $inputs['RefNum']??null,
                         'ResNum' => $inputs['ResNum'],
                         'state' => 'failed'
 
