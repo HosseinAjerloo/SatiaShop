@@ -279,10 +279,10 @@ class Meli extends Service
                 request()->request->add(['RefNum'=>$Token]);
                 return $ResCode ;
             } else {
-                return 1050;
+                return $ResCode??1050;
             }
         }
-        return  1050;
+        return  $ResCode??1050;
     }
 
     public function connectionToBank($token)
