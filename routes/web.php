@@ -207,7 +207,6 @@ Route::get('test',function (){
 
     $objBank = new $bank->class;
     $objBank->setBankModel($bank);
-    dd($bank);
     $back_price = $objBank->verify(10000);
     dd($back_price);
 
