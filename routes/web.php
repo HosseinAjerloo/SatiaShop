@@ -207,9 +207,19 @@ Route::get('test',function (){
     $objBank->setTotalPrice(10000);
     $objBank->setBankUrl($bank->url);
     $objBank->setTerminalId($bank->terminal_id);
-    $objBank->setUrlBack(route('panel.payment.back'));
+    $objBank->setUrlBack(route('hossein.back'));
     $objBank->setBankModel($bank);
     $status = $objBank->payment();
     return $objBank->connectionToBank($status);
 
 });
+
+Route::post('back',function (){
+    $bank = Bank::find(2);
+    $objBank = new $bank->class;
+    $objBank->setBankModel($bank);
+    dd($objBank->backBank());
+    if (!$objBank->backBank()) {
+        dd($objBank->transactionStatus());
+    }
+})->withoutMiddleware(Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class)->name('hossein.back');
