@@ -262,6 +262,7 @@ class Meli extends Service
         $key = $this->objectBank->password;
         $ResCode = request()->input('ResCode');
         $Token = request()->input('token');
+        dd(request()->all());
 
         if ($ResCode == 0) {
 
