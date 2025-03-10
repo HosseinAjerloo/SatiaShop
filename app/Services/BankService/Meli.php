@@ -272,14 +272,12 @@ class Meli extends Service
             $arrres = $this->cullRequest('https://sadad.shaparak.ir/vpg/api/v0/Advice/Verify');
             if ($arrres->ResCode != -1 && $arrres->ResCode == 0) {
                 $Refid = $arrres->SystemTraceNo;
-
                 if ($Refid == '') {
-                    dd('refID',$arrres);
-                    return 1050 ;
+                    return $arrres->ResCode ;
                 }
-                dd('end if');
                 $RefNo = $arrres->RetrivalRefNo;
                 request()->request->add(['RefNum'=>$Token]);
+                dd('hi');
                 return true ;
             } else {
                 return 1050;
