@@ -197,3 +197,37 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
 Route::fallback(function () {
     abort(404);
 });
+
+Route::get('test2',function (){
+   return redirect()->route('test',['parametr'=>1]);
+});
+
+Route::get('test',function (){
+    $bank = Bank::find(2);
+
+    $objBank = new $bank->class;
+
+    $objBank->setOrderID(5000);
+    $objBank->setTotalPrice(10000);
+    $objBank->setBankUrl($bank->url);
+    $objBank->setTerminalId($bank->terminal_id);
+    $objBank->setUrlBack(route('hossein.back'));
+    $objBank->setBankModel($bank);
+    $status = $objBank->payment();
+    return $objBank->connectionToBank($status);
+
+})->name('test');
+
+Route::post('back',function (){
+    $bank = Bank::find(2);
+    $objBank = new $bank->class;
+    $objBank->setBankModel($bank);
+    if (!$objBank->backBank()) {
+        dd($objBank->transactionStatus());
+    }
+    $back_price = $objBank->verify(10000);
+    $inputs = array_merge(request()->all(),request()->request->all());
+
+    dd($back_price,$inputs);
+
+})->withoutMiddleware(Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class)->name('hossein.back');
