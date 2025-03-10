@@ -208,7 +208,7 @@ Route::get('test',function (){
 
     $objBank = new $bank->class;
 
-    $objBank->setOrderID(5000);
+    $objBank->setOrderID(5001);
     $objBank->setTotalPrice(10000);
     $objBank->setBankUrl($bank->url);
     $objBank->setTerminalId($bank->terminal_id);
