@@ -270,6 +270,7 @@ class Meli extends Service
 
             $this->data = array('Token' => $Token, 'SignData' => $this->encrypt_pkcs7_meli($Token, $key));
             $arrres = $this->cullRequest('https://sadad.shaparak.ir/vpg/api/v0/Advice/Verify');
+            dump($arrres,$ResCode,$Token);
             if ($arrres->ResCode != -1 && $arrres->ResCode == 0) {
                 $Refid = $arrres->SystemTraceNo;
                 if ($Refid == '') {
