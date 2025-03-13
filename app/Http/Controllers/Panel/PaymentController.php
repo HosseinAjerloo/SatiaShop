@@ -146,7 +146,7 @@ class PaymentController extends Controller
                 . PHP_EOL
             );
             if (!$objBank->backBank()) {
-                dd('one',$inputs,$request->all());
+                dd('obe',$objBank->backBank(),$request->all());
                 $payment->update(
                     [
                         'RefNum' => $inputs['RefNum']??null,
