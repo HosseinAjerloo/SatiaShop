@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Log;
 
 class Meli extends Service
 {
+    protected $status = false;
+
     /**
      * Create a new class instance.
      */
@@ -25,8 +27,8 @@ class Meli extends Service
             $token = $arrres->Token;
             return $token;
         } else {
-            Log::emergency('An error occurred while connecting to National Bank :'.PHP_EOL.
-            $arrres->Description);
+            Log::emergency('An error occurred while connecting to National Bank :' . PHP_EOL .
+                $arrres->Description);
 
             SendAppAlertsJob::dispatch('هنگام اتصال به بانک ملی خطایی رخ  داد و اتصال برقرار نشد')->onQueue('perfectmoney');
             return false;
@@ -54,12 +56,10 @@ class Meli extends Service
             $arrres = json_decode($result);
 
             return $arrres;
-        }
-        catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
 
-            Log::emergency('An error occurred while connecting to National Bank '.PHP_EOL.
-            $e->getMessage());
+            Log::emergency('An error occurred while connecting to National Bank ' . PHP_EOL .
+                $e->getMessage());
             SendAppAlertsJob::dispatch('هنگام اتصال به بانک ملی خطایی رخ  داد و نوع خطا در لاگ ذخیره شد لطفا پیگیری کنید')->onQueue('perfectmoney');
 
             return false;
@@ -71,7 +71,7 @@ class Meli extends Service
     {
         $Token = request()->input("token");
         $ResCode = request()->input("ResCode");
-        if (isset($Token) and isset($ResCode) and  $ResCode=='0') {
+        if (isset($Token) and isset($ResCode) and $ResCode == '0') {
             return true;
         } else
             return false;
@@ -99,7 +99,7 @@ class Meli extends Service
 
     public function verifyTransaction($ErrorCode)
     {
-        $ErrorDesc =(string) $ErrorCode;
+        $ErrorDesc = (string)$ErrorCode;
         if ($ErrorCode == "0")
             $ErrorDesc = "تراکنش موفق";
         else if ($ErrorCode == "1")
@@ -260,33 +260,33 @@ class Meli extends Service
     }
 
 
-    public function verify($amount=0)
+    public function verify($amount = 0)
     {
-        $key = $this->objectBank->password;
-        $ResCode = request()->input('ResCode');
-        $Token = request()->input('token');
+        if (!$this->status) {
+            $key = $this->objectBank->password;
+            $ResCode = request()->input('ResCode');
+            $Token = request()->input('token');
 
-        if (isset($ResCode)and $ResCode == 0) {
+            if (isset($ResCode) and $ResCode == 0) {
 
-            $this->data = array('Token' => $Token, 'SignData' => $this->encrypt_pkcs7_meli($Token, $key));
-            $arrres = $this->cullRequest('https://sadad.shaparak.ir/vpg/api/v0/Advice/Verify');
-            dump($arrres,$ResCode,$Token);
-            if ($arrres->ResCode != -1 && $arrres->ResCode == 0) {
-                $Refid = $arrres->SystemTraceNo;
-                if ($Refid == '') {
-                    return $arrres->ResCode ;
+                $this->data = array('Token' => $Token, 'SignData' => $this->encrypt_pkcs7_meli($Token, $key));
+                $arrres = $this->cullRequest('https://sadad.shaparak.ir/vpg/api/v0/Advice/Verify');
+                if ($arrres->ResCode != -1 && $arrres->ResCode == 0) {
+                    $Refid = $arrres->SystemTraceNo;
+                    if ($Refid == '') {
+                        return $arrres->ResCode;
+                    }
+                    $RefNo = $arrres->RetrivalRefNo;
+                    request()->request->add(['RefNum' => $Token]);
+                    $this->status = true;
+                    return true;
+                } else {
+                    return 1050;
                 }
-                $RefNo = $arrres->RetrivalRefNo;
-                request()->request->add(['RefNum'=>$Token]);
-
-                return true ;
-            } else {
-                dump(1051);
-                return 1051;
             }
+            return 1050;
         }
-        dump(1052);
-        return  1052;
+        return $this->status;
     }
 
     public function connectionToBank($token)
