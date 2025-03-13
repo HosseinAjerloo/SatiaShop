@@ -130,7 +130,6 @@ class PaymentController extends Controller
 
             $user = Auth::user();
             $balance = Auth::user()->getCreaditBalance();
-            $inputs = array_merge(request()->all(),request()->request->all());
             $payment = Payment::find(session()->get('payment'));
             $financeTransaction = FinanceTransaction::find(session()->get('financeTransaction'));
             $bank = $payment->bank;
@@ -145,7 +144,9 @@ class PaymentController extends Controller
                 'user ID :' . $user->id
                 . PHP_EOL
             );
-            if (!$objBank->backBank()) {
+         $inputs = array_merge(request()->all(),request()->request->all());
+
+        if (!$objBank->backBank()) {
                 $payment->update(
                     [
                         'RefNum' => $inputs['RefNum']??null,
