@@ -125,7 +125,7 @@ class PaymentController extends Controller
     }
     public function paymentBack(Request $request)
     {
-//        try {
+        try {
             $satiaService = new SatiaService();
 
             $user = Auth::user();
@@ -238,14 +238,14 @@ class PaymentController extends Controller
             $myCart->delete();
 
             return redirect()->route('panel.order.invoiceDetail',$invoice)->with(['success-SweetAlert'=>'پرداخت باموفقیت انجام شد']);
-//        } catch (\Exception $e) {
-//
-//            Log::channel('bankLog')->emergency(PHP_EOL . "Purchase validation from the payment gateway : " .  $e->getMessage() . PHP_EOL);
-//            SendAppAlertsJob::dispatch('(هنگام برگشت از بانک جهت اعتبارسنجی پرداخت کاربر خطایی به وجود آمد لطفا برسی کنید)')->onQueue('perfectmoney');
-//
-//            return redirect()->route('panel.index')->with(['error-SweetAlert' => "خطایی رخ داد لطفا جهت پیگیری پرداخت با پشتیبانی تماس حاصل فرمایید باتشکر"]);
-//
-//        }
+        } catch (\Exception $e) {
+
+            Log::channel('bankLog')->emergency(PHP_EOL . "Purchase validation from the payment gateway : " .  $e->getMessage() . PHP_EOL);
+            SendAppAlertsJob::dispatch('(هنگام برگشت از بانک جهت اعتبارسنجی پرداخت کاربر خطایی به وجود آمد لطفا برسی کنید)')->onQueue('perfectmoney');
+
+            return redirect()->route('panel.index')->with(['error-SweetAlert' => "خطایی رخ داد لطفا جهت پیگیری پرداخت با پشتیبانی تماس حاصل فرمایید باتشکر"]);
+
+        }
     }
 
 }
