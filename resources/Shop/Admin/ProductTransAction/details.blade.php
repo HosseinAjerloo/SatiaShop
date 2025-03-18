@@ -54,59 +54,61 @@
             @foreach($productTransactions as $key => $productTransaction)
                 <div class="p-2 shadow-md shadow-gray-400 border-2 border-black/20 sm:border-none rounded-md sm:rounded-none sm:shadow-none h-full space-y-3 sm:space-y-0 flex-wrap sm:flex-row @if($key%2==0) bg-E9E9E9 @endif  flex items-center justify-between  divide-x-1 divide-black divide-x-reverse">
                     <div class=" border-b border-black/35 sm:border-none py-1.5  w-full justify-between  sm:w-[7%] sm:max-w-[7%]    h-full flex items-center  text-right whitespace-normal break-words ">
-                        <p class="sm:hidden text-min_sm font-bold ">
+                        <p class="sm:hidden text-min_sm ">
                             #
                         </p>
-                        <p class="sm:text-min_sm sm:font-bold">
+                        <p class="sm:text-min_sm ">
                             {{$key+1}}
                         </p>
                     </div>
                     <div  class="border-b border-black/35 sm:border-none w-full justify-between flex  sm:w-[11%] sm:max-w-[11%]">
-                        <p class="sm:hidden text-min_sm font-bold">
+                        <p class="sm:hidden text-min_sm ">
                             کاربر ثبت کننده
                         </p>
-                        <p class="text-sky-500  text-min_sm sm:font-bold  h-full flex items-center text-right leading-8 underline underline-offset-4   whitespace-normal break-words ">
+                        <p class="text-sky-500  text-min_sm   h-full flex items-center text-right leading-8 underline underline-offset-4   whitespace-normal break-words ">
                             {{$productTransaction->user->fullName??''}}
                         </p>
                     </div>
                     <div class="border-b border-black/35 sm:border-none w-full justify-between   sm:w-[11%] sm:max-w-[11%] text-min_sm   h-full flex items-center text-right whitespace-normal break-words ">
-                        <p class="sm:hidden text-min_sm font-bold">نام محصول</p>
-                        {{$productTransaction->product->removeUnderLine??''}}
+                        <p class="sm:hidden text-min_sm ">نام محصول</p>
+                        <p class="break-words whitespace-normal leading-6">
+                            {{$productTransaction->product->removeUnderLine??''}}
 
+                        </p>
                     </div>
                     <div class="border-b border-black/35 sm:border-none w-full justify-between   sm:w-[11%] sm:max-w-[11%] text-min_sm   h-full flex items-center text-right whitespace-normal break-words ">
-                        <p class="sm:hidden text-min_sm font-bold">شماره فاکتور</p>
+                        <p class="sm:hidden text-min_sm ">شماره فاکتور</p>
                         {{$productTransaction->invoice_id??''}}
 
                     </div>
                     <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] whitespace-normal break-words">
-                        <p class="sm:hidden text-min_sm font-bold"> تعداد</p>
-                        <p class="text-black  text-min_sm sm:font-bold  h-full flex items-center text-right ">
+                        <p class="sm:hidden text-min_sm "> تعداد</p>
+                        <p class="text-black  text-min_sm   h-full flex items-center text-right ">
                             {{$productTransaction->amount??''}}
                         </p>
                     </div>
                     <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] h-full whitespace-normal break-words">
-                        <p class="sm:hidden text-min_sm font-bold">
+                        <p class="sm:hidden text-min_sm ">
                             باقی مانده در انبار
                         </p>
-                        <p class="text-black  text-sm sm:font-bold  h-full flex items-center text-right">
+                        <p class="text-black  text-sm  h-full flex items-center text-right">
                             {{$productTransaction->remain??''}}
                         </p>
                     </div>
 
                     <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] h-full whitespace-normal break-words">
-                        <p class="sm:hidden text-min_sm font-bold">
+                        <p class="sm:hidden text-min_sm ">
                             نوع تراکنش
                         </p>
-                        <p class="text-black  text-min_sm sm:font-bold  h-full flex items-center text-right whitespace-normal break-words">
+                        <p class="text-black  text-min_sm  h-full flex items-center text-right whitespace-normal break-words">
                             {{$productTransaction->getType()??''}}
 
                         </p>
 
                     </div>
                     <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] h-full whitespace-normal break-words">
-                        <p class="sm:hidden text-min_sm font-bold">تاریخ ایجاد</p>
-                        <p class="text-black  text-min_sm sm:font-bold  h-full flex items-center text-right whitespace-normal break-words">
+                        <p class="sm:hidden text-min_sm ">تاریخ ایجاد</p>
+                        <p class="text-black  text-min_sm  h-full flex items-center text-right whitespace-normal break-words">
                             {{\Morilog\Jalali\Jalalian::forge($productTransaction->created_at)->format('H:i:s Y/m/d ')}}
                         </p>
                     </div>

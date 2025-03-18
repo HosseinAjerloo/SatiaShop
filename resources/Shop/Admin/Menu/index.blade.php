@@ -18,23 +18,23 @@
                     #
                 </h1>
             </div>
-            <div class="w-[11%] max-w-[11%]">
+            <div class="w-[20%] max-w-[20%]">
                 <h1 class="text-white text-min font-bold text-right">
                     نام منو
                 </h1>
             </div>
-            <div class="w-[11%] max-w-[11%]">
+            <div class="w-[20%] max-w-[20%]">
                 <h1 class="text-white text-min font-bold text-right">
                     ترتیب نمایش
                 </h1>
             </div>
-            <div class="w-[11%] max-w-[11%]">
+            <div class="w-[20%] max-w-[20%]">
                 <h1 class="text-white text-min font-bold text-right">
                     وضعیت
                 </h1>
             </div>
 
-            <div class="w-[11%] max-w-[11%]">
+            <div class="w-[20%] max-w-[20%]">
                 <h1 class="text-white text-min font-bold text-right">
                     تاریخ ایجاد
                 </h1>
@@ -46,30 +46,30 @@
             @foreach($menus as $key=> $menu)
                 <div class="p-2 shadow-md shadow-gray-400 border-2 border-black/20 sm:border-none rounded-md sm:rounded-none sm:shadow-none h-full space-y-3 sm:space-y-0 flex-wrap sm:flex-row @if($key%2==0)) bg-E9E9E9 @endif  flex items-center justify-between  divide-x-1 divide-black divide-x-reverse">
                     <div class=" border-b border-black/35 sm:border-none py-1.5  w-full justify-between  sm:w-[7%] sm:max-w-[7%]    h-full flex items-center  text-right whitespace-normal break-words ">
-                        <p class="sm:hidden text-min_sm font-bold ">
+                        <p class="sm:hidden text-min_sm  ">
                             #
                         </p>
-                        <p class="sm:text-min_sm sm:font-bold">
+                        <p class="sm:text-min_sm ">
                             {{$key+1}}
                         </p>
                     </div>
-                    <a href="{{route('admin.menu.edit',$menu->id)}}" class="border-b border-black/35 sm:border-none w-full justify-between flex  sm:w-[11%] sm:max-w-[11%]">
-                        <p class="sm:hidden text-min_sm font-bold">
+                    <a href="{{route('admin.menu.edit',$menu->id)}}" class="border-b border-black/35 sm:border-none w-full justify-between flex  sm:w-[20%] sm:max-w-[20%]">
+                        <p class="sm:hidden text-min_sm ">
                             عنوان
                         </p>
-                        <p class="text-sky-500  text-min_sm sm:font-bold  h-full flex items-center text-right leading-8 underline underline-offset-4   whitespace-normal break-words ">
+                        <p class="text-sky-500  text-min_sm   h-full flex items-center text-right leading-8 underline underline-offset-4   whitespace-normal break-words ">
                             {{$menu->name??''}}
                         </p>
                     </a>
-                    <div class="border-b border-black/35 sm:border-none w-full justify-between   sm:w-[11%] sm:max-w-[11%] text-min_sm   h-full flex items-center text-right whitespace-normal break-words ">
-                        <p class="sm:hidden text-min_sm font-bold">توضیحات</p>
-                        <p class="text-black  text-min_sm sm:font-bold  h-full flex items-center text-right ">
+                    <div class="border-b border-black/35 sm:border-none w-full justify-between   sm:w-[20%] sm:max-w-[20%] text-min_sm   h-full flex items-center text-right whitespace-normal break-words ">
+                        <p class="sm:hidden text-min_sm ">توضیحات</p>
+                        <p class="text-black  text-min_sm   h-full flex items-center text-right ">
                             &nbsp;{{$menu->view_sort??''}}
                         </p>
                     </div>
-                    <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] whitespace-normal break-words">
-                        <p class="sm:hidden text-min_sm font-bold">نوع محصول</p>
-                        <p class="text-black  text-min_sm sm:font-bold  h-full flex items-center text-right ">
+                    <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[20%] sm:max-w-[20%] whitespace-normal break-words">
+                        <p class="sm:hidden text-min_sm ">نوع محصول</p>
+                        <p class="text-black  text-min_sm   h-full flex items-center text-right ">
                             &nbsp;  @if($menu->status=='active')
                                 فعال
                             @else
@@ -80,11 +80,11 @@
 
 
 
-                    <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] h-full whitespace-normal break-words">
-                        <p class="sm:hidden text-min_sm font-bold">
+                    <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[20%] sm:max-w-[20%] h-full whitespace-normal break-words">
+                        <p class="sm:hidden text-min_sm ">
                             تاریخ ایجاد
                         </p>
-                        <p class="text-black  text-min_sm sm:font-bold  h-full flex items-center text-right whitespace-normal break-words">
+                        <p class="text-black  text-min_sm  h-full flex items-center text-right whitespace-normal break-words">
                             {{\Morilog\Jalali\Jalalian::forge($menu->created_at)->format('H:i:s Y/m/d')}}
                         </p>
                     </div>

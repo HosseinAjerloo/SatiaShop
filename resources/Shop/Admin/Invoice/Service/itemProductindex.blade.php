@@ -55,17 +55,17 @@
                     <div
                         class="p-2 h-full @if(($key%2)==0) bg-E9E9E9 @endif flex-wrap  flex items-center justify-between  divide-x-1 divide-black divide-x-reverse">
                         <div class="w-1/5">
-                            <p class="  text-min_sm font-bold  h-full flex items-center justify-center text-center  ">
+                            <p class="  text-min_sm   h-full flex items-center justify-center text-center  ">
                                 {{$invoiceItem->product->removeUnderLine??''}}
                             </p>
                         </div>
                         <div class="w-1/5">
-                            <p class=" text-min_sm font-bold  h-full flex items-center justify-center text-center  ">
+                            <p class=" text-min_sm   h-full flex items-center justify-center text-center  ">
                                 {{numberFormat($invoiceItem->price)??''}}
                             </p>
                         </div>
                         <div class="w-1/5">
-                            <p class="  text-min_sm font-bold  h-full flex items-center justify-center text-center ">
+                            <p class="  text-min_sm   h-full flex items-center justify-center text-center ">
                                 {{$invoiceItem->amount??''}}
                             </p>
                         </div>

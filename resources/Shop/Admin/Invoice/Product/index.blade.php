@@ -53,39 +53,39 @@
                         </p>
                     </div>
                     <a href="{{route('admin.invoice.product.invoiceProduct',$invoice->id)}}" class="border-b border-black/35 sm:border-none w-full justify-between flex  sm:w-[11%] sm:max-w-[11%]">
-                        <p class="sm:hidden text-min_sm font-bold">
+                        <p class="sm:hidden text-min_sm ">
                             کاربر ثبت کننده
                         </p>
-                        <p class="text-sky-500  text-min_sm sm:font-bold  h-full flex items-center text-right leading-8 underline underline-offset-4   whitespace-normal break-words ">
+                        <p class="text-sky-500  text-min_sm   h-full flex items-center text-right leading-8 underline underline-offset-4   whitespace-normal break-words ">
                             {{$invoice->operator->fullName??''}}
                         </p>
                     </a>
                     <div class="border-b border-black/35 sm:border-none w-full justify-between   sm:w-[11%] sm:max-w-[11%] text-min_sm   h-full flex items-center text-right whitespace-normal break-words ">
-                        <p class="sm:hidden text-min_sm font-bold">تامین کننده</p>
+                        <p class="sm:hidden text-min_sm ">تامین کننده</p>
                         {{$invoice->supplier->name??''}}
 
                     </div>
                     <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] whitespace-normal break-words">
-                        <p class="sm:hidden text-min_sm font-bold">مجموع قیمت خریداری شده</p>
-                        <p class="text-black  text-min_sm sm:font-bold  h-full flex items-center text-right ">
+                        <p class="sm:hidden text-min_sm ">مجموع قیمت خریداری شده</p>
+                        <p class="text-black  text-min_sm  h-full flex items-center text-right ">
                             {{numberFormat($invoice->final_amount)??''}}
                         </p>
                     </div>
                     <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] h-full whitespace-normal break-words">
-                        <p class="sm:hidden text-min_sm font-bold">
+                        <p class="sm:hidden text-min_sm">
                             توضیحات مربوط با فاکتور
                         </p>
-                        <p class="text-black  text-sm sm:font-bold  h-full flex items-center text-right">
+                        <p class="text-black  text-sm   h-full flex items-center text-right break-all whitespace-normal leading-6">
                             {!! $invoice->description??''!!}
 
                         </p>
                     </div>
 
                     <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] h-full whitespace-normal break-words">
-                        <p class="sm:hidden text-min_sm font-bold">
+                        <p class="sm:hidden text-min_sm ">
                             تاریخ ایجاد
                         </p>
-                        <p class="text-black  text-min_sm sm:font-bold  h-full flex items-center text-right whitespace-normal break-words">
+                        <p class="text-black  text-min_sm  h-full flex items-center text-right whitespace-normal break-words">
                             {{\Morilog\Jalali\Jalalian::forge($invoice->created_at)->format('H:i:s Y/m/d')}}
                         </p>
 
