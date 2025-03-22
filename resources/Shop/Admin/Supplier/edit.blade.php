@@ -24,7 +24,7 @@
 
             <div class="flex items-center space-x-reverse space-x-8">
                 <h5 class="text-min font-light w-28">دستبه بندی تامین کننده:</h5>
-                <select name="supplier_category_id" id="" class="outline-none border border-black rounded-md w-48">
+                <select name="supplier_category_id" id="" class="outline-none border border-black rounded-md w-48 select2">
 
                     @foreach($supplierCategory as $category)
                         <option @selected(old('supplier_category_id',$supplier->supplier_category_id)==$category->id) value="{{$category->id}}">{{$category->name??''}}</option>

@@ -23,7 +23,7 @@
 
             <div class="flex items-center space-x-reverse space-x-8">
                 <h5 class="text-min font-light w-28">دستبه بندی:</h5>
-                <select name="category_id" id="" class="outline-none border border-black rounded-md w-48">
+                <select name="category_id" id="" class="outline-none border border-black rounded-md w-48 select2">
 
                     @foreach($categories as $category)
                         <option
@@ -33,7 +33,7 @@
             </div>
             <div class="flex items-center space-x-reverse space-x-8">
                 <h5 class="text-min font-light w-28">برند :</h5>
-                <select name="brand_id" id="" class="outline-none border border-black rounded-md w-48">
+                <select name="brand_id" id="" class="outline-none border border-black rounded-md w-48 select2">
                     @foreach($brands as $brand)
                         <option
                             @selected(old('brand_id')==$brand->id) value="{{$brand->id}}">{{$brand->name??""}}</option>

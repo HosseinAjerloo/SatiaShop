@@ -16,7 +16,7 @@
 
             <div class="flex items-center space-x-reverse space-x-8">
                 <h5 class="text-min font-light w-28">دسته والد:</h5>
-                <select name="category_id" id="" class="outline-none border border-black rounded-md w-48">
+                <select name="category_id" id="" class="outline-none border border-black rounded-md w-48 select2">
                     <option value="">دسته اصلی</option>
 
                         @foreach($categories as $category)
@@ -26,7 +26,7 @@
             </div>
             <div class="flex items-center space-x-reverse space-x-8">
                 <h5 class="text-min font-light w-28">محل منوی نمایش :</h5>
-                <select name="menu_id" id="" class="outline-none border border-black rounded-md w-48">
+                <select name="menu_id" id="" class="outline-none border border-black rounded-md w-48 select2">
                     @foreach($menus as $menu)
                         <option @selected(old('menu_id')==$menu->id) value="{{$menu->id}}">{{$menu->name??""}}</option>
                     @endforeach

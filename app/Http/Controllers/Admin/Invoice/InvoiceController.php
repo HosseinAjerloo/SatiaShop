@@ -15,6 +15,7 @@ use App\Models\ProductTransaction;
 use App\Models\Supplier;
 use App\Services\ImageService\ImageService;
 use Diglactic\Breadcrumbs\Breadcrumbs;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -27,10 +28,11 @@ class InvoiceController extends Controller
 
     public function productIndex()
     {
-        $breadcrumbs = Breadcrumbs::render('admin.invoice.product.index')->getData()['breadcrumbs'];
 
-        $invoice = InvoiceItem::where('type', 'product')->get()->unique('invoice_id')->pluck('invoice_id');
-        $invoices = Invoice::search()->where('type_of_business', 'buy')->whereIn('id', $invoice)->get();
+        $breadcrumbs = Breadcrumbs::render('admin.invoice.product.index')->getData()['breadcrumbs'];
+        $invoices=Invoice::search()->whereHas('invoiceItem',function(Builder $query){
+            $query->where('type','product');
+        })->where('type_of_business', 'buy')->paginate(20, ['*'], 'page')->withQueryString();
         return view('Admin.Invoice.Product.index', compact('invoices', 'breadcrumbs'));
     }
 
@@ -208,6 +210,7 @@ class InvoiceController extends Controller
             DB::commit();
             return redirect()->route('admin.invoice.product.index')->with(['success' => 'فاکتور  شما یرایش  شد و محصولات شما در انبار اضافه ویرایش گردید']);
         } catch (\Exception $e) {
+            dd($e);
             DB::rollback();
             return redirect()->route('admin.invoice.product.index')->withErrors(['updateError' => 'ویرایش فاکتور شما با خطا مواجه شد لطفا مجددا تلاش فرمایید.']);
 
@@ -219,8 +222,10 @@ class InvoiceController extends Controller
     public function serviceIndex()
     {
         $breadcrumbs = Breadcrumbs::render('admin.invoice.service.index')->getData()['breadcrumbs'];
-        $invoice = InvoiceItem::where('type', 'service')->get()->unique('invoice_id')->pluck('invoice_id');
-        $invoices = Invoice::search()->where('type_of_business', 'buy')->whereIn('id', $invoice)->orderBy('created_at', 'desc')->paginate(20, ['*'], 'page')->withQueryString();
+
+        $invoices=Invoice::search()->whereHas('invoiceItem',function(Builder $query){
+            $query->where('type','service');
+        })->where('type_of_business', 'buy')->paginate(20, ['*'], 'page')->withQueryString();
         return view('Admin.Invoice.Service.index', compact('invoices', 'breadcrumbs'));
     }
 
@@ -304,7 +309,7 @@ class InvoiceController extends Controller
     public function serviceEdit(Invoice $invoice)
     {
         $breadcrumbs = Breadcrumbs::render('admin.invoice.service.edit', $invoice)->getData()['breadcrumbs'];
-        $products = Product::where('type', 'goods')->where('status', 'active')->get();
+        $products = Product::where('type', 'service')->where('status', 'active')->get();
         $suppliers = Supplier::where('status', 'active')->get();
         return view('Admin.Invoice.Service.edit', compact('suppliers', 'products', 'invoice', 'breadcrumbs'));
 

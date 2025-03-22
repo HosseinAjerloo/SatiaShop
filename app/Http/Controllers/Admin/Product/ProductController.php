@@ -95,6 +95,7 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product, ImageService $imageService)
     {
+
         $inputs = $request->all();
         $user = Auth::user();
         if ($request->hasFile('file')) {

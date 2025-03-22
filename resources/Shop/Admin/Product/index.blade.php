@@ -65,12 +65,12 @@
                         <p class="sm:hidden text-min_sm font-bold ">
                             #
                         </p>
-                        <p class="sm:text-min_sm sm:font-bold">
+                        <p class="sm:text-min_sm">
                             {{$key+1}}
                         </p>
                     </div>
                     <a href="{{route('admin.product.edit',$product->id)}}" class="border-b border-black/35 sm:border-none w-full justify-between flex  sm:w-[11%] sm:max-w-[11%]">
-                        <p class="sm:hidden text-min_sm font-bold">
+                        <p class="sm:hidden text-min_sm ">
                             عنوان
                         </p>
                         <p class="text-sky-500  text-min_sm   h-full flex items-center text-right leading-8 underline underline-offset-4   whitespace-normal break-words ">
@@ -78,21 +78,21 @@
                         </p>
                     </a>
                     <div class="border-b border-black/35 sm:border-none w-full justify-between   sm:w-[11%] sm:max-w-[11%] text-min_sm   h-full flex items-center text-right whitespace-normal break-words ">
-                        <p class="sm:hidden text-min_sm font-bold">توضیحات</p>
+                        <p class="sm:hidden text-min_sm ">توضیحات</p>
                             {!! substr($product->description,0,30) !!}...
 
                     </div>
                     <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] whitespace-normal break-words">
-                        <p class="sm:hidden text-min_sm font-bold">نوع محصول</p>
-                        <p class="text-black  text-min_sm sm:font-bold  h-full flex items-center text-right ">
+                        <p class="sm:hidden text-min_sm ">نوع محصول</p>
+                        <p class="text-black  text-min_sm   h-full flex items-center text-right ">
                            &nbsp; {{($product->type=='goods'?'کالا':'سرویس')}}
                         </p>
                     </div>
                     <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] h-full whitespace-normal break-words">
-                        <p class="sm:hidden text-min_sm font-bold">
+                        <p class="sm:hidden text-min_sm ">
                             وضعیت
                         </p>
-                        <p class="text-black  text-sm sm:font-bold  h-full flex items-center text-right">
+                        <p class="text-black  text-sm  h-full flex items-center text-right">
                             @if($product->status=='active')
                                 فعال
                             @else
@@ -102,34 +102,34 @@
                     </div>
 
                     <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] h-full whitespace-normal break-words">
-                        <p class="sm:hidden text-min_sm font-bold">
+                        <p class="sm:hidden text-min_sm ">
                                 قیمت
                         </p>
-                        <p class="text-black  text-min_sm sm:font-bold  h-full flex items-center text-right whitespace-normal break-words">
+                        <p class="text-black  text-min_sm   h-full flex items-center text-right whitespace-normal break-words">
                             {{numberFormat($product->price)??''}} ریال
                         </p>
 
                     </div>
                     <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] h-full whitespace-normal break-words">
                         <p class="sm:hidden text-min_sm font-bold">برند</p>
-                        <p class="text-black  text-min_sm sm:font-bold  h-full flex items-center text-right whitespace-normal break-words">
+                        <p class="text-black  text-min_sm   h-full flex items-center text-right whitespace-normal break-words">
                             {{$product->brand->name??''}}
                         </p>
                     </div>
                     <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] h-full whitespace-normal break-words">
-                        <p class="sm:hidden text-min_sm font-bold">
+                        <p class="sm:hidden text-min_sm ">
                             دسته محصول
                         </p>
-                        <p class="text-black  text-min_sm sm:font-bold  h-full flex items-center text-right whitespace-normal break-words">
+                        <p class="text-black  text-min_sm   h-full flex items-center text-right whitespace-normal break-words">
                             {{$product->category->removeUnderLine??''}}
                         </p>
                     </div>
 
                     <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] h-full whitespace-normal break-words">
-                        <p class="sm:hidden text-min_sm font-bold">
+                        <p class="sm:hidden text-min_sm ">
                             تاریخ ایجاد
                         </p>
-                        <p class="text-black  text-min_sm sm:font-bold  h-full flex items-center text-right whitespace-normal break-words">
+                        <p class="text-black  text-min_sm   h-full flex items-center text-right whitespace-normal break-words">
                             {{\Morilog\Jalali\Jalalian::forge($product->created_at)->format('H:i:s Y/m/d')}}
                         </p>
                     </div>

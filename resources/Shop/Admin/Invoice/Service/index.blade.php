@@ -76,11 +76,11 @@
                             {{numberFormat($invoice->final_amount)??''}}
                         </p>
                     </div>
-                    <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] h-full whitespace-normal break-words">
+                    <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] h-full whitespace-normal break-all">
                         <p class="sm:hidden text-min_sm ">
                             توضیحات مربوط به کالا
                         </p>
-                            {!! substr($invoice->description,0,30) !!}...
+                        {!! $invoice->description??''!!}
 
                     </div>
 

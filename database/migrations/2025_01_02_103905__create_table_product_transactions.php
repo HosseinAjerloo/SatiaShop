@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('invoice_id')->nullable()->constrained('invoices')->cascadeOnDelete()->cascadeOnUpdate();
             $table->integer('amount')->default(0);
             $table->integer('remain')->default(0);
-            $table->enum('type',['add','minus'])->nullable();
+            $table->enum('type',['add','minus','update'])->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

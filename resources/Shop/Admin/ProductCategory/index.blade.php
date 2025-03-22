@@ -49,48 +49,48 @@
 
         <article class=" border-0 sm:border border-t-0 border-black space-y-5 py-1.5 rounded-md rounded-se-none  rounded-ss-none">
             @foreach($categories as $key=> $category)
-                <div class="p-2 shadow-md shadow-gray-400 border-2 border-black/20 sm:border-none rounded-md sm:rounded-none sm:shadow-none h-full space-y-3 sm:space-y-0 flex-wrap sm:flex-row @if((($key+1)%2)==0) bg-E9E9E9 @endif  flex items-center justify-between  divide-x-1 divide-black divide-x-reverse">
+                <div class="p-2 shadow-md shadow-gray-400 border-2 border-black/20 sm:border-none rounded-md sm:rounded-none sm:shadow-none h-full space-y-3 sm:space-y-0 flex-wrap sm:flex-row @if(($key%2)==0) bg-E9E9E9 @endif  flex items-center justify-between  divide-x-1 divide-black divide-x-reverse">
                     <div class=" border-b border-black/35 sm:border-none py-1.5  w-full justify-between  sm:w-[7%] sm:max-w-[7%]    h-full flex items-center  text-right whitespace-normal break-words ">
-                        <p class="sm:hidden text-min_sm font-bold ">
+                        <p class="sm:hidden text-min_sm  ">
                             #
                         </p>
-                        <p class="sm:text-min_sm sm:font-bold">
+                        <p class="sm:text-min_sm ">
                             {{$key+1}}
                         </p>
                     </div>
                     <a href="{{route('admin.category.edit',$category->id)}}" class="border-b border-black/35 sm:border-none w-full justify-between flex  sm:w-[11%] sm:max-w-[11%]">
-                        <p class="sm:hidden text-min_sm font-bold">
+                        <p class="sm:hidden text-min_sm ">
                             نام دسته بندی
                         </p>
-                        <p class="text-sky-500  text-min_sm sm:font-bold  h-full flex items-center text-right leading-8 underline underline-offset-4   whitespace-normal break-words ">
+                        <p class="text-sky-500  text-min_sm   h-full flex items-center text-right leading-8 underline underline-offset-4   whitespace-normal break-words ">
                             {{$category->removeUnderLine??''}}
                         </p>
                     </a>
                     <div class="border-b border-black/35 sm:border-none w-full justify-between   sm:w-[11%] sm:max-w-[11%] text-min_sm   h-full flex items-center text-right whitespace-normal break-words ">
-                        <p class="sm:hidden text-min_sm font-bold">محل نمایش در منو</p>
+                        <p class="sm:hidden text-min_sm ">محل نمایش در منو</p>
                         {{$category->menu->name??''}}
 
                     </div>
                     <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] whitespace-normal break-words">
-                        <p class="sm:hidden text-min_sm font-bold"> نام دسته والد</p>
-                        <p class="text-black  text-min_sm sm:font-bold  h-full flex items-center text-right ">
+                        <p class="sm:hidden text-min_sm "> نام دسته والد</p>
+                        <p class="text-black  text-min_sm   h-full flex items-center text-right ">
                             {{$category->parent->removeUnderLine??'دسته اصلی'}}
                         </p>
                     </div>
                     <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] h-full whitespace-normal break-words">
-                        <p class="sm:hidden text-min_sm font-bold">
+                        <p class="sm:hidden text-min_sm ">
                             ترتیب نمایش
                         </p>
-                        <p class="text-black  text-sm sm:font-bold  h-full flex items-center text-right">
+                        <p class="text-black  text-sm   h-full flex items-center text-right">
                             {{$category->view_sort??''}}
                         </p>
                     </div>
 
                     <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] h-full whitespace-normal break-words">
-                        <p class="sm:hidden text-min_sm font-bold">
+                        <p class="sm:hidden text-min_sm ">
                             وضعیت
                         </p>
-                        <p class="text-black  text-min_sm sm:font-bold  h-full flex items-center text-right whitespace-normal break-words">
+                        <p class="text-black  text-min_sm  h-full flex items-center text-right whitespace-normal break-words">
                             @if($category->status=='active')
                                 فعال
                             @else
@@ -100,8 +100,8 @@
 
                     </div>
                     <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] h-full whitespace-normal break-words">
-                        <p class="sm:hidden text-min_sm font-bold">تاریخ ایجاد</p>
-                        <p class="text-black  text-min_sm sm:font-bold  h-full flex items-center text-right whitespace-normal break-words">
+                        <p class="sm:hidden text-min_sm ">تاریخ ایجاد</p>
+                        <p class="text-black  text-min_sm   h-full flex items-center text-right whitespace-normal break-words">
                             {{\Morilog\Jalali\Jalalian::forge($category->created_at)->format('H:i:s Y/m/d')}}
                         </p>
                     </div>

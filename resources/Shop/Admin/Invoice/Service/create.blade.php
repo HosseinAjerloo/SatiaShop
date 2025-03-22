@@ -14,7 +14,7 @@
             <section class="pb-3  border-b-2 border-black/40">
                 <div class="flex items-center space-x-reverse space-x-8">
                     <h5 class="text-min font-light w-28">تامین کنندگان:</h5>
-                    <select name="supplier_id" id="" class="outline-none border border-black rounded-md w-48">
+                    <select name="supplier_id" id="" class="outline-none border border-black rounded-md w-48 select2">
 
                         @foreach($suppliers as $supplier)
                             <option value="{{$supplier->id}}">{{$supplier->name}}</option>
@@ -40,7 +40,7 @@
                     <div class="flex items-center space-x-reverse space-x-8">
                         <h5 class="text-min font-light w-28">انتخاب خدمت:</h5>
                         <select name="product_id[]" id=""
-                                class="productSelect outline-none border border-black rounded-md w-48 w-full">
+                                class="productSelect outline-none border border-black rounded-md w-48 w-full select2">
 
                             @foreach($products as $product)
                                 <option @if($product->id==1) selected="selected"
@@ -110,7 +110,7 @@
                 '</div>' +
                 '<div class="flex items-center space-x-reverse space-x-8">' +
                 '<h5 class="text-min font-light w-28">انتخاب خدمات:</h5>' +
-                '<select name="product_id[]" id="" class="productSelect outline-none border border-black rounded-md w-48 w-full">' +
+                '<select name="product_id[]" id="" class="productSelect outline-none border border-black rounded-md w-48 w-full select2">' +
                 ' ' + SelectProduct() + ' ' +
                 '</select>' +
                 '</div>' +
@@ -129,7 +129,7 @@
             changeFunction()
             FilterSelectProduct()
             elementFunction()
-
+            select2Start();
             CKEDITOR.replace('replace_element_' + count, {
                 versionCheck: false,
                 language: 'fa',
