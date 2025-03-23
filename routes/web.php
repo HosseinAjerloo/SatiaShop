@@ -204,22 +204,12 @@ Route::get('test2',function (){
 
 Route::get('test',function (){
 
-    $bank = Bank::find(2);
-
-    $objBank = new $bank->class;
-
-    $objBank->setOrderID(5002);
-    $objBank->setTotalPrice(10000);
-    $objBank->setBankUrl($bank->url);
-    $objBank->setTerminalId($bank->terminal_id);
-    $objBank->setUrlBack(route('hossein.back'));
-    $objBank->setBankModel($bank);
-    $status = $objBank->payment();
-    return $objBank->connectionToBank($status);
+   return view('Admin.residSharcheCapsule');
 
 })->name('test');
 
 Route::post('back',function (){
+    dd(\request()->all());
     $bank = Bank::find(2);
     $objBank = new $bank->class;
     $objBank->setBankModel($bank);
