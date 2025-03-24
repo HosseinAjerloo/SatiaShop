@@ -204,21 +204,11 @@ Route::get('test2',function (){
 
 Route::get('test',function (){
 
-   return view('Admin.residSharcheCapsule');
+   return view('Admin.qr');
 
 })->name('test');
 
 Route::post('back',function (){
-    dd(\request()->all());
-    $bank = Bank::find(2);
-    $objBank = new $bank->class;
-    $objBank->setBankModel($bank);
-    if (!$objBank->backBank()) {
-        dd($objBank->transactionStatus());
-    }
-    $back_price = $objBank->verify(10000);
-    $inputs = array_merge(request()->all(),request()->request->all());
 
-    dd($back_price,$inputs);
 
 })->withoutMiddleware(Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class)->name('hossein.back');

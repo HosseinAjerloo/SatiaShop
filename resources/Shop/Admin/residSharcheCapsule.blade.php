@@ -209,6 +209,17 @@
 
                     </tbody>
                 </table>
+                <section class="flex items-center justify-center space-x-reverse space-x-3 p-5">
+                    <div class="bg-268832 px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
+                        <button>صدور فاکتور</button>
+                    </div>
+                    <div class="bg-2081F2 px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
+                        <button>چاپ برگه کپسول</button>
+                    </div>
+                    <div class="bg-FFB01B px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
+                        <button>جاپ رسید</button>
+                    </div>
+                </section>
             </form>
 
 
