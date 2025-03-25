@@ -195,3 +195,7 @@ body{
 }
 
 
+.circle-page{
+    clip-path: circle(10% at center);
+    transition: .5s;
+}
