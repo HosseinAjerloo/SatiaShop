@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <select class=" space-y-3 relative">
+    <section class=" space-y-3 relative">
         <article class="space-y-5 bg-F1F1F1 p-3 ">
 
             <article class="flex justify-between items-center">
@@ -195,7 +195,7 @@
 
         </article>
 
-        <article class="  absolute w-full h-full top-0 bg-black/65 ">
+        <article class="circle-page invisible  absolute w-full h-full top-0 bg-black/65 ">
             <div
                 class="absolute  top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] shadow bg-white p-2 rounded-md w-11/12">
                 <div class="flex items-center justify-between">
@@ -205,7 +205,7 @@
                     <img src="{{asset("capsule/images/close.svg")}}" alt="" class="close-page">
                 </div>
                 <div class="flex items-center justify-between">
-                    <h1 class="p-1 font-bold" onclick="test()">
+                    <h1 class="p-1 font-bold">
                         نام کالا و خدمات :
                     </h1>
                     <select class="search-tags w-2/3" multiple="multiple">
@@ -213,16 +213,7 @@
                         <option value="satia" data-price="170000">satia</option>
                         <option value="test" data-price="170000">test</option>
                         <option value="mashin" data-price="170000">mashin</option>
-                        <option value="mashin" data-price="170000">mashin</option>
-                        <option value="mashin" data-price="170000">mashin</option>
-                        <option value="mashin" data-price="170000">mashin</option>
-                        <option value="mashin" data-price="170000">mashin</option>
-                        <option value="mashin" data-price="170000">mashin</option>
-                        <option value="mashin" data-price="170000">mashin</option>
-                        <option value="mashin" data-price="170000">mashin</option>
-                        <option value="mashin" data-price="170000">mashin</option>
-                        <option value="mashin" data-price="170000">mashin</option>
-                        <option value="mashin" data-price="170000">mashin</option>
+
 
 
                     </select>
@@ -253,11 +244,17 @@
 
 
                 </div>
+                <section class="flex items-center  space-x-reverse space-x-3 p-5">
+                    <div class="bg-268832 px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
+                        <button class="cursor-pointer px-4" onclick="changeInput()">ذخیره</button>
+                    </div>
+
+                </section>
             </div>
 
 
         </article>
-        </section>
+    </section>
 
         @endsection
         @section('script')
@@ -284,7 +281,7 @@
                 })
 
 
-                function test() {
+                function changeInput() {
                     let selection = document.querySelector('.search-tags');
                     let tbody = document.getElementById('tbody');
                     tbody.innerHTML = '';
