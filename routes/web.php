@@ -239,5 +239,6 @@ Route::post('create-product',function (\Illuminate\Http\Request $request, ImageS
     if ($product) {
         return response()->json(['status'=>true,'success' => 'محصول جدید شما اضافه  شد']);
     } else {
+
         return response()->json(['status'=>false,'message'=>'افزودن محصول با خطا مواجه شد']);
     }})->name('addProduct-width-ajax');
