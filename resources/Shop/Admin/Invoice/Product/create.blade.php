@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <section class="px-5">
+    <section class="px-5 relative">
         <h1 class="font-bold text-sm">
             افزودن محصول :
         </h1>
@@ -38,13 +38,14 @@
                     </div>
                     <div class="flex items-center space-x-reverse space-x-8">
                         <h5 class="text-min font-light w-28"> تعداد :</h5>
-                        <input type="number" min="1" name="amount[]" class="outline-none border border-black rounded-md w-48">
+                        <input type="number" min="1" name="amount[]"
+                               class="outline-none border border-black rounded-md w-48">
                     </div>
 
                     <div class="flex items-center space-x-reverse space-x-8">
                         <h5 class="text-min font-light w-28">انتخاب محصول:</h5>
                         <select name="product_id[]" id=""
-                                class="productSelect outline-none border border-black rounded-md w-48 w-full select2">
+                                class="productSelect outline-none border border-black rounded-md w-48 w-full product-select select2">
 
                             @foreach($products as $product)
                                 <option @if($product->id==1) selected="selected"
@@ -58,14 +59,21 @@
                         <h5 class="text-min font-light w-48">توضیحات مربوط به محصول</h5>
                     </div>
                     <div>
-                    <textarea name="description[]" id="replace_element_1" class="w-full" rows="10" cols="80"></textarea>
+                        <textarea name="description[]" id="replace_element_1" class="w-full" rows="10"
+                                  cols="80"></textarea>
                     </div>
 
                 </article>
 
             </section>
-            <div class="flex items-center justify-center w-2/5 lg:w-2/6 xl:w-1/5">
-                <button type="button" class="btn-copy bg-2081F2 rounded-md py-1.5 w-full text-white">افزودن کالای جدید
+            <div class="flex items-center justify-center  w-full md:w-2/5  space-x-reverse space-x-2">
+                <button type="button"
+                        class="btn-copy bg-2081F2 rounded-md py-1.5 w-full text-white text-sm lg:text-base">افزودن کالای
+                    جدید به فاکتور
+                </button>
+                <button type="button"
+                        class=" bg-green-400 rounded-md py-1.5 w-full text-white text-sm lg:text-base plus">افزودن کالای
+                    جدید
                 </button>
             </div>
             <div class="flex items-center justify-center  w-full">
@@ -73,11 +81,124 @@
             </div>
 
         </form>
+
+
+        <article class=" circle-page invisible  absolute w-full rounded-md h-full top-0 bg-black/65 ">
+            <div
+                class="absolute  top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] shadow bg-white p-2 rounded-md w-11/12">
+                <div class="flex items-center justify-between">
+                    <h1 class="p-1 font-bold">
+                        افزودن کالای جدید :
+                    </h1>
+                    <img src="{{asset("capsule/images/close.svg")}}" alt="" class="close-page cursor-pointer">
+                </div>
+                <form class="mt-5 space-y-3" id="product-form">
+
+
+                    <div class="flex items-center space-x-reverse space-x-8">
+                        <h5 class="text-min font-light w-28"> عنوان محصول :</h5>
+                        <input type="text" name="title" class="outline-none border border-black rounded-md w-48"
+                               value="{{old("title")}}">
+                    </div>
+                    <div class="flex items-center space-x-reverse space-x-8">
+                        <h5 class="text-min font-light w-28"> قیمت(ریال) :</h5>
+                        <input type="text" name="product-price" class="outline-none border border-black rounded-md w-48"
+                               value="{{old('product-price')}}">
+                    </div>
+
+                    <div class="flex items-center space-x-reverse space-x-8">
+                        <h5 class="text-min font-light w-28">دستبه بندی:</h5>
+                        <select name="category_id" id=""
+                                class="outline-none border border-black rounded-md w-48 select2">
+
+                            @foreach($categories as $category)
+                                <option
+                                    @selected(old('category_id')==$category->id) value="{{$category->id}}">{{$category->removeUnderLine??''}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="flex items-center space-x-reverse space-x-8">
+                        <h5 class="text-min font-light w-28">برند :</h5>
+                        <select name="brand_id" id="" class="outline-none border border-black rounded-md w-48 select2">
+                            @foreach($brands as $brand)
+                                <option
+                                    @selected(old('brand_id')==$brand->id) value="{{$brand->id}}">{{$brand->name??""}}</option>
+                            @endforeach
+
+                        </select>
+                    </div>
+                    <div class="flex items-center space-x-reverse space-x-8 ">
+                        <h5 class="text-min font-light w-28">وضعیت:</h5>
+                        <div class="flex items-center space-x-3 space-x-reverse">
+                            <div>
+                                <label>فعال</label>
+                                <input type="radio" name="status" id="" value="active"
+                                       @if(old('status')=='active') checked="checked" @endif >
+
+                            </div>
+                            <div>
+                                <label>غیرفعال</label>
+                                <input type="radio" name="status" id="" value="inactive"
+                                       @if(old('status')=='inactive') checked="checked" @endif >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-reverse space-x-8 ">
+                        <h5 class="text-min font-light w-28">نوع محصول:</h5>
+                        <div class="flex items-center space-x-3 space-x-reverse">
+                            <div>
+                                <label>کالا</label>
+                                <input type="radio" name="type" value="goods"
+                                       @if(old('type')=='goods') checked="checked" @endif >
+
+                            </div>
+                            <div>
+                                <label>سرویس</label>
+                                <input type="radio" name="type" id="" value="service"
+                                       @if(old('type')=='service') checked="checked" @endif >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-reverse space-x-8 ">
+                        <h5 class="text-min font-light w-28">عکس محصول:</h5>
+                        <div
+                            class="upload border border-black rounded-md w-14 bg-2081F2 py-1.5 flex items-center justify-center space-x-1 space-x-reverse">
+                            <p class="text-min text-white">اپلود</p>
+                            <img src="{{asset('capsule/images/upload.png')}}" alt="">
+                        </div>
+                        <p class="text-base text-green-500 file-name"></p>
+
+                        <input type="file" name="file" class="hidden" id="upload" onchange="changed(event)">
+
+                    </div>
+
+                    <div class="flex items-center space-x-reverse space-x-8 ">
+                        <h5 class="text-min font-light w-28">توضیحات:</h5>
+                    </div>
+                    <div>
+                        <textarea id="product_description" rows="10" cols="80">
+                            تاالل
+                        </textarea>
+                    </div>
+
+                    <div class="flex items-center justify-center  w-full">
+                        <button class="bg-2081F2 rounded-md py-1.5 w-full text-white append-product">ارسال</button>
+                    </div>
+
+                </form>
+
+            </div>
+
+
+        </article>
+
     </section>
 
 @endsection
 @section('script')
     <script>
+        // toast("hossein",false);
         $(document).ready(function () {
             var upload = $(".upload");
             $(upload).click(function () {
@@ -97,7 +218,11 @@
             language: 'fa',
             removeButtons: 'Image,Link,Source,About'
         });
-
+        CKEDITOR.replace('product_description', {
+            versionCheck: false,
+            language: 'fa',
+            removeButtons: 'Image,Link,Source,About'
+        });
 
 
     </script>
@@ -118,7 +243,7 @@
                 '</div>' +
                 '<div class="flex items-center space-x-reverse space-x-8">' +
                 '<h5 class="text-min font-light w-28">انتخاب محصول:</h5>' +
-                '<select name="product_id[]" id="" class="productSelect outline-none border border-black rounded-md w-48 w-full select2">' +
+                '<select name="product_id[]" id="" class="productSelect outline-none border border-black rounded-md w-48 w-full select2 product-select">' +
                 ' ' + SelectProduct() + ' ' +
                 '</select>' +
                 '</div>' +
@@ -168,15 +293,16 @@
 
 
             $.each(products, function (index, value) {
-                let title=value.title;
+                let title = value.title;
                 if (!productSelect.includes(value.id + '')) {
-                    html += "<option value='" + value.id + "' " + ((value.id) % 2 == 0 ? 'selected=selected' : '') + " >" + title.replaceAll('-' ,' ') + "</option>"
+                    html += "<option value='" + value.id + "' " + ((value.id) % 2 == 0 ? 'selected=selected' : '') + " >" + title.replaceAll('-', ' ') + "</option>"
                 }
 
             })
             return html;
         }
 
+        var products =@json($products->toArray());
 
         function FilterSelectProduct() {
 
@@ -189,8 +315,6 @@
             })
 
 
-            var products =@json($products->toArray());
-
             $.each(selection, function (index, value) {
 
                 var select = $(value).val();
@@ -198,14 +322,14 @@
 
 
                 $.each(products, function (productsIndex, productsIndexValue) {
-                    let title=productsIndexValue.title;
+                    let title = productsIndexValue.title;
 
                     if (select === productsIndexValue.id + '') {
-                        $(value).append("<option value='" + productsIndexValue.id + "' selected='selected'>" + title.replaceAll('-',' ') + "</option>")
+                        $(value).append("<option value='" + productsIndexValue.id + "' selected='selected'>" + title.replaceAll('-', ' ') + "</option>")
                     }
 
                     if (!productSelect.includes(productsIndexValue.id + '')) {
-                        $(value).append("<option value='" + productsIndexValue.id + "'>" + title.replaceAll('-',' ') + "</option>")
+                        $(value).append("<option value='" + productsIndexValue.id + "'>" + title.replaceAll('-', ' ') + "</option>")
 
                     }
 
@@ -213,7 +337,6 @@
 
 
             })
-
 
 
         }
@@ -228,6 +351,107 @@
                 FilterSelectProduct();
             })
         }
+
         changeFunction()
+    </script>
+    <script>
+        let closePage = document.querySelector('.close-page');
+        let circle = document.querySelector('.circle-page');
+        let plusBtn = document.querySelector('.plus');
+
+        closePage.onclick = function () {
+            circle.style.webkitClipPath = 'circle(50px at center)';
+            circle.style.visibility = `hidden`;
+
+        }
+        plusBtn.onclick = function () {
+
+            circle.style.clipPath = `circle(100% at center)`;
+            circle.style.visibility = `visible`;
+        }
+
+
+        let fileName = document.getElementsByClassName('file-name');
+
+        function changed(event) {
+            if (event.target.files[0]) {
+                fileName[0].textContent = event.target.files[0].name
+            }
+        }
+    </script>
+    <script>
+        $(".append-product").click(function (event) {
+            event.preventDefault();
+            let serializeData = $("#product-form").serialize();
+            let description = CKEDITOR.instances.product_description.getData();
+            let image = document.querySelector('input[type="file"]');
+            let data = new FormData();
+            serializeData += `&description=${encodeURIComponent(description)}`;
+
+            data.append('file', image.files[0]);
+            data.append('content', serializeData);
+            data.append('_token', "{{csrf_token()}}");
+            $.ajax({
+                type: 'POST',
+                url: "{{route('admin.invoice.product.addProduct.ajax')}}",
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.status && response.data && response.product) {
+                        products = response.data;
+                        console.log(response, products)
+                        let allSelectElement = document.getElementsByClassName('product-select');
+                        for (const select of allSelectElement) {
+                            var data = {
+                                id: response.product.id,
+                                text: response.product.title
+                            };
+                            var newOption = new Option(data.text, data.id, false, false);
+                            $('.product-select').append(newOption);
+                            FilterSelectProduct();
+
+                        }
+                        clear();
+                        toast('محصول جدید شما اضافه شد', true);
+                    }
+                },
+                error: function (error) {
+                    if (error.responseJSON.errors) {
+                        for (const value in error.responseJSON.errors) {
+                            toast(error.responseJSON.errors[value][0], false);
+                        }
+                    }
+                }
+            })
+
+        })
+    </script>
+    <script>
+
+        function clear() {
+            let input = document.querySelectorAll('#product-form input');
+            let instance = CKEDITOR.instances['product_description'];
+            instance.setData('');
+            instance.updateElement();
+            let fileName = document.getElementsByClassName('file-name');
+            fileName[0].innerHTML = ''
+            for (const child of input) {
+                switch (child.getAttribute('type')) {
+                    case 'text':
+                    case 'file':
+                        child.value = ''
+                        break;
+
+                    case 'radio':
+                        child.checked = false
+                        break;
+                }
+            }
+            document.getElementsByClassName('close-page')[0].click();
+        }
+
+
     </script>
 @endsection

@@ -98,3 +98,12 @@ function select2Start()
 }
 select2Start();
 </script>
+<script>
+    function toast(message, status) {
+        showToast(message);
+        if (!status) {
+            $(".progress-bar div").css({'background-color': 'red'})
+        }
+
+    }
+</script>

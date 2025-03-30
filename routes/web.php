@@ -1,10 +1,13 @@
 <?php
 
 
+use App\Http\Requests\Admin\Product\ProductRequest;
 use App\Models\Bank;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Payment;
+use App\Models\Product;
+use App\Services\ImageService\ImageService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -158,6 +161,7 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
             Route::post('store', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'store'])->name('store');
             Route::get('edit/{invoice}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'editProduct'])->name('edit');
             Route::put('update/{invoice}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'updateProduct'])->name('update');
+            Route::post('add-product-ajax',[App\Http\Controllers\Admin\Invoice\InvoiceController::class,'addProduct'])->name('addProduct.ajax');
 
         });
         Route::prefix('service')->name('service.')->group(function () {
@@ -204,7 +208,7 @@ Route::get('test2',function (){
 
 Route::get('test',function (){
 
-   return view('Admin.sodurFactor');
+   return view('Admin.qr');
 
 })->name('test');
 
@@ -212,3 +216,28 @@ Route::post('back',function (){
 
 
 })->withoutMiddleware(Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class)->name('hossein.back');
+
+Route::post('create-product',function (\Illuminate\Http\Request $request, ImageService $imageService){
+    $inputs = $request->all();
+    parse_str($inputs['content'],$output);
+    $output['price']=$output['product-price'];
+
+    $user = Auth::user();
+    $output['user_id'] = $user->id;
+    $product = Product::create($output);
+    $imageService->setRootFolder('ProductStore' . DIRECTORY_SEPARATOR . "image");
+    $image = $imageService->saveImage($request->file('file'));
+
+    if (!$image)
+        return response()->json(['status'=>false,'message'=>'در ذخیره سازی عکس خطایی به وجود امد']);
+
+    $product->image()->create([
+        'path' => $image,
+        'user_id' => $user->id
+    ]);
+
+    if ($product) {
+        return response()->json(['status'=>true,'success' => 'محصول جدید شما اضافه  شد']);
+    } else {
+        return response()->json(['status'=>false,'message'=>'افزودن محصول با خطا مواجه شد']);
+    }})->name('addProduct-width-ajax');

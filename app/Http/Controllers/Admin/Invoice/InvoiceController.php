@@ -3,16 +3,19 @@
 namespace App\Http\Controllers\Admin\Invoice;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Invoice\AddProductRequest;
 use App\Http\Requests\Admin\Invoice\InvoiceRequest;
 use App\Http\Requests\Admin\Invoice\ServiceRequest;
 use App\Http\Requests\Admin\Product\ProductRequest;
 use App\Http\Traits\HasProduct;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Invoice;
 use App\Models\InvoiceItem;
 use App\Models\Product;
 use App\Models\ProductTransaction;
 use App\Models\Supplier;
+use App\Rules\CustomUniqueTitle;
 use App\Services\ImageService\ImageService;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Database\Eloquent\Builder;
@@ -20,6 +23,7 @@ use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class InvoiceController extends Controller
 {
@@ -30,8 +34,8 @@ class InvoiceController extends Controller
     {
 
         $breadcrumbs = Breadcrumbs::render('admin.invoice.product.index')->getData()['breadcrumbs'];
-        $invoices=Invoice::search()->whereHas('invoiceItem',function(Builder $query){
-            $query->where('type','product');
+        $invoices = Invoice::search()->whereHas('invoiceItem', function (Builder $query) {
+            $query->where('type', 'product');
         })->where('type_of_business', 'buy')->paginate(20, ['*'], 'page')->withQueryString();
         return view('Admin.Invoice.Product.index', compact('invoices', 'breadcrumbs'));
     }
@@ -47,11 +51,12 @@ class InvoiceController extends Controller
      */
     public function create()
     {
-
+        $categories = Category::where('status', 'active')->get();
+        $brands = Brand::where("status", 'active')->get();
         $breadcrumbs = Breadcrumbs::render('admin.invoice.product.create')->getData()['breadcrumbs'];
         $products = Product::where('type', 'goods')->where('status', 'active')->get();
         $suppliers = Supplier::where('status', 'active')->get();
-        return view('Admin.Invoice.Product.create', compact('suppliers', 'products','breadcrumbs'));
+        return view('Admin.Invoice.Product.create', compact('suppliers', 'products', 'breadcrumbs', 'brands', 'categories'));
     }
 
     /**
@@ -127,13 +132,62 @@ class InvoiceController extends Controller
 
     }
 
+    public function addProduct(Request $request, ImageService $imageService)
+    {
+
+        $inputs = $request->all();
+        parse_str($inputs['content'], $output);
+        $output['file'] = $request->file('file');
+        $validation = Validator::make($output, [
+            'title' => ['required', 'min:3', new CustomUniqueTitle],
+            'product-price' => 'required|numeric:min:10000',
+            'category_id' => 'required|exists:categories,id',
+            'brand_id' => 'required|exists:brands,id',
+            'status' => 'required|in:active,inactive',
+            'type' => 'required|in:goods,service',
+            'description' => 'required|min:3',
+            'file' => [
+                'required',
+                'file',
+                'mimes:jpg,png,jpeg',
+                'max:' . env('FILE_SIZE')],
+        ], attributes: [
+            'type' => 'نوع محصول',
+            'product-price' => 'قیمت'
+        ]);
+        if (!$validation->validate()) {
+            return true;
+        }
+        $output['price'] = $output['product-price'];
+
+        $user = Auth::user();
+        $output['user_id'] = $user->id;
+        $product = Product::create($output);
+        $imageService->setRootFolder('ProductStore' . DIRECTORY_SEPARATOR . "image");
+        $image = $imageService->saveImage($request->file('file'));
+
+        if (!$image)
+            return response()->json(['status' => false, 'message' => 'در ذخیره سازی عکس خطایی به وجود امد']);
+
+        $product->image()->create([
+            'path' => $image,
+            'user_id' => $user->id
+        ]);
+
+        if ($product) {
+            return response()->json(['status' => true, 'success' => 'محصول جدید شما اضافه  شد','data'=>Product::where('status','active')->get(),'product'=>$product]);
+        } else {
+            return response()->json(['status' => false, 'message' => 'افزودن محصول با خطا مواجه شد','data'=>[]]);
+        }
+    }
+
     public function editProduct(Invoice $invoice)
     {
         $breadcrumbs = Breadcrumbs::render('admin.invoice.product.edit', $invoice)->getData()['breadcrumbs'];
 
         $products = Product::where('type', 'goods')->where('status', 'active')->get();
         $suppliers = Supplier::where('status', 'active')->get();
-        return view('Admin.Invoice.Product.edit', compact('suppliers', 'products', 'invoice','breadcrumbs'));
+        return view('Admin.Invoice.Product.edit', compact('suppliers', 'products', 'invoice', 'breadcrumbs'));
 
     }
 
@@ -223,8 +277,8 @@ class InvoiceController extends Controller
     {
         $breadcrumbs = Breadcrumbs::render('admin.invoice.service.index')->getData()['breadcrumbs'];
 
-        $invoices=Invoice::search()->whereHas('invoiceItem',function(Builder $query){
-            $query->where('type','service');
+        $invoices = Invoice::search()->whereHas('invoiceItem', function (Builder $query) {
+            $query->where('type', 'service');
         })->where('type_of_business', 'buy')->paginate(20, ['*'], 'page')->withQueryString();
         return view('Admin.Invoice.Service.index', compact('invoices', 'breadcrumbs'));
     }
@@ -243,7 +297,7 @@ class InvoiceController extends Controller
         $breadcrumbs = Breadcrumbs::render('admin.invoice.service.create')->getData()['breadcrumbs'];
         $products = Product::where('type', 'service')->where('status', 'active')->get();
         $suppliers = Supplier::where('status', 'active')->get();
-        return view('Admin.Invoice.Service.create', compact('suppliers', 'products','breadcrumbs'));
+        return view('Admin.Invoice.Service.create', compact('suppliers', 'products', 'breadcrumbs'));
 
     }
 

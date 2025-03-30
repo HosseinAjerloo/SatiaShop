@@ -215,7 +215,6 @@
                         <option value="mashin" data-price="170000">mashin</option>
 
 
-
                     </select>
 
                 </div>
@@ -246,6 +245,9 @@
                 </div>
                 <section class="flex items-center  space-x-reverse space-x-3 p-5">
                     <div class="bg-268832 px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
+                        <button class="cursor-pointer px-4" onclick="changeInput()">اضافه کردن موارد انتخاب شده</button>
+                    </div>
+                    <div class="bg-268832 px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
                         <button class="cursor-pointer px-4" onclick="changeInput()">ذخیره</button>
                     </div>
 
@@ -256,53 +258,54 @@
         </article>
     </section>
 
-        @endsection
-        @section('script')
+@endsection
+@section('script')
 
-            <script>
-                let plusBtn = document.querySelector('.plus');
-                let closePage = document.querySelector('.close-page');
-                let circle = document.querySelector('.circle-page');
-                plusBtn.onclick = function () {
+    <script>
+        let plusBtn = document.querySelector('.plus');
+        let closePage = document.querySelector('.close-page');
+        let circle = document.querySelector('.circle-page');
+        let elementAppend = [];
 
-                    circle.style.clipPath = `circle(100% at center)`;
-                    // circle.style.zIndex=`11`;
-                    circle.style.visibility = `visible`;
-                }
-                closePage.onclick = function () {
-                    circle.style.webkitClipPath = 'circle(50px at center)';
-                    circle.style.visibility = `hidden`;
+        plusBtn.onclick = function () {
 
-                }
-                let tagValue = [];
-                $(".search-tags").select2({
-                    tags: true,
+            circle.style.clipPath = `circle(100% at center)`;
+            // circle.style.zIndex=`11`;
+            circle.style.visibility = `visible`;
+        }
+        closePage.onclick = function () {
+            circle.style.webkitClipPath = 'circle(50px at center)';
+            circle.style.visibility = `hidden`;
 
-                })
+        }
+        let tagValue = [];
+        $(".search-tags").select2({
+            tags: true,
+
+        })
 
 
-                function changeInput() {
-                    let selection = document.querySelector('.search-tags');
-                    let tbody = document.getElementById('tbody');
-                    tbody.innerHTML = '';
-                    let dataAll = $('.search-tags').select2('data');
-                    for (const data of dataAll) {
+        function changeInput() {
+            let tbody = document.getElementById('tbody');
+            // tbody.innerHTML = '';
+            let dataAll = $('.search-tags').select2('data');
+            for (const data of dataAll) {
+                if (!elementAppend.includes(data.id)) {
+                    let row = document.createElement('tr')
+                    let tdOne = document.createElement('td');
+                    tdOne.classList.add("border", 'border-gray-400', 'text-center', 'p-1');
+                    tdOne.classList.add("border");
+                    tdOne.classList.add("border");
+                    tdOne.classList.add("border");
 
-                        let row = document.createElement('tr')
-                        let tdOne = document.createElement('td');
-                        tdOne.classList.add("border", 'border-gray-400', 'text-center', 'p-1');
-                        tdOne.classList.add("border");
-                        tdOne.classList.add("border");
-                        tdOne.classList.add("border");
-
-                        tdOne.innerHTML = `
+                    tdOne.innerHTML = `
                                  <p class="font-semibold sm:font-normal sm:text-sm text-[10px] p-1 w-full border rounded-md border-2 border-black/40">
                                     ${data.id}
                                 </p>`;
-                        let tdTwo = document.createElement('td');
+                    let tdTwo = document.createElement('td');
 
-                        tdTwo.classList.add('border', 'border-gray-400', 'text-center', 'p-1')
-                        tdTwo.innerHTML = `<div class=" flex items-center justify-center space-x-reverse space-x-1">
+                    tdTwo.classList.add('border', 'border-gray-400', 'text-center', 'p-1')
+                    tdTwo.innerHTML = `<div class=" flex items-center justify-center space-x-reverse space-x-1">
                                     <img src="{{asset('capsule/images/plus.svg')}}" alt=""
                                          class="w-[10px] h-[10px] text-center sm:w-5 sm:h-5 cursor-pointer plus">
                                     <input type="number" min="1" value="1"
@@ -310,40 +313,41 @@
                                     <img src="{{asset('capsule/images/circle-minus.svg')}}" alt=""
                                          class="w-[10px] h-[10px] sm:w-5 sm:h-5 cursor-pointer minus">
                                 </div>`;
-                        let tdThree = document.createElement('td');
+                    let tdThree = document.createElement('td');
 
-                        tdThree.classList.add("border", 'border-gray-400', 'text-center', 'p-1');
-                        tdThree.innerHTML = `
+                    tdThree.classList.add("border", 'border-gray-400', 'text-center', 'p-1');
+                    tdThree.innerHTML = `
                                 <p class="font-semibold sm:font-normal sm:text-sm text-[10px] p-1 w-full border rounded-md border-2 border-black/40">
                                     ${data.element.getAttribute("data-price")}
                                 </p>`;
-                        row.append(tdOne);
-                        row.append(tdTwo);
-                        row.append(tdThree);
-                        tbody.append(row)
-                        let minusBtn=document.getElementsByClassName('minus');
-                        let plusBtn=document.getElementsByClassName('plus');
-                        for (const minus of minusBtn)
-                        {
-                            minus.onclick=function (){
-                                if(minus.previousElementSibling.value>1)
-                                {
-                                    minus.previousElementSibling.value=+minus.previousElementSibling.value-1;
-                                }
+                    row.append(tdOne);
+                    row.append(tdTwo);
+                    row.append(tdThree);
+                    tbody.append(row);
+                    elementAppend.push(data.id);
+                    let minusBtn = document.getElementsByClassName('minus');
+                    let plusBtn = document.getElementsByClassName('plus');
+
+                    for (const minus of minusBtn) {
+                        minus.onclick = function () {
+                            if (minus.previousElementSibling.value > 1) {
+                                minus.previousElementSibling.value = +minus.previousElementSibling.value - 1;
                             }
                         }
-                        for (const plus of plusBtn) {
-                            plus.onclick=function (){
-                                plus.nextElementSibling.value = +plus.nextElementSibling.value + 1;
-
-                            }
-                        }
-
                     }
+                    for (const plus of plusBtn) {
+                        plus.onclick = function () {
+                            plus.nextElementSibling.value = +plus.nextElementSibling.value + 1;
 
+                        }
+                    }
                 }
 
 
+            }
 
-            </script>
+        }
+
+
+    </script>
 @endsection

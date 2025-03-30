@@ -206,7 +206,7 @@ return [
         "Accepting_the_rules"=>"پذیرش قوانین",
         "service"=>"ووچر",
         "bank"=>'نوع درگاه پرداخت',
-        "price"=>'مبلغ کیف پول',
+        "price"=>'مبلغ ',
         'custom_payment'=>'مبلغ ووچر دلخواه',
         'bank_id'=>'نوع درگاه پرداخت',
         'transmission'=>"آدرس حساب مقصد",
@@ -226,7 +226,9 @@ return [
         'supplier_id'=>'تامین کننده',
         'invoiceDesc'=>'توضیحات مربوط به فاکتور',
         'product_ids'=>'محصول',
-        'oldPass'=>'رمز عبور قبلی'
+        'oldPass'=>'رمز عبور قبلی',
+        'description'=>'توضیحات',
+        'product-price'=>'مبلغ'
     ],
 
 ];
