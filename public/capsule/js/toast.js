@@ -11,6 +11,7 @@
 
         container.appendChild(toast);
 
+        toast.scrollIntoView(false);
         setTimeout(function() {
             if (toast.classList.contains("show")) {
                 toast.className = toast.className.replace("show", "");

@@ -21,4 +21,12 @@ function changeFormatNumberToDate($date)
       return substr($date,0,10);
 }
 
-
+ function separationOfArraysFromText($value)
+{
+    $value = array_filter($value, function ($item) use ($value) {
+        if (is_array($item)) {
+            return $item;
+        }
+    });
+    return $value;
+}

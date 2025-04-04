@@ -4,7 +4,7 @@
 
     <section class="px-5 relative">
         <h1 class="font-bold text-sm">
-            افزودن محصول :
+            افزودن محصول به فاکتور:
         </h1>
 
 
@@ -14,7 +14,7 @@
             <section class="pb-3  border-b-2 border-black/40">
                 <div class="flex items-center space-x-reverse space-x-8">
                     <h5 class="text-min font-light w-28">تامین کنندگان:</h5>
-                    <select name="supplier_id" id="" class="outline-none border border-black rounded-md w-48 select2">
+                    <select name="supplier_id"  class="outline-none border border-black rounded-md w-48 select2">
 
                         @foreach($suppliers as $supplier)
                             <option value="{{$supplier->id}}">{{$supplier->name}}</option>
@@ -25,45 +25,93 @@
                     <h5 class="text-min font-light w-48">توضیحات مربوط به فاکتور</h5>
                 </div>
                 <div>
-                    <textarea name="invoiceDesc" id="invoice_description" rows="10" cols="80"></textarea>
+                    <textarea name="invoiceDesc" class="desc" rows="10" cols="80"></textarea>
                 </div>
             </section>
 
-            <section id="parent" class="space-y-3">
+            <section id="parent" class="space-y-12">
+                @if($errors->any())
+                    @php
+                        $length=count(old('product_id'));
+                        $reversItems=array_reverse(separationOfArraysFromText(old()));
 
-                <article class="space-y-3 border-b-2 border-black/40 pb-3">
-                    <div class="flex items-center space-x-reverse space-x-8">
-                        <h5 class="text-min font-light w-28"> قیمت هر واحد(ریال):</h5>
-                        <input type="text" name="price[]" class="outline-none border border-black rounded-md w-48">
-                    </div>
-                    <div class="flex items-center space-x-reverse space-x-8">
-                        <h5 class="text-min font-light w-28"> تعداد :</h5>
-                        <input type="number" min="1" name="amount[]"
-                               class="outline-none border border-black rounded-md w-48">
-                    </div>
+                    @endphp
 
-                    <div class="flex items-center space-x-reverse space-x-8">
-                        <h5 class="text-min font-light w-28">انتخاب محصول:</h5>
-                        <select name="product_id[]" id=""
-                                class="productSelect outline-none border border-black rounded-md w-48 w-full product-select select2">
+                    @for($i=0;$i<$length;$i++)
+                        <article class="space-y-3  shadow-lg p-4 shadow-gray-700 rounded-lg transition">
+                            <div class="flex items-center space-x-reverse space-x-8">
+                                <h5 class="text-min font-light w-28"> قیمت هر واحد(ریال):</h5>
+                                <input type="text" name="price[]"
+                                       class="outline-none border border-black rounded-md w-48"
+                                       value="{{separationOfArraysFromText(old())['price'][$i]}}">
+                            </div>
+                            <div class="flex items-center space-x-reverse space-x-8">
+                                <h5 class="text-min font-light w-28"> تعداد :</h5>
+                                <input type="number" min="1" name="amount[]"
+                                       class="outline-none border border-black rounded-md w-48"
+                                       value="{{separationOfArraysFromText(old())['amount'][$i]}}">
+                            </div>
 
-                            @foreach($products as $product)
-                                <option @if($product->id==1) selected="selected"
-                                        @endif  value="{{$product->id}}">{{$product->removeUnderLine}}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                            <div class="flex items-center space-x-reverse space-x-8">
+                                <h5 class="text-min font-light w-28">انتخاب محصول:</h5>
+                                <select name="product_id[]"
+                                        class="productSelect outline-none border border-black rounded-md w-48 product-select select2">
+
+                                    @foreach($products as $product)
+                                        <option @if(separationOfArraysFromText(old())['product_id'][$i]==$product->id) selected="selected"
+                                                @endif  value="{{$product->id}}">{{$product->removeUnderLine}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
 
 
-                    <div class="flex items-center space-x-reverse space-x-8 ">
-                        <h5 class="text-min font-light w-48">توضیحات مربوط به محصول</h5>
-                    </div>
-                    <div>
-                        <textarea name="description[]" id="replace_element_1" class="w-full" rows="10"
+                            <div class="flex items-center space-x-reverse space-x-8 ">
+                                <h5 class="text-min font-light w-48">توضیحات مربوط به محصول</h5>
+                            </div>
+                            <div>
+                        <textarea name="description[]"  class="w-full desc" rows="10"
+                                  cols="80">{{separationOfArraysFromText(old())['description'][$i]}}</textarea>
+                            </div>
+
+                        </article>
+
+                    @endfor
+                @else
+                    <article class="space-y-3  shadow-lg p-4 shadow-gray-700 rounded-lg transition ">
+                        <div class="flex items-center space-x-reverse space-x-8">
+                            <h5 class="text-min font-light w-28"> قیمت هر واحد(ریال):</h5>
+                            <input type="text" name="price[]" class="outline-none border border-black rounded-md w-48">
+                        </div>
+                        <div class="flex items-center space-x-reverse space-x-8">
+                            <h5 class="text-min font-light w-28"> تعداد :</h5>
+                            <input type="number" min="1" name="amount[]"
+                                   class="outline-none border border-black rounded-md w-48">
+                        </div>
+
+                        <div class="flex items-center space-x-reverse space-x-8">
+                            <h5 class="text-min font-light w-28">انتخاب محصول:</h5>
+                            <select name="product_id[]"
+                                    class="productSelect outline-none border border-black rounded-md w-48  product-select select2">
+
+                                @foreach($products as $product)
+                                    <option @if($product->id==1) selected="selected"
+                                            @endif  value="{{$product->id}}">{{$product->removeUnderLine}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+
+                        <div class="flex items-center space-x-reverse space-x-8 ">
+                            <h5 class="text-min font-light w-48">توضیحات مربوط به محصول</h5>
+                        </div>
+                        <div>
+                        <textarea name="description[]"  class="w-full desc" rows="10"
                                   cols="80"></textarea>
-                    </div>
+                        </div>
 
-                </article>
+                    </article>
+
+                @endif
 
             </section>
             <div class="flex items-center justify-center  w-full md:w-2/5  space-x-reverse space-x-2">
@@ -93,6 +141,8 @@
                     <img src="{{asset("capsule/images/close.svg")}}" alt="" class="close-page cursor-pointer">
                 </div>
                 <form class="mt-5 space-y-3" id="product-form">
+                    <input type="hidden" name="type" value="goods"
+                         checked="checked"  >
 
 
                     <div class="flex items-center space-x-reverse space-x-8">
@@ -108,21 +158,23 @@
 
                     <div class="flex items-center space-x-reverse space-x-8">
                         <h5 class="text-min font-light w-28">دستبه بندی:</h5>
-                        <select name="category_id" id=""
+                        <select name="category_id"
                                 class="outline-none border border-black rounded-md w-48 select2">
 
                             @foreach($categories as $category)
                                 <option
-                                    @selected(old('category_id')==$category->id) value="{{$category->id}}">{{$category->removeUnderLine??''}}</option>
+                                    @selected(old('category_id')==$category->id) value="{{$category->id}}
+                                ">{{$category->removeUnderLine??''}}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="flex items-center space-x-reverse space-x-8">
                         <h5 class="text-min font-light w-28">برند :</h5>
-                        <select name="brand_id" id="" class="outline-none border border-black rounded-md w-48 select2">
+                        <select name="brand_id"  class="outline-none border border-black rounded-md w-48 select2">
                             @foreach($brands as $brand)
                                 <option
-                                    @selected(old('brand_id')==$brand->id) value="{{$brand->id}}">{{$brand->name??""}}</option>
+                                    @selected(old('brand_id')==$brand->id) value="{{$brand->id}}
+                                ">{{$brand->name??""}}</option>
                             @endforeach
 
                         </select>
@@ -132,33 +184,18 @@
                         <div class="flex items-center space-x-3 space-x-reverse">
                             <div>
                                 <label>فعال</label>
-                                <input type="radio" name="status" id="" value="active"
+                                <input type="radio" name="status"  value="active"
                                        @if(old('status')=='active') checked="checked" @endif >
 
                             </div>
                             <div>
                                 <label>غیرفعال</label>
-                                <input type="radio" name="status" id="" value="inactive"
+                                <input type="radio" name="status"  value="inactive"
                                        @if(old('status')=='inactive') checked="checked" @endif >
                             </div>
                         </div>
                     </div>
-                    <div class="flex items-center space-x-reverse space-x-8 ">
-                        <h5 class="text-min font-light w-28">نوع محصول:</h5>
-                        <div class="flex items-center space-x-3 space-x-reverse">
-                            <div>
-                                <label>کالا</label>
-                                <input type="radio" name="type" value="goods"
-                                       @if(old('type')=='goods') checked="checked" @endif >
 
-                            </div>
-                            <div>
-                                <label>سرویس</label>
-                                <input type="radio" name="type" id="" value="service"
-                                       @if(old('type')=='service') checked="checked" @endif >
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="flex items-center space-x-reverse space-x-8 ">
                         <h5 class="text-min font-light w-28">عکس محصول:</h5>
@@ -177,8 +214,8 @@
                         <h5 class="text-min font-light w-28">توضیحات:</h5>
                     </div>
                     <div>
-                        <textarea id="product_description" rows="10" cols="80">
-                            تاالل
+                        <textarea class="desc" id="product_description" rows="10" cols="80">
+
                         </textarea>
                     </div>
 
@@ -208,17 +245,9 @@
     </script>
 
     <script>
-        CKEDITOR.replace('invoice_description', {
-            versionCheck: false,
-            language: 'fa',
-            removeButtons: 'Image,Link,Source,About'
-        });
-        CKEDITOR.replace('replace_element_1', {
-            versionCheck: false,
-            language: 'fa',
-            removeButtons: 'Image,Link,Source,About'
-        });
-        CKEDITOR.replace('product_description', {
+
+
+        CKEDITOR.replaceAll( 'desc' ,{
             versionCheck: false,
             language: 'fa',
             removeButtons: 'Image,Link,Source,About'
@@ -232,7 +261,7 @@
         var count = 2;
         $('.btn-copy').click(function () {
 
-            var record = '<article class="space-y-3 border-b-2 border-black/40 pb-3">' +
+            var record = '<article class="space-y-3  rounded-lg shadow-lg p-4 shadow-gray-700 p-4 transition">' +
                 '<div class="flex items-center space-x-reverse space-x-8">' +
                 '<h5 class="text-min font-light w-28"> قیمت هر واحد(ریال) :</h5>' +
                 '<input type="text" name="price[]" class="outline-none border border-black rounded-md w-48">' +
@@ -243,7 +272,7 @@
                 '</div>' +
                 '<div class="flex items-center space-x-reverse space-x-8">' +
                 '<h5 class="text-min font-light w-28">انتخاب محصول:</h5>' +
-                '<select name="product_id[]" id="" class="productSelect outline-none border border-black rounded-md w-48 w-full select2 product-select">' +
+                '<select name="product_id[]"  class="productSelect outline-none border border-black rounded-md w-48 w-full select2 product-select">' +
                 ' ' + SelectProduct() + ' ' +
                 '</select>' +
                 '</div>' +
@@ -279,9 +308,14 @@
             $(".remove").click(function () {
 
 
-                $(this).parent().remove()
-                changeFunction()
-                FilterSelectProduct()
+                let parent=$(this).parent();
+                parent[0].style.transform='scale(0)';
+                setTimeout(()=>{
+                    $(parent).remove();
+                    changeFunction()
+                    FilterSelectProduct()
+                },600)
+
             })
 
         }

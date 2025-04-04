@@ -75,10 +75,9 @@
                         <p class="sm:hidden text-min_sm">
                             توضیحات مربوط با فاکتور
                         </p>
-                        <p class="text-black  text-sm   h-full flex items-center text-right break-all whitespace-normal leading-6">
-                            {!! $invoice->description??''!!}
-
-                        </p>
+                       <div>
+                           {!! $invoice->description??''!!}
+                       </div>
                     </div>
 
                     <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] h-full whitespace-normal break-words">

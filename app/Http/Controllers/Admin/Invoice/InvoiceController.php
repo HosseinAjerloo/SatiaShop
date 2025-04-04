@@ -183,11 +183,13 @@ class InvoiceController extends Controller
 
     public function editProduct(Invoice $invoice)
     {
+        $categories = Category::where('status', 'active')->get();
+        $brands = Brand::where("status", 'active')->get();
         $breadcrumbs = Breadcrumbs::render('admin.invoice.product.edit', $invoice)->getData()['breadcrumbs'];
 
         $products = Product::where('type', 'goods')->where('status', 'active')->get();
         $suppliers = Supplier::where('status', 'active')->get();
-        return view('Admin.Invoice.Product.edit', compact('suppliers', 'products', 'invoice', 'breadcrumbs'));
+        return view('Admin.Invoice.Product.edit', compact('suppliers', 'products', 'invoice', 'breadcrumbs','brands','categories'));
 
     }
 
@@ -293,11 +295,12 @@ class InvoiceController extends Controller
 
     public function serviceCreate()
     {
-
+        $categories = Category::where('status', 'active')->get();
+        $brands = Brand::where("status", 'active')->get();
         $breadcrumbs = Breadcrumbs::render('admin.invoice.service.create')->getData()['breadcrumbs'];
         $products = Product::where('type', 'service')->where('status', 'active')->get();
         $suppliers = Supplier::where('status', 'active')->get();
-        return view('Admin.Invoice.Service.create', compact('suppliers', 'products', 'breadcrumbs'));
+        return view('Admin.Invoice.Service.create', compact('suppliers', 'products', 'breadcrumbs','categories','brands'));
 
     }
 
@@ -362,10 +365,12 @@ class InvoiceController extends Controller
 
     public function serviceEdit(Invoice $invoice)
     {
+        $categories = Category::where('status', 'active')->get();
+        $brands = Brand::where("status", 'active')->get();
         $breadcrumbs = Breadcrumbs::render('admin.invoice.service.edit', $invoice)->getData()['breadcrumbs'];
         $products = Product::where('type', 'service')->where('status', 'active')->get();
         $suppliers = Supplier::where('status', 'active')->get();
-        return view('Admin.Invoice.Service.edit', compact('suppliers', 'products', 'invoice', 'breadcrumbs'));
+        return view('Admin.Invoice.Service.edit', compact('suppliers', 'products', 'invoice', 'breadcrumbs','categories','brands'));
 
     }
 
