@@ -20,36 +20,41 @@
         <article class="space-y-5 bg-F1F1F1 p-3">
             <article class="flex justify-between items-center flex-wrap">
                 <div
-                    class=" flex flex-wrap items-center space-x-3 space-x-reverse py-1.5 px-2 rounded-md w-full sm:w-1/2">
-                    <h1 class="font-bold ">مشخصات مشتری:</h1>
-                    <div class="relative  flex bg-green-400 w-1/2">
-                        <select type="text"
-                                class="placeholder:text-min placeholder:text-black/50 outline-none searchInput bg-transparent w-full select2 px-10"
-                                name="name" id="input_search">
-                            <option>hossein</option>
-                        </select>
-                        <img src=" {{asset('capsule/images/search.svg')}}" alt=""
-                             class="search cursor-pointer absolute top-[50%] right-[20px] translate-y-[-50%]">
+                    class=" flex flex-wrap items-center w-full  ">
+                    <div class=" flex items-center  w-1/2">
+                             <h1 class="font-bold w-36 ">جستوجوی مشتری:</h1>
+
+                            <div class="relative w-[50%]" >
+                                <select type="text"
+                                        class="placeholder:text-min placeholder:text-black/50 outline-none searchInput bg-transparent w-full select2 px-10"
+                                        name="name" id="input_search">
+                                    <option>hossein</option>
+                                </select>
+                                <img src=" {{asset('capsule/images/search.svg')}}" alt=""
+                                     class="search cursor-pointer absolute top-[50%] right-[20px] translate-y-[-50%]">
+                            </div>
+                        <div class="flex items-center space-x-4 mt-4 sm:mt-0 space-x-reverse py-1.5 sm:px-2 rounded-md">
+                            <div>
+                                <label>حقیقی</label>
+                                <input type="radio">
+                            </div>
+                            <div>
+                                <label>حقوقی</label>
+                                <input type="radio">
+                            </div>
+                        </div>
                     </div>
 
-                    <div
-                        class="flex items-center space-x-1 space-x-reverse py-1.5 px-2 rounded-md ">
-                        <h5 class="font-bold">شماره رسید</h5>
-                        <span>10001</span>
-                    </div>
+
+                   <article class="w-1/2 flex items-center justify-end">
+
+                       <div
+                           class="flex items-center  mt-4 sm:mt-0 space-x-1 space-x-reverse py-1.5 px-2 rounded-md mr-4">
+                           <h5 class="font-bold">شماره رسید</h5>
+                           <span>10001</span>
+                       </div>
+                   </article>
                 </div>
-                <div class="flex items-center space-x-1 space-x-reverse py-1.5 px-2 rounded-md">
-                    <div>
-                        <label>حقیقی</label>
-                        <input type="radio">
-                    </div>
-                    <div>
-                        <label>حقوقی</label>
-                        <input type="radio">
-                    </div>
-                </div>
-
-
             </article>
 
             <section class="space-y-5 w-full ">
