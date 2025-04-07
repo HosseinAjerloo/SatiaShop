@@ -255,7 +255,7 @@ class InvoiceController extends Controller
             ]);
 
             foreach ($productItem as $itemTransaction) {
-                $itemTransaction['type'] = 'update';
+                $itemTransaction['type'] = 'add';
                 $itemTransaction['remain'] = $itemTransaction['amount'];
                 $itemTransaction['user_id'] = $user->id;
                 $invoice->productTransaction()->create($itemTransaction);
@@ -266,7 +266,6 @@ class InvoiceController extends Controller
             DB::commit();
             return redirect()->route('admin.invoice.product.index')->with(['success' => 'فاکتور  شما یرایش  شد و محصولات شما در انبار اضافه ویرایش گردید']);
         } catch (\Exception $e) {
-            dd($e);
             DB::rollback();
             return redirect()->route('admin.invoice.product.index')->withErrors(['updateError' => 'ویرایش فاکتور شما با خطا مواجه شد لطفا مجددا تلاش فرمایید.']);
 

@@ -126,5 +126,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class,'user_id');
     }
+    public function productFavorite()
+    {
+        return $this->belongsToMany(Product::class,'favorite_products','user_id','product_id');
+    }
 
 }

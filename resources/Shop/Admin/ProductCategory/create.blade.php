@@ -63,9 +63,6 @@
                 <input type="file" name="file" class="hidden" id="upload" onchange="changed(event)">
             </div>
 
-            <div class="flex items-center space-x-reverse space-x-8 ">
-                <h5 class="text-min font-light w-28">توضیحات:</h5>
-            </div>
 
             <div class="flex items-center justify-center  w-full">
                <button class="bg-2081F2 rounded-md py-1.5 w-full text-white">ثبت</button>

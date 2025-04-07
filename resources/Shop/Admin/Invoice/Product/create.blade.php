@@ -79,7 +79,7 @@
                 @else
                     <article class="space-y-3  shadow-lg p-4 shadow-gray-700 rounded-lg transition ">
                         <div class="flex items-center space-x-reverse space-x-8">
-                            <h5 class="text-min font-light w-28"> قیمت هر واحد(ریال):</h5>
+                            <h5 class="text-min font-light w-28"> قیمت خرید هر واحد(ریال):</h5>
                             <input type="text" name="price[]" class="outline-none border border-black rounded-md w-48">
                         </div>
                         <div class="flex items-center space-x-reverse space-x-8">
