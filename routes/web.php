@@ -182,7 +182,7 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
     });
 
     Route::prefix('finance-transaction')->name('admin.finance.transaction.')->group(function () {
-        Route::get('', action: [App\Http\Controllers\Admin\FinanceTransAction\FinanceTransActionController::class, 'index'])->name('index');
+        Route::get('', [App\Http\Controllers\Admin\FinanceTransAction\FinanceTransActionController::class, 'index'])->name('index');
         Route::get('details/{finance}', [App\Http\Controllers\Admin\FinanceTransAction\FinanceTransActionController::class, 'details'])->name('details');
     });
 

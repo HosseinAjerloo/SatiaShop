@@ -16,15 +16,17 @@
         }
     </style>
 
-    <form class=" space-y-6 ">
+    <form class=" space-y-6 " action="{{route('hossein.back')}}" method="POST">
+        @csrf
+
         <article class="space-y-5 bg-F1F1F1 p-3">
             <article class="flex justify-between items-center flex-wrap">
                 <div
                     class=" flex flex-wrap items-center w-full  ">
-                    <div class=" flex items-center  w-1/2">
+                    <div class=" flex flex-wrap items-center w-full lg:w-[70%]">
                              <h1 class="font-bold w-36 ">جستوجوی مشتری:</h1>
 
-                            <div class="relative w-[50%]" >
+                            <div class="relative w-full mt-3 sm:mt-0 sm:w-[50%]" >
                                 <select type="text"
                                         class="placeholder:text-min placeholder:text-black/50 outline-none searchInput bg-transparent w-full select2 px-10"
                                         name="name" id="input_search">
@@ -33,27 +35,27 @@
                                 <img src=" {{asset('capsule/images/search.svg')}}" alt=""
                                      class="search cursor-pointer absolute top-[50%] right-[20px] translate-y-[-50%]">
                             </div>
-                        <div class="flex items-center space-x-4 mt-4 sm:mt-0 space-x-reverse py-1.5 sm:px-2 rounded-md">
-                            <div>
-                                <label>حقیقی</label>
-                                <input type="radio">
+                            <div class="flex items-center space-x-4 mt-4 sm:mt-0 space-x-reverse py-1.5 sm:px-2 rounded-md">
+                                <div>
+                                    <label>حقیقی</label>
+                                    <input type="radio">
+                                </div>
+                                <div>
+                                    <label>حقوقی</label>
+                                    <input type="radio">
+                                </div>
                             </div>
-                            <div>
-                                <label>حقوقی</label>
-                                <input type="radio">
-                            </div>
-                        </div>
                     </div>
 
 
-                   <article class="w-1/2 flex items-center justify-end">
+                   <div class="w-full lg:w-[20%]  mt-3 lg:mt-0 flex items-center md:justify-end">
 
                        <div
-                           class="flex items-center  mt-4 sm:mt-0 space-x-1 space-x-reverse py-1.5 px-2 rounded-md mr-4">
+                           class="flex items-center  space-x-1 space-x-reverse  rounded-md text-min">
                            <h5 class="font-bold">شماره رسید</h5>
                            <span>10001</span>
                        </div>
-                   </article>
+                   </div>
                 </div>
             </article>
 
@@ -70,11 +72,11 @@
                 </section>
                 <section class="flex items-center justify-between">
                     <div class="w-[49%] flex  flex-col  space-y-2">
-                        <label for="" class="flex items-center font-bold">همراه :</label>
+                        <label for="" class="flex items-center font-bold">کدملی :</label>
                         <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5">
                     </div>
                     <div class="w-[49%] flex  flex-col space-y-2">
-                        <label for="" class="flex items-center font-bold">تلفن ثابت :</label>
+                        <label for="" class="flex items-center font-bold">تلفن همراه :</label>
                         <input type="text " class="border-0 w-full rounded-[5px] shadow py-1.5">
                     </div>
                 </section>
@@ -82,16 +84,48 @@
 
                     <div class="w-full flex  flex-col space-y-2">
                         <label for="" class="flex items-center font-bold">آدرس :</label>
-                        <input type="text " class="border-0 w-full rounded-[5px] shadow py-1.5">
+                        <input type="text " class="border-0 w-full rounded-[5px] shadow py-4 px-2">
                     </div>
                 </section>
-                <section class="flex items-center ">
 
-                    <div class="w-full flex  flex-col space-y-2">
-                        <label for="" class="flex items-center font-bold">نام صنف یا شرکت :</label>
+            </section>
+
+
+
+            <section class="space-y-5 w-full ">
+                <section class="flex items-center justify-between">
+                    <div class="w-[49%] flex  flex-col  space-y-2">
+                        <label for="" class="flex items-center font-bold">نام سازمان/شرکت  :</label>
+                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5">
+                    </div>
+                    <div class="w-[49%] flex  flex-col space-y-2">
+                        <label for="" class="flex items-center font-bold">شماره ثبت :</label>
+                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5">
+                    </div>
+                </section>
+                <section class="flex items-center justify-between">
+                    <div class="w-[49%] flex  flex-col  space-y-2">
+                        <label for="" class="flex items-center font-bold">شناسه ملی  :</label>
+                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5">
+                    </div>
+                    <div class="w-[49%] flex  flex-col space-y-2">
+                        <label for="" class="flex items-center font-bold">نام نماینده شرکت:</label>
                         <input type="text " class="border-0 w-full py-1.5">
                     </div>
                 </section>
+                <section class="flex items-center  justify-between">
+
+                    <div class="w-[49%] flex  flex-col space-y-2">
+                        <label for="" class="flex items-center font-bold">کد اقتصادی :</label>
+                        <input type="text " class="border-0 w-full rounded-[5px] shadow py-1.5">
+                    </div>
+                    <div class="w-[49%] flex  flex-col space-y-2">
+                        <label for="" class="flex items-center font-bold">شماره تماس :</label>
+                        <input type="text " class="border-0 w-full py-1.5">
+                    </div>
+                </section>
+
+
             </section>
         </article>
 
@@ -100,7 +134,6 @@
                 <h1 class="font-bold w-44">اقلام سفارش:</h1>
 
             </article>
-            @csrf
 
             <table class="border-collapse  border border-gray-400 w-full table-fixed">
                 <thead class="bg-2081F2">
@@ -109,16 +142,9 @@
                         <span>نوع سفارش</span>
                     </th>
                     <th class=" text-sm font-light px-2 leading-6 text-white max-w-max">
-                        <span>تعداد</span>
+                        <span>وضعیت کپسول</span>
                     </th>
-                    <th class=" text-sm font-light px-2 leading-6 text-white ">
-                        <span class="text-min sm:text-sm text-nowrap">قیمت واحد</span>
-                        <span class="text-[11px]">(ریال)</span>
-                    </th>
-                    <th class=" text-sm font-light px-2 leading-6 text-white ">
-                        <span class="text-min sm:text-sm text-nowrap">قیمت کل</span>
-                        <span class="text-[11px]">(ریال)</span>
-                    </th>
+
                     <th class=" text-sm font-light px-2 leading-6 text-white ">
                         <span>توضیحات</span>
                     </th>
@@ -133,27 +159,76 @@
                         </p>
                     </td>
                     <td class="border border-gray-400  text-center p-1">
-                        <div class=" flex items-center justify-center space-x-reverse space-x-1">
-                            <img src="{{asset('capsule/images/plus.svg')}}" alt=""
-                                 class="w-[10px] h-[10px] sm:w-5 sm:h-5 plus-btn cursor-pointer">
-                            <input type="number"
-                                   class="w-full border rounded-md border-2 border-black/40 w-[27px] sm:w-5/6 text-center quantity-input"
-                                   value="1" data-price="6500000">
-                            <img src="{{asset('capsule/images/circle-minus.svg')}}" alt=""
-                                 class="w-[10px] h-[10px] sm:w-5 sm:h-5 minus-btn cursor-pointer">
+                        <div class=" flex items-center justify-center space-x-reverse space-x-6">
+                            <div>
+                                <label>استفاده شده</label>
+                                <input type="radio" name="product[1]" value="yes">
+                            </div>
+                            <div>
+                                <label>تمدید شارژ</label>
+                                <input type="radio" name="product[1]" value="no">
+                            </div>
                         </div>
 
                     </td>
-                    <td class="border border-gray-400  text-center  p-1">
-                        <p class="font-semibold sm:font-normal sm:text-sm text-[10px] p-1 w-full border rounded-md border-2 border-black/40 unit-price">
-                            6،500،000
+
+
+                    <td class="border border-gray-400 text-[11.5px]  text-center p-1">
+                        <input type="text"
+                               class="w-full border rounded-md border-2 p-1 border-black/40 outline-none px-1.5"
+                               placeholder="توضیحات">
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="border border-gray-300  text-center p-1 ">
+                        <p class="font-semibold sm:font-normal sm:text-sm text-[10px] p-1 w-full border rounded-md border-2 border-black/40 ">
+                            شارژ کپسول 250 گرمی
                         </p>
                     </td>
-                    <td class="border border-gray-400   text-center p-1">
-                        <p class="font-semibold sm:font-normal sm:text-sm text-[10px] p-1 w-full border rounded-md border-2 border-black/40 total-price">
-                            6،500،000
+                    <td class="border border-gray-400  text-center p-1">
+                        <div class=" flex items-center justify-center space-x-reverse space-x-6">
+                            <div>
+                                <label>استفاده شده</label>
+                                <input type="radio" name="product[2]" value="yes">
+                            </div>
+                            <div>
+                                <label>تمدید شارژ</label>
+                                <input type="radio" name="product[2]" value="no">
+                            </div>
+                        </div>
+
+                    </td>
+
+
+                    <td class="border border-gray-400 text-[11.5px]  text-center p-1">
+                        <input type="text"
+                               class="w-full border rounded-md border-2 p-1 border-black/40 outline-none px-1.5"
+                               placeholder="توضیحات">
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="border border-gray-300  text-center p-1 ">
+                        <p class="font-semibold sm:font-normal sm:text-sm text-[10px] p-1 w-full border rounded-md border-2 border-black/40 ">
+                            شارژ کپسول 250 گرمی
                         </p>
                     </td>
+                    <td class="border border-gray-400  text-center p-1">
+                        <div class=" flex items-center justify-center space-x-reverse space-x-6">
+                            <div>
+                                <label>استفاده شده</label>
+                                <input type="radio" name="product[3]" value="yes">
+                            </div>
+                            <div>
+                                <label>تمدید شارژ</label>
+                                <input type="radio" name="product[3]" value="no">
+                            </div>
+                        </div>
+
+                    </td>
+
+
                     <td class="border border-gray-400 text-[11.5px]  text-center p-1">
                         <input type="text"
                                class="w-full border rounded-md border-2 p-1 border-black/40 outline-none px-1.5"
@@ -162,29 +237,7 @@
 
                 </tr>
 
-                <tr>
-                    <td class="border border-gray-300  text-center p-1 flex items-center justify-center">
-                        <div onclick="showModal()"
-                             class="bg-green-600 flex items-center justify-center w-11/12 rounded-[5px] p-1.5 cursor-pointer">
-                            <img src="{{asset("capsule/images/add.svg")}}" alt="" class="w-4 h-4">
-                        </div>
-                    </td>
-                    <td class="border border-gray-400  text-center  p-1">
-                        <p class="font-semibold sm:font-normal sm:text-sm text-[10px] p-1 ">
-                            6
-                        </p>
-                    </td>
-                    <td class="border border-gray-400   text-center p-1" colspan="3">
-                        <p>
-                            <span class="font-semibold text-sm">قیمت نهایی:</span>
-                            <span class="text-min">
-                                    19،500،000 ریال
-                                </span>
-                        </p>
-                    </td>
 
-
-                </tr>
 
 
                 </tbody>
