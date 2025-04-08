@@ -195,7 +195,7 @@
 
         </article>
 
-        <article class="circle-page invisible  absolute w-full h-full top-0 bg-black/65 ">
+        <article class="circle-page invisible absolute w-full h-full top-0 bg-black/65 transition-all duration-300">
             <div
                 class="absolute  top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] shadow bg-white p-2 rounded-md w-11/12">
                 <div class="flex items-center justify-between">
@@ -209,10 +209,12 @@
                         نام کالا و خدمات :
                     </h1>
                     <select class="search-tags w-2/3" multiple="multiple">
-                        <option value="hossein" data-price="170000">hossein</option>
-                        <option value="satia" data-price="170000">satia</option>
-                        <option value="test" data-price="170000">test</option>
-                        <option value="mashin" data-price="170000">mashin</option>
+                        <option value="hossein" data-price="10000">hossein</option>
+                        <option value="satia" data-price="20000">satia</option>
+                        <option value="test" data-price="30000">test</option>
+                        <option value="pride" data-price="40000">pride</option>
+                        <option value="test" data-price="50000">test</option>
+                        <option value="gol" data-price="60000">gol</option>
 
 
                     </select>
@@ -245,10 +247,10 @@
                 </div>
                 <section class="flex items-center  space-x-reverse space-x-3 p-5">
                     <div class="bg-268832 px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
-                        <button class="cursor-pointer px-4" onclick="changeInput()">اضافه کردن موارد انتخاب شده</button>
+                        <button class="cursor-pointer px-4" onclick="changeInput()">اعمال تغییر</button>
                     </div>
                     <div class="bg-268832 px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
-                        <button class="cursor-pointer px-4" onclick="changeInput()">ذخیره</button>
+                        <button class="cursor-pointer px-4" onclick="saveAndCloseModal()">ذخیره</button>
                     </div>
 
                 </section>
@@ -266,31 +268,99 @@
         let closePage = document.querySelector('.close-page');
         let circle = document.querySelector('.circle-page');
         let elementAppend = [];
+        let selectedItems = []; // Array to store selected items
 
-        plusBtn.onclick = function () {
+        function openModal() {
+            circle.style.clipPath = 'circle(100% at center)';
+            circle.style.visibility = 'visible';
+            circle.classList.remove('invisible');
 
-            circle.style.clipPath = `circle(100% at center)`;
-            // circle.style.zIndex=`11`;
-            circle.style.visibility = `visible`;
+            // Pre-select items in select2 that are already in the table
+            let tbody = document.getElementById('tbody');
+            let rows = tbody.getElementsByTagName('tr');
+            selectedItems = []; // Reset selected items
+
+            for (let i = 0; i < rows.length; i++) {
+                let cells = rows[i].getElementsByTagName('td');
+                if (cells.length >= 1) {
+                    let itemName = cells[0].textContent.trim();
+                    selectedItems.push(itemName);
+                }
+            }
+
+            // Set the selected values in select2
+            $('.search-tags').val(selectedItems).trigger('change');
         }
-        closePage.onclick = function () {
-            circle.style.webkitClipPath = 'circle(50px at center)';
-            circle.style.visibility = `hidden`;
 
+        function closeModal() {
+            circle.style.clipPath = 'circle(0% at center)';
+            circle.style.visibility = 'hidden';
+            circle.classList.add('invisible');
         }
+
+        // Remove old event listeners
+        plusBtn.removeEventListener('click', openModal);
+        closePage.removeEventListener('click', closeModal);
+        circle.removeEventListener('click', function(e) {
+            if (e.target === circle) {
+                closeModal();
+            }
+        });
+
+        // Add new event listeners
+        plusBtn.addEventListener('click', openModal);
+        closePage.addEventListener('click', closeModal);
+        circle.addEventListener('click', function(e) {
+            if (e.target === circle) {
+                closeModal();
+            }
+        });
+
         let tagValue = [];
         $(".search-tags").select2({
             tags: true,
-
-        })
-
+        }).on('change', function() {
+            // Update selectedItems when select2 changes
+            selectedItems = $(this).val();
+        });
 
         function changeInput() {
             let tbody = document.getElementById('tbody');
-            // tbody.innerHTML = '';
             let dataAll = $('.search-tags').select2('data');
+            let selectedValues = $('.search-tags').val() || [];
+
+            // Remove rows for items that are no longer selected
+            let existingRows = tbody.getElementsByTagName('tr');
+            for (let i = existingRows.length - 1; i >= 0; i--) {
+                let row = existingRows[i];
+                let cells = row.getElementsByTagName('td');
+                if (cells.length >= 1) {
+                    let productInput = cells[0].querySelector('input[name="product[]"]');
+                    if (productInput && !selectedValues.includes(productInput.value)) {
+                        row.remove();
+                    }
+                }
+            }
+
+            // Add new rows for newly selected items
             for (const data of dataAll) {
-                if (!elementAppend.includes(data.id)) {
+                // Check if the item is already in the table
+                let isDuplicate = false;
+                let existingRows = tbody.getElementsByTagName('tr');
+
+                for (let i = 0; i < existingRows.length; i++) {
+                    let cells = existingRows[i].getElementsByTagName('td');
+                    if (cells.length >= 1) {
+                        let productInput = cells[0].querySelector('input[name="product[]"]');
+                        if (productInput && productInput.value === data.id) {
+                            isDuplicate = true;
+                            break;
+                        }
+                    }
+                }
+
+                // Only add the item if it's not already in the table
+                if (!isDuplicate) {
                     let row = document.createElement('tr')
                     let tdOne = document.createElement('td');
                     tdOne.classList.add("border", 'border-gray-400', 'text-center', 'p-1');
@@ -299,6 +369,7 @@
                     tdOne.classList.add("border");
 
                     tdOne.innerHTML = `
+                                    <input type="hidden" name="product[]" value="${data.id}">
                                  <p class="font-semibold sm:font-normal sm:text-sm text-[10px] p-1 w-full border rounded-md border-2 border-black/40">
                                     ${data.id}
                                 </p>`;
@@ -308,7 +379,7 @@
                     tdTwo.innerHTML = `<div class=" flex items-center justify-center space-x-reverse space-x-1">
                                     <img src="{{asset('capsule/images/plus.svg')}}" alt=""
                                          class="w-[10px] h-[10px] text-center sm:w-5 sm:h-5 cursor-pointer plus">
-                                    <input type="number" min="1" value="1"
+                                        <input type="number" name="count[]" min="1" value="1"
                                            class="text-center w-full border rounded-md border-2 border-black/40 w-[27px] sm:w-5/6">
                                     <img src="{{asset('capsule/images/circle-minus.svg')}}" alt=""
                                          class="w-[10px] h-[10px] sm:w-5 sm:h-5 cursor-pointer minus">
@@ -338,14 +409,144 @@
                     for (const plus of plusBtn) {
                         plus.onclick = function () {
                             plus.nextElementSibling.value = +plus.nextElementSibling.value + 1;
-
                         }
                     }
                 }
+            }
+        }
 
+        function saveAndCloseModal() {
+            // Add items to main table and calculate total
+            addItemsToMainTable();
+        }
 
+        function addItemsToMainTable() {
+            // Get the main table body
+            let mainTableBody = document.querySelector('table tbody');
+            let modalTableBody = document.getElementById('tbody');
+            let rows = modalTableBody.getElementsByTagName('tr');
+
+            // Calculate total
+            let total = 0;
+            let totalQuantity = 0;
+
+            // Add each row from modal to main table
+            for (let i = 0; i < rows.length; i++) {
+                let row = rows[i];
+                let cells = row.getElementsByTagName('td');
+
+                if (cells.length >= 3) {
+                    let itemName = cells[0].textContent.trim();
+                    let quantity = parseInt(cells[1].querySelector('input[name="count[]"]').value);
+                    let unitPrice = cells[2].textContent.trim().replace(/,/g, '');
+                    let productId = cells[0].querySelector('input[name="product[]"]').value;
+
+                    // Check if the item is already in the main table
+                    let isDuplicate = false;
+                    let existingRowIndex = -1;
+                    let existingRows = mainTableBody.getElementsByTagName('tr');
+
+                    for (let j = 0; j < existingRows.length - 1; j++) { // Exclude the last row (total row)
+                        let existingCells = existingRows[j].getElementsByTagName('td');
+                        if (existingCells.length >= 1) {
+                            let existingItemName = existingCells[0].textContent.trim();
+                            if (existingItemName === itemName) {
+                                isDuplicate = true;
+                                existingRowIndex = j;
+                                break;
+                            }
+                        }
+                    }
+
+                    // Calculate total price for this item
+                    let itemTotal = quantity * parseInt(unitPrice);
+
+                    if (isDuplicate) {
+                        // Update existing row
+                        let existingRow = existingRows[existingRowIndex];
+                        let existingCells = existingRow.getElementsByTagName('td');
+
+                        // Update quantity
+                        existingCells[1].innerHTML = `
+                            <input type="hidden" name="product[]" value="${productId}">
+                            <input type="hidden" name="count[]" value="${quantity}">
+                            <p class="font-semibold sm:font-normal sm:text-sm text-[10px] p-1 w-full">${quantity}</p>`;
+
+                        // Update total price
+                        existingCells[3].innerHTML = `<p class="font-semibold sm:font-normal sm:text-sm text-[10px] p-1 w-full">${itemTotal.toLocaleString()}</p>`;
+                    } else {
+                        // Add new row
+                        total += itemTotal;
+                        totalQuantity += quantity;
+
+                        // Create new row for main table
+                        let newRow = document.createElement('tr');
+
+                        // Add item name
+                        let nameCell = document.createElement('td');
+                        nameCell.classList.add("border", "border-gray-400", "text-center", "p-1");
+                        nameCell.innerHTML = `<p class="font-semibold sm:font-normal sm:text-sm text-[10px] p-1 w-full">${itemName}</p>`;
+                        newRow.appendChild(nameCell);
+
+                        // Add quantity with hidden inputs
+                        let quantityCell = document.createElement('td');
+                        quantityCell.classList.add("border", "border-gray-400", "text-center", "p-1");
+                        quantityCell.innerHTML = `
+                            <input type="hidden" name="product[]" value="${productId}">
+                            <input type="hidden" name="count[]" value="${quantity}">
+                            <p class="font-semibold sm:font-normal sm:text-sm text-[10px] p-1 w-full">${quantity}</p>`;
+                        newRow.appendChild(quantityCell);
+
+                        // Add unit price
+                        let unitPriceCell = document.createElement('td');
+                        unitPriceCell.classList.add("border", "border-gray-400", "text-center", "p-1");
+                        unitPriceCell.innerHTML = `<p class="font-semibold sm:font-normal sm:text-sm text-[10px] p-1 w-full">${parseInt(unitPrice).toLocaleString()}</p>`;
+                        newRow.appendChild(unitPriceCell);
+
+                        // Add total price
+                        let totalPriceCell = document.createElement('td');
+                        totalPriceCell.classList.add("border", "border-gray-400", "text-center", "p-1");
+                        totalPriceCell.innerHTML = `<p class="font-semibold sm:font-normal sm:text-sm text-[10px] p-1 w-full">${itemTotal.toLocaleString()}</p>`;
+                        newRow.appendChild(totalPriceCell);
+
+                        // Insert before the last row (total row)
+                        mainTableBody.insertBefore(newRow, mainTableBody.lastElementChild);
+                    }
+                }
             }
 
+            // Recalculate total and total quantity from all rows in the main table
+            total = 0;
+            totalQuantity = 0;
+            let allRows = mainTableBody.getElementsByTagName('tr');
+
+            for (let i = 0; i < allRows.length - 1; i++) { // Exclude the last row (total row)
+                let cells = allRows[i].getElementsByTagName('td');
+                if (cells.length >= 4) {
+                    let quantityInput = cells[1].querySelector('input[name="count[]"]');
+                    let quantity = quantityInput ? parseInt(quantityInput.value) : parseInt(cells[1].textContent.trim());
+                    let unitPrice = parseInt(cells[2].textContent.trim().replace(/,/g, ''));
+                    let itemTotal = quantity * unitPrice;
+                    totalQuantity += quantity;
+                    total += itemTotal;
+                }
+            }
+
+            // Update total in the last row
+            let totalRow = mainTableBody.lastElementChild;
+            let totalCell = totalRow.querySelector('td:last-child');
+            if (totalCell) {
+                totalCell.innerHTML = `<p class="font-semibold sm:font-normal sm:text-sm text-[10px] p-1 w-full">جمع کل: ${total.toLocaleString()}</p>`;
+            }
+
+            // Update total quantity in the last row
+            let quantityCell = totalRow.querySelector('td:nth-child(2)');
+            if (quantityCell) {
+                quantityCell.innerHTML = `<p class="font-semibold sm:font-normal sm:text-sm text-[10px] p-1 w-full">${totalQuantity}</p>`;
+            }
+
+            // Close modal after adding items
+            closeModal();
         }
 
 

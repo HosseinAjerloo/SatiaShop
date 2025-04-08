@@ -191,4 +191,9 @@ class Product extends Model
         );
     }
 
+    public function userFavorite()
+    {
+        return $this->belongsToMany(User::class,'favorite_products','product_id','user_id');
+    }
+
 }

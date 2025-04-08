@@ -183,11 +183,13 @@ class InvoiceController extends Controller
 
     public function editProduct(Invoice $invoice)
     {
+        $categories = Category::where('status', 'active')->get();
+        $brands = Brand::where("status", 'active')->get();
         $breadcrumbs = Breadcrumbs::render('admin.invoice.product.edit', $invoice)->getData()['breadcrumbs'];
 
         $products = Product::where('type', 'goods')->where('status', 'active')->get();
         $suppliers = Supplier::where('status', 'active')->get();
-        return view('Admin.Invoice.Product.edit', compact('suppliers', 'products', 'invoice', 'breadcrumbs'));
+        return view('Admin.Invoice.Product.edit', compact('suppliers', 'products', 'invoice', 'breadcrumbs','brands','categories'));
 
     }
 
@@ -253,7 +255,7 @@ class InvoiceController extends Controller
             ]);
 
             foreach ($productItem as $itemTransaction) {
-                $itemTransaction['type'] = 'update';
+                $itemTransaction['type'] = 'add';
                 $itemTransaction['remain'] = $itemTransaction['amount'];
                 $itemTransaction['user_id'] = $user->id;
                 $invoice->productTransaction()->create($itemTransaction);
@@ -264,7 +266,6 @@ class InvoiceController extends Controller
             DB::commit();
             return redirect()->route('admin.invoice.product.index')->with(['success' => 'فاکتور  شما یرایش  شد و محصولات شما در انبار اضافه ویرایش گردید']);
         } catch (\Exception $e) {
-            dd($e);
             DB::rollback();
             return redirect()->route('admin.invoice.product.index')->withErrors(['updateError' => 'ویرایش فاکتور شما با خطا مواجه شد لطفا مجددا تلاش فرمایید.']);
 
@@ -293,11 +294,12 @@ class InvoiceController extends Controller
 
     public function serviceCreate()
     {
-
+        $categories = Category::where('status', 'active')->get();
+        $brands = Brand::where("status", 'active')->get();
         $breadcrumbs = Breadcrumbs::render('admin.invoice.service.create')->getData()['breadcrumbs'];
         $products = Product::where('type', 'service')->where('status', 'active')->get();
         $suppliers = Supplier::where('status', 'active')->get();
-        return view('Admin.Invoice.Service.create', compact('suppliers', 'products', 'breadcrumbs'));
+        return view('Admin.Invoice.Service.create', compact('suppliers', 'products', 'breadcrumbs','categories','brands'));
 
     }
 
@@ -362,10 +364,12 @@ class InvoiceController extends Controller
 
     public function serviceEdit(Invoice $invoice)
     {
+        $categories = Category::where('status', 'active')->get();
+        $brands = Brand::where("status", 'active')->get();
         $breadcrumbs = Breadcrumbs::render('admin.invoice.service.edit', $invoice)->getData()['breadcrumbs'];
         $products = Product::where('type', 'service')->where('status', 'active')->get();
         $suppliers = Supplier::where('status', 'active')->get();
-        return view('Admin.Invoice.Service.edit', compact('suppliers', 'products', 'invoice', 'breadcrumbs'));
+        return view('Admin.Invoice.Service.edit', compact('suppliers', 'products', 'invoice', 'breadcrumbs','categories','brands'));
 
     }
 

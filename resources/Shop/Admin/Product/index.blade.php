@@ -79,8 +79,9 @@
                     </a>
                     <div class="border-b border-black/35 sm:border-none w-full justify-between   sm:w-[11%] sm:max-w-[11%] text-min_sm   h-full flex items-center text-right whitespace-normal break-words ">
                         <p class="sm:hidden text-min_sm ">توضیحات</p>
-                            {!! substr($product->description,0,30) !!}...
-
+                        <div class="truncate ">
+                            {!!  $product->description !!}...
+                        </div>
                     </div>
                     <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] whitespace-normal break-words">
                         <p class="sm:hidden text-min_sm ">نوع محصول</p>

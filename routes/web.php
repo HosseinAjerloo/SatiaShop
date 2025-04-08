@@ -190,7 +190,7 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
     });
 
     Route::prefix('finance-transaction')->name('admin.finance.transaction.')->group(function () {
-        Route::get('', action: [App\Http\Controllers\Admin\FinanceTransAction\FinanceTransActionController::class, 'index'])->name('index');
+        Route::get('', [App\Http\Controllers\Admin\FinanceTransAction\FinanceTransActionController::class, 'index'])->name('index');
         Route::get('details/{finance}', [App\Http\Controllers\Admin\FinanceTransAction\FinanceTransActionController::class, 'details'])->name('details');
     });
 
@@ -216,37 +216,9 @@ Route::get('test2',function (){
 
 Route::get('test',function (){
 
-   return view('Admin.printResidSharcheCapsule');
-
+    return view('Admin.residSharcheCapsule');
 })->name('test');
 
-Route::post('back',function (){
-
-
-})->withoutMiddleware(Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class)->name('hossein.back');
-
-Route::post('create-product',function (\Illuminate\Http\Request $request, ImageService $imageService){
-    $inputs = $request->all();
-    parse_str($inputs['content'],$output);
-    $output['price']=$output['product-price'];
-
-    $user = Auth::user();
-    $output['user_id'] = $user->id;
-    $product = Product::create($output);
-    $imageService->setRootFolder('ProductStore' . DIRECTORY_SEPARATOR . "image");
-    $image = $imageService->saveImage($request->file('file'));
-
-    if (!$image)
-        return response()->json(['status'=>false,'message'=>'در ذخیره سازی عکس خطایی به وجود امد']);
-
-    $product->image()->create([
-        'path' => $image,
-        'user_id' => $user->id
-    ]);
-
-    if ($product) {
-        return response()->json(['status'=>true,'success' => 'محصول جدید شما اضافه  شد']);
-    } else {
-
-        return response()->json(['status'=>false,'message'=>'افزودن محصول با خطا مواجه شد']);
-    }})->name('addProduct-width-ajax');
+Route::post('create-product',function (){
+    dd(request()->all());
+})->name('hossein.back');

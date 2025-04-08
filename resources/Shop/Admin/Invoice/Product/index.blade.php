@@ -3,7 +3,7 @@
 @section('content')
 
     <x-Search-date routeSearch="{{route('admin.invoice.product.index')}}" routeList="{{route('admin.invoice.product.create')}}"
-                   name="لیست سرویس ها"  placeholder='شماره موبایل کاربر ثبت کننده را وارد فرمایید' imagePath='null'/>
+                   name="لیست فاکتور محصول"  placeholder='شماره موبایل کاربر ثبت کننده را وارد فرمایید' imagePath='null'/>
     <section class="px-2 mt-5">
         <article
             class="bg-2081F2 px-2   py-3 hidden sm:flex items-center justify-between rounded-md rounded-ee-none rounded-es-none">
@@ -75,10 +75,9 @@
                         <p class="sm:hidden text-min_sm">
                             توضیحات مربوط با فاکتور
                         </p>
-                        <p class="text-black  text-sm   h-full flex items-center text-right break-all whitespace-normal leading-6">
-                            {!! $invoice->description??''!!}
-
-                        </p>
+                        <div class="truncate ">
+                           {!! $invoice->description??''!!}...
+                       </div>
                     </div>
 
                     <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] h-full whitespace-normal break-words">
