@@ -27,11 +27,11 @@
                              <h1 class="font-bold w-36 ">جستوجوی مشتری:</h1>
 
                             <div class="relative w-full mt-3 sm:mt-0 sm:w-[50%]" >
-                                <select type="text"
+                    <select type="text"
                                         class="placeholder:text-min placeholder:text-black/50 outline-none searchInput bg-transparent w-full select2 px-10"
-                                        name="name" id="input_search">
-                                    <option>hossein</option>
-                                </select>
+                            name="name" id="input_search">
+                        <option>hossein</option>
+                    </select>
                                 <img src=" {{asset('capsule/images/search.svg')}}" alt=""
                                      class="search cursor-pointer absolute top-[50%] right-[20px] translate-y-[-50%]">
                             </div>
@@ -135,30 +135,30 @@
 
             </article>
 
-            <table class="border-collapse  border border-gray-400 w-full table-fixed">
-                <thead class="bg-2081F2">
-                <tr>
-                    <th class=" text-sm font-light px-2 leading-6 text-white ">
-                        <span>نوع سفارش</span>
-                    </th>
-                    <th class=" text-sm font-light px-2 leading-6 text-white max-w-max">
+                <table class="border-collapse  border border-gray-400 w-full table-fixed">
+                    <thead class="bg-2081F2">
+                    <tr>
+                        <th class=" text-sm font-light px-2 leading-6 text-white ">
+                            <span>نوع سفارش</span>
+                        </th>
+                        <th class=" text-sm font-light px-2 leading-6 text-white max-w-max">
                         <span>وضعیت کپسول</span>
-                    </th>
+                        </th>
 
-                    <th class=" text-sm font-light px-2 leading-6 text-white ">
-                        <span>توضیحات</span>
-                    </th>
-                </tr>
+                        <th class=" text-sm font-light px-2 leading-6 text-white ">
+                            <span>توضیحات</span>
+                        </th>
+                    </tr>
 
-                </thead>
-                <tbody>
-                <tr>
-                    <td class="border border-gray-300  text-center p-1 ">
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="border border-gray-300  text-center p-1 ">
                         <p class="font-semibold sm:font-normal sm:text-sm text-[10px] p-1 w-full border rounded-md border-2 border-black/40 ">
                             شارژ کپسول 250 گرمی
                         </p>
-                    </td>
-                    <td class="border border-gray-400  text-center p-1">
+                        </td>
+                        <td class="border border-gray-400  text-center p-1">
                         <div class=" flex items-center justify-center space-x-reverse space-x-6">
                             <div>
                                 <label>استفاده شده</label>
@@ -168,25 +168,25 @@
                                 <label>تمدید شارژ</label>
                                 <input type="radio" name="product[1]" value="no">
                             </div>
-                        </div>
+                            </div>
 
-                    </td>
+                        </td>
 
 
-                    <td class="border border-gray-400 text-[11.5px]  text-center p-1">
+                        <td class="border border-gray-400 text-[11.5px]  text-center p-1">
                         <input type="text"
                                class="w-full border rounded-md border-2 p-1 border-black/40 outline-none px-1.5"
                                placeholder="توضیحات">
-                    </td>
+                        </td>
 
-                </tr>
-                <tr>
-                    <td class="border border-gray-300  text-center p-1 ">
+                    </tr>
+                    <tr>
+                        <td class="border border-gray-300  text-center p-1 ">
                         <p class="font-semibold sm:font-normal sm:text-sm text-[10px] p-1 w-full border rounded-md border-2 border-black/40 ">
                             شارژ کپسول 250 گرمی
                         </p>
-                    </td>
-                    <td class="border border-gray-400  text-center p-1">
+                        </td>
+                        <td class="border border-gray-400  text-center p-1">
                         <div class=" flex items-center justify-center space-x-reverse space-x-6">
                             <div>
                                 <label>استفاده شده</label>
@@ -196,25 +196,25 @@
                                 <label>تمدید شارژ</label>
                                 <input type="radio" name="product[2]" value="no">
                             </div>
-                        </div>
+                            </div>
 
-                    </td>
+                        </td>
 
 
-                    <td class="border border-gray-400 text-[11.5px]  text-center p-1">
+                        <td class="border border-gray-400 text-[11.5px]  text-center p-1">
                         <input type="text"
                                class="w-full border rounded-md border-2 p-1 border-black/40 outline-none px-1.5"
                                placeholder="توضیحات">
-                    </td>
+                        </td>
 
-                </tr>
-                <tr>
-                    <td class="border border-gray-300  text-center p-1 ">
+                    </tr>
+                    <tr>
+                        <td class="border border-gray-300  text-center p-1 ">
                         <p class="font-semibold sm:font-normal sm:text-sm text-[10px] p-1 w-full border rounded-md border-2 border-black/40 ">
                             شارژ کپسول 250 گرمی
                         </p>
-                    </td>
-                    <td class="border border-gray-400  text-center p-1">
+                        </td>
+                        <td class="border border-gray-400  text-center p-1">
                         <div class=" flex items-center justify-center space-x-reverse space-x-6">
                             <div>
                                 <label>استفاده شده</label>
@@ -224,35 +224,47 @@
                                 <label>تمدید شارژ</label>
                                 <input type="radio" name="product[3]" value="no">
                             </div>
-                        </div>
+                            </div>
 
-                    </td>
+                        </td>
 
 
-                    <td class="border border-gray-400 text-[11.5px]  text-center p-1">
+                        <td class="border border-gray-400 text-[11.5px]  text-center p-1">
                         <input type="text"
                                class="w-full border rounded-md border-2 p-1 border-black/40 outline-none px-1.5"
                                placeholder="توضیحات">
-                    </td>
-
-                </tr>
-
+                        </td>
+                    </tr>
 
 
+                <tr>
+                    <td class="border border-gray-300  text-center p-1 " rowspan="2">
+                        <div class="flex items-center justify-center ">
+                            <p onclick="showModal()" class="w-[50%] bg-sky-500 text-white py-2 rounded-md sm:font-normal sm:text-sm text-[10px] border-black/40 cursor-pointer hover:bg-sky-600 transition-colors">
+                                <span class="font-bold">افزودن محصول</span>
+                            </p>
+                        </div>
+                        </td>
 
-                </tbody>
-            </table>
-            <section class="flex items-center justify-center space-x-reverse space-x-3 p-5">
-                <div class="bg-268832 px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
-                    <button>صدور فاکتور</button>
-                </div>
-                <div class="bg-2081F2 px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
-                    <button>چاپ برگه کپسول</button>
-                </div>
-                <div class="bg-FFB01B px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
-                    <button>جاپ رسید</button>
-                </div>
-            </section>
+                    </tr>
+
+
+
+
+
+                    </tbody>
+                </table>
+                <section class="flex items-center justify-center space-x-reverse space-x-3 p-5">
+                    <div class="bg-268832 px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
+                        <button>صدور فاکتور</button>
+                    </div>
+                    <div class="bg-2081F2 px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
+                        <button>چاپ برگه کپسول</button>
+                    </div>
+                    <div class="bg-FFB01B px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
+                        <button>جاپ رسید</button>
+                    </div>
+                </section>
 
 
         </article>
@@ -260,30 +272,26 @@
     </form>
 
     <!-- Modal -->
-    <div class="relative z-[9999]" aria-labelledby="modal-title" role="dialog" aria-modal="true" id="productModal">
+    <div class="fixed inset-0 z-50 hidden opacity-0 transition-opacity duration-300" id="productModal" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <!-- Background backdrop -->
-        <div
-            class="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity duration-300 ease-out opacity-0 hidden modal-backdrop"></div>
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity duration-300"></div>
 
         <!-- Modal panel -->
-        <div class="fixed inset-0 z-[9999] overflow-y-auto hidden">
-            <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-4 sm:p-0">
-                <div
-                    class="modal-content-wrapper relative transform overflow-hidden rounded-lg bg-white text-right shadow-xl transition-all duration-300 ease-out opacity-0 scale-95 -translate-y-2.5 sm:my-8 w-[95%] h-[95%] sm:w-full sm:max-w-lg sm:h-auto">
+        <div class="fixed inset-0 z-10 overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div class="relative transform overflow-hidden rounded-lg bg-white text-right shadow-xl transition-all duration-300 sm:my-8 sm:w-full sm:max-w-3xl translate-y-4 opacity-0 scale-95" id="modalContent">
                     <!-- Modal header -->
                     <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                         <div class="flex items-center justify-between">
-                            <button type="button" onclick="closeModal()"
-                                    class="text-gray-400 hover:text-gray-500 transition-colors">
-                                <span class="sr-only">Close</span>
-                                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                     stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                                </svg>
-                            </button>
                             <h3 class="text-lg font-semibold leading-6 text-gray-900" id="modal-title">
                                 لیست محصولات
                             </h3>
+                            <button type="button" onclick="closeModal()" class="text-gray-400 hover:text-gray-500">
+                                <span class="sr-only">بستن</span>
+                                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
                         </div>
                     </div>
 
@@ -294,23 +302,19 @@
                                 <label class="block text-sm font-medium text-gray-900 mb-2">
                                     انتخاب دسته:
                                 </label>
-                                <select
-                                    class="w-full rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-600 select2-category">
+                                <select class="w-full rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-600 select2-category">
                                     <option>انتخاب کنید</option>
                                     <option data-id="1">دسته یک</option>
                                     <option data-id="2">دسته دوم</option>
                                     <option data-id="3">دسته سوم</option>
                                     <option data-id="4">دسته چهارم</option>
-
                                 </select>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-900 mb-2">
                                     انتخاب محصول:
                                 </label>
-                                <select
-                                    class="w-full rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-600 select2-product"
-                                    multiple>
+                                <select class="w-full rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-600 select2-product" multiple>
                                     <option value="">انتخاب کنید</option>
                                     <option value="1" data-categori-id="1" data-price="1000000">محصول 1</option>
                                     <option value="2" data-categori-id="1" data-price="2000000">محصول 2</option>
@@ -322,17 +326,34 @@
                                     <option value="8" data-categori-id="4" data-price="8000000">محصول 8</option>
                                 </select>
                             </div>
+                            <div>
+                                <div class="flex items-center space-x-reverse space-x-6 mb-2">
+                                    <div class="flex items-center">
+                                        <input type="radio" name="capsule_status" value="used" class="h-4 w-4 border-gray-300 text-green-600 focus:ring-green-600">
+                                        <label class="mr-2 text-sm text-gray-900">استفاده شده</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="radio" name="capsule_status" value="recharge" class="h-4 w-4 border-gray-300 text-green-600 focus:ring-green-600">
+                                        <label class="mr-2 text-sm text-gray-900">تمدید شارژ</label>
+                                    </div>
+                                    <label class="text-sm font-medium text-gray-900">وضعیت کپسول:</label>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-900 mb-2">
+                                    توضیحات:
+                                </label>
+                                <textarea class="w-full rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-600" rows="3" placeholder="توضیحات را وارد کنید..."></textarea>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Modal footer -->
                     <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                        <button type="button" onclick="saveSelection()"
-                                class="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 transition-colors sm:w-auto">
+                        <button type="button" onclick="saveSelection()" class="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:w-auto">
                             ذخیره
                         </button>
-                        <button type="button" onclick="closeModal()"
-                                class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 transition-colors sm:mt-0 sm:w-auto sm:mr-4">
+                        <button type="button" onclick="closeModal()" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto sm:mr-4">
                             انصراف
                         </button>
                     </div>
@@ -457,29 +478,27 @@
         });
 
         function showModal() {
-            const modal = $('#productModal');
-            const backdrop = modal.find('.modal-backdrop');
-            const dialog = modal.find('.fixed.inset-0.z-\\[9999\\]');
-            const content = modal.find('.modal-content-wrapper');
-
-            backdrop.removeClass('hidden');
-            dialog.removeClass('hidden');
-
-            // اضافه کردن تاخیر کوچک برای شروع انیمیشن
+            const modal = document.getElementById('productModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            // نمایش مودال
+            modal.classList.remove('hidden');
+            
+            // تاخیر کوچک برای شروع انیمیشن
             setTimeout(() => {
-                backdrop.removeClass('opacity-0');
-                content.removeClass('opacity-0 scale-95 -translate-y-2.5');
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('translate-y-4', 'opacity-0', 'scale-95');
             }, 10);
-
+            
             // تنظیم مجدد Select2
-            $('.select2-category').select2('destroy').select2({
+            $('.select2-category').select2({
                 dropdownParent: $('#productModal'),
                 placeholder: "انتخاب دسته",
                 dir: "rtl",
                 width: '100%'
             });
 
-            $('.select2-product').select2('destroy').select2({
+            $('.select2-product').select2({
                 dropdownParent: $('#productModal'),
                 placeholder: "انتخاب محصول",
                 dir: "rtl",
@@ -496,18 +515,16 @@
         }
 
         function closeModal() {
-            const modal = $('#productModal');
-            const backdrop = modal.find('.modal-backdrop');
-            const dialog = modal.find('.fixed.inset-0.z-\\[9999\\]');
-            const content = modal.find('.modal-content-wrapper');
-
-            backdrop.addClass('opacity-0');
-            content.addClass('opacity-0 scale-95 -translate-y-2.5');
-
+            const modal = document.getElementById('productModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            // شروع انیمیشن بستن
+            modal.classList.add('opacity-0');
+            modalContent.classList.add('translate-y-4', 'opacity-0', 'scale-95');
+            
             // منتظر ماندن برای پایان انیمیشن
             setTimeout(() => {
-                backdrop.addClass('hidden');
-                dialog.addClass('hidden');
+                modal.classList.add('hidden');
             }, 300);
         }
 
@@ -518,6 +535,8 @@
             var productTexts = [];
             var productPrices = [];
             var totalPrice = 0;
+            var capsuleStatus = $('input[name="capsule_status"]:checked').val();
+            var description = $('textarea').val();
 
             // اگر محصولی انتخاب نشده باشد، از تابع خارج می‌شویم
             if (!products || products.length === 0) {
@@ -526,55 +545,29 @@
             }
 
             // دریافت متن و قیمت محصولات انتخاب شده
-            products.forEach(function (productId) {
+            products.forEach(function(productId) {
                 var productOption = $('.select2-product option[value="' + productId + '"]');
                 var productText = productOption.text();
                 var productPrice = parseInt(productOption.data('price'));
-
+                
                 productTexts.push(productText);
                 productPrices.push(productPrice);
                 totalPrice += productPrice;
             });
 
-            console.log('Selected category:', category, categoryText);
-            console.log('Selected products:', products, productTexts);
-            console.log('Product prices:', productPrices);
-            console.log('Total price:', totalPrice);
-
-            // حذف ردیف دکمه پلاس
+            // پیدا کردن جدول و ردیف دکمه حذف
             var tableBody = $('table tbody');
-            var lastRow = tableBody.find('tr:last');
-            lastRow.remove();
-
-            // بررسی محصولات تکراری و اضافه کردن محصولات جدید
-            var existingProducts = [];
-            $('table tbody tr').each(function () {
-                var productName = $(this).find('td:first p').text().trim();
-                if (productName) {
-                    existingProducts.push(productName);
-                }
-            });
+            var deleteButtonRow = tableBody.find('tr:last');
+            
+            // حذف ردیف دکمه حذف
+            deleteButtonRow.remove();
 
             // اضافه کردن ردیف‌های جدید برای هر محصول انتخاب شده
-            products.forEach(function (productId, index) {
+            products.forEach(function(productId, index) {
                 var productText = productTexts[index];
                 var productPrice = productPrices[index];
 
-                // بررسی تکراری بودن محصول
-                if (existingProducts.includes(productText)) {
-                    // اگر محصول تکراری است، تعداد آن را افزایش می‌دهیم
-                    $('table tbody tr').each(function () {
-                        var rowProductName = $(this).find('td:first p').text().trim();
-                        if (rowProductName === productText) {
-                            var quantityInput = $(this).find('.quantity-input');
-                            var currentQuantity = parseInt(quantityInput.val()) || 0;
-                            quantityInput.val(currentQuantity + 1);
-                            updateProductPrice(quantityInput);
-                        }
-                    });
-                } else {
-                    // اگر محصول تکراری نیست، ردیف جدید اضافه می‌کنیم
-                    var newRow = `
+                var newRow = `
                     <tr>
                         <td class="border border-gray-300 text-center p-1">
                             <p class="font-semibold sm:font-normal sm:text-sm text-[10px] p-1 w-full border rounded-md border-2 border-black/40">
@@ -583,56 +576,42 @@
                             <input type="hidden" name="product[]" value="${productId}">
                         </td>
                         <td class="border border-gray-400 text-center p-1">
-                            <div class="flex items-center justify-center space-x-reverse space-x-1">
-                                <img src="{{asset('capsule/images/plus.svg')}}" alt="" class="w-[10px] h-[10px] sm:w-5 sm:h-5 plus-btn cursor-pointer">
-                                <input type="number" name="count[]" class="w-full border rounded-md border-2 border-black/40 w-[27px] sm:w-5/6 text-center quantity-input" value="1" data-price="${productPrice}">
-                                <img src="{{asset('capsule/images/circle-minus.svg')}}" alt="" class="w-[10px] h-[10px] sm:w-5 sm:h-5 minus-btn cursor-pointer">
+                            <div class="flex items-center justify-center space-x-reverse space-x-6">
+                                <div>
+                                    <label>استفاده شده</label>
+                                    <input type="radio" name="product_status[]" value="used" ${capsuleStatus === 'used' ? 'checked' : ''}>
+                                </div>
+                                <div>
+                                    <label>تمدید شارژ</label>
+                                    <input type="radio" name="product_status[]" value="recharge" ${capsuleStatus === 'recharge' ? 'checked' : ''}>
+                                </div>
                             </div>
                         </td>
-                        <td class="border border-gray-400 text-center p-1">
-                            <p class="font-semibold sm:font-normal sm:text-sm text-[10px] p-1 w-full border rounded-md border-2 border-black/40 unit-price">
-                                ${productPrice.toLocaleString()}
-                            </p>
-                        </td>
-                        <td class="border border-gray-400 text-center p-1">
-                            <p class="font-semibold sm:font-normal sm:text-sm text-[10px] p-1 w-full border rounded-md border-2 border-black/40 total-price">
-                                ${productPrice.toLocaleString()}
-                            </p>
-                        </td>
                         <td class="border border-gray-400 text-[11.5px] text-center p-1">
-                            <input type="text" class="w-full border rounded-md border-2 p-1 border-black/40 outline-none px-1.5" placeholder="توضیحات">
+                            <input type="text" class="w-full border rounded-md border-2 p-1 border-black/40 outline-none px-1.5" placeholder="توضیحات" value="${description}">
                         </td>
                     </tr>
-                    `;
-
-                    tableBody.append(newRow);
-                }
+                `;
+                
+                tableBody.append(newRow);
             });
 
-            // اضافه کردن مجدد ردیف دکمه پلاس
+            // اضافه کردن مجدد ردیف دکمه حذف
             var addButtonRow = `
-            <tr>
-                <td class="border border-gray-300 text-center p-1 flex items-center justify-center">
-                   <div onclick="showModal()" class="bg-green-600 flex items-center justify-center w-11/12 rounded-[5px] p-1.5 cursor-pointer">
-                       <img src="{{asset("capsule/images/add.svg")}}" alt="" class="w-4 h-4">
-                   </div>
-                </td>
-                <td class="border border-gray-400 text-center p-1">
-                    <p class="font-semibold sm:font-normal sm:text-sm text-[10px] p-1">
-                        ${$('table tbody tr').length - 1}
-                    </p>
-                </td>
-                <td class="border border-gray-400 text-center p-1" colspan="3">
-                    <p>
-                         <span class="font-semibold text-sm">قیمت نهایی:</span>
-                        <span class="text-min final-price">
-                            ${totalPrice.toLocaleString()} ریال
-                        </span>
-                    </p>
-                </td>
-            </tr>
+                <tr>
+                    <td class="border border-gray-300 text-center p-1" rowspan="2">
+                        <div class="flex items-center justify-center">
+                            <p onclick="showModal()" class="w-[50%] bg-green-500 text-white py-2 rounded-md sm:font-normal sm:text-sm text-[10px] border-black/40 cursor-pointer hover:bg-green-600 transition-colors">
+                                <span class="font-bold">افزودن محصول</span>
+                            </p>
+                        </div>
+                    </td>
+                    <td class="border border-gray-400 text-center p-1" colspan="2">
+                        <!-- این قسمت خالی است -->
+                    </td>
+                </tr>
             `;
-
+            
             tableBody.append(addButtonRow);
 
             // به‌روزرسانی قیمت نهایی و تعداد کل
