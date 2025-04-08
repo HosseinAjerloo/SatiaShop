@@ -188,5 +188,21 @@ Breadcrumbs::for('admin.invoice.service.edit', function (BreadcrumbTrail $trail,
     $trail->push('ویرایش فاکتور سرویس', route('admin.invoice.service.edit',$invoice));
 });
 
+// Supplier Category
+Breadcrumbs::for('admin.supplier.category.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.supplier.index');
+    $trail->push('دسته‌بندی تامین‌کنندگان', route('admin.supplier.category.index'));
+});
+
+Breadcrumbs::for('admin.supplier.category.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.supplier.category.index');
+    $trail->push('افزودن دسته‌بندی', route('admin.supplier.category.create'));
+});
+
+Breadcrumbs::for('admin.supplier.category.edit', function (BreadcrumbTrail $trail, $category) {
+    $trail->parent('admin.supplier.category.index');
+    $trail->push('ویرایش دسته بندی تامین کنندگان', route('admin.supplier.category.edit', $category));
+});
+
 
 

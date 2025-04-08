@@ -148,6 +148,14 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
         Route::post('store', [\App\Http\Controllers\Admin\Supplier\SupplierController::class, 'store'])->name('store');
         Route::get('edit/{supplier}', [\App\Http\Controllers\Admin\Supplier\SupplierController::class, 'edit'])->name('edit');
         Route::put('update/{supplier}', [\App\Http\Controllers\Admin\Supplier\SupplierController::class, 'update'])->name('update');
+        Route::prefix('category')->name('category.')->group(function () {
+            Route::get('', [\App\Http\Controllers\Admin\Supplier\SupplierCategory\SupplierCategoryController::class, 'index'])->name('index');
+            Route::get('create', [\App\Http\Controllers\Admin\Supplier\SupplierCategory\SupplierCategoryController::class, 'create'])->name('create');
+            Route::post('store', [\App\Http\Controllers\Admin\Supplier\SupplierCategory\SupplierCategoryController::class, 'store'])->name('store');
+            Route::get('edit/{category}', [\App\Http\Controllers\Admin\Supplier\SupplierCategory\SupplierCategoryController::class, 'edit'])->name('edit');
+            Route::put('update/{category}', [\App\Http\Controllers\Admin\Supplier\SupplierCategory\SupplierCategoryController::class, 'update'])->name('update');
+            Route::delete('destroy/{category}', [\App\Http\Controllers\Admin\Supplier\SupplierCategory\SupplierCategoryController::class, 'destroy'])->name('destroy');
+        });
     });
 
     //ADMIN INVOICE
