@@ -24,6 +24,9 @@ class Product extends Model
         'price',
         'user_id'
     ];
+
+    protected $appends = ['is_favorite'];
+
     const Products = [
         [
             'category_id' => 1,
@@ -193,7 +196,16 @@ class Product extends Model
 
     public function userFavorite()
     {
-        return $this->belongsToMany(User::class,'favorite_products','product_id','user_id');
+        return $this->belongsToMany(User::class, 'favorite_products', 'product_id', 'user_id')->withTimestamps();
+    }
+
+    public function getIsFavoriteAttribute()
+    {
+        $user = Auth::user();
+        if (!$user) {
+            return 0;
+        }
+        return $this->userFavorite()->where('user_id', $user->id)->exists() ? 1 : 0;
     }
 
 }

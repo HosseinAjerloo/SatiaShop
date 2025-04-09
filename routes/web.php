@@ -135,7 +135,7 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
         Route::get('edit/{product}', [App\Http\Controllers\Admin\Product\ProductController::class, 'edit'])->name('edit');
         Route::put('update/{product}', [App\Http\Controllers\Admin\Product\ProductController::class, 'update'])->name('update');
         Route::get('destroy/{product}', [App\Http\Controllers\Admin\Product\ProductController::class, 'destroy'])->name('destroy');
-
+        Route::post('toggle-favorite/{product}', [App\Http\Controllers\Admin\Product\ProductController::class, 'toggleFavorite'])->name('toggle-favorite');
     });
 
 

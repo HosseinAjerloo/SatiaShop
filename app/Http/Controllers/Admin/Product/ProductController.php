@@ -50,6 +50,10 @@ class ProductController extends Controller
         $inputs = $request->all();
         $user = Auth::user();
         $inputs['user_id'] = $user->id;
+        
+        $is_favorite = $inputs['is_favorite'] ? $inputs['is_favorite'] : 0;
+        unset($inputs['is_favorite']);
+        
         $product = Product::create($inputs);
         $imageService->setRootFolder('ProductStore' . DIRECTORY_SEPARATOR . "image");
         $image = $imageService->saveImage($request->file('file'));
@@ -62,6 +66,8 @@ class ProductController extends Controller
             'path' => $image,
             'user_id' => $user->id
         ]);
+        
+        $product->userFavorite()->toggle($user->id);
 
         if ($product) {
             return redirect()->route('admin.product.index')->with(['success' => 'محصول جدید شما اضافه  شد']);
@@ -95,9 +101,13 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product, ImageService $imageService)
     {
-
         $inputs = $request->all();
         $user = Auth::user();
+        
+        // حذف فیلد is_favorite از inputs برای جلوگیری از خطا در update
+        $is_favorite = $inputs['is_favorite'] ? $inputs['is_favorite'] : 0;
+        unset($inputs['is_favorite']);
+        
         if ($request->hasFile('file')) {
 
             $imageService->setRootFolder('ProductStore' . DIRECTORY_SEPARATOR . "image");
@@ -124,8 +134,11 @@ class ProductController extends Controller
 
         }
 
-        $product = $product->update($inputs);
-        if ($product) {
+        $result = $product->update($inputs);
+        
+        $product->userFavorite()->toggle($user->id);
+        
+        if ($result) {
             return redirect()->route('admin.product.index')->with(['success' => 'محصول ویرایش شد']);
         } else {
             return redirect()->route('admin.product.index')->withErrors(['error' => 'ویرایش محصول با خطا مواجه شد']);

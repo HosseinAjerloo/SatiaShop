@@ -128,7 +128,7 @@ class User extends Authenticatable
     }
     public function productFavorite()
     {
-        return $this->belongsToMany(Product::class,'favorite_products','user_id','product_id');
+        return $this->belongsToMany(Product::class, 'favorite_products', 'user_id', 'product_id')->withTimestamps();
     }
 
 }

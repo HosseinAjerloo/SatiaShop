@@ -83,6 +83,16 @@
             </div>
 
             <div class="flex items-center space-x-reverse space-x-8 ">
+                <h5 class="text-min font-light w-28">افزودن به علاقه مندی:</h5>
+                <div class="flex items-center space-x-3 space-x-reverse">
+                    <div>
+                        <input type="hidden" name="is_favorite" id="is_favorite" value="{{old('is_favorite',$product->is_favorite)}}">
+                        <img src="{{old('is_favorite',$product->is_favorite)==1 ? asset('capsule/images/Group 2948.svg') : asset('capsule/images/Group 2949.svg')}}" class="w-5 cursor-pointer favorite-star" id="favorite-star" data-active="{{asset('capsule/images/Group 2948.svg')}}" data-inactive="{{asset('capsule/images/Group 2949.svg')}}">
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="flex items-center space-x-reverse space-x-8 ">
                 <h5 class="text-min font-light w-28">عکس محصول:</h5>
                 <div
                     class="upload border border-black rounded-md w-14 bg-2081F2 py-1.5 flex items-center justify-center space-x-1 space-x-reverse">
@@ -122,6 +132,21 @@
             $(upload).click(function () {
                 $("#upload").trigger('click')
             })
+            
+            // اسکریپت برای تغییر وضعیت ستاره علاقه‌مندی
+            $(".favorite-star").click(function() {
+                var isFavorite = $("#is_favorite").val();
+                var activeImg = $(this).data('active');
+                var inactiveImg = $(this).data('inactive');
+                
+                if (isFavorite == 1) {
+                    $("#is_favorite").val(0);
+                    $(this).attr('src', inactiveImg);
+                } else {
+                    $("#is_favorite").val(1);
+                    $(this).attr('src', activeImg);
+                }
+            });
         })
 
         let fileName=document.getElementsByClassName('file-name');

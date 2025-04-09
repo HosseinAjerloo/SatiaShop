@@ -33,6 +33,7 @@ class ProductRequest extends FormRequest
                 'status'=>'required|in:active,inactive',
                 'type'=>'required|in:goods,service',
                 'description'=>'required|min:3',
+                'is_favorite'=>'required|in:0,1',
                 'file' => [
                     $routeCurrent->getName() == 'admin.product.update' ? 'nullable' : 'required',
                     'file',
