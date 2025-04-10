@@ -203,6 +203,10 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
     Route::prefix('bank')->name('admin.bank.')->group(function (){
        Route::get('',[App\Http\Controllers\Admin\Bank\BankController::class,'index'])->name('index');
     });
+
+    Route::prefix('charging-the-capsule')->name('admin.chargingTheCapsule.')->group(function (){
+        Route::get('',[App\Http\Controllers\Admin\ChargingTheCapsule\ChargingTheCapsuleController::class,'index'])->name('index');
+    });
 });
 
 
@@ -216,7 +220,6 @@ Route::get('test2',function (){
 
 Route::get('test',function (){
 
-    return view('Admin.residSharcheCapsule');
 })->name('test');
 
 Route::post('create-product',function (){

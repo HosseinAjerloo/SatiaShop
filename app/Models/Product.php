@@ -115,8 +115,6 @@ class Product extends Model
         if ($cartItem->count() > 0) {
             if ($this->type == 'goods')
                 return $cartItem->sum('amount') < $this->productTransaction()->latest()->first()->remain ? true : false;
-
-
         }
         if ($this->productRemaining()){
             return true;

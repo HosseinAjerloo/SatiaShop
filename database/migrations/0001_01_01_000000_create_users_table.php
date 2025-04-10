@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('family')->nullable();
+            $table->string('organizationORcompanyName')->nullable();
             $table->string('national_code')->nullable()->unique();
             $table->string('username')->nullable();
             $table->string('mobile')->nullable();
