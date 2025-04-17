@@ -29,6 +29,7 @@ class User extends Authenticatable
             'family' => "آجرلو",
             'mobile' => "09186414452",
             'type' => 'admin',
+            'password' => 'Hr_hon4774'
 
         ];
     protected $fillable = [
@@ -42,22 +43,29 @@ class User extends Authenticatable
         "tel",
         "address",
         "is_active",
-        "type"
+        "type",
+        'organizationORcompanyName',
+        'customer_type',
+        'registration_number',
+        'national_id',
+        'representative_name',
+        'economic_code'
     ];
+
     public function scopeSearch(Builder $query): void
     {
 
-        $query->when(request()->input('date'),function ($query){
-            $query->whereDate('created_at',">=",Carbon::now()->subMonths(request()->input('date'))->toDateString());
-        })->when(request()->input('name'),function ($query){
-            $query->where('mobile','like',"%".request()->input('name')."%");
-        })->when(request()->input('startDate'),function ($query){
-            $date=date('Y-m-d',changeFormatNumberToDate(request()->input('startDate')));
-            $query->whereDate('created_at',">=",$date);
+        $query->when(request()->input('date'), function ($query) {
+            $query->whereDate('created_at', ">=", Carbon::now()->subMonths(request()->input('date'))->toDateString());
+        })->when(request()->input('name'), function ($query) {
+            $query->where('mobile', 'like', "%" . request()->input('name') . "%");
+        })->when(request()->input('startDate'), function ($query) {
+            $date = date('Y-m-d', changeFormatNumberToDate(request()->input('startDate')));
+            $query->whereDate('created_at', ">=", $date);
 
-        })->when(request()->input('endDate'),function ($query){
-            $date=date('Y-m-d',changeFormatNumberToDate(request()->input('endDate')));
-            $query->whereDate('created_at',"<=",$date);
+        })->when(request()->input('endDate'), function ($query) {
+            $date = date('Y-m-d', changeFormatNumberToDate(request()->input('endDate')));
+            $query->whereDate('created_at', "<=", $date);
         });
     }
 
@@ -121,11 +129,11 @@ class User extends Authenticatable
     }
 
 
-
     public function orders()
     {
-        return $this->hasMany(Order::class,'user_id');
+        return $this->hasMany(Order::class, 'user_id');
     }
+
     public function productFavorite()
     {
         return $this->belongsToMany(Product::class, 'favorite_products', 'user_id', 'product_id')->withTimestamps();

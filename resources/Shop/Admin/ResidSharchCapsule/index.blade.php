@@ -17,9 +17,8 @@
 @endsection
 @section('content')
 
-    <form class=" space-y-6 " action="{{route('hossein.back')}}" method="POST">
+    <form class=" space-y-6 " action="{{route('admin.chargingTheCapsule.store')}}" method="POST">
         @csrf
-
         <article class="space-y-5 bg-F1F1F1 p-3 rounded-md">
             <article class="flex justify-between items-center flex-wrap">
                 <div
@@ -39,11 +38,12 @@
                         <div class="flex items-center space-x-4 mt-4 sm:mt-0 space-x-reverse py-1.5 sm:px-2 rounded-md">
                             <div>
                                 <label>حقیقی</label>
-                                <input type="radio" class="person_type" name="person_type" value="natural_person" checked>
+                                <input type="radio" class="person_type" name="customer_type" value="natural_person"
+                                       checked @if(old('customer_type')=='natural_person') checked @endif>
                             </div>
                             <div>
                                 <label>حقوقی</label>
-                                <input class="person_type" type="radio" name="person_type" value="legal_entity">
+                                <input class="person_type" type="radio" name="customer_type" value="juridical_person" @if(old('customer_type')=='juridical_person') checked @endif>
                             </div>
                         </div>
                     </div>
@@ -64,27 +64,27 @@
                 <section class="flex items-center justify-between">
                     <div class="w-[49%] flex  flex-col  space-y-2">
                         <label for="" class="flex items-center font-bold">نام :</label>
-                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5">
+                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5 px-2" name="name" value="{{old('name')}}">
                     </div>
                     <div class="w-[49%] flex  flex-col space-y-2">
                         <label for="" class="flex items-center font-bold">نام خانوادگی :</label>
-                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5">
+                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5 px-2" name="family" value="{{old('family')}}">
                     </div>
                 </section>
                 <section class="flex items-center justify-between">
                     <div class="w-[49%] flex  flex-col  space-y-2">
                         <label for="" class="flex items-center font-bold">کدملی :</label>
-                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5">
+                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5 px-2" name="national_code" value="{{old('national_code')}}">
                     </div>
                     <div class="w-[49%] flex  flex-col space-y-2">
                         <label for="" class="flex items-center font-bold">تلفن همراه :</label>
-                        <input type="text " class="border-0 w-full rounded-[5px] shadow py-1.5">
+                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5 px-2" name="mobile" value="{{old('mobile')}}">
                     </div>
                 </section>
                 <section class="flex items-center ">
                     <div class="w-full flex  flex-col space-y-2">
                         <label for="" class="flex items-center font-bold">آدرس :</label>
-                        <input type="text " class="border-0 w-full rounded-[5px] shadow py-4 px-2">
+                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-4 px-2 " name="address" value="{{old('address')}}">
                     </div>
                 </section>
             </section>
@@ -93,31 +93,31 @@
                 <section class="flex items-center justify-between">
                     <div class="w-[49%] flex  flex-col  space-y-2">
                         <label for="" class="flex items-center font-bold">نام سازمان/شرکت :</label>
-                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5">
+                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5 px-2" name="organizationORcompanyName" value="{{old('organizationORcompanyName')}}">
                     </div>
                     <div class="w-[49%] flex  flex-col space-y-2">
                         <label for="" class="flex items-center font-bold">شماره ثبت :</label>
-                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5">
+                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5 px-2" name="registration_number" value="{{old('registration_number')}}">
                     </div>
                 </section>
                 <section class="flex items-center justify-between">
                     <div class="w-[49%] flex  flex-col  space-y-2">
                         <label for="" class="flex items-center font-bold">شناسه ملی :</label>
-                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5">
+                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5 px-2" name="national_id" value="{{old('national_id')}}">
                     </div>
                     <div class="w-[49%] flex  flex-col space-y-2">
                         <label for="" class="flex items-center font-bold">نام نماینده شرکت:</label>
-                        <input type="text " class="border-0 w-full py-1.5">
+                        <input type="text" class="border-0 w-full py-1.5 px-2" name="representative_name" value="{{old('representative_name')}}">
                     </div>
                 </section>
                 <section class="flex items-center  justify-between">
                     <div class="w-[49%] flex  flex-col space-y-2">
                         <label for="" class="flex items-center font-bold">کد اقتصادی :</label>
-                        <input type="text " class="border-0 w-full rounded-[5px] shadow py-1.5">
+                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5 px-2" name="economic_code" value="{{old('economic_code')}}">
                     </div>
                     <div class="w-[49%] flex  flex-col space-y-2">
                         <label for="" class="flex items-center font-bold">شماره تماس :</label>
-                        <input type="text " class="border-0 w-full py-1.5">
+                        <input type="text" class="border-0 w-full py-1.5 px-2" name="tel" value="{{old('tel')}}">
                     </div>
                 </section>
             </section>
@@ -147,8 +147,71 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($myFavorites as $key=> $myFavorite)
-                    <tr class="@if(($key%2)==0) bg-white @else bg-gray-200 @endif">
+                @if($errors->any())
+                    @php
+                        $count=1;
+                    @endphp
+                    @isset(old()['product_description'])
+                        @foreach(old('product_description') as $key=> $value)
+
+                            @php
+                            $count++;
+                                if (str_contains('_',$key))
+                                    {
+                                        $id= explode('_',$key)[0];
+                                    }
+                                else{
+                                    $id=$key;
+                                }
+                                $product=\App\Models\Product::find($id);
+                            @endphp
+                            <tr class="@if(($count%2)==0) bg-white @else bg-gray-200 @endif">
+                                @if(str_contains('_',$key))
+                                <td class="border border-gray-300 text-center p-1">
+                                    <div class="flex space-x-reverse space-x-1">
+                                        <img src="{{asset('capsule/images/selected.svg')}}" alt="" class="w-5">
+                                        <p class="font-semibold text-[12px] sm:text-[15px] p-1 w-full border rounded-md border-2 border-black/40">
+                                            {{$product->removeUnderline??''}}
+                                        </p>
+                                    </div>
+                                </td>
+                                @else
+                                    <div class="flex space-x-reverse space-x-1">
+                                        <img src="{{asset('capsule/images/selected.svg')}}" alt="" class="w-5">
+                                        <p class="font-semibold text-[12px] sm:text-[15px] p-1 w-full border rounded-md border-2 border-black/40">
+                                            {{$product->removeUnderline??''}}
+                                        </p>
+                                    </div>
+                                @endif
+                                <td class="border border-gray-400 text-center p-1">
+                                    <div
+                                        class="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-reverse sm:space-x-6">
+                                        <div>
+                                            <label class="text-[12px] sm:text-[15px]">استفاده شده</label>
+                                            <input type="radio" name="product_status[{{$id}}]" value="used"  @if(isset(old('product_status')[$key]) and old('product_status')[$key]=='used') checked  @endif>
+                                        </div>
+                                        <div>
+                                            <label class="text-[12px] sm:text-[15px]">تمدید شارژ</label>
+                                            <input type="radio" name="product_status[{{$id}}]" value="recharge"  @if(isset(old('product_status')[$key]) and old('product_status')[$key]=='recharge') checked  @endif>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="border border-gray-400 text-[12px] sm:text-[15px] text-center p-1">
+                                    <input type="text" name="product_description[{{$id}}]"
+                                           class="w-full border rounded-md border-2 p-1 border-black/40 outline-none px-1.5"
+                                           placeholder="توضیحات" value="{{isset(old('product_description')[$key])? old('product_description')[$key]:''}}">
+                                </td>
+                                <td class="border p-2 text-center flex items-center justify-center">
+                                    <img src="{{asset('capsule/images/delete.svg')}}" alt=""
+                                         class="cursor-pointer mx-auto delete-row w-3 sm:w-auto" onclick="deleteRow(this)">
+                                </td>
+                            </tr>
+
+                        @endforeach
+                    @endisset
+                @else
+                    @foreach($myFavorites as $key=> $myFavorite)
+                        <tr class="@if(($key%2)==0) bg-white @else bg-gray-200 @endif">
                             <td class="border border-gray-300 text-center p-1">
                                 <div class="flex space-x-reverse space-x-1">
                                     <img src="{{asset('capsule/images/selected.svg')}}" alt="" class="w-5">
@@ -158,7 +221,8 @@
                                 </div>
                             </td>
                             <td class="border border-gray-400 text-center p-1">
-                                <div class="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-reverse sm:space-x-6">
+                                <div
+                                    class="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-reverse sm:space-x-6">
                                     <div>
                                         <label class="text-[12px] sm:text-[15px]">استفاده شده</label>
                                         <input type="radio" name="product_status[{{$myFavorite->id}}]" value="used">
@@ -170,19 +234,25 @@
                                 </div>
                             </td>
                             <td class="border border-gray-400 text-[12px] sm:text-[15px] text-center p-1">
-                                <input type="text" name="product_description[{{$myFavorite->id}}]" class="w-full border rounded-md border-2 p-1 border-black/40 outline-none px-1.5" placeholder="توضیحات">
+                                <input type="text" name="product_description[{{$myFavorite->id}}]"
+                                       class="w-full border rounded-md border-2 p-1 border-black/40 outline-none px-1.5"
+                                       placeholder="توضیحات">
                             </td>
                             <td class="border p-2 text-center flex items-center justify-center">
-                                <img src="{{asset('capsule/images/delete.svg')}}" alt="" class="cursor-pointer mx-auto delete-row w-3 sm:w-auto" onclick="deleteRow(this)">
+                                <img src="{{asset('capsule/images/delete.svg')}}" alt=""
+                                     class="cursor-pointer mx-auto delete-row w-3 sm:w-auto" onclick="deleteRow(this)">
                             </td>
-                    </tr>
-                @endforeach
+                        </tr>
+                    @endforeach
+
+                @endif
 
 
                 <tr>
                     <td class="border border-gray-300 text-center p-1" rowspan="2">
                         <div class="flex items-center justify-center">
-                            <p onclick="showModal()" class="w-[50%] bg-sky-500 text-white py-2 rounded-md text-[12px] sm:text-[15px] border-black/40 cursor-pointer hover:bg-sky-600 transition-colors">
+                            <p onclick="showModal()"
+                               class="w-[50%] bg-sky-500 text-white py-2 rounded-md text-[12px] sm:text-[15px] border-black/40 cursor-pointer hover:bg-sky-600 transition-colors">
                                 <span class="font-bold">افزودن</span>
                             </p>
                         </div>
@@ -242,8 +312,8 @@
                                 <select
                                     class="w-full rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-600 select2-category">
                                     <option>انتخاب کنید</option>
-                                    @foreach($products as $product)
-                                        <option data-id="{{$product->id}}">{{getGrandParentَAll($product)}}</option>
+                                    @foreach($filterProducts as $product)
+                                        <option data-id="{{$product->category_id}}">{{getGrandParentَAll($product)}}</option>
 
                                     @endforeach
                                 </select>
@@ -255,8 +325,9 @@
                                 <select
                                     class="w-full rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-600 select2-product">
                                     <option value="">انتخاب کنید</option>
-                                   @foreach($products as $product)
-                                    <option value="{{$product->id}}" data-categori-id="{{$product->category_id}}">{{$product->removeUnderLine}}</option>
+                                    @foreach($products as $product)
+                                        <option value="{{$product->id}}"
+                                                data-categori-id="{{$product->category_id}}">{{$product->removeUnderLine}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -302,24 +373,48 @@
             </div>
         </div>
     </div>
+<script>
+    window.addEventListener('load',function (){
+        function changeCustomerType (){
+            let customerType=document.querySelectorAll('input[name="customer_type"]');
+            for (const customerTypeValue of customerType)
+            {
+                if(customerTypeValue.hasAttribute('checked'))
+                {
+                    if(customerTypeValue.value=='natural_person')
+                    {
+                        document.querySelector('.natural-person-section').style.display='block';
+                        document.querySelector('.legal-entity-section').style.display='none';
 
+                    }
+                    else {
+                        document.querySelector('.natural-person-section').style.display='none';
+                        document.querySelector('.legal-entity-section').style.display='block';                    }
+                }
+            }
+        }
+        changeCustomerType();
+    })
+
+</script>
     <script>
         $(document).ready(function () {
             // اضافه کردن event listener برای رادیو باتن‌های نوع شخص
-            $('input[name="person_type"]').on('change', function() {
-                var selectedType = $(this).val();
-                if (selectedType === 'natural_person') {
-                    $('.natural-person-section').show();
-                    $('.legal-entity-section').hide();
-                    // پاک کردن تمام ورودی‌های section حقوقی
-                    $('.legal-entity-section input, .legal-entity-section textarea').val('');
-                } else if (selectedType === 'legal_entity') {
-                    $('.natural-person-section').hide();
-                    $('.legal-entity-section').show();
-                    // پاک کردن تمام ورودی‌های section حقیقی
-                    $('.natural-person-section input, .natural-person-section textarea').val('');
-                }
-            });
+                $('input[name="customer_type"]').on('change', function () {
+                    var selectedType = $(this).val();
+                    if (selectedType === 'natural_person') {
+                        $('.natural-person-section').show();
+                        $('.legal-entity-section').hide();
+                        // پاک کردن تمام ورودی‌های section حقوقی
+                        $('.legal-entity-section input, .legal-entity-section textarea').val('');
+                    } else if (selectedType === 'juridical_person') {
+                        $('.natural-person-section').hide();
+                        $('.legal-entity-section').show();
+                        // پاک کردن تمام ورودی‌های section حقیقی
+                        $('.natural-person-section input, .natural-person-section textarea').val('');
+                    }
+                });
+
 
             // اضافه کردن event listener برای دکمه‌های پلاس و منفی موجود
             $(document).on('click', '.plus-btn', function () {
@@ -486,6 +581,7 @@
                 modal.classList.add('hidden');
             }, 300);
         }
+        let count=0;
 
         function saveSelection() {
             var category = $('.select2-category').val();
@@ -524,16 +620,16 @@
                         <div class="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-reverse sm:space-x-6">
                             <div>
                                 <label class="text-[12px] sm:text-[15px]">استفاده شده</label>
-                                <input type="radio" name="product_status[${productId}]" value="used" ${capsuleStatus === 'used' ? 'checked' : ''}>
+                                <input type="radio" name="product_status[${productId}_${count}]" value="used" ${capsuleStatus === 'used' ? 'checked' : ''}>
                             </div>
                             <div>
                                 <label class="text-[12px] sm:text-[15px]">تمدید شارژ</label>
-                                <input type="radio" name="product_status[${productId}]" value="recharge" ${capsuleStatus === 'recharge' ? 'checked' : ''}>
+                                <input type="radio" name="product_status[${productId}_${count}]" value="recharge" ${capsuleStatus === 'recharge' ? 'checked' : ''}>
                             </div>
                         </div>
                     </td>
                     <td class="border border-gray-400 text-[12px] sm:text-[15px] text-center p-1">
-                        <input type="text" name="product_description[${productId}]" class="w-full border rounded-md border-2 p-1 border-black/40 outline-none px-1.5" placeholder="توضیحات" value="${description}">
+                        <input type="text" name="product_description[${productId}_${count}]" class="w-full border rounded-md border-2 p-1 border-black/40 outline-none px-1.5" placeholder="توضیحات" value="${description}">
                     </td>
                     <td class="border p-2 text-center flex items-center justify-center">
                         <img src="{{asset('capsule/images/delete.svg')}}" alt="" class="cursor-pointer mx-auto delete-row w-3 sm:w-auto" onclick="deleteRow(this)">
@@ -542,6 +638,7 @@
             `;
 
             tableBody.append(newRow);
+            count++
 
             // اضافه کردن مجدد ردیف دکمه حذف
             var addButtonRow = `
@@ -660,5 +757,6 @@
             removeProductFromTable(productText);
         });
     </script>
+
 
 @endsection

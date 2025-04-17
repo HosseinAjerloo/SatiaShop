@@ -228,7 +228,14 @@ return [
         'product_ids'=>'محصول',
         'oldPass'=>'رمز عبور قبلی',
         'description'=>'توضیحات',
-        'product-price'=>'مبلغ'
+        'product-price'=>'مبلغ',
+        'customer_type'=>'نوع مشتری',
+        'organizationORcompanyName'=>'نام سازمان/شرکت',
+        'registration_number'=>'شماره ثبت',
+        'national_id'=>'شناسه ملی',
+        'representative_name'=>'نام نماینده شرکت',
+        'economic_code'=>'کد اقتصادی',
+        'tel'=>'شماره تماس'
     ],
 
 ];

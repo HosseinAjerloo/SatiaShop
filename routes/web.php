@@ -169,7 +169,7 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
             Route::post('store', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'store'])->name('store');
             Route::get('edit/{invoice}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'editProduct'])->name('edit');
             Route::put('update/{invoice}', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'updateProduct'])->name('update');
-            Route::post('add-product-ajax',[App\Http\Controllers\Admin\Invoice\InvoiceController::class,'addProduct'])->name('addProduct.ajax');
+            Route::post('add-product-ajax', [App\Http\Controllers\Admin\Invoice\InvoiceController::class, 'addProduct'])->name('addProduct.ajax');
 
         });
         Route::prefix('service')->name('service.')->group(function () {
@@ -200,12 +200,13 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
         Route::get('index', [App\Http\Controllers\Admin\Order\OrderController::class, 'index'])->name('index');
     });
 
-    Route::prefix('bank')->name('admin.bank.')->group(function (){
-       Route::get('',[App\Http\Controllers\Admin\Bank\BankController::class,'index'])->name('index');
+    Route::prefix('bank')->name('admin.bank.')->group(function () {
+        Route::get('', [App\Http\Controllers\Admin\Bank\BankController::class, 'index'])->name('index');
     });
 
-    Route::prefix('charging-the-capsule')->name('admin.chargingTheCapsule.')->group(function (){
-        Route::get('',[App\Http\Controllers\Admin\ChargingTheCapsule\ChargingTheCapsuleController::class,'index'])->name('index');
+    Route::prefix('charging-the-capsule')->name('admin.chargingTheCapsule.')->group(function () {
+        Route::get('', [App\Http\Controllers\Admin\ChargingTheCapsule\ChargingTheCapsuleController::class, 'index'])->name('index');
+        Route::post('store', [App\Http\Controllers\Admin\ChargingTheCapsule\ChargingTheCapsuleController::class, 'store'])->name('store');
     });
 });
 
@@ -214,14 +215,13 @@ Route::fallback(function () {
     abort(404);
 });
 
-Route::get('test2',function (){
-   return redirect()->route('test',['parametr'=>1]);
+Route::get('test2', function () {
+    return redirect()->route('test', ['parametr' => 1]);
 });
 
-Route::get('test',function (){
-
+Route::get('test', function () {
 })->name('test');
 
-Route::post('create-product',function (){
+Route::post('create-product', function () {
     dd(request()->all());
 })->name('hossein.back');

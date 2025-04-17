@@ -13,18 +13,23 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->string('family')->nullable();
-            $table->string('organizationORcompanyName')->nullable();
-            $table->string('national_code')->nullable()->unique();
-            $table->string('username')->nullable();
-            $table->string('mobile')->nullable();
-            $table->string('tel')->nullable();
-            $table->string('address')->nullable();
-            $table->string('email')->nullable()->unique();
-            $table->string('password')->nullable();
-            $table->tinyInteger('is_active')->default(1);
-            $table->enum('type',['admin','customer'])->default('customer');
+            $table->string('name')->nullable()->comment('نام کاربر');
+            $table->string('family')->nullable()->comment('نام خانوادگی');
+            $table->string('organizationORcompanyName')->nullable()->comment('نام شرکت یا سازمان');
+            $table->string('national_code')->nullable()->unique()->comment('کدملی');
+            $table->string('username')->nullable()->comment('نام کاربری');;
+            $table->string('mobile')->nullable()->comment('شماره موبایل کاربر');
+            $table->string('tel')->nullable()->comment('شماره ثابت کاربر');
+            $table->string('address')->nullable()->comment('آدرس کاربر');
+            $table->string('email')->nullable()->unique()->comment('ایمیل کابر');
+            $table->string('password')->nullable()->comment('کلمه عبور کاربر');
+            $table->tinyInteger('is_active')->default(1)->comment('فعال یا عدم فعال بودن کاربر');
+            $table->enum('type',['admin','customer'])->default('customer')->comment('نوع کاربر آیا کاربر ادمین است یا کشتری ساده');
+            $table->enum('customer_type',['juridical_person','natural_person'])->nullable()->comment('کاربر شخص حقیقی است یا حقوقی');
+            $table->string('registration_number')->nullable()->comment('شماره ثبت');
+            $table->string('national_id')->nullable()->comment('شناسه ملی');
+            $table->string('representative_name')->nullable()->comment('نام نماینده');
+            $table->string('economic_code')->nullable()->comment('کد اقتصادی');
             $table->rememberToken();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
