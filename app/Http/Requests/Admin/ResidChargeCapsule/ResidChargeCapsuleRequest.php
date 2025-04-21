@@ -50,9 +50,9 @@ class ResidChargeCapsuleRequest extends FormRequest
                 'customer_type' => 'required|in:natural_person,juridical_person',
                 'name' => 'required|min:2',
                 'family' => 'required|min:2',
-                'mobile' => ['required','min:11','max:11',new MobileFormat],
+                'mobile' => ['required','min:11','max:11',new MobileFormat,'unique:users,mobile'],
                 'address' => 'required|min:5',
-                'national_code'=>['required',new NationalCode]
+                'national_code'=>['required',new NationalCode,'unique:users,national_code']
             ]);
         } else {
             $this->validator=array_merge(
@@ -60,10 +60,10 @@ class ResidChargeCapsuleRequest extends FormRequest
                 [
                     'customer_type' => 'required|in:natural_person,juridical_person',
                     'organizationORcompanyName'=>'required|min:2',
-                    'registration_number'=>'required|min:2',
-                    'national_id'=>'required|min:2',
+                    'registration_number'=>'required|min:2,unique:users,registration_number',
+                    'national_id'=>'required|min:2,unique:users,national_id',
                     'representative_name'=>'required|min:1',
-                    'economic_code'=>'required|min:2',
+                    'economic_code'=>'required|min:2,unique:users,economic_code',
                     'tel'=>'required|min:2'
                 ]);
         }
@@ -74,6 +74,7 @@ class ResidChargeCapsuleRequest extends FormRequest
         $this->validate['product_status']=['required','array',new ResidChargeCapsuleProductStatus];
         $this->validate['product_description']=['required','array',new ResidChargeCapsuleProductDescription];
     }
+    
 
     public function attributes()
     {

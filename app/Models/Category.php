@@ -79,4 +79,16 @@ class Category extends Model
     {
         return $this->hasMany(Product::class,'category_id');
     }
+    public function getAllParent()
+    {
+        $categoryParent=$this->parent;
+        $parentName=$categoryParent->removeUnderLine;
+        while ($categoryParent=$categoryParent->parent)
+        {
+            $parentName.="/".$categoryParent->removeUnderLine;
+        }
+
+        return $parentName;
+
+    }
 }

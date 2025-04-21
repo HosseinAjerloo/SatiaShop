@@ -217,15 +217,19 @@ class PaymentController extends Controller
 
             foreach ($myCart->cartItem as $cartItem) {
 
-                $productTransaction = $cartItem->product->productTransaction()->latest()->first();
-                \App\Models\ProductTransaction::create([
-                    'user_id' => $user->id,
-                    'product_id' => $cartItem->product_id,
-                    'invoice_id' => $invoice->id,
-                    'amount' => $cartItem->amount,
-                    'remain' => $productTransaction->remain - $cartItem->amount,
-                    'type'=>'minus'
-                ]);
+                $product = $cartItem->product;
+
+                if ($product->type != 'service') {
+                    $productTransaction =$product->productTransaction()->latest()->first();
+                    \App\Models\ProductTransaction::create([
+                        'user_id' => $user->id,
+                        'product_id' => $cartItem->product_id,
+                        'invoice_id' => $invoice->id,
+                        'amount' => $cartItem->amount,
+                        'remain' => $productTransaction->remain - $cartItem->amount,
+                        'type' => 'minus'
+                    ]);
+                }
             }
             Order::create([
                 'user_id'=>$user->id,

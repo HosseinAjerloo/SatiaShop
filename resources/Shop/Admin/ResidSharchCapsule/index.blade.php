@@ -28,9 +28,13 @@
 
                         <div class="relative w-full mt-3 sm:mt-0 sm:w-[50%]">
                             <select type="text"
-                                    class="placeholder:text-min placeholder:text-black/50 outline-none searchInput bg-transparent w-full select2 px-10"
+                                    class="select-user placeholder:text-min placeholder:text-black/50 outline-none searchInput bg-transparent w-full select2 px-10"
                                     name="name" id="input_search">
-                                <option>hossein</option>
+                                <option data-type="customSelect">انتخاب کنید</option>
+                                @foreach($allUser as $user)
+                                    <option value="{{$user->id}}" data-user_value="{{json_encode($user)}}"
+                                            data-type="{{$user->customer_type}}">{{$user->fullName??'-'}}</option>
+                                @endforeach
                             </select>
                             <img src=" {{asset('capsule/images/search.svg')}}" alt=""
                                  class="search cursor-pointer absolute top-[50%] right-[20px] translate-y-[-50%]">
@@ -39,11 +43,12 @@
                             <div>
                                 <label>حقیقی</label>
                                 <input type="radio" class="person_type" name="customer_type" value="natural_person"
-                                       checked @if(old('customer_type')=='natural_person') checked @endif>
+                                        @if(old('customer_type')=='natural_person') checked @endif>
                             </div>
                             <div>
                                 <label>حقوقی</label>
-                                <input class="person_type" type="radio" name="customer_type" value="juridical_person" @if(old('customer_type')=='juridical_person') checked @endif>
+                                <input class="person_type" type="radio" name="customer_type" value="juridical_person"
+                                       checked   @if(old('customer_type')=='juridical_person') checked @endif>
                             </div>
                         </div>
                     </div>
@@ -60,60 +65,70 @@
                 </div>
             </article>
 
-            <section class="space-y-5 w-full natural-person-section">
+            <section class="space-y-5 w-full natural-person-section natural_person">
                 <section class="flex items-center justify-between">
                     <div class="w-[49%] flex  flex-col  space-y-2">
                         <label for="" class="flex items-center font-bold">نام :</label>
-                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5 px-2" name="name" value="{{old('name')}}">
+                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5 px-2" name="name"
+                               value="{{old('name')}}">
                     </div>
                     <div class="w-[49%] flex  flex-col space-y-2">
                         <label for="" class="flex items-center font-bold">نام خانوادگی :</label>
-                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5 px-2" name="family" value="{{old('family')}}">
+                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5 px-2" name="family"
+                               value="{{old('family')}}">
                     </div>
                 </section>
                 <section class="flex items-center justify-between">
                     <div class="w-[49%] flex  flex-col  space-y-2">
                         <label for="" class="flex items-center font-bold">کدملی :</label>
-                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5 px-2" name="national_code" value="{{old('national_code')}}">
+                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5 px-2" name="national_code"
+                               value="{{old('national_code')}}">
                     </div>
                     <div class="w-[49%] flex  flex-col space-y-2">
                         <label for="" class="flex items-center font-bold">تلفن همراه :</label>
-                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5 px-2" name="mobile" value="{{old('mobile')}}">
+                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5 px-2" name="mobile"
+                               value="{{old('mobile')}}">
                     </div>
                 </section>
                 <section class="flex items-center ">
                     <div class="w-full flex  flex-col space-y-2">
                         <label for="" class="flex items-center font-bold">آدرس :</label>
-                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-4 px-2 " name="address" value="{{old('address')}}">
+                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-4 px-2 " name="address"
+                               value="{{old('address')}}">
                     </div>
                 </section>
             </section>
 
-            <section class="space-y-5 w-full legal-entity-section" style="display: none;">
+            <section class="space-y-5 w-full legal-entity-section juridical_person" style="display: none;">
                 <section class="flex items-center justify-between">
                     <div class="w-[49%] flex  flex-col  space-y-2">
                         <label for="" class="flex items-center font-bold">نام سازمان/شرکت :</label>
-                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5 px-2" name="organizationORcompanyName" value="{{old('organizationORcompanyName')}}">
+                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5 px-2"
+                               name="organizationORcompanyName" value="{{old('organizationORcompanyName')}}">
                     </div>
                     <div class="w-[49%] flex  flex-col space-y-2">
                         <label for="" class="flex items-center font-bold">شماره ثبت :</label>
-                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5 px-2" name="registration_number" value="{{old('registration_number')}}">
+                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5 px-2"
+                               name="registration_number" value="{{old('registration_number')}}">
                     </div>
                 </section>
                 <section class="flex items-center justify-between">
                     <div class="w-[49%] flex  flex-col  space-y-2">
                         <label for="" class="flex items-center font-bold">شناسه ملی :</label>
-                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5 px-2" name="national_id" value="{{old('national_id')}}">
+                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5 px-2" name="national_id"
+                               value="{{old('national_id')}}">
                     </div>
                     <div class="w-[49%] flex  flex-col space-y-2">
                         <label for="" class="flex items-center font-bold">نام نماینده شرکت:</label>
-                        <input type="text" class="border-0 w-full py-1.5 px-2" name="representative_name" value="{{old('representative_name')}}">
+                        <input type="text" class="border-0 w-full py-1.5 px-2" name="representative_name"
+                               value="{{old('representative_name')}}">
                     </div>
                 </section>
                 <section class="flex items-center  justify-between">
                     <div class="w-[49%] flex  flex-col space-y-2">
                         <label for="" class="flex items-center font-bold">کد اقتصادی :</label>
-                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5 px-2" name="economic_code" value="{{old('economic_code')}}">
+                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5 px-2" name="economic_code"
+                               value="{{old('economic_code')}}">
                     </div>
                     <div class="w-[49%] flex  flex-col space-y-2">
                         <label for="" class="flex items-center font-bold">شماره تماس :</label>
@@ -155,55 +170,54 @@
                         @foreach(old('product_description') as $key=> $value)
 
                             @php
-                            $count++;
-                                if (str_contains('_',$key))
-                                    {
-                                        $id= explode('_',$key)[0];
+                                $count++;
+                                    if (str_contains($key,'_'))
+                                        {
+                                            $id= explode('_',$key)[0];
+                                        }
+                                    else{
+                                        $id=$key;
                                     }
-                                else{
-                                    $id=$key;
-                                }
-                                $product=\App\Models\Product::find($id);
+                                    $product=\App\Models\Product::find($id);
                             @endphp
                             <tr class="@if(($count%2)==0) bg-white @else bg-gray-200 @endif">
-                                @if(str_contains('_',$key))
+
                                 <td class="border border-gray-300 text-center p-1">
                                     <div class="flex space-x-reverse space-x-1">
-                                        <img src="{{asset('capsule/images/selected.svg')}}" alt="" class="w-5">
+                                        @if(!str_contains($key,'_'))
+                                            <img src="{{asset('capsule/images/selected.svg')}}" alt="" class="w-5">
+                                        @endif
                                         <p class="font-semibold text-[12px] sm:text-[15px] p-1 w-full border rounded-md border-2 border-black/40">
                                             {{$product->removeUnderline??''}}
                                         </p>
                                     </div>
                                 </td>
-                                @else
-                                    <div class="flex space-x-reverse space-x-1">
-                                        <img src="{{asset('capsule/images/selected.svg')}}" alt="" class="w-5">
-                                        <p class="font-semibold text-[12px] sm:text-[15px] p-1 w-full border rounded-md border-2 border-black/40">
-                                            {{$product->removeUnderline??''}}
-                                        </p>
-                                    </div>
-                                @endif
+
                                 <td class="border border-gray-400 text-center p-1">
                                     <div
                                         class="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-reverse sm:space-x-6">
                                         <div>
                                             <label class="text-[12px] sm:text-[15px]">استفاده شده</label>
-                                            <input type="radio" name="product_status[{{$id}}]" value="used"  @if(isset(old('product_status')[$key]) and old('product_status')[$key]=='used') checked  @endif>
+                                            <input type="radio" name="product_status[{{$key}}]" value="used"
+                                                   @if(isset(old('product_status')[$key]) and old('product_status')[$key]=='used') checked @endif>
                                         </div>
                                         <div>
                                             <label class="text-[12px] sm:text-[15px]">تمدید شارژ</label>
-                                            <input type="radio" name="product_status[{{$id}}]" value="recharge"  @if(isset(old('product_status')[$key]) and old('product_status')[$key]=='recharge') checked  @endif>
+                                            <input type="radio" name="product_status[{{$key}}]" value="recharge"
+                                                   @if(isset(old('product_status')[$key]) and old('product_status')[$key]=='recharge') checked @endif>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="border border-gray-400 text-[12px] sm:text-[15px] text-center p-1">
-                                    <input type="text" name="product_description[{{$id}}]"
+                                    <input type="text" name="product_description[{{$key}}]"
                                            class="w-full border rounded-md border-2 p-1 border-black/40 outline-none px-1.5"
-                                           placeholder="توضیحات" value="{{isset(old('product_description')[$key])? old('product_description')[$key]:''}}">
+                                           placeholder="توضیحات"
+                                           value="{{isset(old('product_description')[$key])? old('product_description')[$key]:''}}">
                                 </td>
                                 <td class="border p-2 text-center flex items-center justify-center">
                                     <img src="{{asset('capsule/images/delete.svg')}}" alt=""
-                                         class="cursor-pointer mx-auto delete-row w-3 sm:w-auto" onclick="deleteRow(this)">
+                                         class="cursor-pointer mx-auto delete-row w-3 sm:w-auto"
+                                         onclick="deleteRow(this)">
                                 </td>
                             </tr>
 
@@ -313,7 +327,8 @@
                                     class="w-full rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-600 select2-category">
                                     <option>انتخاب کنید</option>
                                     @foreach($filterProducts as $product)
-                                        <option data-id="{{$product->category_id}}">{{getGrandParentَAll($product)}}</option>
+                                        <option
+                                            data-id="{{$product->category_id}}">{{getGrandParentَAll($product)}}</option>
 
                                     @endforeach
                                 </select>
@@ -373,47 +388,45 @@
             </div>
         </div>
     </div>
-<script>
-    window.addEventListener('load',function (){
-        function changeCustomerType (){
-            let customerType=document.querySelectorAll('input[name="customer_type"]');
-            for (const customerTypeValue of customerType)
-            {
-                if(customerTypeValue.hasAttribute('checked'))
-                {
-                    if(customerTypeValue.value=='natural_person')
-                    {
-                        document.querySelector('.natural-person-section').style.display='block';
-                        document.querySelector('.legal-entity-section').style.display='none';
+    <script>
+        window.addEventListener('load', function () {
+            function changeCustomerType() {
+                let customerType = document.querySelectorAll('input[name="customer_type"]');
+                for (const customerTypeValue of customerType) {
+                    if (customerTypeValue.hasAttribute('checked')) {
+                        if (customerTypeValue.value == 'natural_person') {
+                            document.querySelector('.natural-person-section').style.display = 'block';
+                            document.querySelector('.legal-entity-section').style.display = 'none';
 
+                        } else {
+                            document.querySelector('.natural-person-section').style.display = 'none';
+                            document.querySelector('.legal-entity-section').style.display = 'block';
+                        }
                     }
-                    else {
-                        document.querySelector('.natural-person-section').style.display='none';
-                        document.querySelector('.legal-entity-section').style.display='block';                    }
                 }
             }
-        }
-        changeCustomerType();
-    })
 
-</script>
+            changeCustomerType();
+        })
+
+    </script>
     <script>
         $(document).ready(function () {
             // اضافه کردن event listener برای رادیو باتن‌های نوع شخص
-                $('input[name="customer_type"]').on('change', function () {
-                    var selectedType = $(this).val();
-                    if (selectedType === 'natural_person') {
-                        $('.natural-person-section').show();
-                        $('.legal-entity-section').hide();
-                        // پاک کردن تمام ورودی‌های section حقوقی
-                        $('.legal-entity-section input, .legal-entity-section textarea').val('');
-                    } else if (selectedType === 'juridical_person') {
-                        $('.natural-person-section').hide();
-                        $('.legal-entity-section').show();
-                        // پاک کردن تمام ورودی‌های section حقیقی
-                        $('.natural-person-section input, .natural-person-section textarea').val('');
-                    }
-                });
+            $('input[name="customer_type"]').on('change', function () {
+                var selectedType = $(this).val();
+                if (selectedType === 'natural_person') {
+                    $('.natural-person-section').show();
+                    $('.legal-entity-section').hide();
+                    // پاک کردن تمام ورودی‌های section حقوقی
+                    $('.legal-entity-section input, .legal-entity-section textarea').val('');
+                } else if (selectedType === 'juridical_person') {
+                    $('.natural-person-section').hide();
+                    $('.legal-entity-section').show();
+                    // پاک کردن تمام ورودی‌های section حقیقی
+                    $('.natural-person-section input, .natural-person-section textarea').val('');
+                }
+            });
 
 
             // اضافه کردن event listener برای دکمه‌های پلاس و منفی موجود
@@ -581,7 +594,8 @@
                 modal.classList.add('hidden');
             }, 300);
         }
-        let count=0;
+
+        let count = 0;
 
         function saveSelection() {
             var category = $('.select2-category').val();
@@ -757,6 +771,45 @@
             removeProductFromTable(productText);
         });
     </script>
+    <script>
 
+        $(document).ready(function () {
+            let userSelectBox = $('.select-user');
+            if (userSelectBox.length > 0) {
+                userSelectBox.change(function (e) {
+                    let selectOption = $(".select-user option:selected")
+                    let userType = selectOption.data('type');
+                    let userInformation = selectOption.data('user_value');
+                    pushValue(userType, userInformation);
+
+
+                });
+            } else {
+                console.log('هیچ المانی با کلاس select-user پیدا نشد!');
+            }
+        });
+
+        function pushValue(userType, userInformation) {
+            for (const input of $(`input[name="customer_type"]`)) {
+                if (input.value == userType) {
+                    input.click();
+                    let userInfomationElement = document.querySelector('.' + userType);
+                    for (const element of userInfomationElement.children) {
+                        for (const div of element.querySelectorAll('div')) {
+                            for (const user in userInformation) {
+                                if (div.querySelector(`input[name="${user}"]`) != null) {
+                                    div.querySelector(`input[name=${user}]`).value = userInformation[user] ? value = userInformation[user] : '';
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    if (userType == 'customSelect') {
+                            input.click();
+                }
+            }
+        }
+        }
+    </script>
 
 @endsection

@@ -53,7 +53,7 @@ Route::middleware(['auth'])->name('panel.')->group(function () {
     Route::prefix('payment')->name('payment.')->group(function () {
         Route::get('advance', [App\Http\Controllers\Panel\PaymentController::class, 'advance'])->name('advance');
         Route::post('', [App\Http\Controllers\Panel\PaymentController::class, 'payment'])->name('payment');
-        Route::post('paymentBack', [App\Http\Controllers\Panel\PaymentController::class, 'paymentBack'])->withoutMiddleware(Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class)->name('back');
+        Route::get('paymentBack', [App\Http\Controllers\Panel\PaymentController::class, 'paymentBack'])->withoutMiddleware(Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class)->name('back');
     });
 
     Route::prefix('order')->name('order.')->group(function () {
@@ -207,6 +207,7 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
     Route::prefix('charging-the-capsule')->name('admin.chargingTheCapsule.')->group(function () {
         Route::get('', [App\Http\Controllers\Admin\ChargingTheCapsule\ChargingTheCapsuleController::class, 'index'])->name('index');
         Route::post('store', [App\Http\Controllers\Admin\ChargingTheCapsule\ChargingTheCapsuleController::class, 'store'])->name('store');
+        Route::get('print-reside', [App\Http\Controllers\Admin\ChargingTheCapsule\ChargingTheCapsuleController::class, 'printReside'])->name('printReside');
     });
 });
 
@@ -220,6 +221,7 @@ Route::get('test2', function () {
 });
 
 Route::get('test', function () {
+    return view('Admin.printResidSharcheCapsule');
 })->name('test');
 
 Route::post('create-product', function () {
