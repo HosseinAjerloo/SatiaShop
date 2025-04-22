@@ -22,4 +22,12 @@ class Reside extends Model
     {
         return $this->hasMany(ResideItem::class,'reside_id');
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id');
+    }
+    public function operator()
+    {
+        return $this->belongsTo(User::class,'operator_id');
+    }
 }

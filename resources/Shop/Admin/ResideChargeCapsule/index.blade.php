@@ -16,8 +16,7 @@
     </style>
 @endsection
 @section('content')
-
-    <form class=" space-y-6 " action="{{route('admin.chargingTheCapsule.store')}}" method="POST">
+    <form class=" space-y-6 " action="{{route('admin.chargingTheCapsule.store')}}" method="POST" id="form">
         @csrf
         <article class="space-y-5 bg-F1F1F1 p-3 rounded-md">
             <article class="flex justify-between items-center flex-wrap">
@@ -43,12 +42,12 @@
                             <div>
                                 <label>حقیقی</label>
                                 <input type="radio" class="person_type" name="customer_type" value="natural_person"
-                                        @if(old('customer_type')=='natural_person') checked @endif>
+                                       @if(old('customer_type')=='natural_person') checked="checked" @endif>
                             </div>
                             <div>
                                 <label>حقوقی</label>
                                 <input class="person_type" type="radio" name="customer_type" value="juridical_person"
-                                       checked   @if(old('customer_type')=='juridical_person') checked @endif>
+                                        @if(old('customer_type')=='juridical_person') checked="checked" @endif>
                             </div>
                         </div>
                     </div>
@@ -279,7 +278,7 @@
                     <button>ثبت رسید</button>
                 </div>
                 <div class="bg-FFB01B px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
-                    <button>جاپ رسید</button>
+                    <button onclick="printChargeCapsule(event)" type="button">جاپ رسید</button>
                 </div>
             </section>
 
@@ -805,11 +804,29 @@
                     }
                 } else {
                     if (userType == 'customSelect') {
-                            input.click();
+                        // input.click();
+                    }
                 }
             }
         }
+    </script>
+    <script>
+        function printChargeCapsule(e)
+        {
+            e.preventDefault();
+            let form=document.getElementById('form');
+            let myInput=document.createElement('input');
+            let hasInput=document.querySelector('input[name="print"]');
+            if (!hasInput)
+            {
+                myInput.setAttribute('type','hidden');
+                myInput.setAttribute('name','print');
+                myInput.setAttribute('value','print');
+                form.append(myInput);
+            }
+            form.submit();
         }
     </script>
+
 
 @endsection

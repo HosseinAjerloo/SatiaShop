@@ -235,7 +235,8 @@ return [
         'national_id'=>'شناسه ملی',
         'representative_name'=>'نام نماینده شرکت',
         'economic_code'=>'کد اقتصادی',
-        'tel'=>'شماره تماس'
+        'tel'=>'شماره تماس',
+        'print'=>'چاپ'
     ],
 
 ];

@@ -207,7 +207,7 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
     Route::prefix('charging-the-capsule')->name('admin.chargingTheCapsule.')->group(function () {
         Route::get('', [App\Http\Controllers\Admin\ChargingTheCapsule\ChargingTheCapsuleController::class, 'index'])->name('index');
         Route::post('store', [App\Http\Controllers\Admin\ChargingTheCapsule\ChargingTheCapsuleController::class, 'store'])->name('store');
-        Route::get('print-reside', [App\Http\Controllers\Admin\ChargingTheCapsule\ChargingTheCapsuleController::class, 'printReside'])->name('printReside');
+        Route::get('print-reside/{reside:id}', [App\Http\Controllers\Admin\ChargingTheCapsule\ChargingTheCapsuleController::class, 'printReside'])->name('printReside');
     });
 });
 

@@ -15,5 +15,13 @@ class ResideItem extends Model
         'status',
         'description'
     ];
+    public function product()
+    {
+        return $this->belongsTo(Product::class,'product_id');
+    }
+    public function getStatusItem()
+    {
+        return $this->status=='used'?'استفاده شده':'تمدید شارژ';
+    }
 
 }
