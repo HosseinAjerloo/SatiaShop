@@ -27,6 +27,7 @@ class ResidChargeCapsuleProductStatus implements ValidationRule
         }
         foreach ($value as $key => $item){
             $key=explode('_',$key)[0];
+
             $product=$this->hasProduct($key);
             if ($product){
                     if (!($item=='recharge' or $item=='used'))

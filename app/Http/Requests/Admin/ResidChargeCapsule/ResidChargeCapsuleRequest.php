@@ -44,11 +44,7 @@ class ResidChargeCapsuleRequest extends FormRequest
     private function validationField()
     {
         $this->generateDefaultValidation();
-        $id='';
-        if ($user=$this->whoIsUser())
-        {
-            $id=$user->id;
-        }
+
 
         if (request()->input('customer_type') == 'natural_person') {
 

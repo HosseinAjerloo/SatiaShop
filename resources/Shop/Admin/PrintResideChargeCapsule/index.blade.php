@@ -12,6 +12,9 @@
                 font-size: 12px;
                 font-weight: bold;
             }
+            #toast-container{
+                display: none;
+            }
 
         }
     </style>
@@ -50,7 +53,7 @@
                 </thead>
                 <tbody>
                 @foreach($reside->resideItem as $key=>$resideItem)
-                    <tr>
+                    <tr class="@if($key%2==0) bg-gray-200 @endif">
                         <td class="border border-gray-400 text-center  p-1">
                             <p class=" sm:font-normal sm:text-sm text-[10px] p-1 w-full">
                                 {{$key+1}}
@@ -107,7 +110,7 @@
         </article>
         <section class="flex items-center  space-x-reverse space-x-3 redirect-back">
             <div class="bg-FF3100 px-4 text-sm font-medium shadow py-1 text-white  rounded-md">
-                <a>بازگشت</a>
+                <a href="{{route('admin.chargingTheCapsule.edit',$reside)}}">بازگشت</a>
             </div>
 
         </section>

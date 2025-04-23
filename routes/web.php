@@ -207,7 +207,12 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
     Route::prefix('charging-the-capsule')->name('admin.chargingTheCapsule.')->group(function () {
         Route::get('', [App\Http\Controllers\Admin\ChargingTheCapsule\ChargingTheCapsuleController::class, 'index'])->name('index');
         Route::post('store', [App\Http\Controllers\Admin\ChargingTheCapsule\ChargingTheCapsuleController::class, 'store'])->name('store');
+        Route::get('edit/{reside}', [App\Http\Controllers\Admin\ChargingTheCapsule\ChargingTheCapsuleController::class, 'edit'])->name('edit');
+        Route::put('update/{reside}', [App\Http\Controllers\Admin\ChargingTheCapsule\ChargingTheCapsuleController::class, 'update'])->name('update');
         Route::get('print-reside/{reside:id}', [App\Http\Controllers\Admin\ChargingTheCapsule\ChargingTheCapsuleController::class, 'printReside'])->name('printReside');
+    });
+    Route::prefix('reside-capsule')->name('admin.resideCapsule.')->group(function () {
+        Route::get('', [App\Http\Controllers\Admin\ResideCapsule\ResideCapsuleController::class, 'index'])->name('index');
     });
 });
 
@@ -221,7 +226,6 @@ Route::get('test2', function () {
 });
 
 Route::get('test', function () {
-    return view('Admin.printResidSharcheCapsule');
 })->name('test');
 
 Route::post('create-product', function () {
