@@ -155,7 +155,7 @@
         for (const input of allInputs)
         {
                 input.addEventListener('change',function (){
-                    alert('hossein ajerloo')
+                    alert('hossein ajerloos')
                 })
         }
 
