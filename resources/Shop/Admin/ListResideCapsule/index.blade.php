@@ -195,9 +195,16 @@
                 if (xmlHttpRequest.readyState === 4 && xmlHttpRequest.status === 200) {
                     let responseXml = JSON.parse(xmlHttpRequest.response)
                     if (xmlHttpRequest.response !== '' && xmlHttpRequest.response !== undefined) {
-                        console.log(responseXml)
-                    }
-                    else {
+                        let trInTbody = window.tbody.querySelectorAll('tr');
+                        trInTbody.forEach(function (row, index) {
+                            if (index !== 0) {
+                                row.remove();
+                            }
+                        });
+                        xmlHttpRequest.response.forEach(function (value,index){
+                            console.log(value)
+                        })
+                    } else {
 
                     }
 
