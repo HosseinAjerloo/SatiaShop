@@ -213,6 +213,7 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
     });
     Route::prefix('reside-capsule')->name('admin.resideCapsule.')->group(function () {
         Route::get('', [App\Http\Controllers\Admin\ResideCapsule\ResideCapsuleController::class, 'index'])->name('index');
+        Route::post('/search', [App\Http\Controllers\Admin\ResideCapsule\ResideCapsuleController::class, 'search'])->name('search');
     });
 });
 

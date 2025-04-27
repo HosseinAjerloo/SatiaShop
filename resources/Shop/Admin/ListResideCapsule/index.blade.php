@@ -40,7 +40,7 @@
                     </tr>
 
                     </thead>
-                    <tbody>
+                    <tbody id="tbody">
 
                     <tr class="bg-white ">
                         <td class="border border-gray-400  text-center  p-1">
@@ -54,25 +54,28 @@
                                 <img src="{{asset('capsule/images/date.svg')}}" alt="" class="w-5 h-5 sm:w-7 sm:h-7">
                                 <input type="text"
                                        class="w-full border border-black/60 outline-none rounded-md startDate text-min text-center py-1 sm:w-4/5 mr-[2px] sm:mr-[15px]">
-                                <input type="hidden" id="startDate">
+                                <input type="hidden" id="startDate" data-name="created_at">
                             </div>
                         </td>
                         <td class="border border-gray-400   text-center p-1">
                             <div class="w-full flex items-center ">
                                 <input type="text"
-                                       class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1">
+                                       class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1"
+                                       data-name="customer_name">
                             </div>
                         </td>
                         <td class="border border-gray-400   text-center p-1">
                             <div class="w-full flex items-center ">
-                                <input type="text"
-                                       class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1">
+                                <input type="number"
+                                       class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1"
+                                       data-name="count_capsule">
                             </div>
                         </td>
                         <td class="border border-gray-400   text-center ">
                             <div class="w-full flex items-center ">
-                                <input type="text"
-                                       class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1">
+                                <input type="number"
+                                       class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1"
+                                       data-name="reside_id">
                             </div>
                         </td>
                         <td class="border border-gray-400   text-center p-1">
@@ -85,7 +88,8 @@
                         <td class="border border-gray-400   text-center p-1">
                             <div class="w-full flex items-center ">
                                 <input type="text"
-                                       class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1">
+                                       class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1"
+                                       data-name="operator_name">
                             </div>
                         </td>
 
@@ -114,7 +118,7 @@
                                 </p>
                             </td>
                             <td class="border border-gray-400   text-center p-1">
-                                <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full underline underline-sky-500 underline-offset-4 decoration-sky-700 text-sky-600">
+                                <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full underline underline-sky-500 underline-offset-4 decoration-sky-500 text-sky-600">
                                     {{$reside->id}}
                                 </p>
                             </td>
@@ -150,13 +154,66 @@
         let firstTrTbodyTable = document.querySelector('table tbody tr:first-child');
         let allInputs = firstTrTbodyTable.querySelectorAll('input');
         let getDate = firstTrTbodyTable.querySelector('input[type="hidden"]');
+        let data = {}
+
+        let mutations = new MutationObserver(function (mutations) {
+            mutations.forEach(function (mutation) {
+                data[mutation.target.dataset.name] = mutation.target.value;
+                requestToServer();
+            });
+        });
+        mutations.observe(getDate, {
+            attributes: true
+        });
+        let valid = {
+            'count_capsule': true,
+            'reside_id': true
+        }
+        for (const input of allInputs) {
+            input.addEventListener('input', function (event) {
+                if (event.target.value === '') {
+                    if (event.target.dataset.name in data) {
+                        delete data[event.target.dataset.name]
+                    }
+                } else {
+                    data[event.target.dataset.name] = event.target.value;
+                }
+                if (event.target !== undefined && (event.target.value.length >= 3 || (event.target.dataset.name in valid && valid[event.target.dataset.name]))) {
+                    requestToServer();
+                }
+            })
+        }
 
 
-        for (const input of allInputs)
-        {
-                input.addEventListener('change',function (){
-                    alert('hossein ajerloos')
-                })
+        function requestToServer() {
+            let xmlHttpRequest = new XMLHttpRequest();
+            xmlHttpRequest.open("POST", "{{route('admin.resideCapsule.search')}}");
+            xmlHttpRequest.setRequestHeader('X-CSRF-Token', "{{csrf_token()}}")
+            xmlHttpRequest.setRequestHeader("Content-Type", "application/json");
+            xmlHttpRequest.send(JSON.stringify(data));
+            xmlHttpRequest.onreadystatechange = function () {
+                if (xmlHttpRequest.readyState === 4 && xmlHttpRequest.status === 200) {
+                    let responseXml = JSON.parse(xmlHttpRequest.response)
+                    if (xmlHttpRequest.response !== '' && xmlHttpRequest.response !== undefined) {
+                        console.log(responseXml)
+                    }
+                    else {
+
+                    }
+
+                }
+
+                if (xmlHttpRequest.status !== 200 && xmlHttpRequest.readyState === 4) {
+                    let responseXml = JSON.parse(xmlHttpRequest.response)
+                    if ('errors' in responseXml) {
+                        for (const error in responseXml.errors) {
+                            toast(responseXml.errors[error].toString(), false)
+                        }
+
+                    }
+
+                }
+            }
         }
 
 

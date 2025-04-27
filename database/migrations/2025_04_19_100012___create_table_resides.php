@@ -20,7 +20,8 @@ return new class extends Migration {
             $table->decimal('discount_collection', 20, 3)->default(0);
             $table->decimal('final_price', 20, 3)->default(0);
             $table->enum('status', ['paid', 'not_paid'])->nullable();
-            $table->enum('type', ['sell', 'recharge'])->nullable();
+            $table->enum('reside_type', ['sell', 'recharge'])->nullable();
+            $table->enum('type', ['reside', 'invoice'])->default('reside');
             $table->timestamps();
             $table->softDeletes();
         });

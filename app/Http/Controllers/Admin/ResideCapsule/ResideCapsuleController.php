@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\ResideCapsule;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ResidChargeCapsule\ResidChargeCapsuleSearchRequest;
 use App\Models\Reside;
 use Illuminate\Http\Request;
 
@@ -63,5 +64,9 @@ class ResideCapsuleController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function search(ResidChargeCapsuleSearchRequest $request){
+        $resides=Reside::search()->get();
+        return response()->json(['success'=>true,'data'=>$resides]);
     }
 }
