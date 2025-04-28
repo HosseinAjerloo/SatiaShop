@@ -215,6 +215,9 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
         Route::get('', [App\Http\Controllers\Admin\ResideCapsule\ResideCapsuleController::class, 'index'])->name('index');
         Route::post('/search', [App\Http\Controllers\Admin\ResideCapsule\ResideCapsuleController::class, 'search'])->name('search');
     });
+    Route::prefix('invoice-issuance')->name('admin.invoice.issuance.')->group(function (){
+       Route::get('{reside}',[App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class,'index'])->name('index');
+    });
 });
 
 

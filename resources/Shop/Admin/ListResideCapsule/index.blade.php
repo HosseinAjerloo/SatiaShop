@@ -123,7 +123,9 @@
                             </td>
                             <td class="border border-gray-400   text-center ">
                                 <div class="w-full flex items-center justify-center p-1">
-                                    <img src="{{asset("capsule/images/hand-Invoice.svg")}}" alt="" class="w-10 h-10">
+                                    <a href="{{route('admin.invoice.issuance.index',$reside->id)}}">
+                                        <img src="{{asset("capsule/images/hand-Invoice.svg")}}" alt="" class="w-10 h-10">
+                                    </a>
                                 </div>
                             </td>
                             <td class="border border-gray-400   text-center ">
@@ -258,8 +260,9 @@
                         </td>
                         <td class="border border-gray-400   text-center ">
                             <div class="w-full flex items-center justify-center p-1">
-                                 <img src="{{asset("capsule/images/hand-Invoice.svg")}}" alt="" class="w-10 h-10">
-
+                                    <a href="${value.route}">
+                                        <img src="{{asset("capsule/images/hand-Invoice.svg")}}" alt="" class="w-10 h-10">
+                                    </a>
                                 </div>
                             </td>
                             <td class="border border-gray-400   text-center ">

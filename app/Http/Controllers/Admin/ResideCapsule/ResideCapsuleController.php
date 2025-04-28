@@ -73,6 +73,7 @@ class ResideCapsuleController extends Controller
                         $reside->custumerName= $reside->user->fullName ?? '';
                         $reside->capsuleCount= $reside->resideItem()->where('status','recharge')->count();
                         $reside->operatorName= $reside->operator->fullName ?? '';
+                        $reside->route= route('admin.invoice.issuance.index',$reside);
         }
         return response()->json(['success'=>true,'data'=>$resides]);
     }
