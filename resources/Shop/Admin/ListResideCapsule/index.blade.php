@@ -103,18 +103,17 @@
                             </td>
                             <td class="border border-gray-400  text-center  p-1">
                                 <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full ">
-                                    {{\Morilog\Jalali\Jalalian::forge($reside->created_at)->format('H:i:s Y/m/d')}}
+                                    {{\Morilog\Jalali\Jalalian::forge($reside->created_at)->format('Y/m/d')}}
                                 </p>
                             </td>
                             <td class="border border-gray-400   text-center p-1">
                                 <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full  ">
                                     {{$reside->user->fullName??''}}
-
                                 </p>
                             </td>
                             <td class="border border-gray-400   text-center p-1">
                                 <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full  ">
-                                    {{$reside->resideItem()->count()}}
+                                    {{$reside->resideItem()->where('status','recharge')->count()}}
                                 </p>
                             </td>
                             <td class="border border-gray-400   text-center p-1">
@@ -184,8 +183,17 @@
             })
         }
 
+        function removeRow() {
+            window.tbody.querySelectorAll('tr').forEach(function (row, index) {
+
+                if (index !== 0) {
+                    row.remove();
+                }
+            });
+        }
 
         function requestToServer() {
+
             let xmlHttpRequest = new XMLHttpRequest();
             xmlHttpRequest.open("POST", "{{route('admin.resideCapsule.search')}}");
             xmlHttpRequest.setRequestHeader('X-CSRF-Token', "{{csrf_token()}}")
@@ -194,18 +202,8 @@
             xmlHttpRequest.onreadystatechange = function () {
                 if (xmlHttpRequest.readyState === 4 && xmlHttpRequest.status === 200) {
                     let responseXml = JSON.parse(xmlHttpRequest.response)
-                    if (xmlHttpRequest.response !== '' && xmlHttpRequest.response !== undefined) {
-                        let trInTbody = window.tbody.querySelectorAll('tr');
-                        trInTbody.forEach(function (row, index) {
-                            if (index !== 0) {
-                                row.remove();
-                            }
-                        });
-                        xmlHttpRequest.response.forEach(function (value,index){
-                            console.log(value)
-                        })
-                    } else {
-
+                    if (xmlHttpRequest.response !== '' && xmlHttpRequest.response !== undefined && !('errors' in responseXml) && responseXml.data.length!==0) {
+                        generateElement(responseXml);
                     }
 
                 }
@@ -223,6 +221,57 @@
             }
         }
 
+        function isEmptyObject(object) {
+            return Object.keys(object).length === 0;
+        }
+        function generateElement(data)
+        {
+            removeRow()
+            let myHtml = '';
+            data.data.forEach(function (value, index) {
+                myHtml += `<tr class=" bg-white  bg-gray-200/78 ">
+                            <td class="border border-gray-400  text-center  p-1">
+                                <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full ">
+                                    ${index + 1}
+                            </p>
+                        </td>
+                        <td class="border border-gray-400  text-center  p-1">
+                            <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full ">
+                                    ${value.jalalidate}
+                            </p>
+                        </td>
+                        <td class="border border-gray-400   text-center p-1">
+                            <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full  ">
+                                ${value.custumerName}
+
+                            </p>
+                        </td>
+                        <td class="border border-gray-400   text-center p-1">
+                            <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full  ">
+                                ${value.capsuleCount}
+                            </p>
+                        </td>
+                        <td class="border border-gray-400   text-center p-1">
+                            <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full underline underline-sky-500 underline-offset-4 decoration-sky-500 text-sky-600">
+                               ${value.id}
+                            </p>
+                        </td>
+                        <td class="border border-gray-400   text-center ">
+                            <div class="w-full flex items-center justify-center p-1">
+                                 <img src="{{asset("capsule/images/hand-Invoice.svg")}}" alt="" class="w-10 h-10">
+
+                                </div>
+                            </td>
+                            <td class="border border-gray-400   text-center ">
+                                <div class="w-full flex items-center justify-center p-1">
+                                    ${value.operatorName}
+                            </div>
+                        </td>
+
+                    </tr>`;
+            });
+            window.tbody.insertAdjacentHTML('beforeend', myHtml)
+        }
 
     </script>
 @endsection

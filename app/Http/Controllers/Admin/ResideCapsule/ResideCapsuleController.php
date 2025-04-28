@@ -65,8 +65,15 @@ class ResideCapsuleController extends Controller
     {
         //
     }
-    public function search(ResidChargeCapsuleSearchRequest $request){
-        $resides=Reside::search()->get();
+    public function search(ResidChargeCapsuleSearchRequest $request)
+    {
+        $resides = Reside::search()->get();
+        foreach ($resides as $key => $reside){
+                        $reside->jalalidate= \Morilog\Jalali\Jalalian::forge($reside->created_at)->format('Y/m/d');
+                        $reside->custumerName= $reside->user->fullName ?? '';
+                        $reside->capsuleCount= $reside->resideItem()->where('status','recharge')->count();
+                        $reside->operatorName= $reside->operator->fullName ?? '';
+        }
         return response()->json(['success'=>true,'data'=>$resides]);
     }
 }

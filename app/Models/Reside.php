@@ -45,9 +45,9 @@ class Reside extends Model
             })->first();
             $user ? $query->where('user_id', $user->id) : '';
         })->when(request()->input('count_capsule'), function ($query) {
-            $query->Wherehas('resideItem', function ($queryItems) {
-                $queryItems->where('status', 'recharge');
-            }, ">=", request()->input('count_capsule'));
+            $query->whereHas('resideItem',function ($builder){
+               $builder->where('status','recharge');
+            },request()->input('count_capsule'));
         })->when(request()->input('reside_id'), function ($query) {
             $query->where('id', request()->input('reside_id'));
         })->when(request()->input('operator_name'), function ($query) {
@@ -59,6 +59,7 @@ class Reside extends Model
         })->when(request()->input('created_at'), function ($query) {
             $date = substr(request()->input('created_at'), 0, 10);
             $date = date('Y/m/d', $date);
+
             $query->whereDate('created_at', ">=", $date);
         });
     }

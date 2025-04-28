@@ -27,7 +27,7 @@ class ResidChargeCapsuleSearchRequest extends FormRequest
             'operator_name' => 'sometimes|string',
             'count_capsule' => 'sometimes|integer|min:1',
             'reside_id' => 'sometimes|integer|min:1',
-            'created_at' => 'sometimes|integer|min:13|max:13',
+            'created_at' => 'sometimes|integer',
             'customer_name' => 'sometimes|string',
         ];
     }
