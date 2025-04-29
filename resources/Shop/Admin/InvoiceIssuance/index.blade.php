@@ -16,19 +16,18 @@
                 </div>
                 <div class="flex items-center justify-end space-x-reverse  space-x-2 w-1/2">
                     <h1 class="font-bold text-sm sm:tetx-base">تاریخ:</h1>
-                    <span class="text-sm sm:tetx-base">1403/12/20</span>
+                    <span class="text-sm sm:tetx-base">{{\Morilog\Jalali\Jalalian::forge($reside->created_at)->format('Y/m/d')}}</span>
                 </div>
             </article>
         </article>
         <article class="space-y-5 bg-F1F1F1 p-6 rounded-md ">
             <article class="flex justify-between items-center">
                 <div class="flex items-center space-x-reverse space-x-2">
-                    <img src="{{asset("capsule/images/plus.svg")}}" alt="" class="plus cursor-pointer">
-                    <h1 class="font-medium w-44">اقلام فاکتور</h1>
+                    <h1 class="font-bold">سفارش شارژ کپسول :</h1>
                 </div>
                 <div class="flex items-center space-x-reverse space-x-2">
                     <h1 class="font-bold text-sm sm:tetx-base">شماره فاکتور:</h1>
-                    <span class="text-sm sm:tetx-base">12587</span>
+                    <span class="text-sm sm:tetx-base">{{$reside->id??""}}</span>
                 </div>
             </article>
             <form action="{{route('hossein.back')}}" method="post" class="w-full">
@@ -59,23 +58,23 @@
                         <tr class="@if($key%2==0) bg-white @else bg-gray-200/70 @endif">
 
                             <td class="border border-gray-400  text-center  p-1">
-                                <p class="font-bold text-rose-600 sm:text-[15px] text-[10px] p-1 w-full ">
+                                <p class="font-bold sm:text-[15px] text-[15px] text-rose-700 p-1 w-full ">
                                     {{$resideItem->product->removeUnderline??''}}
                                 </p>
                             </td>
                             <td class="border border-gray-400  text-center  p-1">
-                                <p class="font-bold  sm:text-[15px] text-[10px] p-1 w-full ">
-                                    3،250،000
+                                <p class="sm:text-[15px] text-[10px] p-1 w-full ">
+                                    0
                                 </p>
                             </td>
                             <td class="border border-gray-400   text-center p-1">
                                 <div class="w-full flex items-center justify-center">
-                                    <img src="{{asset('capsule/images/plus.svg')}}" alt="" class="w-[30px]">
+                                    <img src="{{asset('capsule/images/plus.svg')}}" alt="" class="w-[25px]">
 
                                 </div>
                             </td>
                             <td class="border border-gray-300/75 flex items-center justify-center  text-center">
-                                <canvas class="max-w-min mx-auto p-3 qrcode"></canvas>
+                                <canvas class="max-w-min mx-auto p-1 qrcode"></canvas>
                             </td>
                         </tr>
                     @endforeach
@@ -83,6 +82,15 @@
 
                     </tbody>
                 </table>
+                <div class="mt-8 flex items-center  space-x-reverse space-x-4">
+                    <h1 class="font-bold">تخفیف:</h1>
+                    <input type="text" class="w-[50px] p-[3px] text-center outline-none">
+                    <h1 class="font-bold">درصد</h1>
+                </div>
+                <div class="mt-8 w-full">
+                    <h1 class="font-bold mb-3">توضیحات تخفیفی</h1>
+                    <textarea name="description" id="description" class="w-full"></textarea>
+                </div>
                 <section class="flex items-center justify-center space-x-reverse space-x-3 p-5">
                     <div class="bg-268832 px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
                         <button>صدور فاکتورنهایی</button>
@@ -114,7 +122,7 @@
                     }
                     count+=1;
                     QRCode.toCanvas(imgQr,'hossein Ajerloo', {
-                        width: 78,
+                        width: 50,
                         color: {
                             dark: '#000000',
                             light: color
@@ -124,5 +132,13 @@
                 }
             }
             generateQrCode();
+        </script>
+
+        <script>
+            CKEDITOR.replace( 'description' ,{
+                versionCheck: false,
+                language: 'fa',
+                removeButtons: 'Image,Link,Source,About'
+            });
         </script>
 @endsection

@@ -22,6 +22,7 @@ return new class extends Migration {
             $table->enum('status', ['paid', 'not_paid'])->nullable();
             $table->enum('reside_type', ['sell', 'recharge'])->nullable();
             $table->enum('type', ['reside', 'invoice'])->default('reside');
+            $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

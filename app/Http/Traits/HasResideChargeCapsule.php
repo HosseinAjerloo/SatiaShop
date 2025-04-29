@@ -27,7 +27,7 @@ trait  HasResideChargeCapsule
             $product = Product::find($productId);
             $resideItem = [
                 'product_id' => $product->id,
-                'price' => $product->price ?? 0,
+                'price' => 0,
                 'type' => $product->type,
                 'status' => $inputs['product_status'][$key],
                 'description' => $value
@@ -86,7 +86,8 @@ trait  HasResideChargeCapsule
                         'discount_collection' => 0,
                         'final_price' => $totalPrice,
                         'status' => 'not_paid',
-                        'type' => 'recharge'
+                        'reside_type' => 'recharge',
+                        'type'=>'reside'
                     ]
                 );
 

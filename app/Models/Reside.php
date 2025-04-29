@@ -18,7 +18,8 @@ class Reside extends Model
             'final_price',
             'status',
             'reside_type',
-            'type'
+            'type',
+            'description'
         ];
 
     public function resideItem()

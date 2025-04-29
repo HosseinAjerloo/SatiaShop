@@ -21,9 +21,9 @@ class ChargingTheCapsuleController extends Controller
     {
         $user = Auth::user();
         $allUser = User::all();
-        $myFavorites = $user->productFavorite()->where('status', 'active')->where('type', 'service')->get();
-        $products = Product::where('status', 'active')->where('type', 'service')->get();
-        $filterProducts = Product::whereIn('id', Product::where('status', 'active')->where('type', 'service')->select(DB::raw('max(id) as id'))->groupBy('category_id')->get()->pluck('id')->toArray())->get();
+        $myFavorites = $user->productFavorite()->where('status', 'active')->where('type', 'goods')->get();
+        $products = Product::where('status', 'active')->where('type', 'goods')->get();
+        $filterProducts = Product::whereIn('id', Product::where('status', 'active')->where('type', 'goods')->select(DB::raw('max(id) as id'))->groupBy('category_id')->get()->pluck('id')->toArray())->get();
 
         return view('Admin.ResideChargeCapsule.index', compact('myFavorites', 'products', 'filterProducts', 'allUser'));
     }
@@ -32,6 +32,7 @@ class ChargingTheCapsuleController extends Controller
     {
         return $this->registerResideCapsule();
     }
+
     public function edit(Reside $reside)
     {
         $user = Auth::user();
@@ -39,16 +40,17 @@ class ChargingTheCapsuleController extends Controller
         $myFavorites = $user->productFavorite()->where('status', 'active')->where('type', 'service')->get();
         $products = Product::where('status', 'active')->where('type', 'service')->get();
         $filterProducts = Product::whereIn('id', Product::where('status', 'active')->where('type', 'service')->select(DB::raw('max(id) as id'))->groupBy('category_id')->get()->pluck('id')->toArray())->get();
-        return view('Admin.ResideChargeCapsule.edit', compact('myFavorites', 'products', 'filterProducts', 'allUser','reside'));
+        return view('Admin.ResideChargeCapsule.edit', compact('myFavorites', 'products', 'filterProducts', 'allUser', 'reside'));
     }
-    public function update(ResidChargeCapsuleRequest $request,Reside $reside)
+
+    public function update(ResidChargeCapsuleRequest $request, Reside $reside)
     {
-        app('request')->merge(['reside'=>$reside]);
+        app('request')->merge(['reside' => $reside]);
         return $this->updateResideCapsule();
     }
 
     public function printReside(Reside $reside)
     {
-        return view('Admin.PrintResideChargeCapsule.index',compact('reside'));
+        return view('Admin.PrintResideChargeCapsule.index', compact('reside'));
     }
 }
