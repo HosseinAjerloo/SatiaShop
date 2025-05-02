@@ -230,7 +230,7 @@ Route::get('test2', function () {
 });
 
 Route::get('test', function () {
-    return view('Admin.sodurFactor');
+    return view('Admin.SelectCapsule.index');
 })->name('test');
 
 Route::post('create-product', function () {
