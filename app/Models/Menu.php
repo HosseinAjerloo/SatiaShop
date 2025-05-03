@@ -17,13 +17,13 @@ class Menu extends Model
     const MenuRecord=
         [
           [
-             'name'=>'منوی اول',
-              'view_sort'=>4,
+             'name'=>'منوی محصول',
+              'view_sort'=>1,
               'status'=>'active'
           ],
             [
-                'name'=>'منوی دوم',
-                'view_sort'=>3,
+                'name'=>'منوی خدمات',
+                'view_sort'=>2,
                 'status'=>'active'
             ]
         ];

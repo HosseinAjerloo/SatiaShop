@@ -16,17 +16,65 @@ class Category extends Model
     const CategoryRecord =
         [
             [
-                'name' => 'سامسونگ',
+                'name' => 'حجم پودر مصرفی',
+                'view_sort' => 1,
+                'status' => 'active',
+                'menu_id' => 2
+            ],
+            [
+                'name' => 'حجم گاز',
+                'view_sort' => 2,
+                'status' => 'active',
+                'menu_id' => 2
+            ],
+            [
+                'name' => 'نوع بالن',
                 'view_sort' => 1,
                 'status' => 'active',
                 'menu_id' => 1
             ],
             [
-                'name' => 'apple',
+                'name' => 'شیر کامل',
+                'view_sort' => 2,
+                'status' => 'active',
+                'menu_id' => 1
+            ],
+            [
+                'name' => 'مانومتر',
+                'view_sort' => 3,
+                'status' => 'active',
+                'menu_id' => 1
+            ],
+            [
+                'name' => 'شیلنگ اطفاع',
                 'view_sort' => 4,
                 'status' => 'active',
-                'menu_id' => 2
-            ]
+                'menu_id' => 1
+            ],
+            [
+                'name' => 'میرآب',
+                'view_sort' => 5,
+                'status' => 'active',
+                'menu_id' => 1
+            ],
+            [
+                'name' => 'مایع کف',
+                'view_sort' => 3,
+                'status' => 'active',
+                'menu_id' =>2
+            ],
+            [
+                'name' => 'شیر دسته کامل',
+                'view_sort' => 6,
+                'status' => 'active',
+                'menu_id' =>1
+            ],
+            [
+                'name' => 'شیپوری',
+                'view_sort' => 7,
+                'status' => 'active',
+                'menu_id' =>1
+            ],
         ];
 
     public function scopeSearch(Builder $query): void

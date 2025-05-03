@@ -16,7 +16,8 @@
                 </div>
                 <div class="flex items-center justify-end space-x-reverse  space-x-2 w-1/2">
                     <h1 class="font-bold text-sm sm:tetx-base">تاریخ:</h1>
-                    <span class="text-sm sm:tetx-base">{{\Morilog\Jalali\Jalalian::forge($reside->created_at)->format('Y/m/d')}}</span>
+                    <span
+                        class="text-sm sm:tetx-base">{{\Morilog\Jalali\Jalalian::forge($reside->created_at)->format('Y/m/d')}}</span>
                 </div>
             </article>
         </article>
@@ -108,37 +109,37 @@
 
 @endsection
 @section('script')
-        <script>
-            function generateQrCode(){
-                let qrCodeElement = document.querySelectorAll('.qrcode');
-                let count=0;
-                let color='';
-                for (const imgQr of qrCodeElement)
-                {
-                    if(count%2===0){
-                        color='#ffffff';
-                    }else {
-                        color='#e5e7eb';
-                    }
-                    count+=1;
-                    QRCode.toCanvas(imgQr,'hossein Ajerloo', {
-                        width: 50,
-                        color: {
-                            dark: '#000000',
-                            light: color
-                        }
-                    });
-
+    <script>
+        function generateQrCode() {
+            let qrCodeElement = document.querySelectorAll('.qrcode');
+            let count = 0;
+            let color = '';
+            for (const imgQr of qrCodeElement) {
+                if (count % 2 === 0) {
+                    color = '#ffffff';
+                } else {
+                    color = '#e5e7eb';
                 }
-            }
-            generateQrCode();
-        </script>
+                count += 1;
+                QRCode.toCanvas(imgQr, 'hossein Ajerloo', {
+                    width: 50,
+                    color: {
+                        dark: '#000000',
+                        light: color
+                    }
+                });
 
-        <script>
-            CKEDITOR.replace( 'description' ,{
-                versionCheck: false,
-                language: 'fa',
-                removeButtons: 'Image,Link,Source,About'
-            });
-        </script>
+            }
+        }
+
+        generateQrCode();
+    </script>
+
+    <script>
+        CKEDITOR.replace('description', {
+            versionCheck: false,
+            language: 'fa',
+            removeButtons: 'Image,Link,Source,About'
+        });
+    </script>
 @endsection

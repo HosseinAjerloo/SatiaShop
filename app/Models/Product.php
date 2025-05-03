@@ -30,56 +30,265 @@ class Product extends Model
     const Products = [
         [
             'category_id' => 1,
-            'brand_id' => 1,
-            'title' => 'samsung a12',
-            'type' => 'goods',
+            'brand_id' => 3,
+            'title' => 'پودر مصرفی 1 کیلوگرمی',
+            'type' => 'service',
             'status' => 'active',
-            'price' => 120000000,
+            'price' => 1000000,
+            'user_id' => 1
+
+        ],
+        [
+            'category_id' => 1,
+            'brand_id' => 3,
+            'title' => 'پودر مصرفی 2 کیلوگرمی',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 2000000,
+            'user_id' => 1
+
+        ],
+        [
+            'category_id' => 1,
+            'brand_id' => 3,
+            'title' => 'پودر مصرفی 3 کیلوگرمی',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 3000000,
+            'user_id' => 1
+
+        ],
+
+        [
+            'category_id' => 2,
+            'brand_id' => 3,
+            'title' => 'گاز 1 کیلوگرمی',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 1100000,
             'user_id' => 1
 
         ],
         [
             'category_id' => 2,
+            'brand_id' => 3,
+            'title' => 'گاز 2 کیلوگرمی',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 2100000,
+            'user_id' => 1
+
+        ],
+        [
+            'category_id' => 2,
+            'brand_id' => 3,
+            'title' => 'گاز 3 کیلوگرمی',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 3500000,
+            'user_id' => 1
+
+        ],
+        [
+            'category_id' => 3,
             'brand_id' => 2,
-            'title' => 'iphone 16',
+            'title' => 'داخلی',
             'type' => 'goods',
             'status' => 'active',
-            'price' => 1000000000,
+            'price' => 1000000,
             'user_id' => 1
+
         ],
+        [
+            'category_id' => 3,
+            'brand_id' => 3,
+            'title' => 'خارجی',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 3000000,
+            'user_id' => 1
+
+        ],
+
+
+        [
+            'category_id' => 4,
+            'brand_id' => 3,
+            'title' => 'شیر قرمز',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 1200000,
+            'user_id' => 1
+
+        ],
+        [
+            'category_id' => 4,
+            'brand_id' => 3,
+            'title' => 'شیر آبی',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 900000,
+            'user_id' => 1
+
+        ],
+        ///
+        [
+            'category_id' => 5,
+            'brand_id' => 3,
+            'title' => 'مانومتربزرگ',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' =>800000,
+            'user_id' => 1
+
+        ],
+        [
+            'category_id' => 5,
+            'brand_id' => 3,
+            'title' => 'مانومترکوچک',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 3100000,
+            'user_id' => 1
+
+        ],
+        [
+            'category_id' => 6,
+            'brand_id' => 1,
+            'title' => 'شیلنگ اطفاع 1 متری',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 2000000,
+            'user_id' => 1
+
+        ],
+        [
+            'category_id' => 6,
+            'brand_id' => 1,
+            'title' => 'شیلنگ اطفاع 2 متری',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 2400000,
+            'user_id' => 1
+
+        ],
+        [
+            'category_id' => 6,
+            'brand_id' => 2,
+            'title' => 'شیلنگ اطفاع 25 متری',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 8800000,
+            'user_id' => 1
+
+        ],
+
+        [
+            'category_id' => 7,
+            'brand_id' => 1,
+            'title' => 'میرآب بزرگ',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 3700000,
+            'user_id' => 1
+
+        ],
+        [
+            'category_id' => 7,
+            'brand_id' => 1,
+            'title' => 'میرآب متوسط',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 14000000,
+            'user_id' => 1
+
+        ],
+        [
+            'category_id' => 7,
+            'brand_id' => 1,
+            'title' => 'میرآب کوچک',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 14500000,
+            'user_id' => 1
+
+        ],
+        [
+            'category_id' => 8,
+            'brand_id' => 1,
+            'title' => 'شیر دسته کامل کوچک',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' =>9000000,
+            'user_id' => 1
+
+        ],
+        [
+            'category_id' => 8,
+            'brand_id' => 1,
+            'title' => 'شیر دسته کامل بزرگ',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 5000000,
+            'user_id' => 1
+
+        ],
+        [
+            'category_id' => 9,
+            'brand_id' => 3,
+            'title' => 'شیپوری n1',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 6000000,
+            'user_id' => 1
+
+        ],
+        [
+            'category_id' => 9,
+            'brand_id' => 3,
+            'title' => 'شیپوری n1 ',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 7000000,
+            'user_id' => 1
+
+        ],
+
     ];
+
     public function scopeSearch(Builder $query): void
     {
 
-        $query->when(request()->input('date'),function ($query){
-            $query->whereDate('created_at',">=",Carbon::now()->subMonths(request()->input('date'))->toDateString());
-        })->when(request()->input('name'),function ($query){
-            $query->where('title','like',"%".request()->input('name')."%");
-        })->when(request()->input('startDate'),function ($query){
-            $date=date('Y-m-d',changeFormatNumberToDate(request()->input('startDate')));
-            $query->whereDate('created_at',">=",$date);
+        $query->when(request()->input('date'), function ($query) {
+            $query->whereDate('created_at', ">=", Carbon::now()->subMonths(request()->input('date'))->toDateString());
+        })->when(request()->input('name'), function ($query) {
+            $query->where('title', 'like', "%" . request()->input('name') . "%");
+        })->when(request()->input('startDate'), function ($query) {
+            $date = date('Y-m-d', changeFormatNumberToDate(request()->input('startDate')));
+            $query->whereDate('created_at', ">=", $date);
 
-        })->when(request()->input('endDate'),function ($query){
-            $date=date('Y-m-d',changeFormatNumberToDate(request()->input('endDate')));
-            $query->whereDate('created_at',"<=",$date);
+        })->when(request()->input('endDate'), function ($query) {
+            $date = date('Y-m-d', changeFormatNumberToDate(request()->input('endDate')));
+            $query->whereDate('created_at', "<=", $date);
         });
     }
 
-    protected function title():Attribute
+    protected function title(): Attribute
     {
 
         return Attribute::make(
 
-            set: fn($value)=>preg_replace("/(\s){1,}/imu",'-',$value)
+            set: fn($value) => preg_replace("/(\s){1,}/imu", '-', $value)
         );
     }
 
-    protected function removeUnderLine():Attribute
+    protected function removeUnderLine(): Attribute
     {
         return Attribute::make(
-            get: fn()=>str_replace('-',' ',$this->title)
+            get: fn() => str_replace('-', ' ', $this->title)
         );
     }
+
     public function image()
     {
         return $this->morphOne(File::class, 'files', 'fileable_type', 'fileable_id');
@@ -116,11 +325,10 @@ class Product extends Model
             if ($this->type == 'goods')
                 return $cartItem->sum('amount') < $this->productTransaction()->latest()->first()->remain ? true : false;
         }
-        if ($this->productRemaining()){
+        if ($this->productRemaining()) {
             return true;
-        }
-        else{
-           return false;
+        } else {
+            return false;
         }
 
     }
@@ -131,17 +339,15 @@ class Product extends Model
         $cart = Cart::where('status', 'addToCart')->orWhere('status', 'applyToTheBank')->get();
         $cartItem = CartItem::where('product_id', $this->id)->whereIn('cart_id', $cart->pluck('id'))->get();
         if ($cartItem->count() > 0) {
-            if ($this->type == 'goods')
-            {
-                $total=($this->productTransaction()->latest()->first()->remain??0) - $cartItem->sum('amount');
-                return  $total>0?$total:0;
-            }
-            else{
+            if ($this->type == 'goods') {
+                $total = ($this->productTransaction()->latest()->first()->remain ?? 0) - $cartItem->sum('amount');
+                return $total > 0 ? $total : 0;
+            } else {
                 return 'نامحدود';
             }
         }
         if ($this->type == 'goods')
-            return $this->productTransaction()->latest()->first()->remain??0;
+            return $this->productTransaction()->latest()->first()->remain ?? 0;
         else
             return 'نامحدود';
     }
@@ -171,9 +377,9 @@ class Product extends Model
     {
         $user = Auth::user();
 
-        $myCart = Cart::where('status', 'addToCart')->when($user,function ($query) use ($user) {
-            $query->where('user_id',  $user->id);
-        })->when(!$user,function ($query){
+        $myCart = Cart::where('status', 'addToCart')->when($user, function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })->when(!$user, function ($query) {
             $query->where('id', session()->get('cart_id'));
         })->first();
 
@@ -186,9 +392,11 @@ class Product extends Model
         return false;
 
     }
-    public function  getTypePersian():Attribute{
-        return  Attribute::make(
-          get: fn()=>$this->type=='goods'?'کالا' :'سرویس'
+
+    public function getTypePersian(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->type == 'goods' ? 'کالا' : 'سرویس'
         );
     }
 

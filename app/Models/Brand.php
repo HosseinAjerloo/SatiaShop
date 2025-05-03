@@ -18,13 +18,17 @@ class Brand extends Model
         ];
     const Brands=[
         [
-            'name'=>'nokia',
+            'name'=>'توچال',
             'status'=>'active'
         ],
         [
-            'name'=>'lg',
+            'name'=>'پارس گستر',
             'status'=>'active'
-        ]
+        ],
+        [
+            'name'=>'ایران پارس',
+            'status'=>'active'
+        ],
     ];
     public function scopeSearch(Builder $query): void
     {
