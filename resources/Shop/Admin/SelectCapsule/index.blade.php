@@ -24,7 +24,7 @@
 
             <form action="{{route('hossein.back')}}" method="post" class="w-full">
                 @csrf
-                <x-capsules.water-and-foam/>
+                <x-capsules.gas-co2/>
                 <div></div>
 
             </form>
