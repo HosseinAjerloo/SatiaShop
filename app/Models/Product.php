@@ -103,7 +103,7 @@ class Product extends Model
         [
             'category_id' => 2,
             'brand_id' => 2,
-            'title' => 'کپسول پودر و گاز شش کیلوئی',
+            'title' => 'کپسول آب و کف شش کیلوئی',
             'type' => 'goods',
             'status' => 'active',
             'price' => 14000000,
@@ -112,7 +112,7 @@ class Product extends Model
         [
             'category_id' => 2,
             'brand_id' => 2,
-            'title' => 'کپسول پودر و گاز دوازده کیلوئی',
+            'title' => 'کپسول آب و کف دوازده کیلوئی',
             'type' => 'goods',
             'status' => 'active',
             'price' => 22000000,
@@ -121,7 +121,7 @@ class Product extends Model
         [
             'category_id' => 2,
             'brand_id' => 2,
-            'title' => 'کپسول پودر و گاز پنجاه کیلوئی',
+            'title' => 'کپسول آب و کف پنجاه کیلوئی',
             'type' => 'goods',
             'status' => 'active',
             'price' => 52000000,

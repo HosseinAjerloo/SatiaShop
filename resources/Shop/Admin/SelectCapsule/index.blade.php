@@ -25,13 +25,15 @@
             <form action="{{route('hossein.back')}}" method="post" class="w-full">
 
                 @csrf
-                @if(str_contains($resideItem->product->category->removeUnderLine,'پودر و گاز'))
+                @if(str_contains($resideItem->product->category->removeUnderLine,'کپسول پودر و گاز'))
 
                     <x-capsules.powder-and-gas  :reside="$reside" :resideItem="$resideItem" :categories="$categories"/>
 
-                @elseif(str_contains($resideItem->product->category->removeUnderLine,'آب و کف'))
+                @elseif(str_contains($resideItem->product->category->removeUnderLine,'کپسول آب و کف'))
+
                     <x-capsules.water-and-foam :reside="$reside" :resideItem="$resideItem" :categories="$categories"/>
-                @elseif(str_contains($resideItem->product->category->removeUnderLine,'گاز CO2'))
+                @elseif(str_contains($resideItem->product->category->removeUnderLine,'کپسول گاز CO2'))
+
                     <x-capsules.gas-co2 :reside="$reside" :resideItem="$resideItem" :categories="$categories"/>
                 @else
 

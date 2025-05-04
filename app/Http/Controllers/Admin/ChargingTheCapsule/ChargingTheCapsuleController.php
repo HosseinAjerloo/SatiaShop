@@ -38,8 +38,8 @@ class ChargingTheCapsuleController extends Controller
         $user = Auth::user();
         $allUser = User::all();
         $myFavorites = $user->productFavorite()->where('status', 'active')->where('type', 'service')->get();
-        $products = Product::where('status', 'active')->where('type', 'service')->get();
-        $filterProducts = Product::whereIn('id', Product::where('status', 'active')->where('type', 'service')->select(DB::raw('max(id) as id'))->groupBy('category_id')->get()->pluck('id')->toArray())->get();
+        $products = Product::where('status', 'active')->where('type', 'goods')->get();
+        $filterProducts = Product::whereIn('id', Product::where('status', 'active')->where('type', 'goods')->select(DB::raw('max(id) as id'))->groupBy('category_id')->get()->pluck('id')->toArray())->get();
         return view('Admin.ResideChargeCapsule.edit', compact('myFavorites', 'products', 'filterProducts', 'allUser', 'reside'));
     }
 
