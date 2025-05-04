@@ -217,6 +217,7 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
     });
     Route::prefix('invoice-issuance')->name('admin.invoice.issuance.')->group(function () {
         Route::get('{reside}', [App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'index'])->name('index');
+        Route::get('{reside}/{resideItem}/operation', [App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'operation'])->name('operation');
     });
 });
 

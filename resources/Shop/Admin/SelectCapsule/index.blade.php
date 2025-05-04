@@ -23,8 +23,19 @@
         <article class="space-y-5 bg-F1F1F1 p-6 rounded-md ">
 
             <form action="{{route('hossein.back')}}" method="post" class="w-full">
+
                 @csrf
-                <x-capsules.gas-co2/>
+                @if(str_contains($resideItem->product->category->removeUnderLine,'پودر و گاز'))
+
+                    <x-capsules.powder-and-gas  :reside="$reside" :resideItem="$resideItem" :categories="$categories"/>
+
+                @elseif(str_contains($resideItem->product->category->removeUnderLine,'آب و کف'))
+                    <x-capsules.water-and-foam :reside="$reside" :resideItem="$resideItem" :categories="$categories"/>
+                @elseif(str_contains($resideItem->product->category->removeUnderLine,'گاز CO2'))
+                    <x-capsules.gas-co2 :reside="$reside" :resideItem="$resideItem" :categories="$categories"/>
+                @else
+
+                @endif
 
             </form>
 
@@ -36,19 +47,18 @@
 @endsection
 @section('script')
     <script>
-        function generateQrCode(){
+        function generateQrCode() {
             let qrCodeElement = document.querySelectorAll('.qrcode');
-            let count=0;
-            let color='';
-            for (const imgQr of qrCodeElement)
-            {
-                if(count%2===0){
-                    color='#ffffff';
-                }else {
-                    color='#e5e7eb';
+            let count = 0;
+            let color = '';
+            for (const imgQr of qrCodeElement) {
+                if (count % 2 === 0) {
+                    color = '#ffffff';
+                } else {
+                    color = '#e5e7eb';
                 }
-                count+=1;
-                QRCode.toCanvas(imgQr,'hossein Ajerloo', {
+                count += 1;
+                QRCode.toCanvas(imgQr, 'hossein Ajerloo', {
                     width: 50,
                     color: {
                         dark: '#000000',
@@ -58,11 +68,12 @@
 
             }
         }
+
         generateQrCode();
     </script>
 
     <script>
-        CKEDITOR.replace( 'description' ,{
+        CKEDITOR.replace('description', {
             versionCheck: false,
             language: 'fa',
             removeButtons: 'Image,Link,Source,About'

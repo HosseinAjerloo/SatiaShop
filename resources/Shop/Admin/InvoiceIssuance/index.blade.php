@@ -48,14 +48,14 @@
                             <span class="text-min sm:text-sm text-nowrap">عملیات</span>
                         </th>
                         <th class=" text-sm font-light px-2 leading-6 text-white  p-2">
-                            <span class="text-min sm:text-sm text-nowrap">چاپ فاکتور</span>
+                            <span class="text-min sm:text-sm text-nowrap">چاپ بارکد</span>
                         </th>
 
                     </tr>
 
                     </thead>
                     <tbody>
-                    @foreach($reside->resideItem()->where('status','recharge')->get() as $key=> $resideItem)
+                    @foreach($reside->resideItem as $key=> $resideItem)
                         <tr class="@if($key%2==0) bg-white @else bg-gray-200/70 @endif">
 
                             <td class="border border-gray-400  text-center  p-1">
@@ -70,7 +70,9 @@
                             </td>
                             <td class="border border-gray-400   text-center p-1">
                                 <div class="w-full flex items-center justify-center">
-                                    <img src="{{asset('capsule/images/plus.svg')}}" alt="" class="w-[25px]">
+                                    <a href="{{route('admin.invoice.issuance.operation',[$reside,$resideItem])}}">
+                                        <img src="{{asset('capsule/images/plus.svg')}}" alt="" class="w-[25px]">
+                                    </a>
 
                                 </div>
                             </td>

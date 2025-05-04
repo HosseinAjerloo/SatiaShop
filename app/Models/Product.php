@@ -30,229 +30,409 @@ class Product extends Model
     const Products = [
         [
             'category_id' => 1,
-            'brand_id' => 3,
-            'title' => 'پودر مصرفی 1 کیلوگرمی',
-            'type' => 'service',
+            'brand_id' => 2,
+            'title' => 'کپسول پودر و گاز یک کیلوئی',
+            'type' => 'goods',
             'status' => 'active',
-            'price' => 1000000,
+            'price' => 10000000,
             'user_id' => 1
-
         ],
         [
             'category_id' => 1,
-            'brand_id' => 3,
-            'title' => 'پودر مصرفی 2 کیلوگرمی',
-            'type' => 'service',
+            'brand_id' => 1,
+            'title' => 'کپسول پودر و گاز دو کیلوئی',
+            'type' => 'goods',
             'status' => 'active',
-            'price' => 2000000,
+            'price' => 15000000,
             'user_id' => 1
-
         ],
         [
             'category_id' => 1,
-            'brand_id' => 3,
-            'title' => 'پودر مصرفی 3 کیلوگرمی',
-            'type' => 'service',
+            'brand_id' => 1,
+            'title' => 'کپسول پودر و گاز سه کیلوئی',
+            'type' => 'goods',
             'status' => 'active',
-            'price' => 3000000,
+            'price' => 20000000,
             'user_id' => 1
-
         ],
-
+        [
+            'category_id' => 1,
+            'brand_id' => 1,
+            'title' => 'کپسول پودر و گاز چهار کیلوئی',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 23000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 1,
+            'brand_id' => 1,
+            'title' => 'کپسول پودر و گاز شش کیلوئی',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 28000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 1,
+            'brand_id' => 1,
+            'title' => 'کپسول پودر و گاز دوازده کیلوئی',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 38000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 1,
+            'brand_id' => 1,
+            'title' => 'کپسول پودر و گاز بیست و پنج کیلوئی',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 68000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 1,
+            'brand_id' => 1,
+            'title' => 'کپسول پودر و گاز پنجاه کیلوئی',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 100000000,
+            'user_id' => 1
+        ],
         [
             'category_id' => 2,
-            'brand_id' => 3,
-            'title' => 'گاز 1 کیلوگرمی',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 1100000,
-            'user_id' => 1
-
-        ],
-        [
-            'category_id' => 2,
-            'brand_id' => 3,
-            'title' => 'گاز 2 کیلوگرمی',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 2100000,
-            'user_id' => 1
-
-        ],
-        [
-            'category_id' => 2,
-            'brand_id' => 3,
-            'title' => 'گاز 3 کیلوگرمی',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 3500000,
-            'user_id' => 1
-
-        ],
-        [
-            'category_id' => 3,
             'brand_id' => 2,
-            'title' => 'داخلی',
-            'type' => 'goods',
-            'status' => 'active',
-            'price' => 1000000,
-            'user_id' => 1
-
-        ],
-        [
-            'category_id' => 3,
-            'brand_id' => 3,
-            'title' => 'خارجی',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 3000000,
-            'user_id' => 1
-
-        ],
-
-
-        [
-            'category_id' => 4,
-            'brand_id' => 3,
-            'title' => 'شیر قرمز',
-            'type' => 'goods',
-            'status' => 'active',
-            'price' => 1200000,
-            'user_id' => 1
-
-        ],
-        [
-            'category_id' => 4,
-            'brand_id' => 3,
-            'title' => 'شیر آبی',
-            'type' => 'goods',
-            'status' => 'active',
-            'price' => 900000,
-            'user_id' => 1
-
-        ],
-        ///
-        [
-            'category_id' => 5,
-            'brand_id' => 3,
-            'title' => 'مانومتربزرگ',
-            'type' => 'goods',
-            'status' => 'active',
-            'price' =>800000,
-            'user_id' => 1
-
-        ],
-        [
-            'category_id' => 5,
-            'brand_id' => 3,
-            'title' => 'مانومترکوچک',
-            'type' => 'goods',
-            'status' => 'active',
-            'price' => 3100000,
-            'user_id' => 1
-
-        ],
-        [
-            'category_id' => 6,
-            'brand_id' => 1,
-            'title' => 'شیلنگ اطفاع 1 متری',
-            'type' => 'goods',
-            'status' => 'active',
-            'price' => 2000000,
-            'user_id' => 1
-
-        ],
-        [
-            'category_id' => 6,
-            'brand_id' => 1,
-            'title' => 'شیلنگ اطفاع 2 متری',
-            'type' => 'goods',
-            'status' => 'active',
-            'price' => 2400000,
-            'user_id' => 1
-
-        ],
-        [
-            'category_id' => 6,
-            'brand_id' => 2,
-            'title' => 'شیلنگ اطفاع 25 متری',
-            'type' => 'goods',
-            'status' => 'active',
-            'price' => 8800000,
-            'user_id' => 1
-
-        ],
-
-        [
-            'category_id' => 7,
-            'brand_id' => 1,
-            'title' => 'میرآب بزرگ',
-            'type' => 'goods',
-            'status' => 'active',
-            'price' => 3700000,
-            'user_id' => 1
-
-        ],
-        [
-            'category_id' => 7,
-            'brand_id' => 1,
-            'title' => 'میرآب متوسط',
+            'title' => 'کپسول پودر و گاز شش کیلوئی',
             'type' => 'goods',
             'status' => 'active',
             'price' => 14000000,
             'user_id' => 1
-
         ],
         [
-            'category_id' => 7,
-            'brand_id' => 1,
-            'title' => 'میرآب کوچک',
+            'category_id' => 2,
+            'brand_id' => 2,
+            'title' => 'کپسول پودر و گاز دوازده کیلوئی',
             'type' => 'goods',
             'status' => 'active',
-            'price' => 14500000,
+            'price' => 22000000,
             'user_id' => 1
-
         ],
         [
-            'category_id' => 8,
-            'brand_id' => 1,
-            'title' => 'شیر دسته کامل کوچک',
+            'category_id' => 2,
+            'brand_id' => 2,
+            'title' => 'کپسول پودر و گاز پنجاه کیلوئی',
             'type' => 'goods',
             'status' => 'active',
-            'price' =>9000000,
+            'price' => 52000000,
             'user_id' => 1
-
         ],
+
         [
-            'category_id' => 8,
-            'brand_id' => 1,
-            'title' => 'شیر دسته کامل بزرگ',
+            'category_id' => 3,
+            'brand_id' => 2,
+            'title' => 'کپسول گاز co2 دو کیلوئی',
             'type' => 'goods',
             'status' => 'active',
-            'price' => 5000000,
+            'price' => 12000000,
             'user_id' => 1
+        ],
 
+        [
+            'category_id' => 3,
+            'brand_id' => 2,
+            'title' => 'کپسول گاز co2 سه کیلوئی',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 14000000,
+            'user_id' => 1
         ],
         [
-            'category_id' => 9,
+            'category_id' => 3,
             'brand_id' => 3,
-            'title' => 'شیپوری n1',
+            'title' => 'کپسول گاز co2 چهار کیلوئی',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 16000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 3,
+            'brand_id' => 3,
+            'title' => 'کپسول گاز co2 شش کیلوئی',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 18000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 3,
+            'brand_id' => 3,
+            'title' => 'کپسول گاز co2 نه کیلوئی',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 20000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 3,
+            'brand_id' => 3,
+            'title' => 'کپسول گاز co2 دوازده کیلوئی',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 26000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 3,
+            'brand_id' => 3,
+            'title' => 'کپسول گاز co2 بیست کیلوئی',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 30000000,
+            'user_id' => 1
+        ],
+
+        ///
+
+        [
+            'category_id' => 5,
+            'brand_id' => 3,
+            'title' => 'پودر مصرفی یک کیلوئی',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 10000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 5,
+            'brand_id' => 3,
+            'title' => 'پودر مصرفی دو کیلوئی',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 20000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 5,
+            'brand_id' => 3,
+            'title' => 'پودر مصرفی سه کیلوئی',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 30000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 5,
+            'brand_id' => 3,
+            'title' => 'پودر مصرفی چهار کیلوئی',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 40000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 5,
+            'brand_id' => 3,
+            'title' => 'پودر مصرفی شش کیلوئی',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 60000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 5,
+            'brand_id' => 3,
+            'title' => 'پودر مصرفی دوازده کیلوئی',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 65000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 5,
+            'brand_id' => 3,
+            'title' => 'پودر مصرفی بیست و پنج کیلوئی',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 75000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 5,
+            'brand_id' => 3,
+            'title' => 'پودر مصرفی پنجاه کیلوئی',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 80000000,
+            'user_id' => 1
+        ],
+        ///
+        [
+            'category_id' => 4,
+            'brand_id' => 3,
+            'title' => 'حجم گاز یک کیلوئی',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 10000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 4,
+            'brand_id' => 3,
+            'title' => 'حجم گاز دو کیلوئی',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 20000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 4,
+            'brand_id' => 3,
+            'title' => 'حجم گاز سه کیلوئی',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 30000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 4,
+            'brand_id' => 3,
+            'title' => 'حجم گاز چهار کیلوئی',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 40000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 4,
+            'brand_id' => 3,
+            'title' => 'حجم گاز شش کیلوئی',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 60000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 4,
+            'brand_id' => 3,
+            'title' => 'حجم گاز دوازده کیلوئی',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 65000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 4,
+            'brand_id' => 3,
+            'title' => 'حجم گاز بیست و پنج کیلوئی',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 75000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 4,
+            'brand_id' => 3,
+            'title' => 'حجم گاز پنجاه کیلوئی',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 80000000,
+            'user_id' => 1
+        ],
+        ///
+        [
+            'category_id' => 1,
+            'brand_id' => 3,
+            'title' => 'شیر کامل پودر و گاز',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 80000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 1,
+            'brand_id' => 3,
+            'title' => 'مانومتر پودر و گاز',
             'type' => 'goods',
             'status' => 'active',
             'price' => 6000000,
             'user_id' => 1
-
         ],
         [
-            'category_id' => 9,
+            'category_id' => 1,
             'brand_id' => 3,
-            'title' => 'شیپوری n1 ',
+            'title' => 'شیلنگ اطفاع پودر و گاز',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 8000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 1,
+            'brand_id' => 3,
+            'title' => 'میر آب  پودر و گاز',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 10000000,
+            'user_id' => 1
+        ],
+        ///
+        [
+            'category_id' => 6,
+            'brand_id' => 2,
+            'title' => 'مایع کف یک کیلوئی',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 5000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 6,
+            'brand_id' => 2,
+            'title' => 'مایع کف دو کیلوئی',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 7000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 6,
+            'brand_id' => 2,
+            'title' => 'مایع کف سه کیلوئی',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 9000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 2,
+            'brand_id' => 2,
+            'title' => 'مانومتر آب و کف',
             'type' => 'goods',
             'status' => 'active',
             'price' => 7000000,
             'user_id' => 1
-
         ],
+        [
+            'category_id' => 2,
+            'brand_id' => 2,
+            'title' => 'شیلنگ اطفاع آب و کف',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 7000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 2,
+            'brand_id' => 2,
+            'title' => 'تعویض شیر کامل آب و کف',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 7000000,
+            'user_id' => 1
+        ],
+        ///
 
     ];
 

@@ -132,7 +132,9 @@ trait  HasResideChargeCapsule
                         'discount_collection' => 0,
                         'final_price' => $totalPrice,
                         'status' => 'not_paid',
-                        'type' => 'recharge'
+                        'reside_type' => 'recharge',
+                        'type'=>'reside'
+
                     ]
                 );
 
