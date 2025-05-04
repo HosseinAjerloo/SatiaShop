@@ -271,7 +271,7 @@ class Product extends Model
         [
             'category_id' => 4,
             'brand_id' => 3,
-            'title' => 'حجم گاز یک کیلوئی',
+            'title' => 'حجم گاز یک کیلوئی پودرو گاز',
             'type' => 'service',
             'status' => 'active',
             'price' => 10000000,
@@ -280,7 +280,7 @@ class Product extends Model
         [
             'category_id' => 4,
             'brand_id' => 3,
-            'title' => 'حجم گاز دو کیلوئی',
+            'title' => 'حجم گاز دو کیلوئی پودرو گاز',
             'type' => 'service',
             'status' => 'active',
             'price' => 20000000,
@@ -289,7 +289,7 @@ class Product extends Model
         [
             'category_id' => 4,
             'brand_id' => 3,
-            'title' => 'حجم گاز سه کیلوئی',
+            'title' => 'حجم گاز سه کیلوئی پودرو گاز',
             'type' => 'service',
             'status' => 'active',
             'price' => 30000000,
@@ -298,7 +298,7 @@ class Product extends Model
         [
             'category_id' => 4,
             'brand_id' => 3,
-            'title' => 'حجم گاز چهار کیلوئی',
+            'title' => 'حجم گاز چهار کیلوئی پودرو گاز',
             'type' => 'service',
             'status' => 'active',
             'price' => 40000000,
@@ -307,7 +307,7 @@ class Product extends Model
         [
             'category_id' => 4,
             'brand_id' => 3,
-            'title' => 'حجم گاز شش کیلوئی',
+            'title' => 'حجم گاز شش کیلوئی پودرو گاز',
             'type' => 'service',
             'status' => 'active',
             'price' => 60000000,
@@ -316,7 +316,7 @@ class Product extends Model
         [
             'category_id' => 4,
             'brand_id' => 3,
-            'title' => 'حجم گاز دوازده کیلوئی',
+            'title' => 'حجم گاز دوازده کیلوئی پودرو گاز',
             'type' => 'service',
             'status' => 'active',
             'price' => 65000000,
@@ -325,7 +325,7 @@ class Product extends Model
         [
             'category_id' => 4,
             'brand_id' => 3,
-            'title' => 'حجم گاز بیست و پنج کیلوئی',
+            'title' => 'حجم گاز بیست و پنج کیلوئی پودرو گاز',
             'type' => 'service',
             'status' => 'active',
             'price' => 75000000,
@@ -334,7 +334,7 @@ class Product extends Model
         [
             'category_id' => 4,
             'brand_id' => 3,
-            'title' => 'حجم گاز پنجاه کیلوئی',
+            'title' => 'حجم گاز پنجاه کیلوئی پودرو گاز',
             'type' => 'service',
             'status' => 'active',
             'price' => 80000000,
@@ -432,7 +432,108 @@ class Product extends Model
             'price' => 7000000,
             'user_id' => 1
         ],
+
+        [
+            'category_id' => 2,
+            'brand_id' => 2,
+            'title' => 'تعویض شیر کامل آب و کف',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 7000000,
+            'user_id' => 1
+        ],
         ///
+        [
+            'category_id' => 7,
+            'brand_id' => 3,
+            'title' => 'حجم گاز یک کیلوئی CO2',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 10000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 7,
+            'brand_id' => 3,
+            'title' => 'حجم گاز دو کیلوئی CO2',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 20000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 7,
+            'brand_id' => 3,
+            'title' => 'حجم گاز سه کیلوئی CO2',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 30000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 7,
+            'brand_id' => 3,
+            'title' => 'حجم گاز چهار کیلوئی CO2',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 40000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 4,
+            'brand_id' => 3,
+            'title' => 'حجم گاز شش کیلوئی CO2',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 60000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 4,
+            'brand_id' => 3,
+            'title' => 'حجم گاز دوازده کیلوئی CO2',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 65000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 4,
+            'brand_id' => 3,
+            'title' => 'حجم گاز بیست و پنج کیلوئی CO2',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 75000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 4,
+            'brand_id' => 3,
+            'title' => 'حجم گاز پنجاه کیلوئی CO2',
+            'type' => 'service',
+            'status' => 'active',
+            'price' => 80000000,
+            'user_id' => 1
+        ],
+        ///
+        [
+            'category_id' => 3,
+            'brand_id' => 3,
+            'title' => ' شیر دسته کامل CO2',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 80000000,
+            'user_id' => 1
+        ],
+        [
+            'category_id' => 3,
+            'brand_id' => 3,
+            'title' => ' شیپوری CO2',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 80000000,
+            'user_id' => 1
+        ],
 
     ];
 
