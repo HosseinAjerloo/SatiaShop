@@ -23,5 +23,9 @@ class ResideItem extends Model
     {
         return $this->status=='used'?'استفاده شده':'تمدید شارژ';
     }
+    public function productResidItem()
+    {
+        return $this->belongsToMany(Product::class,'product_reside_items','reside_item_id','product_id');
+    }
 
 }

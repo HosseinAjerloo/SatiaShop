@@ -22,8 +22,8 @@
         </article>
         <article class="space-y-5 bg-F1F1F1 p-6 rounded-md ">
 
-            <form action="{{route('hossein.back')}}" method="post" class="w-full">
-
+            <form action="{{route('admin.invoice.issuance.store',[$reside,$resideItem])}}" method="post" class="w-full">
+                @csrf
                 <section class="space-y-5">
                     <div>
                         <h1 class="text-rose-600  font-black">{{$resideItem->product->removeUnderline}}</h1>
@@ -33,7 +33,7 @@
                             <div
                                 class=" flex justify-center items-start flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
                                 <label class="font-semibold text-sm">{{$childCategory->removeUnderline}} :</label>
-                                <select class="select2 w-full sm:w-1/2">
+                                <select class="select2 w-full sm:w-1/2" name="product[]">
                                     <option value="">انتخاب کنید</option>
                                     @foreach($childCategory->productes as $product)
                                         <option value="{{$product->id}}">{{$product->removeUnderLine}}</option>
@@ -46,8 +46,8 @@
                             <div
                                 class=" flex justify-center items-start flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
                                 <label class="font-semibold text-sm">{{$product->removeUnderline}} :</label>
-                                <select class="select2 w-full sm:w-1/2">
-                                    <option value="">بله</option>
+                                <select class="select2 w-full sm:w-1/2" name="product[]">
+                                    <option value="{{$product->id}}">بله</option>
                                     <option value="">خیر</option>
                                 </select>
                             </div>
@@ -55,7 +55,7 @@
                         <div
                             class=" flex justify-center items-start flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
                             <label class="font-semibold text-sm">بالن :</label>
-                            <select class="select2 w-full sm:w-1/2">
+                            <select class="select2 w-full sm:w-1/2" name="balloons">
                                 <option value="">انتخاب کنید</option>
                                 <option value="internal">داخلی</option>
                                 <option value="external">خارجی</option>
