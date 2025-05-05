@@ -60,6 +60,25 @@ class Category extends Model
                 'menu_id' => 2
             ],
 
+            [
+                'name' => ' کالای مبوط به آب و کف',
+                'view_sort' => 4,
+                'status' => 'active',
+                'menu_id' => 1
+            ],
+            [
+                'name' => ' کالای مبوط به پودر و گاز',
+                'view_sort' => 5,
+                'status' => 'active',
+                'menu_id' => 1
+            ],
+            [
+                'name' => ' کالای مبوط به Co2',
+                'view_sort' => 6,
+                'status' => 'active',
+                'menu_id' => 1
+            ],
+
         ];
 
     public function scopeSearch(Builder $query): void

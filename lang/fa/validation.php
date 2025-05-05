@@ -236,7 +236,8 @@ return [
         'representative_name'=>'نام نماینده شرکت',
         'economic_code'=>'کد اقتصادی',
         'tel'=>'شماره تماس',
-        'print'=>'چاپ'
+        'print'=>'چاپ',
+        'related_goods'=>'خدمات مربوطه'
     ],
 
 ];

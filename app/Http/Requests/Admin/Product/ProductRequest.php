@@ -29,6 +29,7 @@ class ProductRequest extends FormRequest
                 'title'=>['required','min:3',new CustomUniqueTitle],
                 'price'=>'required|numeric:min:10000',
                 'category_id'=>'required|exists:categories,id',
+                'related_goods'=>'nullable|exists:categories,id',
                 'brand_id'=>'required|exists:brands,id',
                 'status'=>'required|in:active,inactive',
                 'type'=>'required|in:goods,service',

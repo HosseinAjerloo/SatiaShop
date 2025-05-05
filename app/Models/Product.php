@@ -22,7 +22,8 @@ class Product extends Model
         'type',
         'status',
         'price',
-        'user_id'
+        'user_id',
+        'related_goods'
     ];
 
     protected $appends = ['is_favorite'];
@@ -35,7 +36,8 @@ class Product extends Model
             'type' => 'goods',
             'status' => 'active',
             'price' => 10000000,
-            'user_id' => 1
+            'user_id' => 1,
+            'related_goods'=>9
         ],
         [
             'category_id' => 1,
@@ -44,7 +46,9 @@ class Product extends Model
             'type' => 'goods',
             'status' => 'active',
             'price' => 15000000,
-            'user_id' => 1
+            'user_id' => 1,
+            'related_goods'=>9
+
         ],
         [
             'category_id' => 1,
@@ -53,7 +57,9 @@ class Product extends Model
             'type' => 'goods',
             'status' => 'active',
             'price' => 20000000,
-            'user_id' => 1
+            'user_id' => 1,
+            'related_goods'=>9
+
         ],
         [
             'category_id' => 1,
@@ -62,7 +68,9 @@ class Product extends Model
             'type' => 'goods',
             'status' => 'active',
             'price' => 23000000,
-            'user_id' => 1
+            'user_id' => 1,
+            'related_goods'=>9
+
         ],
         [
             'category_id' => 1,
@@ -71,7 +79,9 @@ class Product extends Model
             'type' => 'goods',
             'status' => 'active',
             'price' => 28000000,
-            'user_id' => 1
+            'user_id' => 1,
+            'related_goods'=>9
+
         ],
         [
             'category_id' => 1,
@@ -80,7 +90,9 @@ class Product extends Model
             'type' => 'goods',
             'status' => 'active',
             'price' => 38000000,
-            'user_id' => 1
+            'user_id' => 1,
+            'related_goods'=>9
+
         ],
         [
             'category_id' => 1,
@@ -89,7 +101,9 @@ class Product extends Model
             'type' => 'goods',
             'status' => 'active',
             'price' => 68000000,
-            'user_id' => 1
+            'user_id' => 1,
+            'related_goods'=>9
+
         ],
         [
             'category_id' => 1,
@@ -98,7 +112,9 @@ class Product extends Model
             'type' => 'goods',
             'status' => 'active',
             'price' => 100000000,
-            'user_id' => 1
+            'user_id' => 1,
+            'related_goods'=>9
+
         ],
         [
             'category_id' => 2,
@@ -107,7 +123,9 @@ class Product extends Model
             'type' => 'goods',
             'status' => 'active',
             'price' => 14000000,
-            'user_id' => 1
+            'user_id' => 1,
+            'related_goods'=>8
+
         ],
         [
             'category_id' => 2,
@@ -116,7 +134,8 @@ class Product extends Model
             'type' => 'goods',
             'status' => 'active',
             'price' => 22000000,
-            'user_id' => 1
+            'user_id' => 1,
+            'related_goods'=>8
         ],
         [
             'category_id' => 2,
@@ -125,7 +144,9 @@ class Product extends Model
             'type' => 'goods',
             'status' => 'active',
             'price' => 52000000,
-            'user_id' => 1
+            'user_id' => 1,
+            'related_goods'=>8
+
         ],
 
         [
@@ -135,7 +156,9 @@ class Product extends Model
             'type' => 'goods',
             'status' => 'active',
             'price' => 12000000,
-            'user_id' => 1
+            'user_id' => 1,
+            'related_goods'=>10
+
         ],
 
         [
@@ -145,7 +168,9 @@ class Product extends Model
             'type' => 'goods',
             'status' => 'active',
             'price' => 14000000,
-            'user_id' => 1
+            'user_id' => 1,
+            'related_goods'=>10
+
         ],
         [
             'category_id' => 3,
@@ -154,7 +179,9 @@ class Product extends Model
             'type' => 'goods',
             'status' => 'active',
             'price' => 16000000,
-            'user_id' => 1
+            'user_id' => 1,
+            'related_goods'=>10
+
         ],
         [
             'category_id' => 3,
@@ -163,7 +190,9 @@ class Product extends Model
             'type' => 'goods',
             'status' => 'active',
             'price' => 18000000,
-            'user_id' => 1
+            'user_id' => 1,
+            'related_goods'=>10
+
         ],
         [
             'category_id' => 3,
@@ -172,7 +201,9 @@ class Product extends Model
             'type' => 'goods',
             'status' => 'active',
             'price' => 20000000,
-            'user_id' => 1
+            'user_id' => 1,
+            'related_goods'=>10
+
         ],
         [
             'category_id' => 3,
@@ -181,7 +212,9 @@ class Product extends Model
             'type' => 'goods',
             'status' => 'active',
             'price' => 26000000,
-            'user_id' => 1
+            'user_id' => 1,
+            'related_goods'=>10
+
         ],
         [
             'category_id' => 3,
@@ -190,7 +223,9 @@ class Product extends Model
             'type' => 'goods',
             'status' => 'active',
             'price' => 30000000,
-            'user_id' => 1
+            'user_id' => 1,
+            'related_goods'=>10
+
         ],
 
         ///
@@ -198,7 +233,7 @@ class Product extends Model
         [
             'category_id' => 5,
             'brand_id' => 3,
-            'title' => 'پودر مصرفی یک کیلوئی',
+            'title' => 'پودر مصرفی یک کیلوئی پودر و گاز',
             'type' => 'service',
             'status' => 'active',
             'price' => 10000000,
@@ -207,7 +242,7 @@ class Product extends Model
         [
             'category_id' => 5,
             'brand_id' => 3,
-            'title' => 'پودر مصرفی دو کیلوئی',
+            'title' => 'پودر مصرفی دو کیلوئی پودر و گاز',
             'type' => 'service',
             'status' => 'active',
             'price' => 20000000,
@@ -216,7 +251,7 @@ class Product extends Model
         [
             'category_id' => 5,
             'brand_id' => 3,
-            'title' => 'پودر مصرفی سه کیلوئی',
+            'title' => 'پودر مصرفی سه کیلوئی پودر و گاز',
             'type' => 'service',
             'status' => 'active',
             'price' => 30000000,
@@ -225,7 +260,7 @@ class Product extends Model
         [
             'category_id' => 5,
             'brand_id' => 3,
-            'title' => 'پودر مصرفی چهار کیلوئی',
+            'title' => 'پودر مصرفی چهار کیلوئی پودر و گاز',
             'type' => 'service',
             'status' => 'active',
             'price' => 40000000,
@@ -234,7 +269,7 @@ class Product extends Model
         [
             'category_id' => 5,
             'brand_id' => 3,
-            'title' => 'پودر مصرفی شش کیلوئی',
+            'title' => 'پودر مصرفی شش کیلوئی پودر و گاز',
             'type' => 'service',
             'status' => 'active',
             'price' => 60000000,
@@ -243,7 +278,7 @@ class Product extends Model
         [
             'category_id' => 5,
             'brand_id' => 3,
-            'title' => 'پودر مصرفی دوازده کیلوئی',
+            'title' => 'پودر مصرفی دوازده کیلوئی پودر و گاز',
             'type' => 'service',
             'status' => 'active',
             'price' => 65000000,
@@ -252,7 +287,7 @@ class Product extends Model
         [
             'category_id' => 5,
             'brand_id' => 3,
-            'title' => 'پودر مصرفی بیست و پنج کیلوئی',
+            'title' => 'پودر مصرفی بیست و پنج کیلوئی پودر و گاز',
             'type' => 'service',
             'status' => 'active',
             'price' => 75000000,
@@ -261,7 +296,7 @@ class Product extends Model
         [
             'category_id' => 5,
             'brand_id' => 3,
-            'title' => 'پودر مصرفی پنجاه کیلوئی',
+            'title' => 'پودر مصرفی پنجاه کیلوئی پودر و گاز',
             'type' => 'service',
             'status' => 'active',
             'price' => 80000000,
@@ -342,7 +377,7 @@ class Product extends Model
         ],
         ///
         [
-            'category_id' => 1,
+            'category_id' => 9,
             'brand_id' => 3,
             'title' => 'شیر کامل پودر و گاز',
             'type' => 'goods',
@@ -351,7 +386,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 1,
+            'category_id' => 9,
             'brand_id' => 3,
             'title' => 'مانومتر پودر و گاز',
             'type' => 'goods',
@@ -360,7 +395,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 1,
+            'category_id' => 9,
             'brand_id' => 3,
             'title' => 'شیلنگ اطفاع پودر و گاز',
             'type' => 'goods',
@@ -369,7 +404,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 1,
+            'category_id' => 9,
             'brand_id' => 3,
             'title' => 'میر آب  پودر و گاز',
             'type' => 'goods',
@@ -406,7 +441,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 2,
+            'category_id' =>8,
             'brand_id' => 2,
             'title' => 'مانومتر آب و کف',
             'type' => 'goods',
@@ -415,7 +450,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 2,
+            'category_id' => 8,
             'brand_id' => 2,
             'title' => 'شیلنگ اطفاع آب و کف',
             'type' => 'goods',
@@ -424,24 +459,16 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 2,
+            'category_id' => 8,
             'brand_id' => 2,
-            'title' => 'تعویض شیر کامل آب و کف',
+            'title' => ' شیر کامل آب و کف',
             'type' => 'goods',
             'status' => 'active',
             'price' => 7000000,
             'user_id' => 1
         ],
 
-        [
-            'category_id' => 2,
-            'brand_id' => 2,
-            'title' => 'تعویض شیر کامل آب و کف',
-            'type' => 'goods',
-            'status' => 'active',
-            'price' => 7000000,
-            'user_id' => 1
-        ],
+
         ///
         [
             'category_id' => 7,
@@ -517,7 +544,7 @@ class Product extends Model
         ],
         ///
         [
-            'category_id' => 3,
+            'category_id' => 10,
             'brand_id' => 3,
             'title' => ' شیر دسته کامل CO2',
             'type' => 'goods',
@@ -526,7 +553,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 3,
+            'category_id' => 10,
             'brand_id' => 3,
             'title' => ' شیپوری CO2',
             'type' => 'goods',
@@ -583,6 +610,10 @@ class Product extends Model
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');
+    }
+    public function relatedGoods()
+    {
+        return $this->belongsTo(Category::class, 'related_goods');
     }
 
     public function brand()

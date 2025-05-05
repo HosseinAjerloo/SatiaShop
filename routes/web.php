@@ -231,7 +231,16 @@ Route::get('test2', function () {
 });
 
 Route::get('test', function () {
-    return view('Admin.SelectCapsule.index');
+    $categories=\App\Models\Category::all();
+    foreach($categories as $category){
+        if(str_contains($category->removeUnderline,'کالای مبوط'))
+
+        {
+        dump($category->removeUnderline);
+
+        }
+    }
+
 })->name('test');
 
 Route::post('create-product', function () {

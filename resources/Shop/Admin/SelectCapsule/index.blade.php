@@ -1,5 +1,4 @@
 @extends('Admin.Layout.master')
-
 @section('content')
 
     <section class=" space-y-3 relative w-4/5 mx-auto">
@@ -10,13 +9,14 @@
                     <img src="{{asset("capsule/images/blue-user.svg")}}" alt="">
                     <div class="flex items-center space-x-2 space-x-reverse">
                         <h1 class="font-bold text-sm sm:tetx-base">نام مشتری:</h1>
-                        <span class="text-sm sm:tetx-base">حسین آجرلو</span>
+                        <span class="text-sm sm:tetx-base">{{$reside->user->fullName}}</span>
                     </div>
 
                 </div>
                 <div class="flex items-center justify-end space-x-reverse  space-x-2 w-1/2">
                     <h1 class="font-bold text-sm sm:tetx-base">تاریخ:</h1>
-                    <span class="text-sm sm:tetx-base">1404/02/01</span>
+                    <span
+                        class="text-sm sm:tetx-base">{{\Morilog\Jalali\Jalalian::forge($reside->created_at)->format('Y/m/d')}}</span>
                 </div>
             </article>
         </article>
@@ -24,20 +24,57 @@
 
             <form action="{{route('hossein.back')}}" method="post" class="w-full">
 
-                @csrf
-                @if(str_contains($resideItem->product->category->removeUnderLine,'کپسول پودر و گاز'))
+                <section class="space-y-5">
+                    <div>
+                        <h1 class="text-rose-600  font-black">{{$resideItem->product->removeUnderline}}</h1>
+                    </div>
+                    <article class=" w-full flex flex-col justify-center md:w-3/4 lg:w-3/5 xl:w-2/5 space-y-4">
+                        @foreach($categories::where('category_id',$resideItem->product->relatedGoods->id)->get() as $childCategory)
+                            <div
+                                class=" flex justify-center items-start flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
+                                <label class="font-semibold text-sm">{{$childCategory->removeUnderline}} :</label>
+                                <select class="select2 w-full sm:w-1/2">
+                                    <option value="">انتخاب کنید</option>
+                                    @foreach($childCategory->productes as $product)
+                                        <option value="{{$product->id}}">{{$product->removeUnderLine}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        @endforeach
 
-                    <x-capsules.powder-and-gas  :reside="$reside" :resideItem="$resideItem" :categories="$categories"/>
+                        @foreach($resideItem->product->relatedGoods->productes as $product)
+                            <div
+                                class=" flex justify-center items-start flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
+                                <label class="font-semibold text-sm">{{$product->removeUnderline}} :</label>
+                                <select class="select2 w-full sm:w-1/2">
+                                    <option value="">بله</option>
+                                    <option value="">خیر</option>
+                                </select>
+                            </div>
+                        @endforeach
+                        <div
+                            class=" flex justify-center items-start flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
+                            <label class="font-semibold text-sm">بالن :</label>
+                            <select class="select2 w-full sm:w-1/2">
+                                <option value="">انتخاب کنید</option>
+                                <option value="internal">داخلی</option>
+                                <option value="external">خارجی</option>
+                            </select>
+                        </div>
+                        <div
+                            class=" flex justify-center items-start flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
+                            <label class="font-semibold text-sm">اجرت (ریال) :</label>
+                            <input type="number"
+                                   class="w-full sm:w-1/2 outline-none p-[2.5px] text-center border-black/50 border rounded-[5px]">
+                        </div>
+                    </article>
+                    <article class="flex items-center space-x-reverse space-x-4">
+                        <button class="px-6 py-1 bg-268832 text-white rounded-md">ذخیره</button>
+                        <a href="{{route('admin.invoice.issuance.index',$reside)}}"
+                           class="px-6 py-1 bg-FF3100 text-white rounded-md">بازگشت</a>
+                    </article>
+                </section>
 
-                @elseif(str_contains($resideItem->product->category->removeUnderLine,'کپسول آب و کف'))
-
-                    <x-capsules.water-and-foam :reside="$reside" :resideItem="$resideItem" :categories="$categories"/>
-                @elseif(str_contains($resideItem->product->category->removeUnderLine,'کپسول گاز CO2'))
-
-                    <x-capsules.gas-co2 :reside="$reside" :resideItem="$resideItem" :categories="$categories"/>
-                @else
-
-                @endif
 
             </form>
 

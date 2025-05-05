@@ -26,8 +26,26 @@
                 <select name="category_id" id="" class="outline-none border border-black rounded-md w-48 select2">
 
                     @foreach($categories as $category)
+                        @if(!str_contains($category->removeUnderline,'کالای مبوط'))
+
                         <option
-                            @selected(old('category_id')==$category->id) value="{{$category->id}}">{{$category->removeUnderLine??''}}</option>
+                            @selected(old('category_id')==$category->id) value="{{$category->id}}">{{$category->removeUnderLine??''}}
+                        </option>
+
+                        @endif
+                    @endforeach
+                </select>
+            </div>
+            <div class="flex items-center space-x-reverse space-x-8">
+                <h5 class="text-min font-light w-28">خدمات مربوط:</h5>
+                <select name="related_goods" id="" class="outline-none border border-black rounded-md w-48 select2">
+                    <option value="">انتخاب کنید</option>
+                    @foreach($categories as $category)
+                        @if(str_contains($category->removeUnderline,'کالای مبوط'))
+                            <option
+                                @selected(old('related_goods')==$category->id) value="{{$category->id}}">{{$category->removeUnderLine??''}}
+                            </option>
+                        @endif
                     @endforeach
                 </select>
             </div>
@@ -79,10 +97,10 @@
                 <div class="flex items-center space-x-3 space-x-reverse">
                     <div>
                         <input type="hidden" name="is_favorite" id="is_favorite" value="0">
-                        <img src="{{asset('capsule/images/Group 2949.svg')}}" 
-                             class="w-5 cursor-pointer favorite-star" 
-                             id="favorite-star" 
-                             data-active="{{asset('capsule/images/Group 2948.svg')}}" 
+                        <img src="{{asset('capsule/images/Group 2949.svg')}}"
+                             class="w-5 cursor-pointer favorite-star"
+                             id="favorite-star"
+                             data-active="{{asset('capsule/images/Group 2948.svg')}}"
                              data-inactive="{{asset('capsule/images/Group 2949.svg')}}">
                     </div>
                 </div>
@@ -97,7 +115,7 @@
                 </div>
                 <p class="text-base text-green-500 file-name"></p>
 
-                <input type="file" name="file" class="hidden" id="upload"   onchange="changed(event)">
+                <input type="file" name="file" class="hidden" id="upload" onchange="changed(event)">
 
             </div>
 
@@ -123,13 +141,13 @@
             $(upload).click(function () {
                 $("#upload").trigger('click')
             })
-            
+
             // اسکریپت برای تغییر وضعیت ستاره علاقه‌مندی
-            $(".favorite-star").click(function() {
+            $(".favorite-star").click(function () {
                 var isFavorite = $("#is_favorite").val();
                 var activeImg = $(this).data('active');
                 var inactiveImg = $(this).data('inactive');
-                
+
                 if (isFavorite == 1) {
                     $("#is_favorite").val(0);
                     $(this).attr('src', inactiveImg);
@@ -140,18 +158,18 @@
             });
         })
 
-        let fileName=document.getElementsByClassName('file-name');
-        function  changed(event){
-            if(event.target.files[0])
-            {
-                fileName[0].textContent=event.target.files[0].name
+        let fileName = document.getElementsByClassName('file-name');
+
+        function changed(event) {
+            if (event.target.files[0]) {
+                fileName[0].textContent = event.target.files[0].name
             }
         }
     </script>
 
 
     <script>
-        CKEDITOR.replace( 'editor1' ,{
+        CKEDITOR.replace('editor1', {
             versionCheck: false,
             language: 'fa',
             removeButtons: 'Image,Link,Source,About'

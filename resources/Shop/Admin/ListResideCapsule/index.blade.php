@@ -113,7 +113,7 @@
                             </td>
                             <td class="border border-gray-400   text-center p-1">
                                 <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full  ">
-                                    {{$reside->resideItem()->where('status','recharge')->count()}}
+                                    {{$reside->resideItem->count()}}
                                 </p>
                             </td>
                             <td class="border border-gray-400   text-center p-1">

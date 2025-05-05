@@ -49,6 +49,6 @@ class Menu extends Model
     }
     public function categoryShow()
     {
-        return $this->category()->where("status",'active')->whereNull('category_id')->orderBy('view_sort','asc')->get();
+        return $this->category()->where("status",'active')->orderBy('view_sort','asc')->get();
     }
 }
