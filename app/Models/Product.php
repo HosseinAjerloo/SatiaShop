@@ -37,7 +37,7 @@ class Product extends Model
             'status' => 'active',
             'price' => 10000000,
             'user_id' => 1,
-            'related_goods'=>9
+            'related_goods'=>5
         ],
         [
             'category_id' => 1,
@@ -47,7 +47,7 @@ class Product extends Model
             'status' => 'active',
             'price' => 15000000,
             'user_id' => 1,
-            'related_goods'=>9
+            'related_goods'=>5
 
         ],
         [
@@ -58,7 +58,7 @@ class Product extends Model
             'status' => 'active',
             'price' => 20000000,
             'user_id' => 1,
-            'related_goods'=>9
+            'related_goods'=>5
 
         ],
         [
@@ -69,7 +69,7 @@ class Product extends Model
             'status' => 'active',
             'price' => 23000000,
             'user_id' => 1,
-            'related_goods'=>9
+            'related_goods'=>5
 
         ],
         [
@@ -80,7 +80,7 @@ class Product extends Model
             'status' => 'active',
             'price' => 28000000,
             'user_id' => 1,
-            'related_goods'=>9
+            'related_goods'=>5
 
         ],
         [
@@ -91,7 +91,7 @@ class Product extends Model
             'status' => 'active',
             'price' => 38000000,
             'user_id' => 1,
-            'related_goods'=>9
+            'related_goods'=>5
 
         ],
         [
@@ -102,7 +102,7 @@ class Product extends Model
             'status' => 'active',
             'price' => 68000000,
             'user_id' => 1,
-            'related_goods'=>9
+            'related_goods'=>5
 
         ],
         [
@@ -113,7 +113,7 @@ class Product extends Model
             'status' => 'active',
             'price' => 100000000,
             'user_id' => 1,
-            'related_goods'=>9
+            'related_goods'=>5
 
         ],
         [
@@ -124,7 +124,7 @@ class Product extends Model
             'status' => 'active',
             'price' => 14000000,
             'user_id' => 1,
-            'related_goods'=>8
+            'related_goods'=>4
 
         ],
         [
@@ -135,7 +135,7 @@ class Product extends Model
             'status' => 'active',
             'price' => 22000000,
             'user_id' => 1,
-            'related_goods'=>8
+            'related_goods'=>4
         ],
         [
             'category_id' => 2,
@@ -145,7 +145,7 @@ class Product extends Model
             'status' => 'active',
             'price' => 52000000,
             'user_id' => 1,
-            'related_goods'=>8
+            'related_goods'=>4
 
         ],
 
@@ -157,7 +157,7 @@ class Product extends Model
             'status' => 'active',
             'price' => 12000000,
             'user_id' => 1,
-            'related_goods'=>10
+            'related_goods'=>6
 
         ],
 
@@ -169,7 +169,7 @@ class Product extends Model
             'status' => 'active',
             'price' => 14000000,
             'user_id' => 1,
-            'related_goods'=>10
+            'related_goods'=>6
 
         ],
         [
@@ -180,7 +180,7 @@ class Product extends Model
             'status' => 'active',
             'price' => 16000000,
             'user_id' => 1,
-            'related_goods'=>10
+            'related_goods'=>6
 
         ],
         [
@@ -191,7 +191,7 @@ class Product extends Model
             'status' => 'active',
             'price' => 18000000,
             'user_id' => 1,
-            'related_goods'=>10
+            'related_goods'=>6
 
         ],
         [
@@ -202,7 +202,7 @@ class Product extends Model
             'status' => 'active',
             'price' => 20000000,
             'user_id' => 1,
-            'related_goods'=>10
+            'related_goods'=>6
 
         ],
         [
@@ -213,7 +213,7 @@ class Product extends Model
             'status' => 'active',
             'price' => 26000000,
             'user_id' => 1,
-            'related_goods'=>10
+            'related_goods'=>6
 
         ],
         [
@@ -224,14 +224,14 @@ class Product extends Model
             'status' => 'active',
             'price' => 30000000,
             'user_id' => 1,
-            'related_goods'=>10
+            'related_goods'=>6
 
         ],
 
         ///
 
         [
-            'category_id' => 5,
+            'category_id' => 8,
             'brand_id' => 3,
             'title' => 'پودر مصرفی یک کیلوئی پودر و گاز',
             'type' => 'service',
@@ -240,7 +240,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 5,
+            'category_id' => 8,
             'brand_id' => 3,
             'title' => 'پودر مصرفی دو کیلوئی پودر و گاز',
             'type' => 'service',
@@ -249,7 +249,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 5,
+            'category_id' => 8,
             'brand_id' => 3,
             'title' => 'پودر مصرفی سه کیلوئی پودر و گاز',
             'type' => 'service',
@@ -258,7 +258,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 5,
+            'category_id' => 8,
             'brand_id' => 3,
             'title' => 'پودر مصرفی چهار کیلوئی پودر و گاز',
             'type' => 'service',
@@ -267,7 +267,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 5,
+            'category_id' => 8,
             'brand_id' => 3,
             'title' => 'پودر مصرفی شش کیلوئی پودر و گاز',
             'type' => 'service',
@@ -276,7 +276,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 5,
+            'category_id' => 8,
             'brand_id' => 3,
             'title' => 'پودر مصرفی دوازده کیلوئی پودر و گاز',
             'type' => 'service',
@@ -285,7 +285,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 5,
+            'category_id' => 8,
             'brand_id' => 3,
             'title' => 'پودر مصرفی بیست و پنج کیلوئی پودر و گاز',
             'type' => 'service',
@@ -294,7 +294,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 5,
+            'category_id' => 8,
             'brand_id' => 3,
             'title' => 'پودر مصرفی پنجاه کیلوئی پودر و گاز',
             'type' => 'service',
@@ -304,7 +304,7 @@ class Product extends Model
         ],
         ///
         [
-            'category_id' => 4,
+            'category_id' => 7,
             'brand_id' => 3,
             'title' => 'حجم گاز یک کیلوئی پودرو گاز',
             'type' => 'service',
@@ -313,7 +313,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 4,
+            'category_id' => 7,
             'brand_id' => 3,
             'title' => 'حجم گاز دو کیلوئی پودرو گاز',
             'type' => 'service',
@@ -322,7 +322,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 4,
+            'category_id' => 7,
             'brand_id' => 3,
             'title' => 'حجم گاز سه کیلوئی پودرو گاز',
             'type' => 'service',
@@ -331,7 +331,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 4,
+            'category_id' => 7,
             'brand_id' => 3,
             'title' => 'حجم گاز چهار کیلوئی پودرو گاز',
             'type' => 'service',
@@ -340,7 +340,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 4,
+            'category_id' => 7,
             'brand_id' => 3,
             'title' => 'حجم گاز شش کیلوئی پودرو گاز',
             'type' => 'service',
@@ -349,7 +349,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 4,
+            'category_id' => 7,
             'brand_id' => 3,
             'title' => 'حجم گاز دوازده کیلوئی پودرو گاز',
             'type' => 'service',
@@ -358,7 +358,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 4,
+            'category_id' => 7,
             'brand_id' => 3,
             'title' => 'حجم گاز بیست و پنج کیلوئی پودرو گاز',
             'type' => 'service',
@@ -367,7 +367,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 4,
+            'category_id' => 7,
             'brand_id' => 3,
             'title' => 'حجم گاز پنجاه کیلوئی پودرو گاز',
             'type' => 'service',
@@ -377,7 +377,7 @@ class Product extends Model
         ],
         ///
         [
-            'category_id' => 9,
+            'category_id' => 5,
             'brand_id' => 3,
             'title' => 'شیر کامل پودر و گاز',
             'type' => 'goods',
@@ -386,7 +386,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 9,
+            'category_id' => 5,
             'brand_id' => 3,
             'title' => 'مانومتر پودر و گاز',
             'type' => 'goods',
@@ -395,7 +395,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 9,
+            'category_id' => 5,
             'brand_id' => 3,
             'title' => 'شیلنگ اطفاع پودر و گاز',
             'type' => 'goods',
@@ -404,7 +404,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 9,
+            'category_id' => 5,
             'brand_id' => 3,
             'title' => 'میر آب  پودر و گاز',
             'type' => 'goods',
@@ -414,7 +414,7 @@ class Product extends Model
         ],
         ///
         [
-            'category_id' => 6,
+            'category_id' => 9,
             'brand_id' => 2,
             'title' => 'مایع کف یک کیلوئی',
             'type' => 'service',
@@ -423,7 +423,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 6,
+            'category_id' => 9,
             'brand_id' => 2,
             'title' => 'مایع کف دو کیلوئی',
             'type' => 'service',
@@ -432,7 +432,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 6,
+            'category_id' => 9,
             'brand_id' => 2,
             'title' => 'مایع کف سه کیلوئی',
             'type' => 'service',
@@ -441,7 +441,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' =>8,
+            'category_id' =>4,
             'brand_id' => 2,
             'title' => 'مانومتر آب و کف',
             'type' => 'goods',
@@ -450,7 +450,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 8,
+            'category_id' => 4,
             'brand_id' => 2,
             'title' => 'شیلنگ اطفاع آب و کف',
             'type' => 'goods',
@@ -459,7 +459,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 8,
+            'category_id' => 4,
             'brand_id' => 2,
             'title' => ' شیر کامل آب و کف',
             'type' => 'goods',
@@ -471,7 +471,7 @@ class Product extends Model
 
         ///
         [
-            'category_id' => 7,
+            'category_id' => 10,
             'brand_id' => 3,
             'title' => 'حجم گاز یک کیلوئی CO2',
             'type' => 'service',
@@ -480,7 +480,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 7,
+            'category_id' => 10,
             'brand_id' => 3,
             'title' => 'حجم گاز دو کیلوئی CO2',
             'type' => 'service',
@@ -489,7 +489,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 7,
+            'category_id' => 10,
             'brand_id' => 3,
             'title' => 'حجم گاز سه کیلوئی CO2',
             'type' => 'service',
@@ -498,7 +498,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 7,
+            'category_id' => 10,
             'brand_id' => 3,
             'title' => 'حجم گاز چهار کیلوئی CO2',
             'type' => 'service',
@@ -507,7 +507,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 4,
+            'category_id' => 10,
             'brand_id' => 3,
             'title' => 'حجم گاز شش کیلوئی CO2',
             'type' => 'service',
@@ -516,7 +516,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 4,
+            'category_id' => 10,
             'brand_id' => 3,
             'title' => 'حجم گاز دوازده کیلوئی CO2',
             'type' => 'service',
@@ -525,7 +525,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 4,
+            'category_id' => 10,
             'brand_id' => 3,
             'title' => 'حجم گاز بیست و پنج کیلوئی CO2',
             'type' => 'service',
@@ -534,7 +534,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 4,
+            'category_id' => 10,
             'brand_id' => 3,
             'title' => 'حجم گاز پنجاه کیلوئی CO2',
             'type' => 'service',
@@ -544,7 +544,7 @@ class Product extends Model
         ],
         ///
         [
-            'category_id' => 10,
+            'category_id' => 6,
             'brand_id' => 3,
             'title' => ' شیر دسته کامل CO2',
             'type' => 'goods',
@@ -553,7 +553,7 @@ class Product extends Model
             'user_id' => 1
         ],
         [
-            'category_id' => 10,
+            'category_id' => 6,
             'brand_id' => 3,
             'title' => ' شیپوری CO2',
             'type' => 'goods',

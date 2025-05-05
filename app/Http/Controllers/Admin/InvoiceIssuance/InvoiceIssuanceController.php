@@ -19,7 +19,7 @@ class InvoiceIssuanceController extends Controller
         $categories=Category::class;
         return view('Admin.SelectCapsule.index',compact('reside','resideItem','categories'));
     }
-    public function store(Reside $reside,ResideItem $resideItem,Request $request)
+    public function store(Reside $reside,ResideItem $resideItem,In $request)
     {
         dd($request->all());
     }

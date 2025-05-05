@@ -24,56 +24,58 @@
 
             <form action="{{route('admin.invoice.issuance.store',[$reside,$resideItem])}}" method="post" class="w-full">
                 @csrf
-                <section class="space-y-5">
-                    <div>
-                        <h1 class="text-rose-600  font-black">{{$resideItem->product->removeUnderline}}</h1>
-                    </div>
-                    <article class=" w-full flex flex-col justify-center md:w-3/4 lg:w-3/5 xl:w-2/5 space-y-4">
-                        @foreach($categories::where('category_id',$resideItem->product->relatedGoods->id)->get() as $childCategory)
-                            <div
-                                class=" flex justify-center items-start flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
-                                <label class="font-semibold text-sm">{{$childCategory->removeUnderline}} :</label>
-                                <select class="select2 w-full sm:w-1/2" name="product[]">
-                                    <option value="">انتخاب کنید</option>
-                                    @foreach($childCategory->productes as $product)
-                                        <option value="{{$product->id}}">{{$product->removeUnderLine}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        @endforeach
+                @if( isset($resideItem->product->relatedGoods->id))
+                    <section class="space-y-5">
+                        <div>
+                            <h1 class="text-rose-600  font-black">{{$resideItem->product->removeUnderline}}</h1>
+                        </div>
+                        <article class=" w-full flex flex-col justify-center md:w-3/4 lg:w-3/5 xl:w-2/5 space-y-4">
+                            @foreach($categories::where('category_id',$resideItem->product->relatedGoods->id)->get() as $childCategory)
+                                <div
+                                    class=" flex justify-center items-start flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
+                                    <label class="font-semibold text-sm">{{$childCategory->removeUnderline}} :</label>
+                                    <select class="select2 w-full sm:w-1/2" name="product[]">
+                                        <option value="">انتخاب کنید</option>
+                                        @foreach($childCategory->productes as $product)
+                                            <option value="{{$product->id}}">{{$product->removeUnderLine}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endforeach
 
-                        @foreach($resideItem->product->relatedGoods->productes as $product)
+                            @foreach($resideItem->product->relatedGoods->productes as $product)
+                                <div
+                                    class=" flex justify-center items-start flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
+                                    <label class="font-semibold text-sm">{{$product->removeUnderline}} :</label>
+                                    <select class="select2 w-full sm:w-1/2" name="product[]">
+                                        <option value="{{$product->id}}">بله</option>
+                                        <option value="">خیر</option>
+                                    </select>
+                                </div>
+                            @endforeach
                             <div
                                 class=" flex justify-center items-start flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
-                                <label class="font-semibold text-sm">{{$product->removeUnderline}} :</label>
-                                <select class="select2 w-full sm:w-1/2" name="product[]">
-                                    <option value="{{$product->id}}">بله</option>
-                                    <option value="">خیر</option>
+                                <label class="font-semibold text-sm">بالن :</label>
+                                <select class="select2 w-full sm:w-1/2" name="balloons">
+                                    <option value="">انتخاب کنید</option>
+                                    <option value="internal">داخلی</option>
+                                    <option value="external">خارجی</option>
                                 </select>
                             </div>
-                        @endforeach
-                        <div
-                            class=" flex justify-center items-start flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
-                            <label class="font-semibold text-sm">بالن :</label>
-                            <select class="select2 w-full sm:w-1/2" name="balloons">
-                                <option value="">انتخاب کنید</option>
-                                <option value="internal">داخلی</option>
-                                <option value="external">خارجی</option>
-                            </select>
-                        </div>
-                        <div
-                            class=" flex justify-center items-start flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
-                            <label class="font-semibold text-sm">اجرت (ریال) :</label>
-                            <input type="number"
-                                   class="w-full sm:w-1/2 outline-none p-[2.5px] text-center border-black/50 border rounded-[5px]">
-                        </div>
-                    </article>
-                    <article class="flex items-center space-x-reverse space-x-4">
-                        <button class="px-6 py-1 bg-268832 text-white rounded-md">ذخیره</button>
-                        <a href="{{route('admin.invoice.issuance.index',$reside)}}"
-                           class="px-6 py-1 bg-FF3100 text-white rounded-md">بازگشت</a>
-                    </article>
-                </section>
+                            <div
+                                class=" flex justify-center items-start flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
+                                <label class="font-semibold text-sm">اجرت (ریال) :</label>
+                                <input type="number"
+                                       class="w-full sm:w-1/2 outline-none p-[2.5px] text-center border-black/50 border rounded-[5px]">
+                            </div>
+                        </article>
+                        <article class="flex items-center space-x-reverse space-x-4">
+                            <button class="px-6 py-1 bg-268832 text-white rounded-md">ذخیره</button>
+                            <a href="{{route('admin.invoice.issuance.index',$reside)}}"
+                               class="px-6 py-1 bg-FF3100 text-white rounded-md">بازگشت</a>
+                        </article>
+                    </section>
+                @endif
 
 
             </form>
