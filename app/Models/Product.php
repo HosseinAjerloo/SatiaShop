@@ -625,6 +625,10 @@ class Product extends Model
     {
         return $this->hasMany(CartItem::class, 'product_id');
     }
+    public function resideItemProduct()
+    {
+        
+    }
 
 
     public function isRemaining()
