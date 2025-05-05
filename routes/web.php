@@ -231,15 +231,8 @@ Route::get('test2', function () {
 });
 
 Route::get('test', function () {
-    $categories=\App\Models\Category::all();
-    foreach($categories as $category){
-        if(str_contains($category->removeUnderline,'کالای مبوط'))
-
-        {
-        dump($category->removeUnderline);
-
-        }
-    }
+    $product=Product::find(1);
+    dd($product->resideItemProduct);
 
 })->name('test');
 

@@ -627,7 +627,7 @@ class Product extends Model
     }
     public function resideItemProduct()
     {
-        
+        return $this->belongsToMany(ResideItem::class,'product_reside_items','product_id','reside_item_id');
     }
 
 
