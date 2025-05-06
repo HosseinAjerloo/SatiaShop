@@ -237,7 +237,9 @@ return [
         'economic_code'=>'کد اقتصادی',
         'tel'=>'شماره تماس',
         'print'=>'چاپ',
-        'related_goods'=>'خدمات مربوطه'
+        'related_goods'=>'خدمات مربوطه',
+        'balloons'=>'نوع بالن',
+        'product'=>'کالا'
     ],
 
 ];

@@ -55,6 +55,7 @@ class SatiaService
 
             ])->withHeaders(['Content-Type' => 'text/xml; charset=utf-8'])->withBody($body, 'text/xml; charset=utf-8')->post("https://wssms.satia.co/");
             if (strpos($request->body(), 'ارسال با موفقیت')) {
+                dd($request->body());
                 $this->status = true;
             }
         } catch (\Exception $e) {

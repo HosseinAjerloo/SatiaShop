@@ -6,25 +6,34 @@ use App\Models\Product;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 class RuleProductCount implements ValidationRule
 {
     /**
      * Run the validation rule.
      *
-     * @param  \Closure(string, ?string=): \Illuminate\Translation\PotentiallyTranslatedString  $fail
+     * @param \Closure(string, ?string=): \Illuminate\Translation\PotentiallyTranslatedString $fail
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $user=Auth::user();
-       foreach ($value as $productID=> $productCount)
-       {
-           $product=Product::find($productID);
-           if ( !$product->productRemainingExceptUser($user,$productCount))
-           {
-               $fail( " تعداد کافی از محصول ".$product->removeUnderLine." موجود نمیباشد لطفا از سبد خرید خود پاک فرمایید ");
-           }
+        $route = Route::current();
+        if ($route->getName() == 'admin.invoice.issuance.store') {
+            $productValue = [];
+            foreach ($value as $product) {
+                $productValue[$product] = 1;
+            }
+            $value = $productValue;
+        }
 
-       }
+        $user = Auth::user();
+        foreach ($value as $productID => $productCount) {
+            $product = Product::find($productID);
+            dd($product,$productCount);
+            if (!$product->productRemainingExceptUser($user, $productCount)) {
+                $fail(" تعداد کافی از محصول " . $product->removeUnderLine . " موجود نمیباشد لطفا از سبد خرید خود پاک فرمایید ");
+            }
+
+        }
     }
 }

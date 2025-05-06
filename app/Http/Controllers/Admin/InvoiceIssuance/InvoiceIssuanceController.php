@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\InvoiceIssuance;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\InvoiceIssuance\InvoiceIssuanceRequest;
 use App\Models\Category;
 use App\Models\Reside;
 use App\Models\ResideItem;
@@ -19,8 +20,8 @@ class InvoiceIssuanceController extends Controller
         $categories=Category::class;
         return view('Admin.SelectCapsule.index',compact('reside','resideItem','categories'));
     }
-    public function store(Reside $reside,ResideItem $resideItem,In $request)
+    public function store(Reside $reside,ResideItem $resideItem,InvoiceIssuanceRequest $request)
     {
-        dd($request->all());
+        dd($request->all(),'controller');
     }
 }

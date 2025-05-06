@@ -232,8 +232,9 @@ Route::get('test2', function () {
 });
 
 Route::get('test', function () {
-
-
+        $sms=new \App\Services\SmsService\SatiaService();
+        $sms->send('test','09186414452');
+        dd($sms->status());
 })->name('test');
 
 Route::post('create-product', function () {
