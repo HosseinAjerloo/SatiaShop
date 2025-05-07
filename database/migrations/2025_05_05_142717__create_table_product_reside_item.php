@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('product_id')->nullable()->constrained('products')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('reside_item_id')->nullable()->constrained('reside_items')->cascadeOnDelete()->cascadeOnUpdate();
             $table->enum('balloons',['internal','external'])->nullable();
-            $table->decimal('salary',20,3)->default(0);
+            $table->decimal('salary',20,3)->nullable()->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

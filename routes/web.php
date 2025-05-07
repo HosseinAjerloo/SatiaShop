@@ -12,6 +12,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Traits\HasCart;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+
 
 Route::middleware('guest')->group(function () {
     Route::name('login.')->prefix('login')->group(function () {
@@ -232,9 +234,33 @@ Route::get('test2', function () {
 });
 
 Route::get('test', function () {
-        $sms=new \App\Services\SmsService\SatiaService();
-        $sms->send('test','09186414452');
-        dd($sms->status());
+
+       $resides=\App\Models\Reside::where('status','not_paid')->where('type','reside')->withWhereHas("resideItem",function (Builder $builder){
+           $builder->where('product_id','3');
+       })->get();
+        $total=0;
+       if ($resides->count())
+       {
+
+           foreach ($resides as $reside)
+                {
+                    $resideItems=$reside->resideItem;
+                    foreach ($resideItems as $resideItem)
+                    {
+                        if ($resideItem->status=='sell')
+                        {
+                            $total+=$resideItems->sum('amount');
+                        }
+                        else{
+                            $total+=$resideItem->productResidItem()->where('product_id',3)->count();
+                        }
+                    }
+                }
+       }
+       else{
+           dd($total,'no relation');
+       }
+       dd('end',$total);
 })->name('test');
 
 Route::post('create-product', function () {

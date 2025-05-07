@@ -671,6 +671,7 @@ class Product extends Model
     public function productRemainingExceptUser($user, $productCount)
     {
         $cart = Cart::where(fn($q) => $q->whereNull('user_id')->orWhere('user_id', "!=", $user->id))->whereIn('status', ['addToCart', 'applyToTheBank'])->get();
+
         $cartItem = CartItem::where('product_id', $this->id)->whereIn('cart_id', $cart->pluck('id'))->get();
         if ($cartItem->count() > 0) {
             if ($this->type == 'goods') {

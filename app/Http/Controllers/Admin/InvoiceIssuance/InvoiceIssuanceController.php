@@ -22,6 +22,22 @@ class InvoiceIssuanceController extends Controller
     }
     public function store(Reside $reside,ResideItem $resideItem,InvoiceIssuanceRequest $request)
     {
+        try {
+
+            $inputs=$request->all();
+            $allData=[];
+            foreach ($inputs['product_id'] as $product)
+            {
+                $allData[$product]=[
+                    'balloons'=>$inputs['balloons'],
+                    'salary'=>$inputs['salary'],
+                ];
+            }
+            $resideItem->productResidItem()->attach($allData);
+        }
+        catch (\Exception $exception){
+            dd($exception->getMessage());
+        }
         dd($request->all(),'controller');
     }
 }

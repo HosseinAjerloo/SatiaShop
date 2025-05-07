@@ -51,9 +51,11 @@ class InvoiceIssuanceRequest extends FormRequest
      */
     public function rules(): array
     {
+        /*new RuleProductCount*/
         return [
-            'product'=>['array','required','exists:products,id',new RuleProductCount],
-            'balloons'=>'nullable|in:internal,external'
+            'product_id'=>['array','required','exists:products,id'],
+            'balloons'=>'nullable|in:internal,external',
+            'salary'=>'nullable|numeric:min:10000'
         ];
     }
 }

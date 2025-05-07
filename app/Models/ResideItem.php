@@ -25,7 +25,7 @@ class ResideItem extends Model
     }
     public function productResidItem()
     {
-        return $this->belongsToMany(Product::class,'product_reside_items','reside_item_id','product_id');
+        return $this->belongsToMany(Product::class,'product_reside_items','reside_item_id','product_id')->withTimestamps()->withPivot('balloons','salary');
     }
 
 }
