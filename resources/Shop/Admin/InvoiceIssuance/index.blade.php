@@ -65,7 +65,7 @@
                             </td>
                             <td class="border border-gray-400  text-center  p-1">
                                 <p class="sm:text-[15px] text-[10px] p-1 w-full ">
-                                    0
+                                    {{numberFormat($resideItem->getTotalProductPriceItems())}}
                                 </p>
                             </td>
                             <td class="border border-gray-400   text-center p-1">
@@ -77,7 +77,8 @@
                                 </div>
                             </td>
                             <td class="border border-gray-300/75 flex items-center justify-center  text-center">
-                                <canvas class="max-w-min mx-auto p-1 qrcode"></canvas>
+                                <canvas class="max-w-min mx-auto p-1 qrcode"
+                                        data-product="{{$resideItem->changeToQrcodeNameProduct()}}"></canvas>
                             </td>
                         </tr>
                     @endforeach
@@ -123,7 +124,7 @@
                     color = '#e5e7eb';
                 }
                 count += 1;
-                QRCode.toCanvas(imgQr, 'hossein Ajerloo', {
+                QRCode.toCanvas(imgQr, imgQr.dataset.product, {
                     width: 50,
                     color: {
                         dark: '#000000',

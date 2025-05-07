@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 
 class RuleProductCount implements ValidationRule
 {
+    private $message;
+
     /**
      * Run the validation rule.
      *
@@ -29,13 +31,9 @@ class RuleProductCount implements ValidationRule
         $user = Auth::user();
         foreach ($value as $productID => $productCount) {
             $product = Product::find($productID);
-            dump($product->theTotalPurchaseReceiptOfTheCapsule());
-
-
-        }
-        dd('emd');
-        if (!$product->productRemainingExceptUser($user, $productCount)) {
-            $fail(" تعداد کافی از محصول " . $product->removeUnderLine . " موجود نمیباشد لطفا از سبد خرید خود پاک فرمایید ");
+            if (!$product->isRemaining()) {
+                $fail(" تعداد کافی از محصول " . $product->removeUnderLine . " موجود نمیباشد لطفا از سفارش خود را ویرایش کنید ");
+            }
         }
     }
 }

@@ -58,15 +58,16 @@
                                 <label class="font-semibold text-sm">بالن :</label>
                                 <select class="select2 w-full sm:w-1/2" name="balloons">
                                     <option value="">انتخاب کنید</option>
-                                    <option value="internal">داخلی</option>
-                                    <option value="external">خارجی</option>
+                                    <option value="intsfernal">داخلی</option>
+                                    <option value="extedrnal">خارجی</option>
                                 </select>
                             </div>
                             <div
                                 class=" flex justify-center items-start flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
                                 <label class="font-semibold text-sm">اجرت (ریال) :</label>
                                 <input type="number"
-                                       class="w-full sm:w-1/2 outline-none p-[2.5px] text-center border-black/50 border rounded-[5px]" name="salary">
+                                       class="w-full sm:w-1/2 outline-none p-[2.5px] text-center border-black/50 border rounded-[5px]"
+                                       name="salary">
                             </div>
                         </article>
                         <article class="flex items-center space-x-reverse space-x-4">

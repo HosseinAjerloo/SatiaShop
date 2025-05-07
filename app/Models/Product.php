@@ -639,7 +639,7 @@ class Product extends Model
 
         if ($cartItem->count() > 0) {
             if ($this->type == 'goods')
-                return $cartItem->sum('amount') < $this->productTransaction()->latest()->first()->remain ? true : false;
+                return ($cartItem->sum('amount') + $this->theTotalPurchaseReceiptOfTheCapsule()) < $this->productTransaction()->latest()->first()->remain ? true : false;
         }
         if ($this->productRemaining()) {
             return true;
@@ -656,14 +656,14 @@ class Product extends Model
         $cartItem = CartItem::where('product_id', $this->id)->whereIn('cart_id', $cart->pluck('id'))->get();
         if ($cartItem->count() > 0) {
             if ($this->type == 'goods') {
-                $total = ($this->productTransaction()->latest()->first()->remain ?? 0) - $cartItem->sum('amount');
+                $total = ($this->productTransaction()->latest()->first()->remain ?? 0) - ($cartItem->sum('amount') + $this->theTotalPurchaseReceiptOfTheCapsule());
                 return $total > 0 ? $total : 0;
             } else {
                 return 'نامحدود';
             }
         }
         if ($this->type == 'goods')
-            return $this->productTransaction()->latest()->first()->remain ?? 0;
+            return ($this->productTransaction()->latest()->first()->remain?? 0)  - $this->theTotalPurchaseReceiptOfTheCapsule();
         else
             return 'نامحدود';
     }
@@ -674,14 +674,14 @@ class Product extends Model
         $cartItem = CartItem::where('product_id', $this->id)->whereIn('cart_id', $cart->pluck('id'))->get();
         if ($cartItem->count() > 0) {
             if ($this->type == 'goods') {
-                $remainProduct = $this->productTransaction()->latest()->first()->remain - $cartItem->sum('amount');
+                $remainProduct = $this->productTransaction()->latest()->first()->remain - ( $cartItem->sum('amount') + $this->theTotalPurchaseReceiptOfTheCapsule());
                 return ($remainProduct >= $productCount) ? true : false;
             } else {
                 return true;
             }
         }
         if ($this->type == 'goods') {
-            $remainProduct = $this->productTransaction()->latest()->first()->remain;
+            $remainProduct = ($this->productTransaction()->latest()->first()->remain ?? 0) - $this->theTotalPurchaseReceiptOfTheCapsule();
             return ($remainProduct >= $productCount) ? true : false;
         } else {
             return true;
@@ -711,7 +711,7 @@ class Product extends Model
 
     public function theTotalPurchaseReceiptOfTheCapsule()
     {
-        $resides = \App\Models\Reside::where('status', 'not_paid')->where('type', 'reside')->WhereHas("resideItem")->get();
+        $resides = Reside::where('status', 'not_paid')->where('type', 'reside')->WhereHas("resideItem")->get();
         $total = 0;
         $resideItemSumAmount=0;
         if ($this->type == 'goods') {

@@ -235,25 +235,25 @@ Route::get('test2', function () {
 
 Route::get('test', function () {
 
-    $resides = \App\Models\Reside::where('status', 'not_paid')->where('type', 'reside')->WhereHas("resideItem")->get();
-    $product = Product::find(38);
-    $total = 0;
-    $resideItemSumAmount=0;
-    if ($product->type == 'goods') {
-        if ($resides->count()) {
-            foreach ($resides as $reside) {
-                $resideItems = $reside->resideItem;
-                foreach ($resideItems as $resideItem) {
-                            $resideItemSumAmount = $resideItem->where('product_id',$product->id)->where('status','sell')->sum('amount');
-                            $total += $resideItem->productResidItem()->where('product_id', $product->id)->count();
-
-                }
-            }
-            $total+=$resideItemSumAmount;
-        } else {
-            return $total;
-        }
-    }
+//    $resides = \App\Models\Reside::where('status', 'not_paid')->where('type', 'reside')->WhereHas("resideItem")->get();
+//    $product = Product::find(38);
+//    $total = 0;
+//    $resideItemSumAmount=0;
+//    if ($product->type == 'goods') {
+//        if ($resides->count()) {
+//            foreach ($resides as $reside) {
+//                $resideItems = $reside->resideItem;
+//                foreach ($resideItems as $resideItem) {
+//                            $resideItemSumAmount = $resideItem->where('product_id',$product->id)->where('status','sell')->sum('amount');
+//                            $total += $resideItem->productResidItem()->where('product_id', $product->id)->count();
+//
+//                }
+//            }
+//            $total+=$resideItemSumAmount;
+//        } else {
+//            return $total;
+//        }
+//    }
 })->name('test');
 
 Route::post('create-product', function () {
