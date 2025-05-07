@@ -53,7 +53,7 @@ class InvoiceIssuanceRequest extends FormRequest
     {
         /*new RuleProductCount*/
         return [
-            'product_id'=>['array','required','exists:products,id'],
+            'product_id'=>['array','required','exists:products,id',new RuleProductCount],
             'balloons'=>'nullable|in:internal,external',
             'salary'=>'nullable|numeric:min:10000'
         ];

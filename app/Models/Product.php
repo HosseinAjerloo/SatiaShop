@@ -671,7 +671,6 @@ class Product extends Model
     public function productRemainingExceptUser($user, $productCount)
     {
         $cart = Cart::where(fn($q) => $q->whereNull('user_id')->orWhere('user_id', "!=", $user->id))->whereIn('status', ['addToCart', 'applyToTheBank'])->get();
-
         $cartItem = CartItem::where('product_id', $this->id)->whereIn('cart_id', $cart->pluck('id'))->get();
         if ($cartItem->count() > 0) {
             if ($this->type == 'goods') {
@@ -710,6 +709,29 @@ class Product extends Model
 
     }
 
+    public function theTotalPurchaseReceiptOfTheCapsule()
+    {
+        $resides = \App\Models\Reside::where('status', 'not_paid')->where('type', 'reside')->WhereHas("resideItem")->get();
+        $total = 0;
+        $resideItemSumAmount=0;
+        if ($this->type == 'goods') {
+            if ($resides->count()) {
+                foreach ($resides as $reside) {
+                    $resideItems = $reside->resideItem;
+                    foreach ($resideItems as $resideItem) {
+                        $resideItemSumAmount = $resideItem->where('product_id',$this->id)->where('status','sell')->sum('amount');
+                        $total += $resideItem->productResidItem()->where('product_id', $this->id)->count();
+
+                    }
+                }
+                $total+=$resideItemSumAmount;
+            } else {
+                return $total;
+            }
+        }
+        return $total;
+    }
+
     public function getTypePersian(): Attribute
     {
         return Attribute::make(
@@ -730,5 +752,6 @@ class Product extends Model
         }
         return $this->userFavorite()->where('user_id', $user->id)->exists() ? 1 : 0;
     }
+
 
 }
