@@ -58,8 +58,8 @@
                                 <label class="font-semibold text-sm">بالن :</label>
                                 <select class="select2 w-full sm:w-1/2" name="balloons">
                                     <option value="">انتخاب کنید</option>
-                                    <option value="intsfernal">داخلی</option>
-                                    <option value="extedrnal">خارجی</option>
+                                    <option value="internal">داخلی</option>
+                                    <option value="external">خارجی</option>
                                 </select>
                             </div>
                             <div

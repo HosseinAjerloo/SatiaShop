@@ -34,10 +34,11 @@ class InvoiceIssuanceController extends Controller
                 ];
             }
             $resideItem->productResidItem()->attach($allData);
+            return redirect()->route('admin.invoice.issuance.index',$reside)->with('success',"تعوضی موارد مورد نیاز برای کالا {$resideItem->product->removeUnderLine} ثبت شد ");
         }
         catch (\Exception $exception){
-            dd($exception->getMessage());
+            return redirect()->route('admin.invoice.issuance.index',$reside)->withErrors('error',"خطایی رخ داد لطفا چند دقیقه دیگر تلاش کنید و با پشتیانی تماس حاصل فرمایید");
         }
-        dd($request->all(),'controller');
+
     }
 }

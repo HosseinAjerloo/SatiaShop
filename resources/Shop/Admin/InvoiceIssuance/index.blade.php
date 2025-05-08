@@ -59,7 +59,7 @@
                         <tr class="@if($key%2==0) bg-white @else bg-gray-200/70 @endif">
 
                             <td class="border border-gray-400  text-center  p-1">
-                                <p class="font-bold sm:text-[15px] text-[15px] text-rose-700 p-1 w-full ">
+                                <p class="font-extrabold sm:text-[15px] text-[15px] text-red-800 p-1 w-full ">
                                     {{$resideItem->product->removeUnderline??''}}
                                 </p>
                             </td>
@@ -71,13 +71,13 @@
                             <td class="border border-gray-400   text-center p-1">
                                 <div class="w-full flex items-center justify-center">
                                     <a href="{{route('admin.invoice.issuance.operation',[$reside,$resideItem])}}">
-                                        <img src="{{asset('capsule/images/plus.svg')}}" alt="" class="w-[25px]">
+                                        <img src="{{asset('capsule/images/plus.svg')}}" alt="" class="w-[33px]">
                                     </a>
 
                                 </div>
                             </td>
                             <td class="border border-gray-300/75 flex items-center justify-center  text-center">
-                                <canvas class="max-w-min mx-auto p-1 qrcode"
+                                <canvas class="qrcode !w-full sm:!w-[80px] !h-auto "
                                         data-product="{{$resideItem->changeToQrcodeNameProduct()}}"></canvas>
                             </td>
                         </tr>
@@ -125,10 +125,10 @@
                 }
                 count += 1;
                 QRCode.toCanvas(imgQr, imgQr.dataset.product, {
-                    width: 50,
                     color: {
                         dark: '#000000',
-                        light: color
+                        light: color,
+
                     }
                 });
 
