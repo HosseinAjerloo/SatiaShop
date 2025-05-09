@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained('products')->cascadeOnDelete()->cascadeOnUpdate();
             $table->decimal('price',20,3)->nullable();
             $table->integer('amount')->default(1);
+            $table->enum('balloons',['internal','external'])->nullable();
+            $table->decimal('salary',20,3)->nullable();
             $table->enum('type', ['service', 'goods'])->nullable();
             $table->enum('status', ['used', 'recharge','sell'])->nullable();
             $table->text('description')->nullable();

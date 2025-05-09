@@ -1,6 +1,5 @@
 @extends('Admin.Layout.master')
 @section('content')
-
     <section class=" space-y-3 relative w-4/5 mx-auto">
         <article class="space-y-5 bg-F1F1F1 p-6 rounded-md">
 
@@ -22,7 +21,7 @@
         </article>
         <article class="space-y-5 bg-F1F1F1 p-6 rounded-md ">
 
-            <form action="{{route('admin.invoice.issuance.store',[$reside,$resideItem])}}" method="post" class="w-full">
+            <form action="{{route('admin.invoice.issuance.storeProductItem',[$reside,$resideItem])}}" method="post" class="w-full">
                 @csrf
                 @if( isset($resideItem->product->relatedGoods->id))
                     <section class="space-y-5">
@@ -37,7 +36,7 @@
                                     <select class="select2 w-full sm:w-1/2" name="product_id[]">
                                         <option value="">انتخاب کنید</option>
                                         @foreach($childCategory->productes as $product)
-                                            <option value="{{$product->id}}">{{$product->removeUnderLine}}</option>
+                                            <option value="{{$product->id}}"@if(in_array($product->id,$resideItem->productResidItem->pluck('id')->toArray())) selected="selected" @endif>{{$product->removeUnderLine}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -48,8 +47,8 @@
                                     class=" flex justify-center items-start flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
                                     <label class="font-semibold text-sm">{{$product->removeUnderline}} :</label>
                                     <select class="select2 w-full sm:w-1/2" name="product_id[]">
-                                        <option value="{{$product->id}}">بله</option>
-                                        <option value="">خیر</option>
+                                        <option value="" selected="selected">تعویض نشده</option>
+                                        <option value="{{$product->id}}" @if(in_array($product->id,$resideItem->productResidItem->pluck('id')->toArray())) selected="selected" @endif>تعویض شده</option>
                                     </select>
                                 </div>
                             @endforeach
@@ -58,8 +57,8 @@
                                 <label class="font-semibold text-sm">بالن :</label>
                                 <select class="select2 w-full sm:w-1/2" name="balloons">
                                     <option value="">انتخاب کنید</option>
-                                    <option value="internal">داخلی</option>
-                                    <option value="external">خارجی</option>
+                                    <option value="internal" @if($resideItem->balloons=='internal') selected="selected" @endif>داخلی</option>
+                                    <option value="external" @if($resideItem->balloons=='external') selected="selected" @endif>خارجی</option>
                                 </select>
                             </div>
                             <div
@@ -67,7 +66,7 @@
                                 <label class="font-semibold text-sm">اجرت (ریال) :</label>
                                 <input type="number"
                                        class="w-full sm:w-1/2 outline-none p-[2.5px] text-center border-black/50 border rounded-[5px]"
-                                       name="salary">
+                                       name="salary" min="0" value="{{(float)$resideItem->salary??0}}">
                             </div>
                         </article>
                         <article class="flex items-center space-x-reverse space-x-4">

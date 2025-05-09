@@ -31,7 +31,7 @@
                     <span class="text-sm sm:tetx-base">{{$reside->id??""}}</span>
                 </div>
             </article>
-            <form action="{{route('hossein.back')}}" method="post" class="w-full">
+            <form action="{{route('admin.invoice.issuance.store',$reside->id)}}" method="post" class="w-full">
                 @csrf
 
                 <table class="border-collapse   border border-gray-400 w-full table-fixed">
@@ -88,7 +88,7 @@
                 </table>
                 <div class="mt-8 flex items-center  space-x-reverse space-x-4">
                     <h1 class="font-bold">تخفیف:</h1>
-                    <input type="text" class="w-[50px] p-[3px] text-center outline-none">
+                    <input type="number" min="0" max="100" name="discount" class="w-[50px] p-[3px] text-center outline-none">
                     <h1 class="font-bold">درصد</h1>
                 </div>
                 <div class="mt-8 w-full">

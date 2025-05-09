@@ -20,7 +20,7 @@ class RuleProductCount implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         $route = Route::current();
-        if ($route->getName() == 'admin.invoice.issuance.store') {
+        if ($route->getName() == 'admin.invoice.issuance.storeProductItem') {
             $productValue = [];
             foreach ($value as $product) {
                 $productValue[$product] = 1;

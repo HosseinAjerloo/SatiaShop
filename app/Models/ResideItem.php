@@ -13,7 +13,9 @@ class ResideItem extends Model
         'amount',
         'type',
         'status',
-        'description'
+        'description',
+        'balloons',
+        'salary'
     ];
 
     public function product()
@@ -28,7 +30,7 @@ class ResideItem extends Model
 
     public function productResidItem()
     {
-        return $this->belongsToMany(Product::class, 'product_reside_items', 'reside_item_id', 'product_id')->withTimestamps()->withPivot('balloons', 'salary');
+        return $this->belongsToMany(Product::class, 'product_reside_items', 'reside_item_id', 'product_id')->withTimestamps();
     }
 
     public function getTotalProductPriceItems()
@@ -38,19 +40,18 @@ class ResideItem extends Model
         foreach ($this->productResidItem as $product) {
             $totalPrice += $product->price;
         }
-        return $totalPrice;
+        return $totalPrice + ($this->salary ?? 0);
     }
+
     public function changeToQrcodeNameProduct()
     {
         $value = $this->productResidItem->pluck("title")->toArray();
-        if (!empty($value))
-        {
+        if (!empty($value)) {
             foreach ($value as $key => $item) {
                 $value[$key] = str_replace('-', ' ', $item);
             }
-            return implode(',', $value);
-        }
-        else
+            return implode(' / ', $value);
+        } else
             return '-';
 
     }
