@@ -22,6 +22,10 @@ class ResideItem extends Model
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
+    public function reside()
+    {
+        return $this->belongsTo(Reside::class,'reside_id');
+    }
 
     public function getStatusItem()
     {

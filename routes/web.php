@@ -225,6 +225,7 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
         Route::get('print-factor/{reside}', [App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'printFactor'])->name('printFactor');
 
     });
+    Route::get('print-capsule/{resideItem}',[App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'printCapsule'])->name('admin.print.capsule');
 });
 
 
@@ -237,7 +238,6 @@ Route::get('test2', function () {
 });
 
 Route::get('test', function () {
-    return view('Admin.PrintCapsule.index');
 //    $resideItem=\App\Models\ResideItem::find(11);
 //    return redirect()->route('admin.invoice.issuance.operation',[$reside,$resideItem])->with('success','ثبت شد'.$resideItem->product->removeUnderLine.'کالاهای تعویضی محصول ');
 

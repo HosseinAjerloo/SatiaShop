@@ -29,18 +29,16 @@ class InvoiceIssuanceController extends Controller
     public function store(Reside $reside, FinalInvoiceIssuanceRequest $request)
     {
         try {
-            $inputs=$request->all();
+            $inputs = $request->all();
             $this->compilationResideFactor($reside);
-            if (isset($inputs['sodurFactor']) && $inputs['sodurFactor']=='yes')
-            {
-                return  redirect()->route('admin.invoice.issuance.printFactor',$reside)->with(['success'=>'عملیات با موفقیت انجام شد']);
-            }
-            else{
-                return  redirect()->route('admin.invoice.issuance.index',$reside)->with(['success'=>'عملیات با موفقیت انجام شد']);
+            if (isset($inputs['sodurFactor']) && $inputs['sodurFactor'] == 'yes') {
+                return redirect()->route('admin.invoice.issuance.printFactor', $reside)->with(['success' => 'عملیات با موفقیت انجام شد']);
+            } else {
+                return redirect()->route('admin.invoice.issuance.index', $reside)->with(['success' => 'عملیات با موفقیت انجام شد']);
             }
 
         } catch (\Exception $exception) {
-            return redirect()->route('admin.invoice.issuance.index', $reside)->withErrors(['error'=> "خطایی رخ داد لطفا چند دقیقه دیگر تلاش کنید و با پشتیانی تماس حاصل فرمایید"]);
+            return redirect()->route('admin.invoice.issuance.index', $reside)->withErrors(['error' => "خطایی رخ داد لطفا چند دقیقه دیگر تلاش کنید و با پشتیانی تماس حاصل فرمایید"]);
 
         }
     }
@@ -62,8 +60,13 @@ class InvoiceIssuanceController extends Controller
             ]);
             return redirect()->route('admin.invoice.issuance.index', $reside)->with('success', "تعوضی موارد مورد نیاز برای کالا {$resideItem->product->removeUnderLine} ثبت شد ");
         } catch (\Exception $exception) {
-            return redirect()->route('admin.invoice.issuance.index', $reside)->withErrors(['error'=>"خطایی رخ داد لطفا چند دقیقه دیگر تلاش کنید و با پشتیانی تماس حاصل فرمایید"]);
+            return redirect()->route('admin.invoice.issuance.index', $reside)->withErrors(['error' => "خطایی رخ داد لطفا چند دقیقه دیگر تلاش کنید و با پشتیانی تماس حاصل فرمایید"]);
         }
 
+    }
+
+    public function printCapsule(ResideItem $resideItem)
+    {
+        return view('Admin.PrintCapsule.index', compact('resideItem'));
     }
 }

@@ -77,8 +77,11 @@
                                 </div>
                             </td>
                             <td class="border border-gray-300/75 flex items-center justify-center  text-center">
-                                <canvas class="qrcode !w-full sm:!w-[80px] !h-auto "
-                                        data-product="{{$resideItem->changeToQrcodeNameProduct()}}"></canvas>
+                                <a href="{{route('admin.print.capsule',$resideItem)}}">
+                                    <canvas class="qrcode !w-full sm:!w-[80px] !h-auto "
+                                            data-product="{{$resideItem->changeToQrcodeNameProduct()}}"></canvas>
+                                </a>
+
                             </td>
                         </tr>
                     @endforeach
