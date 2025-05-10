@@ -17,7 +17,8 @@ return new class extends Migration {
             $table->foreignId('bank_id')->nullable()->constrained('banks')->cascadeOnUpdate()->cascadeOnDelete();
             $table->enum('status_bank', ['requested', 'failed', 'finished'])->nullable();
             $table->decimal('total_price', 20, 3)->default(0);
-            $table->decimal('discount_collection', 20, 3)->default(0);
+            $table->decimal('discount_collection', 20, 3)->nullable()->default(0);
+            $table->integer('commission')->nullable()->default(0);
             $table->decimal('final_price', 20, 3)->default(0);
             $table->enum('status', ['paid', 'not_paid'])->nullable();
             $table->enum('reside_type', ['sell', 'recharge'])->nullable();

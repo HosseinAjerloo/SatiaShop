@@ -82,13 +82,34 @@
                             </td>
                         </tr>
                     @endforeach
+                    <tr class="@if($key%2==0) bg-white @else bg-gray-200/70 @endif">
+
+                        <td class="border border-gray-400  text-center  p-1">
+                            <div class="flex items-center justify-center">
+                                <p class="sm:text-[15px] text-[10px] p-1 w-full max-w-max space-x-reverse space-x-2">
+                                    {{env('Commission')}}% مالیات بر ارزش افزوده
+                                </p>
+                                <input name="commission" type="checkbox" value="yes" @if($reside->commission>0) checked="checked" @endif>
+                            </div>
+                        </td>
+                        <td class="border border-gray-400  text-center  p-1" colspan="3">
+                            <div class="flex items-center justify-center">
+                                <p class="sm:text-[15px] text-base font-semibold p-1 w-full max-w-max ">
+                                    جمع کل:
+                                </p>
+                                <span class="totalPrice">{{numberFormat($reside->totalPricePlusTax())}} ریال </span>
+                            </div>
+                        </td>
+
+                    </tr>
 
 
                     </tbody>
                 </table>
                 <div class="mt-8 flex items-center  space-x-reverse space-x-4">
                     <h1 class="font-bold">تخفیف:</h1>
-                    <input type="number" min="0" max="100" name="discount" class="w-[50px] p-[3px] text-center outline-none">
+                    <input type="number" min="0" max="100" name="discount"
+                           class="w-[50px] p-[3px] text-center outline-none">
                     <h1 class="font-bold">درصد</h1>
                 </div>
                 <div class="mt-8 w-full">
@@ -97,7 +118,7 @@
                 </div>
                 <section class="flex items-center justify-center space-x-reverse space-x-3 p-5">
                     <div class="bg-268832 px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
-                        <button  class="sodurFactor" type="button">صدور فاکتورنهایی</button>
+                        <button class="sodurFactor" type="button">صدور فاکتورنهایی</button>
                     </div>
                     <div class="bg-2081F2 px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
                         <button>صدور و پرینت</button>
@@ -147,15 +168,36 @@
     </script>
     <script>
 
-        let sodurFactor=document.querySelector('.sodurFactor');
-        sodurFactor.onclick=function (event){
+        let sodurFactor = document.querySelector('.sodurFactor');
+        sodurFactor.onclick = function (event) {
             event.preventDefault();
-            let input=document.createElement('input');
-            input.setAttribute('type','hidden');
-            input.setAttribute('value','yes');
-            input.setAttribute('name','sodurFactor');
+            let input = document.createElement('input');
+            input.setAttribute('type', 'hidden');
+            input.setAttribute('value', 'yes');
+            input.setAttribute('name', 'sodurFactor');
             window.form.append(input);
             window.form.submit();
         }
+    </script>
+    <script>
+        let inputCommission = document.querySelector('input[name="commission"]');
+        let commissionAmount = 0;
+        let commission = "{{env('Commission')}}";
+        let totalPrice = "{{$reside->totalPrice()}}";
+        let price = 0;
+        commission = Number(commission);
+        totalPrice = Number(totalPrice);
+        inputCommission.addEventListener('change', function (event) {
+            if (event.target.checked) {
+                commissionAmount = ((totalPrice * commission) / 100) + totalPrice;
+            } else {
+                commissionAmount = totalPrice;
+            }
+            price = new Intl.NumberFormat('fa-IR', {
+                style: 'currency',
+                currency: 'IRR'
+            }).format(commissionAmount);
+            document.querySelector('.totalPrice').innerText = price;
+        })
     </script>
 @endsection

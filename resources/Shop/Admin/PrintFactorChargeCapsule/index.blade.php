@@ -1,11 +1,20 @@
 @extends('Admin.Layout.master')
 @section('header')
     <style>
-        @page {
-            size: A4;
-        }
+
 
         @media print {
+            @page {
+                size: A4;
+                margin: 0;
+                padding: 0;
+
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
             .redirect-back {
                 display: none;
             }
@@ -18,8 +27,15 @@
             #toast-container {
                 display: none;
             }
-            .qrcode{
-                background-color: red;
+            .print{
+                width: 100%!important;
+            }
+            .qrcode {
+                background-color: white!important;
+                width: 115px!important;
+            }
+            canvas{
+                background-color: white!important;
             }
 
         }

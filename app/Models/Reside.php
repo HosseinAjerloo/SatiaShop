@@ -14,6 +14,7 @@ class Reside extends Model
             'bank_id',
             'status_bank',
             'total_price',
+            'commission',
             'discount_collection',
             'final_price',
             'status',
@@ -63,5 +64,23 @@ class Reside extends Model
 
             $query->whereDate('created_at', ">=", $date);
         });
+    }
+    public function totalPrice()
+    {
+        $total=0;
+        foreach ($this->resideItem as $item) {
+            $total += $item->getTotalProductPriceItems();
+        }
+        return $total;
+    }
+
+    public function totalPricePlusTax()
+    {
+        $total=$this->totalPrice();
+        if ($this->commission>0)
+        {
+            $total=(($total * $this->commission )/100)+ $total;
+        }
+        return $total;
     }
 }
