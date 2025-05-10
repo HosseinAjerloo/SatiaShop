@@ -31,7 +31,7 @@
                     <span class="text-sm sm:tetx-base">{{$reside->id??""}}</span>
                 </div>
             </article>
-            <form action="{{route('admin.invoice.issuance.store',$reside->id)}}" method="post" class="w-full">
+            <form action="{{route('admin.invoice.issuance.store',$reside->id)}}" method="post" class="w-full" id="form">
                 @csrf
 
                 <table class="border-collapse   border border-gray-400 w-full table-fixed">
@@ -97,7 +97,7 @@
                 </div>
                 <section class="flex items-center justify-center space-x-reverse space-x-3 p-5">
                     <div class="bg-268832 px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
-                        <button>صدور فاکتورنهایی</button>
+                        <button  class="sodurFactor" type="button">صدور فاکتورنهایی</button>
                     </div>
                     <div class="bg-2081F2 px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
                         <button>صدور و پرینت</button>
@@ -144,5 +144,18 @@
             language: 'fa',
             removeButtons: 'Image,Link,Source,About'
         });
+    </script>
+    <script>
+
+        let sodurFactor=document.querySelector('.sodurFactor');
+        sodurFactor.onclick=function (event){
+            event.preventDefault();
+            let input=document.createElement('input');
+            input.setAttribute('type','hidden');
+            input.setAttribute('value','yes');
+            input.setAttribute('name','sodurFactor');
+            window.form.append(input);
+            window.form.submit();
+        }
     </script>
 @endsection

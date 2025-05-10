@@ -29,23 +29,25 @@ class InvoiceIssuanceController extends Controller
     public function store(Reside $reside, FinalInvoiceIssuanceRequest $request)
     {
         try {
-            $total = 0;
-            $resideItem = $reside->resideItem;
-            $inputs = $request->all();
-            foreach ($resideItem as $item) {
-                $total += $item->getTotalProductPriceItems();
+            $inputs=$request->all();
+            $this->compilationResideFactor($reside);
+            if (isset($inputs['sodurFactor']) && $inputs['sodurFactor']=='yes')
+            {
+                return  redirect()->route('admin.invoice.issuance.printFactor',$reside)->with('عملیات با موفقیت انجام شد');
             }
-            $reside->update([
-                'total_price' => $total,
-                'discount_collection' => $inputs['discount'],
-                'final_price' => $this->calculate($total, $inputs['discount']),
-                'description'=>$inputs['description']
-            ]);
+            else{
+                return  redirect()->route('admin.invoice.issuance.printFactor',$reside)->with('عملیات با موفقیت انجام شد');
+            }
 
         } catch (\Exception $exception) {
             return redirect()->route('admin.invoice.issuance.index', $reside)->withErrors('error', "خطایی رخ داد لطفا چند دقیقه دیگر تلاش کنید و با پشتیانی تماس حاصل فرمایید");
 
         }
+    }
+
+    public function printFactor(Reside $reside)
+    {
+        return view('Admin.PrintFactorChargeCapsule.index', compact('reside'));
     }
 
     public function storeProductItem(Reside $reside, ResideItem $resideItem, InvoiceIssuanceRequest $request)

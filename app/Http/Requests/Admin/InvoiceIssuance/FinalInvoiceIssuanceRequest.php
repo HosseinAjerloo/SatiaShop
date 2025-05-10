@@ -23,7 +23,12 @@ class FinalInvoiceIssuanceRequest extends FormRequest
     {
         return [
             'description'=>'nullable|string',
-            'discount'=>'nullable|numeric|min:1|max:100'
+            'discount'=>'nullable|numeric|min:1|max:100',
+            'sodurFactor'=>'sometimes|in:yes'
         ];
+    }
+    public function attributes()
+    {
+        return ['sodurFactor'=>'گزینه صدور فاکتور معتبر نمیباشد'];
     }
 }

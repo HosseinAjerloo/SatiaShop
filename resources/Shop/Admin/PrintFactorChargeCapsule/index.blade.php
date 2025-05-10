@@ -18,6 +18,9 @@
             #toast-container {
                 display: none;
             }
+            .qrcode{
+                background-color: red;
+            }
 
         }
     </style>
@@ -30,22 +33,22 @@
         <article class="space-y-5 rounded-md border border-2 border-black border-black/65  p-2">
             <div class="space-y-5 py-1.5 px-5">
                 <article class="flex items-center justify-between text-sm ">
-                    <div class="flex items-center justify-between flex-col space-y-1">
-                        <p class="font-bold">تحویل گیرنده:</p>
-                        <p class="text-min">{{$reside->operator->fullName}}</p>
+                    <div class="flex items-center  justify-between space-x-2 space-x-reverse">
+                        <p class="font-bold text-base">تحویل گیرنده :</p>
+                        <p class="text-sm font-semibold">{{$reside->operator->fullName}}</p>
                     </div>
-                    <div class="flex items-center justify-between flex-col space-y-1">
-                        <p class="font-bold">تاریخ:</p>
-                        <p class="text-min">{{\Morilog\Jalali\Jalalian::forge($reside->created_at)->format('Y/m/d')}}</p>
+                    <div class="flex items-center justify-between space-x-2 space-x-reverse ">
+                        <p class="font-bold text-base">تاریخ :</p>
+                        <p class="text-sm font-semibold">{{\Morilog\Jalali\Jalalian::forge($reside->created_at)->format('Y/m/d')}}</p>
                     </div>
                 </article>
                 <article class="flex items-center justify-between text-sm ">
                     <div class="flex items-center justify-between flex-col space-y-1">
-                        <p class="font-bold">اقلام:</p>
+                        <p class="font-bold text-base">اقلام :</p>
                     </div>
-                    <div class="flex items-center justify-between flex-col space-y-1">
-                        <p class="font-bold">شماره فاکتور:</p>
-                        <p class="text-min">{{$reside->id}}</p>
+                    <div class="flex items-center justify-between space-x-2 space-x-reverse">
+                        <p class="font-bold text-base">شماره فاکتور :</p>
+                        <p class="text-sm font-semibold">{{$reside->id}}</p>
                     </div>
                 </article>
             </div>
@@ -95,7 +98,7 @@
                         </td>
                         <td class="border border-gray-400 text-center p-1">
                             <div class="flex items-center justify-center">
-                                <canvas class="qrcode !w-full sm:!w-[100px] !h-auto "
+                                <canvas class="qrcode !w-full sm:!w-[130px] !h-auto "
                                         data-product="{{$resideItem->changeToQrcodeNameProduct()}}"></canvas>
                             </div>
                         </td>
@@ -108,13 +111,17 @@
                     </tr>
                 @endforeach
                 <tr>
-                    <td class="border border-gray-400 text-center  p-1" rowspan="3">
-                        <div class="flex items-center space-x-reverse space-x-3 p-1">
-                            <h1 class="text-gray-700 font-bold text-base">مجموع :</h1>
-                            <p class="cpasule-count">{{$reside->resideItem->count()}} عدد کپسول</p>
+                    <td class="border border-gray-400 text-center  p-1" colspan="2">
+                        <div class="flex items-center justify-center space-x-reverse space-x-3 p-1">
+                            <p class="font-semibold">بدون احتساب مالیات بر ارزش افزوده</p>
                         </div>
                     </td>
-
+                    <td class="border border-gray-400 text-center  p-1" colspan="3">
+                        <div class="flex items-center space-x-reverse space-x-3 p-1">
+                            <h1 class="font-semibold text-base">مجموع کل :</h1>
+                            <p class="cpasule-count font-semibold">{{numberFormat($reside->final_price)??0}} ریال </p>
+                        </div>
+                    </td>
 
                 </tr>
 
@@ -160,9 +167,9 @@
         generateQrCode();
     </script>
 
-    {{--    <script>--}}
-    {{--        window.addEventListener('load', function () {--}}
-    {{--            window.print();--}}
-    {{--        })--}}
-    {{--    </script>--}}
+        <script>
+            window.addEventListener('load', function () {
+                window.print();
+            })
+        </script>
 @endsection

@@ -222,6 +222,8 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
         Route::get('{reside}/{resideItem}/operation', [App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'operation'])->name('operation');
         Route::post('store/{reside}/{resideItem}', [App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'storeProductItem'])->name('storeProductItem');
         Route::post('store/{reside}', [App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'store'])->name('store');
+        Route::get('print-factor/{reside}', [App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'printFactor'])->name('printFactor');
+
     });
 });
 

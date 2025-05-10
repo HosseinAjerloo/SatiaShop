@@ -51,6 +51,6 @@ class ChargingTheCapsuleController extends Controller
 
     public function printReside(Reside $reside)
     {
-        return view('Admin.PrintFactorChargeCapsule.index', compact('reside'));
+        return view('Admin.PrintResideChargeCapsule.index', compact('reside'));
     }
 }
