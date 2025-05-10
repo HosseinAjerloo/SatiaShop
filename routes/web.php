@@ -237,8 +237,9 @@ Route::get('test2', function () {
 });
 
 Route::get('test', function () {
-    $resideItem=\App\Models\ResideItem::find(11);
-    return redirect()->route('admin.invoice.issuance.operation',[$reside,$resideItem])->with('success','ثبت شد'.$resideItem->product->removeUnderLine.'کالاهای تعویضی محصول ');
+    return view('Admin.PrintCapsule.index');
+//    $resideItem=\App\Models\ResideItem::find(11);
+//    return redirect()->route('admin.invoice.issuance.operation',[$reside,$resideItem])->with('success','ثبت شد'.$resideItem->product->removeUnderLine.'کالاهای تعویضی محصول ');
 
 //    $resides = \App\Models\Reside::where('status', 'not_paid')->where('type', 'reside')->WhereHas("resideItem")->get();
 //    $product = Product::find(38);
