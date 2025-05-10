@@ -37,7 +37,7 @@
                     <div class="flex items-center justify-center  rounded-md p-1.5 space-x-reverse space-x-6">
                         <p class="font-bold text-lg">شناسه یکتا :</p>
                         <canvas class="qrcode !w-full sm:!w-[150px] !h-auto "
-                                data-product="جسین- آجرلو ماشین  - تست - گل"></canvas>
+                                data-product="{{$resideItem->changeToQrcodeNameProduct()}}"></canvas>
                     </div>
                 </div>
                 <div>
@@ -100,9 +100,9 @@
 
             generateQrCode();
         </script>
-{{--        <script>--}}
-{{--            window.addEventListener('load',function (){--}}
-{{--                window.print();--}}
-{{--            })--}}
-{{--        </script>--}}
+        <script>
+            window.addEventListener('load',function (){
+                window.print();
+            })
+        </script>
     @endsection
