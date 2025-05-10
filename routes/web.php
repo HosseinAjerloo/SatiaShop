@@ -7,9 +7,11 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Payment;
 use App\Models\Product;
+use App\Models\User;
 use App\Services\ImageService\ImageService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Traits\HasCart;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -238,6 +240,14 @@ Route::get('test2', function () {
 });
 
 Route::get('test', function () {
+    Auth::loginUsingId(1);
+    $user = Auth::user();
+    $allUser = User::all();
+    $myFavorites = $user->productFavorite()->where('status', 'active')->where('type', 'goods')->get();
+    $products = Product::where('status', 'active')->where('type', 'goods')->get();
+    $filterProducts = Product::whereIn('id', Product::where('status', 'active')->where('type', 'goods')->select(DB::raw('max(id) as id'))->groupBy('category_id')->get()->pluck('id')->toArray())->get();
+
+    return view('Admin.sodurFactor',compact('myFavorites', 'products', 'filterProducts', 'allUser'));
 //    $resideItem=\App\Models\ResideItem::find(11);
 //    return redirect()->route('admin.invoice.issuance.operation',[$reside,$resideItem])->with('success','ثبت شد'.$resideItem->product->removeUnderLine.'کالاهای تعویضی محصول ');
 
