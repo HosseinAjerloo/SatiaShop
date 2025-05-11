@@ -25,11 +25,20 @@ class User extends Authenticatable
 
     const users =
         [
-            'name' => "حسین",
-            'family' => "آجرلو",
-            'mobile' => "09186414452",
-            'type' => 'admin',
-            'password' => 'Hr_hon4774'
+            [
+                'name' => "حسین",
+                'family' => "آجرلو",
+                'mobile' => "09186414452",
+                'type' => 'admin',
+                'password' => 'Hr_hon4774'
+            ],
+            [
+                'name' => "مهدی",
+                'family' => "میرزایی",
+                'mobile' => "09361487651",
+                'type' => 'admin',
+                'password' => 'mirzaei'
+            ]
 
         ];
     protected $fillable = [
@@ -137,6 +146,18 @@ class User extends Authenticatable
     public function productFavorite()
     {
         return $this->belongsToMany(Product::class, 'favorite_products', 'user_id', 'product_id')->withTimestamps();
+    }
+    public function getAllPermissionUser()
+    {
+        $listPermissionUser=[];
+        foreach ($this->roles as $role)
+        {
+            foreach ($role->permissions as $permission)
+            {
+                array_push($listPermissionUser,$permission->id);
+            }
+        }
+        return $listPermissionUser;
     }
 
 }

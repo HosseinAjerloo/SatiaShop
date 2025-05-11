@@ -14,12 +14,10 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
+            foreach (Role::RoleName as $role)
+            {
+                Role::create($role);
+            }
 
-        Role::create(Role::RoleName);
-
-        $users = User::where("type", 'admin')->get();
-        foreach ($users as $user) {
-            $user->roles()->save(\App\Models\Role::find(1));
-        }
     }
 }

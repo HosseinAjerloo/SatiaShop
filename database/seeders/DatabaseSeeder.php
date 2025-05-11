@@ -4,13 +4,15 @@ namespace Database\Seeders;
 
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Role;
 use Database\Seeders\Bank\BankSeeder;
 use Database\Seeders\Brand\BrandSeeder;
 use Database\Seeders\Category\CategorySeeder;
 use Database\Seeders\Menu\MenuSeeder;
+use Database\Seeders\Permission\permissionSeeder;
 use Database\Seeders\Product\ProductSeeder;
 use Database\Seeders\Setting\SettingSeeder;
-use Database\Seeders\Supllier\Supplier ;
+use Database\Seeders\Supllier\Supplier;
 use Database\Seeders\SupplierCategorie\SupplierCategorie;
 use Database\Seeders\User\UserSeeder;
 use Illuminate\Database\Seeder;
@@ -26,6 +28,8 @@ class DatabaseSeeder extends Seeder
             SettingSeeder::class,
             BankSeeder::class,
             UserSeeder::class,
+            RoleSeeder::class,
+            permissionSeeder::class,
             SupplierCategorie::class,
             Supplier::class,
             MenuSeeder::class,

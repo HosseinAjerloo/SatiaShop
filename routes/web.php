@@ -251,8 +251,7 @@ Route::get('test2', function () {
 });
 
 Route::get('test', function () {
-    $product=Product::find(2);
-    dd($product);
+    Auth::loginUsingId(1);
 })->name('test');
 
 Route::post('create-product', function () {
