@@ -668,9 +668,9 @@ class Product extends Model
             return 'نامحدود';
     }
 
-    public function productRemainingExceptUser($user, $productCount)
+    public function productRemainingExceptUser( $productCount)
     {
-        $cart = Cart::where(fn($q) => $q->whereNull('user_id')->orWhere('user_id', "!=", $user->id))->whereIn('status', ['addToCart', 'applyToTheBank'])->get();
+        $cart = Cart::whereIn('status', ['addToCart', 'applyToTheBank'])->get();
         $cartItem = CartItem::where('product_id', $this->id)->whereIn('cart_id', $cart->pluck('id'))->get();
         if ($cartItem->count() > 0) {
             if ($this->type == 'goods') {
@@ -741,7 +741,7 @@ class Product extends Model
 
     public function userFavorite()
     {
-        return $this->belongsToMany(User::class, 'favorite_products', 'product_id', 'user_id')->withTimestamps();
+        return $this->belongsToMany(User::class, 'favorite_products', 'product_id', 'user_id')->withPivot('user_id')->withTimestamps();
     }
 
     public function getIsFavoriteAttribute()

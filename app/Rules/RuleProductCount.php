@@ -31,7 +31,7 @@ class RuleProductCount implements ValidationRule
         $user = Auth::user();
         foreach ($value as $productID => $productCount) {
             $product = Product::find($productID);
-            if (!$product->isRemaining()) {
+            if (!$product->productRemainingExceptUser($productCount)) {
                 $fail(" تعداد کافی از محصول " . $product->removeUnderLine . " موجود نمیباشد لطفا از سفارش خود را ویرایش کنید ");
             }
         }

@@ -16,7 +16,7 @@
     </style>
 @endsection
 @section('content')
-    <form class=" space-y-6 " action="{{route('admin.chargingTheCapsule.store')}}" method="POST" id="form">
+    <form class=" space-y-6 " action="{{route('admin.sale.store')}}" method="POST" id="form">
         @csrf
         <article class="space-y-5 bg-F1F1F1 p-3 rounded-md">
             <article class="flex justify-between items-center flex-wrap">
@@ -161,41 +161,100 @@
                 </tr>
                 </thead>
                 <tbody>
+                @if($errors->any())
+                    @php
+                        $count=1;
+                    @endphp
+                    @isset(old()['product_description'])
+                        @foreach(old('product_description') as $key=> $value)
 
-                @foreach($myFavorites as $key=> $myFavorite)
-                    <tr class="@if(($key%2)==0) bg-white @else bg-gray-200 @endif">
-                        <td class="border border-gray-300 text-center p-1">
-                            <div class="flex space-x-reverse space-x-1">
-                                <img src="{{asset('capsule/images/selected.svg')}}" alt="" class="w-5">
-                                <p class="font-semibold text-[12px] sm:text-[15px] p-1 w-full border rounded-md border-2 border-black/40">
-                                    کپسول
-                                </p>
-                            </div>
-                        </td>
-                        <td class="border border-gray-400 text-center p-1">
-                            <div
-                                class="flex  sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-reverse sm:space-x-2">
-                                <img src="{{asset('capsule/images/plus.svg')}}" alt="" class="w-6 cursor-pointer plus">
-                                <input type="number" name="product_status[]" min="1"
-                                       class="w-8 rounded-md border border-black text-center" value="1">
-                                <img src="{{asset('capsule/images/circle-minus.svg')}}" alt=""
-                                     class="w-6 minus cursor-pointer">
-                            </div>
-                        </td>
-                        <td class="border border-gray-400 text-[12px] sm:text-[15px] text-center p-1">
-                            <input type="text" name="product_description[{{$myFavorite->id}}]"
-                                   class="w-full border rounded-md border-2 p-1 border-black/40 outline-none px-1.5"
-                                   placeholder="توضیحات">
-                            <input type="text" name="product_description[1]"
-                                   class="w-full border rounded-md border-2 p-1 border-black/40 outline-none px-1.5"
-                                   placeholder="توضیحات">
-                        </td>
-                        <td class="border p-2 text-center flex items-center justify-center">
-                            <img src="{{asset('capsule/images/delete.svg')}}" alt=""
-                                 class="cursor-pointer mx-auto delete-row w-3 sm:w-auto" onclick="deleteRow(this)">
-                        </td>
-                    </tr>
-                @endforeach
+                            @php
+                                $count++;
+                                    if (str_contains($key,'_'))
+                                        {
+                                            $id= explode('_',$key)[0];
+                                        }
+                                    else{
+                                        $id=$key;
+                                    }
+                                    $product=\App\Models\Product::find($id);
+                            @endphp
+
+                            <tr class="@if(($count%2)==0) bg-white @else bg-gray-200 @endif">
+                                <td class="border border-gray-300 text-center p-1">
+                                    <div class="flex space-x-reverse space-x-1">
+                                        @if(!empty($product->userFavorite()->wherePivot('user_id',\Illuminate\Support\Facades\Auth::user()->id)->get()->toArray()))
+                                            <img src="{{asset('capsule/images/selected.svg')}}" alt="" class="w-5">
+                                        @endif
+                                        <p class="font-semibold text-[12px] sm:text-[15px] p-1 w-full border rounded-md border-2 border-black/40">
+                                            {{$product->removeUnderline??''}}
+                                        </p>
+                                    </div>
+                                </td>
+                                <td class="border border-gray-400 text-center p-1">
+                                    <div
+                                        class="flex  sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-reverse sm:space-x-2">
+                                        <img src="{{asset('capsule/images/plus.svg')}}" alt=""
+                                             class="w-6 cursor-pointer plus">
+                                        <input type="number" name="product_amount[{{$product->id}}]" min="1"
+                                               class="w-10 rounded-md border border-black text-center" value="{{old('product_amount')[$key]}}">
+                                        <img src="{{asset('capsule/images/circle-minus.svg')}}" alt=""
+                                             class="w-6 minus cursor-pointer">
+                                    </div>
+                                </td>
+                                <td class="border border-gray-400 text-[12px] sm:text-[15px] text-center p-1">
+                                    <input type="text" name="product_description[{{$product->id}}]"
+                                           class="w-full border rounded-md border-2 p-1 border-black/40 outline-none px-1.5"
+                                           placeholder="توضیحات" value="{{old('product_description')[$key]}}">
+
+                                </td>
+                                <td class="border p-2 text-center flex items-center justify-center">
+                                    <img src="{{asset('capsule/images/delete.svg')}}" alt=""
+                                         class="cursor-pointer mx-auto delete-row w-3 sm:w-auto" onclick="deleteRow(this)">
+                                </td>
+                            </tr>
+
+
+
+                        @endforeach
+                    @endisset
+                @else
+
+                    @foreach($myFavorites as $key=> $myFavorite)
+                        <tr class="@if(($key%2)==0) bg-white @else bg-gray-200 @endif">
+                            <td class="border border-gray-300 text-center p-1">
+                                <div class="flex space-x-reverse space-x-1">
+                                    <img src="{{asset('capsule/images/selected.svg')}}" alt="" class="w-5">
+                                    <p class="font-semibold text-[12px] sm:text-[15px] p-1 w-full border rounded-md border-2 border-black/40">
+                                        {{$myFavorite->removeUnderline??''}}
+
+                                    </p>
+                                </div>
+                            </td>
+                            <td class="border border-gray-400 text-center p-1">
+                                <div
+                                    class="flex  sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-reverse sm:space-x-2">
+                                    <img src="{{asset('capsule/images/plus.svg')}}" alt=""
+                                         class="w-6 cursor-pointer plus">
+                                    <input type="number" name="product_amount[{{$myFavorite->id}}]" min="1"
+                                           class="w-10 rounded-md border border-black text-center" value="1">
+                                    <img src="{{asset('capsule/images/circle-minus.svg')}}" alt=""
+                                         class="w-6 minus cursor-pointer">
+                                </div>
+                            </td>
+                            <td class="border border-gray-400 text-[12px] sm:text-[15px] text-center p-1">
+                                <input type="text" name="product_description[{{$myFavorite->id}}]"
+                                       class="w-full border rounded-md border-2 p-1 border-black/40 outline-none px-1.5"
+                                       placeholder="توضیحات">
+
+                            </td>
+                            <td class="border p-2 text-center flex items-center justify-center">
+                                <img src="{{asset('capsule/images/delete.svg')}}" alt=""
+                                     class="cursor-pointer mx-auto delete-row w-3 sm:w-auto" onclick="deleteRow(this)">
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
 
                 <tr>
                     <td class="border border-gray-300 text-center p-1" rowspan="2">
@@ -498,7 +557,6 @@
             }, 300);
         }
 
-        let count = 0;
         const selectedProductIds = [];
 
         function saveSelection() {
@@ -545,14 +603,14 @@
                                 <div
                                     class="flex  sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-reverse sm:space-x-2">
                                     <img src="{{asset('capsule/images/plus.svg')}}" alt="" class="w-6 cursor-pointer plus">
-                                    <input type="number" name="product_status[]" min="1"
-                                           class="w-8 rounded-md border border-black text-center" value="1">
+                                    <input type="number" name="product_amount[${productId}]" min="1"
+                                           class="w-10 rounded-md border border-black text-center" value="1">
                                     <img src="{{asset('capsule/images/circle-minus.svg')}}" alt=""
                                          class="w-6 minus cursor-pointer">
                                 </div>
                             </td>
                             <td class="border border-gray-400 text-[12px] sm:text-[15px] text-center p-1">
-                                <input type="text" name="product_description[${productId}_${count}]" class="w-full border rounded-md border-2 p-1 border-black/40 outline-none px-1.5" placeholder="توضیحات" value="${description}">
+                                <input type="text" name="product_description[${productId}]" class="w-full border rounded-md border-2 p-1 border-black/40 outline-none px-1.5" placeholder="توضیحات" value="${description}">
                             </td>
                             <td class="border p-2 text-center flex items-center justify-center">
                                 <img src="{{asset('capsule/images/delete.svg')}}" alt="" class="cursor-pointer mx-auto delete-row w-3 sm:w-auto" onclick="deleteRow(this)">
@@ -562,7 +620,6 @@
 
             tableBody.append(newRow);
             runCountProduct();
-            count++
 
             // اضافه کردن مجدد ردیف دکمه حذف
             var addButtonRow = `

@@ -11,7 +11,8 @@ use App\Models\Reside;
 use App\Models\ResideItem;
 use Illuminate\Http\Request;
 
-class InvoiceIssuanceController extends Controller
+class
+InvoiceIssuanceController extends Controller
 {
     use HasDiscount;
 

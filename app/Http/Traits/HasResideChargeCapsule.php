@@ -13,6 +13,50 @@ trait  HasResideChargeCapsule
     protected $resideItems = array();
     protected $redirectUri;
 
+    protected function registerResideCapsule()
+    {
+        $inputs = request()->all();
+        DB::beginTransaction();
+
+        try {
+            $operator = Auth::user();
+            $user = $this->whoIsUser();
+            if ($this->getResideCapsuleItem()) {
+                $totalPrice = array_sum(array_column($this->resideItems, 'price'));
+                $reside = Reside::create(
+                    [
+                        'user_id' => $user->id,
+                        'operator_id' => $operator->id,
+                        'status_bank' => 'requested',
+                        'total_price' => $totalPrice,
+                        'discount_collection' => 0,
+                        'final_price' => $totalPrice,
+                        'status' => 'not_paid',
+                        'reside_type' => 'recharge',
+                        'type' => 'reside'
+                    ]
+                );
+
+            } else {
+                return redirect()->back()->withErrors(['error' => 'پارامتر وارد شده معتبر نمیباشد']);
+            }
+            $reside->resideItem()->createMany($this->resideItems);
+            DB::commit();
+            if (isset($inputs['print'])) {
+                $this->redirectUri = redirect()->route('admin.chargingTheCapsule.printReside', $reside)->with(['success' => 'رسید شما صادر شد و عملیات با موفقیت انجام شد.']);;
+            } else {
+                $this->redirectUri = redirect()->route('admin.chargingTheCapsule.index')->with(['success' => 'رسید شما صادر شد و عملیات با موفقیت انجام شد.']);
+            }
+            return $this->redirectUri;
+
+
+        } catch (\Exception $exception) {
+            dd($exception->getMessage(), $exception->getLine());
+            DB::rollBack();
+            return redirect()->back()->withErrors(['error' => 'خطایی در ثبت اطلاعات شما رخ داد لطفا با پشتیبانی تماس حاصل فرمایید']);
+        }
+    }
+
     protected function getResideCapsuleItem(): bool
     {
         $inputs = request()->all();
@@ -22,7 +66,7 @@ trait  HasResideChargeCapsule
         foreach ($inputs['product_description'] as $key => $value) {
             if (!isset($inputs['product_status'][$key]))
                 return false;
-            $productId=str_contains($key, "_")?explode('_', $key)[0]:$key;
+            $productId = str_contains($key, "_") ? explode('_', $key)[0] : $key;
 
             $product = Product::find($productId);
             $resideItem = [
@@ -40,12 +84,130 @@ trait  HasResideChargeCapsule
         return true;
     }
 
+
+    protected function updateResideCapsule()
+    {
+        $inputs = request()->all();
+        DB::beginTransaction();
+
+        try {
+            $reside = $inputs['reside'];
+            $operator = Auth::user();
+            $user = $this->whoIsUser();
+            if ($this->getResideCapsuleItem()) {
+                $totalPrice = array_sum(array_column($this->resideItems, 'price'));
+                $reside->update(
+                    [
+                        'user_id' => $user->id,
+                        'operator_id' => $operator->id,
+                        'status_bank' => 'requested',
+                        'total_price' => $totalPrice,
+                        'discount_collection' => 0,
+                        'final_price' => $totalPrice,
+                        'status' => 'not_paid',
+                        'reside_type' => 'recharge',
+                        'type' => 'reside'
+
+                    ]
+                );
+
+            } else {
+                return redirect()->back()->withErrors(['error' => 'پارامتر وارد شده معتبر نمیباشد']);
+            }
+            $reside->resideItem()->forceDelete();
+            $reside->resideItem()->createMany($this->resideItems);
+            DB::commit();
+            if (isset($inputs['print'])) {
+                $this->redirectUri = redirect()->route('admin.chargingTheCapsule.printReside', $reside)->with(['success' => 'رسید شما صادر شد و عملیات با موفقیت انجام شد.']);;
+            } else {
+                $this->redirectUri = redirect()->route('admin.chargingTheCapsule.index')->with(['success' => 'رسید شما صادر شد و عملیات با موفقیت انجام شد.']);
+            }
+            return $this->redirectUri;
+
+
+        } catch (\Exception $exception) {
+            dd($exception->getMessage(), $exception->getLine());
+            DB::rollBack();
+            return redirect()->back()->withErrors(['error' => 'خطایی در ثبت اطلاعات شما رخ داد لطفا با پشتیبانی تماس حاصل فرمایید']);
+        }
+    }
+
+
+    protected function registerSealCapsule()
+    {
+        $inputs = request()->all();
+        DB::beginTransaction();
+        $totalPrice = 0;
+        try {
+            $operator = Auth::user();
+            $user = $this->whoIsUser();
+            if ($this->getResideSaleCapsuleItem()) {
+                foreach ($this->resideItems as $productItem) {
+                    $totalPrice += $productItem['price'] * $productItem['amount'];
+                }
+                $reside = Reside::create(
+                    [
+                        'user_id' => $user->id,
+                        'operator_id' => $operator->id,
+                        'status_bank' => 'requested',
+                        'total_price' => $totalPrice,
+                        'discount_collection' => 0,
+                        'final_price' => $totalPrice,
+                        'status' => 'not_paid',
+                        'reside_type' => 'sell',
+                        'type' => 'reside'
+                    ]
+                );
+
+            } else {
+                return redirect()->back()->withErrors(['error' => 'پارامتر وارد شده معتبر نمیباشد']);
+            }
+            $reside->resideItem()->createMany($this->resideItems);
+            DB::commit();
+
+            $this->redirectUri = redirect()->route('admin.sale.shop', $reside)->with(['success' => 'رسید شما صادر شد و عملیات با موفقیت انجام شد.']);;
+
+            return $this->redirectUri;
+
+
+        } catch (\Exception $exception) {
+            dd($exception->getMessage());
+            DB::rollBack();
+            return redirect()->back()->withErrors(['error' => 'خطایی در ثبت اطلاعات شما رخ داد لطفا با پشتیبانی تماس حاصل فرمایید']);
+        }
+    }
+
+    protected function getResideSaleCapsuleItem(): bool
+    {
+        $inputs = request()->all();
+        foreach ($inputs['product_description'] as $key => $value) {
+            if (!isset($inputs['product_amount'][$key]))
+                return false;
+
+            $product = Product::find($key);
+            $resideItem = [
+                'product_id' => $product->id,
+                'price' => $product->price,
+                'type' => $product->type,
+                'status' => 'sell',
+                'description' => $value,
+                'amount' => $inputs['product_amount'][$key]
+            ];
+            array_push($this->resideItems, $resideItem);
+        }
+
+        if (empty($this->resideItems))
+            return false;
+        return true;
+    }
+
+
     protected function whoIsUser()
     {
         $inputs = request()->all();
         if ($inputs['customer_type'] == 'natural_person') {
             $user = User::updateOrCreate(
-                [ 'national_code' => $inputs['national_code']],
+                ['national_code' => $inputs['national_code']],
                 [
                     'name' => $inputs['name'],
                     'mobile' => $inputs['mobile'],
@@ -67,100 +229,5 @@ trait  HasResideChargeCapsule
         }
         return $user;
     }
-    protected function registerResideCapsule()
-    {
-        $inputs = request()->all();
-        DB::beginTransaction();
-
-        try {
-            $operator = Auth::user();
-            $user=$this->whoIsUser();
-            if ($this->getResideCapsuleItem()) {
-                $totalPrice = array_sum(array_column($this->resideItems, 'price'));
-                $reside = Reside::create(
-                    [
-                        'user_id' => $user->id,
-                        'operator_id' => $operator->id,
-                        'status_bank' => 'requested',
-                        'total_price' => $totalPrice,
-                        'discount_collection' => 0,
-                        'final_price' => $totalPrice,
-                        'status' => 'not_paid',
-                        'reside_type' => 'recharge',
-                        'type'=>'reside'
-                    ]
-                );
-
-            }
-            else{
-                return redirect()->back()->withErrors(['error' => 'پارامتر وارد شده معتبر نمیباشد']);
-            }
-            $reside->resideItem()->createMany($this->resideItems);
-            DB::commit();
-            if (isset($inputs['print']))
-            {
-                $this->redirectUri= redirect()->route('admin.chargingTheCapsule.printReside',$reside)->with(['success' => 'رسید شما صادر شد و عملیات با موفقیت انجام شد.']);;
-            }else{
-                $this->redirectUri=redirect()->route('admin.chargingTheCapsule.index')->with(['success' => 'رسید شما صادر شد و عملیات با موفقیت انجام شد.']);
-            }
-            return $this->redirectUri;
-
-
-        } catch (\Exception $exception) {
-            dd($exception->getMessage(),$exception->getLine());
-            DB::rollBack();
-            return redirect()->back()->withErrors(['error' => 'خطایی در ثبت اطلاعات شما رخ داد لطفا با پشتیبانی تماس حاصل فرمایید']);
-        }
-    }
-    protected function updateResideCapsule()
-    {
-        $inputs = request()->all();
-        DB::beginTransaction();
-
-        try {
-            $reside=$inputs['reside'];
-            $operator = Auth::user();
-            $user=$this->whoIsUser();
-            if ($this->getResideCapsuleItem()) {
-                $totalPrice = array_sum(array_column($this->resideItems, 'price'));
-                $reside->update(
-                    [
-                        'user_id' => $user->id,
-                        'operator_id' => $operator->id,
-                        'status_bank' => 'requested',
-                        'total_price' => $totalPrice,
-                        'discount_collection' => 0,
-                        'final_price' => $totalPrice,
-                        'status' => 'not_paid',
-                        'reside_type' => 'recharge',
-                        'type'=>'reside'
-
-                    ]
-                );
-
-            }
-            else{
-                return redirect()->back()->withErrors(['error' => 'پارامتر وارد شده معتبر نمیباشد']);
-            }
-            $reside->resideItem()->forceDelete();
-            $reside->resideItem()->createMany($this->resideItems);
-            DB::commit();
-            if (isset($inputs['print']))
-            {
-                $this->redirectUri= redirect()->route('admin.chargingTheCapsule.printReside',$reside)->with(['success' => 'رسید شما صادر شد و عملیات با موفقیت انجام شد.']);;
-            }else{
-                $this->redirectUri=redirect()->route('admin.chargingTheCapsule.index')->with(['success' => 'رسید شما صادر شد و عملیات با موفقیت انجام شد.']);
-            }
-            return $this->redirectUri;
-
-
-        } catch (\Exception $exception) {
-            dd($exception->getMessage(),$exception->getLine());
-            DB::rollBack();
-            return redirect()->back()->withErrors(['error' => 'خطایی در ثبت اطلاعات شما رخ داد لطفا با پشتیبانی تماس حاصل فرمایید']);
-        }
-    }
-
-
 
 }

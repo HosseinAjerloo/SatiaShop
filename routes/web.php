@@ -229,11 +229,11 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
     });
 
     Route::prefix('sale')->name('admin.sale.')->group(function () {
-        Route::get('{reside}', [App\Http\Controllers\Admin\Sale\SaleController::class, 'index'])->name('index');
-        Route::get('{reside}/{resideItem}/operation', [App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'operation'])->name('operation');
-        Route::post('store/{reside}/{resideItem}', [App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'storeProductItem'])->name('storeProductItem');
-        Route::post('store/{reside}', [App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'store'])->name('store');
-        Route::get('print-factor/{reside}', [App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'printFactor'])->name('printFactor');
+        Route::get('', [App\Http\Controllers\Admin\Sale\SaleController::class, 'index'])->name('index');
+        Route::post('', [App\Http\Controllers\Admin\Sale\SaleController::class, 'store'])->name('store');
+        Route::get('show/{reside}', [App\Http\Controllers\Admin\Sale\SaleController::class, 'show'])->name('show');
+        Route::post('generate-factor/{reside}', [App\Http\Controllers\Admin\Sale\SaleController::class, 'generateFactor'])->name('generate.factor');
+//        Route::get('print-factor/{reside}', [App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'printFactor'])->name('printFactor');
 
     });
     Route::get('print-capsule/{resideItem}',[App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'printCapsule'])->name('admin.print.capsule');
@@ -249,7 +249,8 @@ Route::get('test2', function () {
 });
 
 Route::get('test', function () {
-
+    $product=Product::find(2);
+    dd($product);
 })->name('test');
 
 Route::post('create-product', function () {
