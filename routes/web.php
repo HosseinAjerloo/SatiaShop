@@ -227,6 +227,15 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
         Route::get('print-factor/{reside}', [App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'printFactor'])->name('printFactor');
 
     });
+
+    Route::prefix('sale')->name('admin.sale.')->group(function () {
+        Route::get('{reside}', [App\Http\Controllers\Admin\Sale\SaleController::class, 'index'])->name('index');
+        Route::get('{reside}/{resideItem}/operation', [App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'operation'])->name('operation');
+        Route::post('store/{reside}/{resideItem}', [App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'storeProductItem'])->name('storeProductItem');
+        Route::post('store/{reside}', [App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'store'])->name('store');
+        Route::get('print-factor/{reside}', [App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'printFactor'])->name('printFactor');
+
+    });
     Route::get('print-capsule/{resideItem}',[App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'printCapsule'])->name('admin.print.capsule');
 });
 
@@ -240,36 +249,7 @@ Route::get('test2', function () {
 });
 
 Route::get('test', function () {
-    Auth::loginUsingId(1);
-    $user = Auth::user();
-    $allUser = User::all();
-    $myFavorites = $user->productFavorite()->where('status', 'active')->where('type', 'goods')->get();
-    $products = Product::where('status', 'active')->where('type', 'goods')->get();
-    $filterProducts = Product::whereIn('id', Product::where('status', 'active')->where('type', 'goods')->select(DB::raw('max(id) as id'))->groupBy('category_id')->get()->pluck('id')->toArray())->get();
 
-    return view('Admin.sodurFactor',compact('myFavorites', 'products', 'filterProducts', 'allUser'));
-//    $resideItem=\App\Models\ResideItem::find(11);
-//    return redirect()->route('admin.invoice.issuance.operation',[$reside,$resideItem])->with('success','ثبت شد'.$resideItem->product->removeUnderLine.'کالاهای تعویضی محصول ');
-
-//    $resides = \App\Models\Reside::where('status', 'not_paid')->where('type', 'reside')->WhereHas("resideItem")->get();
-//    $product = Product::find(38);
-//    $total = 0;
-//    $resideItemSumAmount=0;
-//    if ($product->type == 'goods') {
-//        if ($resides->count()) {
-//            foreach ($resides as $reside) {
-//                $resideItems = $reside->resideItem;
-//                foreach ($resideItems as $resideItem) {
-//                            $resideItemSumAmount = $resideItem->where('product_id',$product->id)->where('status','sell')->sum('amount');
-//                            $total += $resideItem->productResidItem()->where('product_id', $product->id)->count();
-//
-//                }
-//            }
-//            $total+=$resideItemSumAmount;
-//        } else {
-//            return $total;
-//        }
-//    }
 })->name('test');
 
 Route::post('create-product', function () {
