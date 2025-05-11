@@ -117,7 +117,7 @@
                 <div class="mt-8 flex items-center  space-x-reverse space-x-4">
                     <h1 class="font-bold">تخفیف:</h1>
                     <input type="number" min="0" max="100" name="discount"
-                           class="w-[50px] p-[3px] text-center outline-none">
+                           class="w-[50px] p-[3px] text-center outline-none" value="{{(float)$reside->discount_collection}}">
                     <h1 class="font-bold">درصد</h1>
                 </div>
                 <div class="mt-8 w-full">

@@ -19,11 +19,10 @@ trait HasDiscount
     {
         $route = Route::current();
         if ($route->getName() == 'admin.sale.generate.factor') {
-            $total = $reside->total_price;
+            $total = $reside->totalPriceSale();
 
         } else {
             $total = $reside->totalPrice();
-
         }
         $inputs = request()->all();
 

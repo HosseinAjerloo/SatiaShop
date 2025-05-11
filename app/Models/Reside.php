@@ -73,6 +73,14 @@ class Reside extends Model
         }
         return $total;
     }
+    public function totalPriceSale()
+    {
+        $total=0;
+        foreach ($this->resideItem as $item) {
+            $total += $item->price * $item->amount;
+        }
+        return $total;
+    }
 
     public function totalPricePlusTax()
     {

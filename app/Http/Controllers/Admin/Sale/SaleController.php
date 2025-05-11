@@ -13,10 +13,12 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Mockery\Exception;
 
 class SaleController extends Controller
 {
-    use HasResideChargeCapsule,HasDiscount;
+    use HasResideChargeCapsule, HasDiscount;
+
     public function index()
     {
         $user = Auth::user();
@@ -25,21 +27,35 @@ class SaleController extends Controller
         $products = Product::where('status', 'active')->where('type', 'goods')->get();
         $filterProducts = Product::whereIn('id', Product::where('status', 'active')->where('type', 'goods')->select(DB::raw('max(id) as id'))->groupBy('category_id')->get()->pluck('id')->toArray())->get();
 
-        return view('Admin.Sale.index',compact('myFavorites', 'products', 'filterProducts', 'allUser'));
+        return view('Admin.Sale.index', compact('myFavorites', 'products', 'filterProducts', 'allUser'));
 
     }
-    public function store(SaleProductRequest  $request)
+
+    public function store(SaleProductRequest $request)
     {
-        $inputs=$request->all();
+        $inputs = $request->all();
         return $this->registerSealCapsule();
     }
-    public function show(Reside  $reside)
+
+    public function show(Reside $reside)
     {
         return view('Admin.InvoiceIssuance.sale', compact('reside'));
 
     }
-    public function generateFactor(Reside $reside,FinalInvoiceIssuanceRequest $request)
+
+    public function generateFactor(Reside $reside, FinalInvoiceIssuanceRequest $request)
     {
+        try {
             $this->compilationResideFactor($reside);
+            return redirect()->route('admin.sale.printFactor',$reside)->with(['success' => 'خطایی در ثبت اطلاعات شما رخ داد لطفا با پشتیبانی تماس حاصل فرمایید']);
+
+        } catch (Exception $exception) {
+            return redirect()->back()->withErrors(['error' => 'خطایی در ثبت اطلاعات شما رخ داد لطفا با پشتیبانی تماس حاصل فرمایید']);
+        }
+    }
+
+    public function printFactor(Reside $reside)
+    {
+        return view('Admin.PrintFactorSaleCapsule.index',compact('reside'));
     }
 }

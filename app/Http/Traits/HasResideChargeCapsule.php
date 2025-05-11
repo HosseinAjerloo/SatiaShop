@@ -126,7 +126,6 @@ trait  HasResideChargeCapsule
 
 
         } catch (\Exception $exception) {
-            dd($exception->getMessage(), $exception->getLine());
             DB::rollBack();
             return redirect()->back()->withErrors(['error' => 'خطایی در ثبت اطلاعات شما رخ داد لطفا با پشتیبانی تماس حاصل فرمایید']);
         }
