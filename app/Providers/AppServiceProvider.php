@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\View;
 
@@ -44,14 +45,17 @@ class AppServiceProvider extends ServiceProvider
 
 
         });
-        foreach (Permission::all() as $permission) {
-            Gate::define($permission->name, function (User $user) use ($permission) {
-                if (in_array($permission->id, $user->getAllPermissionUser())) {
-                    return true;
-                }
-                return false;
-            });
+        if (Schema::hasTable('permissions')){
+            foreach (Permission::all() as $permission) {
+                Gate::define($permission->name, function (User $user) use ($permission) {
+                    if (in_array($permission->id, $user->getAllPermissionUser())) {
+                        return true;
+                    }
+                    return false;
+                });
+            }
         }
+
 
     }
 }
