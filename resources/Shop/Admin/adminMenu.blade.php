@@ -107,17 +107,7 @@
                     </p>
                 </div>
             </a>
-            {{--            <div class="border border-black/30 rounded-md  flex items-center justify-center flex-col w-[32%]">--}}
-            {{--                <div class="p-2">--}}
-            {{--                    <img src="{{asset("capsule/images/payment.png")}}" alt="" class="w-14 h-14">--}}
-            {{--                </div>--}}
-            {{--                <div--}}
-            {{--                    class="flex items-center justify-center mt-3 bg-F1F1F1 w-full py-1.5 px-1 rounded-md rounded-se-none rounded-ss-none h-10">--}}
-            {{--                    <p class="text-sm font-bold text-center ">--}}
-            {{--                        پرداخت ها--}}
-            {{--                    </p>--}}
-            {{--                </div>--}}
-            {{--            </div>--}}
+
             <a href="{{route('admin.user.index')}}"
                class="border border-black/30 rounded-md  flex items-center justify-center flex-col w-[32%]">
                 <div class="p-2">
@@ -194,23 +184,7 @@
             </a>
 
         </section>
-        <section class="flex items-center justify-between ">
 
-
-            {{--            <div class="border border-black/30 rounded-md  flex items-center justify-center flex-col w-[32%]">--}}
-            {{--                <div class="p-2">--}}
-            {{--                    <img src="{{asset("capsule/images/ticket.png")}}" alt="" class="w-14 h-14">--}}
-            {{--                </div>--}}
-            {{--                <div--}}
-            {{--                    class="flex items-center justify-center mt-3 bg-F1F1F1 w-full py-1.5 px-1 rounded-md rounded-se-none rounded-ss-none h-10">--}}
-            {{--                    <p class="text-sm font-bold text-center ">--}}
-            {{--                        تیکت ها--}}
-            {{--                    </p>--}}
-            {{--                </div>--}}
-            {{--            </div>--}}
-
-
-        </section>
 
         <section class="flex items-center justify-between ">
             <a href="{{route('admin.finance.transaction.index')}}"
@@ -251,6 +225,34 @@
                     </p>
                 </div>
             </div>
+
+        </section>
+
+        <section class="flex items-center justify-between ">
+
+            <div class="border border-black/30 rounded-md  flex items-center justify-center flex-col w-[32%]">
+                <div class="p-2">
+                    <img src="{{asset("capsule/images/role.png")}}" alt="" class="w-14 h-14">
+                </div>
+                <div
+                    class="flex items-center justify-center mt-3 bg-F1F1F1 w-full py-1.5 px-1 rounded-md rounded-se-none rounded-ss-none h-10">
+                    <p class="text-sm font-bold text-center ">
+                        نقش ها
+                    </p>
+                </div>
+            </div>
+            {{--            <div class="border border-black/30 rounded-md  flex items-center justify-center flex-col w-[32%]">--}}
+            {{--                <div class="p-2">--}}
+            {{--                    <img src="{{asset("capsule/images/ticket.png")}}" alt="" class="w-14 h-14">--}}
+            {{--                </div>--}}
+            {{--                <div--}}
+            {{--                    class="flex items-center justify-center mt-3 bg-F1F1F1 w-full py-1.5 px-1 rounded-md rounded-se-none rounded-ss-none h-10">--}}
+            {{--                    <p class="text-sm font-bold text-center ">--}}
+            {{--                        تیکت ها--}}
+            {{--                    </p>--}}
+            {{--                </div>--}}
+            {{--            </div>--}}
+
 
         </section>
 

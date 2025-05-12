@@ -236,6 +236,10 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
         Route::get('print-factor/{reside}', [App\Http\Controllers\Admin\Sale\SaleController::class, 'printFactor'])->name('printFactor');
 
     });
+
+    Route::prefix('role')->name('admin.role.')->group(function (){
+       Route::get('',[App\Http\Controllers\Admin\Role\RoleController::class,'index'])->name('index');
+    });
     Route::get('print-capsule/{resideItem}',[App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'printCapsule'])->name('admin.print.capsule');
 
     Route::view('my-menu','Admin.adminMenu')->name('admin.my-menu');
@@ -251,7 +255,6 @@ Route::get('test2', function () {
 });
 
 Route::get('test', function () {
-    Auth::loginUsingId(1);
 })->name('test');
 
 Route::post('create-product', function () {
