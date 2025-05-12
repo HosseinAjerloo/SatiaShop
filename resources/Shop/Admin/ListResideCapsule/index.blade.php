@@ -31,9 +31,11 @@
                         <th class=" text-sm font-light px-2 leading-6 text-white ">
                             <span>شماره رسید</span>
                         </th>
-                        <th class=" text-sm font-light px-2 leading-6 text-white ">
-                            <span>صدور فاکتور</span>
-                        </th>
+                        @can('reside-capsule')
+                            <th class=" text-sm font-light px-2 leading-6 text-white ">
+                                <span>صدور فاکتور</span>
+                            </th>
+                        @endcan
                         <th class=" text-sm font-light px-2 leading-6 text-white ">
                             <span>نام پذیرنده</span>
                         </th>
@@ -78,13 +80,16 @@
                                        data-name="reside_id">
                             </div>
                         </td>
-                        <td class="border border-gray-400   text-center p-1">
-                            <div class="w-full flex items-center ">
-                                <input type="text"
-                                       class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1"
-                                       disabled>
-                            </div>
-                        </td>
+                        @can('reside-capsule')
+
+                            <td class="border border-gray-400   text-center p-1">
+                                <div class="w-full flex items-center ">
+                                    <input type="text"
+                                           class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1"
+                                           disabled>
+                                </div>
+                            </td>
+                        @endcan
                         <td class="border border-gray-400   text-center p-1">
                             <div class="w-full flex items-center ">
                                 <input type="text"
@@ -121,13 +126,17 @@
                                     {{$reside->id}}
                                 </p>
                             </td>
-                            <td class="border border-gray-400   text-center ">
-                                <div class="w-full flex items-center justify-center p-1">
-                                    <a href="{{route('admin.invoice.issuance.index',$reside->id)}}">
-                                        <img src="{{asset("capsule/images/hand-Invoice.svg")}}" alt="" class="w-10 h-10">
-                                    </a>
-                                </div>
-                            </td>
+                            @can('reside-capsule')
+                                <td class="border border-gray-400   text-center ">
+                                    <div class="w-full flex items-center justify-center p-1">
+
+                                        <a href="{{route('admin.invoice.issuance.index',$reside->id)}}">
+                                            <img src="{{asset("capsule/images/hand-Invoice.svg")}}" alt=""
+                                                 class="w-10 h-10">
+                                        </a>
+                                    </div>
+                                </td>
+                            @endcan
                             <td class="border border-gray-400   text-center ">
                                 <div class="w-full flex items-center justify-center p-1">
                                     {{$reside->operator->fullName??''}}
@@ -204,7 +213,7 @@
             xmlHttpRequest.onreadystatechange = function () {
                 if (xmlHttpRequest.readyState === 4 && xmlHttpRequest.status === 200) {
                     let responseXml = JSON.parse(xmlHttpRequest.response)
-                    if (xmlHttpRequest.response !== '' && xmlHttpRequest.response !== undefined && !('errors' in responseXml) && responseXml.data.length!==0) {
+                    if (xmlHttpRequest.response !== '' && xmlHttpRequest.response !== undefined && !('errors' in responseXml) && responseXml.data.length !== 0) {
                         generateElement(responseXml);
                     }
 
@@ -226,8 +235,8 @@
         function isEmptyObject(object) {
             return Object.keys(object).length === 0;
         }
-        function generateElement(data)
-        {
+
+        function generateElement(data) {
             removeRow()
             let myHtml = '';
             data.data.forEach(function (value, index) {
