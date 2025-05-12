@@ -19,7 +19,11 @@ class Permission extends Model
         [
             'name'=>'reside-capsule',
             'persian_name'=>'لیست رسید ها'
-        ]
+        ],
+        [
+            'name'=>'reside-capsule',
+            'persian_name'=>'دستبه لندی ها'
+        ],
     ];
 
     public function roles()

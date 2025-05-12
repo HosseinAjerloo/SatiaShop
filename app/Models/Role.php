@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Role extends Model
 {
+
     const RoleName = [
         ['name' => 'آتشنشان'],
         ['name' => 'گارگاه آتشنشانی'],

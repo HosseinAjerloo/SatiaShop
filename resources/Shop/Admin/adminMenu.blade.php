@@ -208,7 +208,7 @@
                 <div
                     class="flex items-center justify-center mt-3 bg-F1F1F1 w-full py-1.5 px-1 rounded-md rounded-se-none rounded-ss-none h-10">
                     <p class="text-sm font-bold text-center ">
-                        دسته بندی  تامین کنندگان
+                        دسته بندی تامین کنندگان
                     </p>
                 </div>
             </a>
@@ -230,7 +230,8 @@
 
         <section class="flex items-center justify-between ">
 
-            <div class="border border-black/30 rounded-md  flex items-center justify-center flex-col w-[32%]">
+            <a href="{{route('admin.role.index')}}"
+               class="border border-black/30 rounded-md  flex items-center justify-center flex-col w-[32%]">
                 <div class="p-2">
                     <img src="{{asset("capsule/images/role.png")}}" alt="" class="w-14 h-14">
                 </div>
@@ -240,7 +241,7 @@
                         نقش ها
                     </p>
                 </div>
-            </div>
+            </a>
             {{--            <div class="border border-black/30 rounded-md  flex items-center justify-center flex-col w-[32%]">--}}
             {{--                <div class="p-2">--}}
             {{--                    <img src="{{asset("capsule/images/ticket.png")}}" alt="" class="w-14 h-14">--}}

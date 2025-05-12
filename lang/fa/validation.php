@@ -239,7 +239,8 @@ return [
         'print'=>'چاپ',
         'related_goods'=>'خدمات مربوطه',
         'balloons'=>'نوع بالن',
-        'product'=>'کالا'
+        'product'=>'کالا',
+        'permission_id'=>'الگوی دسترسی'
     ],
 
 ];

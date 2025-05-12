@@ -50,7 +50,7 @@
                             </td>
                             <td class="border border-gray-400   text-center p-1">
                                 <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full  ">
-                                    {{implode(' - ',$roles[1]->permissions()->get()->pluck('persian_name')->toArray())}}
+                                    {{implode(' - ',$role->permissions->pluck('persian_name')->toArray())}}
                                 </p>
                             </td>
                             <td class="border border-gray-400   text-center p-1">
@@ -83,4 +83,3 @@
     </section>
 
 @endsection
-@se

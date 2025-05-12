@@ -22,7 +22,16 @@ class RoleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'permission_id'=>'array|required|exists:permissions,id',
+            'name'=>'required|min:2'
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $permission=request()->get('permission_id')??'';
+        $this->merge([
+            'permission_id' =>explode(',',$permission)
+        ]);
     }
 }
