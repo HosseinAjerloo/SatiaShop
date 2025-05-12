@@ -239,6 +239,10 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
 
     Route::prefix('role')->name('admin.role.')->group(function (){
        Route::get('',[App\Http\Controllers\Admin\Role\RoleController::class,'index'])->name('index');
+       Route::get('create',[App\Http\Controllers\Admin\Role\RoleController::class,'create'])->name('create');
+       Route::get('edit/{role}',[App\Http\Controllers\Admin\Role\RoleController::class,'edit'])->name('edit');
+       Route::post('store',[App\Http\Controllers\Admin\Role\RoleController::class,'store'])->name('store');
+       Route::get('delete/{role}',[App\Http\Controllers\Admin\Role\RoleController::class,'destroy'])->name('destroy');
     });
     Route::get('print-capsule/{resideItem}',[App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'printCapsule'])->name('admin.print.capsule');
 
