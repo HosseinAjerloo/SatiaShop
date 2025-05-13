@@ -17,7 +17,7 @@ class RoutingRefererConfig
      */
     public function handle(Request $request, Closure $next): Response
     {
-
+            echo $request->route()->getName();
         return $next($request);
     }
 }

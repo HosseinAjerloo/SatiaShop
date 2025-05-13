@@ -7,6 +7,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Symfony\Component\HttpFoundation\Response;
 
 return Application::configure(basePath: dirname(__DIR__))
+
     ->withRouting(
         using: function () {
             \Illuminate\Support\Facades\Route::middleware('web')->group([base_path('routes/web.php')]);

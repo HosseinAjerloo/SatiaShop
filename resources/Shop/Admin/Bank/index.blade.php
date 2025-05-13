@@ -53,7 +53,7 @@
 
         <article class="border border-t-0 border-black space-y-5 py-1.5 rounded-md rounded-se-none  rounded-ss-none">
             @foreach($banks as $key=> $bank)
-                <div class="p-2 h-full @if(($key%2)==0) bg-E9E9E9 @endif  flex items-center justify-between  ">
+                <div class="p-2  @if(($key%2)==0) bg-E9E9E9 @endif  flex items-center justify-between  ">
                     <div class="w-[12%] max-w-[12%] whitespace-normal break-words">
                         <p class="w-full text-black  text-min font-bold text-right">
                             {{$key+1??''}}

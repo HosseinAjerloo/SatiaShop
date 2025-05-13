@@ -23,7 +23,7 @@
         </article>
 
         <article class="  border border-t-0 border-black space-y-5 py-1.5 rounded-md rounded-se-none  rounded-ss-none">
-            <div class="p-2 h-full  flex items-center justify-between  divide-x-1 divide-black divide-x-reverse">
+            <div class="p-2   flex items-center justify-between  divide-x-1 divide-black divide-x-reverse">
                 <a href="{{route('admin.setting.edit',$setting->id)}}" class="w-1/5">
                     <p class="text-black  text-min_sm font-bold  h-full flex items-center justify-center text-center underline underline-offset-4 text-sky-500">
                         {{$setting->name??''}}
