@@ -7,53 +7,63 @@ use App\Http\Requests\Admin\Role\RoleRequest;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class RoleController extends Controller
 {
     public function index()
     {
+        Gate::authorize('admin.role.index');
         $roles = Role::all();
         return view('Admin.Role.index', compact('roles'));
     }
 
     public function create()
     {
+        Gate::authorize('admin.role.create');
         $permissions = Permission::all();
         return view('Admin.Role.create', compact('permissions'));
     }
 
     public function store(RoleRequest $request)
     {
-        $inputs=$request->all();
+        Gate::authorize('admin.role.create');
+        $inputs = $request->all();
         try {
-            $role=Role::create($inputs);
+            $role = Role::create($inputs);
             $role->permissions()->sync($inputs['permission_id']);
-            return redirect()->route('admin.role.index')->with(['success'=>'نقش جدید شما ایجاد شد و الگوی دسترسی برای ان تنظیم شدند']);
-        }catch (\Exception $exception){
-            return redirect()->route('admin.role.index')->withErrors(['error'=>'خطایی رخ داد لطفا چند لحظه دیگر دوباره تلاش کنید.']);
+            return redirect()->route('admin.role.index')->with(['success' => 'نقش جدید شما ایجاد شد و الگوی دسترسی برای ان تنظیم شدند']);
+        } catch (\Exception $exception) {
+            return redirect()->route('admin.role.index')->withErrors(['error' => 'خطایی رخ داد لطفا چند لحظه دیگر دوباره تلاش کنید.']);
         }
     }
 
     public function edit(Role $role)
     {
+        Gate::authorize('admin.role.edit');
         $permissions = Permission::all();
-        return view('Admin.Role.edit', compact('permissions','role'));
+        return view('Admin.Role.edit', compact('permissions', 'role'));
     }
-    public function update(RoleRequest $request,Role $role)
+
+    public function update(RoleRequest $request, Role $role)
     {
-        $inputs=$request->all();
+        Gate::authorize('admin.role.edit');
+        $inputs = $request->all();
         try {
             $role->update($inputs);
             $role->permissions()->sync($inputs['permission_id']);
-            return redirect()->route('admin.role.index')->with(['success'=>'نقش جدید شما ویرایش شد و الگوی دسترسی برای ان تنظیم شدند']);
-        }catch (\Exception $exception){
-            return redirect()->route('admin.role.index')->withErrors(['error'=>'خطایی رخ داد لطفا چند لحظه دیگر دوباره تلاش کنید.']);
+            return redirect()->route('admin.role.index')->with(['success' => 'نقش جدید شما ویرایش شد و الگوی دسترسی برای ان تنظیم شدند']);
+        } catch (\Exception $exception) {
+            return redirect()->route('admin.role.index')->withErrors(['error' => 'خطایی رخ داد لطفا چند لحظه دیگر دوباره تلاش کنید.']);
         }
     }
 
 
     public function destroy(Role $role)
     {
+        Gate::authorize('admin.role.destroy');
         $role->delete();
+        return redirect()->route('admin.role.index')->with(['success' => 'عملیات با موفقیت انجام شد و نقش مورد نظر پاک شد']);
+
     }
 }

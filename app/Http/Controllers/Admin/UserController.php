@@ -7,11 +7,13 @@ use App\Http\Requests\Admin\User\SearchRequest;
 use App\Models\User;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
     public function index()
     {
+        Gate::authorize('admin.user.index');
         $users=User::Search()->orderBy('created_at','desc')->paginate(20,['*'],'userPage')->withQueryString();
         $breadcrumbs=Breadcrumbs::render('admin.user.index')->getData()['breadcrumbs'];
 

@@ -15,6 +15,7 @@ use App\Services\ImageService\ImageService;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class ProductController extends Controller
 {
@@ -23,6 +24,7 @@ class ProductController extends Controller
      */
     public function index()
     {
+        Gate::authorize('admin.product.index');
         $products = Product::Search()->orderBy('created_at','desc')->paginate(20,['*'],'page')->withQueryString();
 
         $breadcrumbs=Breadcrumbs::render('admin.product.index')->getData()['breadcrumbs'];
@@ -35,6 +37,7 @@ class ProductController extends Controller
      */
     public function create()
     {
+        Gate::authorize('admin.category.create');
         $categories = Category::where('status', 'active')->get();
         $brands = Brand::where("status", 'active')->get();
         $breadcrumbs=Breadcrumbs::render('admin.product.create')->getData()['breadcrumbs'];
@@ -47,6 +50,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request, ImageService $imageService)
     {
+        Gate::authorize('admin.category.create');
 
         $inputs = $request->all();
         $user = Auth::user();
@@ -91,6 +95,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+        Gate::authorize('admin.product.edit');
         $categories = Category::where('status', 'active')->get();
         $brands = Brand::where("status", 'active')->get();
         $breadcrumbs=Breadcrumbs::render('admin.product.edit',$product)->getData()['breadcrumbs'];
@@ -103,6 +108,7 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product, ImageService $imageService)
     {
+        Gate::authorize('admin.product.edit');
         $inputs = $request->all();
         $user = Auth::user();
 
@@ -152,6 +158,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        Gate::authorize('admin.product.destroy');
         $type=$product->getTypePersian;
         $result = $product->delete();
         return $result ? redirect()->route('admin.product.index')->with(['success' => 'حذف '.$type.' با موفقیت انجام شد']) : redirect()->route('admin.product.index')->withErrors(['error' => 'حذف '.$type.' با خطا روبه رو شد']);

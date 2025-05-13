@@ -260,7 +260,6 @@ Route::get('test2', function () {
 });
 
 Route::get('test', function () {
-
 })->name('test');
 
 Route::post('create-product', function () {

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\SupplierCategory;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class SupplierCategoryController extends Controller
 {
@@ -16,9 +17,10 @@ class SupplierCategoryController extends Controller
      */
     public function index()
     {
+        Gate::authorize('admin.supplier.category.index');
         $categories = SupplierCategory::orderBy('created_at', 'desc')->paginate(20);
         $breadcrumbs = Breadcrumbs::render('admin.supplier.category.index')->getData()['breadcrumbs'];
-        
+
         return view('Admin.supplier.suppliercategory.index' ,compact('breadcrumbs', 'categories'));
     }
 
@@ -29,6 +31,7 @@ class SupplierCategoryController extends Controller
      */
     public function create()
     {
+        Gate::authorize('admin.supplier.category.create');
         $breadcrumbs = Breadcrumbs::render('admin.supplier.category.create')->getData()['breadcrumbs'];
         return view('Admin.supplier.suppliercategory.create' ,compact('breadcrumbs'));
     }
@@ -41,6 +44,8 @@ class SupplierCategoryController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::authorize('admin.supplier.category.create');
+
         $validated = $request->validate([
             'name' => 'required|min:3|max:255',
             'status' => 'required|in:active,inactive'
@@ -61,6 +66,7 @@ class SupplierCategoryController extends Controller
      */
     public function edit(SupplierCategory $category)
     {
+        Gate::authorize('admin.supplier.category.edit');
         $breadcrumbs = Breadcrumbs::render('admin.supplier.category.edit', $category)->getData()['breadcrumbs'];
         return view('Admin.supplier.suppliercategory.edit' ,compact('breadcrumbs', 'category'));
     }
@@ -74,6 +80,8 @@ class SupplierCategoryController extends Controller
      */
     public function update(Request $request, SupplierCategory $category)
     {
+        Gate::authorize('admin.supplier.category.edit');
+
         $validated = $request->validate([
             'name' => 'required|min:3|max:255',
             'status' => 'required|in:active,inactive'

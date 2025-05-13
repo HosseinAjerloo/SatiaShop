@@ -9,6 +9,7 @@ use App\Services\ImageService\ImageService;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class SettingController extends Controller
 {
@@ -17,6 +18,7 @@ class SettingController extends Controller
      */
     public function index()
     {
+        Gate::authorize('admin.setting.index');
         $setting=Setting::first();
         $breadcrumbs=Breadcrumbs::render('admin.setting.index')->getData()['breadcrumbs'];
 
@@ -53,6 +55,7 @@ class SettingController extends Controller
      */
     public function edit(Setting $setting)
     {
+        Gate::authorize('admin.setting.edit');
         $breadcrumbs=Breadcrumbs::render('admin.setting.edit',$setting)->getData()['breadcrumbs'];
         return view('Admin.Setting.edit', compact('setting','breadcrumbs'));
 
@@ -63,6 +66,7 @@ class SettingController extends Controller
      */
     public function update(SettingRequest $request, Setting $setting, ImageService $imageService)
     {
+        Gate::authorize('admin.setting.edit');
         $inputs = $request->all();
         $user = Auth::user();
         if ($request->hasFile('file')) {

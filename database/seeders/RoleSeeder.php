@@ -16,7 +16,12 @@ class RoleSeeder extends Seeder
     {
             foreach (Role::RoleName as $role)
             {
-                Role::create($role);
+                $role=Role::create($role);
+                foreach (User::all() as $user)
+                {
+                    $user->roles()->attach($role);
+                }
+
             }
 
     }

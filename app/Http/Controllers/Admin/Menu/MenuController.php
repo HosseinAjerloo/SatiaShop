@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\Menu\MenuRequest;
 use App\Models\Category;
 use App\Models\Menu;
 use Diglactic\Breadcrumbs\Breadcrumbs;
+use Illuminate\Support\Facades\Gate;
 
 class MenuController extends Controller
 {
@@ -15,7 +16,7 @@ class MenuController extends Controller
      */
     public function index()
     {
-
+        Gate::authorize('admin.menu.index');
         $menus=Menu::Search()->orderBy('created_at','desc')->paginate(20,['*'],'page')->withQueryString();
 
         $breadcrumbs=Breadcrumbs::render('admin.menu.index')->getData()['breadcrumbs'];
@@ -28,6 +29,8 @@ class MenuController extends Controller
      */
     public function create()
     {
+        Gate::authorize('admin.menu.create');
+
         $breadcrumbs=Breadcrumbs::render('admin.menu.create')->getData()['breadcrumbs'];
 
         return view('Admin.Menu.create',compact('breadcrumbs'));
@@ -38,6 +41,8 @@ class MenuController extends Controller
      */
     public function store(MenuRequest $request)
     {
+        Gate::authorize('admin.menu.create');
+
         $inputs = $request->all();
         $result = Menu::create($inputs);
         return $result ? redirect()->route('admin.menu.index')->with(['success'=>'منوی جدید باموفقیت اضافه شد']) : redirect()->route('admin.menu.index')->withErrors(['error' => 'خطایی رخ داد لطفا مجددا تلاش فرمایید']);
@@ -56,6 +61,7 @@ class MenuController extends Controller
      */
     public function edit(Menu $menu)
     {
+        Gate::authorize('admin.menu.edit');
         $breadcrumbs=Breadcrumbs::render('admin.menu.edit',$menu)->getData()['breadcrumbs'];
 
         return view('Admin.Menu.edit', compact('menu','breadcrumbs'));
@@ -66,6 +72,7 @@ class MenuController extends Controller
      */
     public function update(MenuRequest $request, Menu $menu)
     {
+        Gate::authorize('admin.menu.edit');
         $inputs = $request->all();
         $result = $menu->update($inputs);
         return $result ? redirect()->route('admin.menu.index')->with(['success'=>'منوی شما باموفقیت ویرایش شد']) : redirect()->route('admin.menu.index')->withErrors(['error' => 'خطایی رخ داد لطفا مجددا تلاش فرمایید']);
@@ -77,6 +84,8 @@ class MenuController extends Controller
      */
     public function destroy(Menu $menu)
     {
+        Gate::authorize('admin.menu.destroy');
+
         if ($menu->category()->count())
         {
             return redirect()->route('admin.menu.index')->withErrors(['error' => 'این منو دسته هایی مرتبط با خود دارد لطفا محل نمایش دسته های مربوط به این منو را در منو دیگر قرار دهید']);

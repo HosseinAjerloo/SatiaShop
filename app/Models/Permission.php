@@ -33,6 +33,10 @@ class Permission extends Model
             'name'=>'admin.category.edit',
             'persian_name'=>'ویرایش دسته بندی'
         ],
+        [
+            'name'=>'admin.category.destroy',
+            'persian_name'=>'حذف دسته بندی'
+        ],
         //product
         [
             'name'=>'admin.product.index',
@@ -46,6 +50,10 @@ class Permission extends Model
             'name'=>'admin.product.edit',
             'persian_name'=>'ویرایش محصولات '
         ],
+        [
+            'name'=>'admin.product.destroy',
+            'persian_name'=>'حذف محصولات '
+        ],
         //invoice Service Product
         [
             'name'=>'admin.invoice.service.index',
@@ -54,6 +62,10 @@ class Permission extends Model
         [
             'name'=>'admin.invoice.service.create',
             'persian_name'=>' ثبت فاکتور جدید سرویس'
+        ],
+        [
+            'name'=>'admin.invoice.service.edit',
+            'persian_name'=>' ویرایش فاکتور  سرویس'
         ],
         ///menu
         [
@@ -67,6 +79,10 @@ class Permission extends Model
         [
             'name'=>'admin.menu.edit',
             'persian_name'=>'ویرایش منو'
+        ],
+        [
+            'name'=>'admin.menu.destroy',
+            'persian_name'=>'حذف منو'
         ],
         /// applicationSetting
         [
@@ -100,6 +116,10 @@ class Permission extends Model
         [
             'name'=>'admin.invoice.product.create',
             'persian_name'=>'افزودن کالا به انبار'
+        ],
+        [
+            'name'=>'admin.invoice.product.edit',
+            'persian_name'=>'ویرایش فاکتور کالا'
         ],
         ///user
         [

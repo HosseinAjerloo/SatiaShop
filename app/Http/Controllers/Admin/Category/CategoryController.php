@@ -11,6 +11,7 @@ use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller
 {
@@ -19,6 +20,7 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
+        Gate::authorize('admin.category.index');
         $categories = Category::Search()->orderBy('created_at','desc')->paginate(20,['*'],'page')->withQueryString();
         $breadcrumbs = Breadcrumbs::render('admin.category.index')->getData()['breadcrumbs'];
         return view('Admin.ProductCategory.index', compact('categories', 'breadcrumbs'));
@@ -29,6 +31,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        Gate::authorize('admin.category.create');
         $menus = Menu::where("status", 'active')->get();
         $categories = Category::where("status", 'active')->get();
         $breadcrumbs = Breadcrumbs::render('admin.category.create')->getData()['breadcrumbs'];
@@ -42,6 +45,8 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request, ImageService $imageService)
     {
+        Gate::authorize('admin.category.create');
+
         $inputs = $request->all();
         $user = Auth::user();
         $imageService->setRootFolder('CategoryStore' . DIRECTORY_SEPARATOR . "image");
@@ -79,6 +84,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+        Gate::authorize('admin.category.edit');
         $menus = Menu::where("status", 'active')->get();
         $categories = Category::where("status", 'active')->get()->except($category->id);
         $breadcrumbs = Breadcrumbs::render('admin.category.edit', $category)->getData()['breadcrumbs'];
@@ -90,6 +96,7 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, Category $category, ImageService $imageService)
     {
+        Gate::authorize('admin.category.edit');
         $inputs = $request->all();
         $user = Auth::user();
 
@@ -125,6 +132,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        Gate::authorize('admin.category.destroy');
+
         if ($category->productes()->count())
         {
             return redirect()->route('admin.category.index')->withErrors(['error' => 'این دسته دارای محصولاتی میباشد لطفا ابتدا محصولات مربوط به این دسته را به دسته دیگیری انتقال دهید.']);

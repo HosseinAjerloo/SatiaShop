@@ -9,6 +9,7 @@ use App\Services\ImageService\ImageService;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class BrandController extends Controller
 {
@@ -17,6 +18,7 @@ class BrandController extends Controller
      */
     public function index()
     {
+        Gate::authorize('admin.brand.index');
         $brands = Brand::Search()->orderBy('created_at','desc')->paginate(20,['*'],'page')->withQueryString();
         $breadcrumbs = Breadcrumbs::render('admin.brand.index')->getData()['breadcrumbs'];
 
@@ -28,6 +30,7 @@ class BrandController extends Controller
      */
     public function create()
     {
+        Gate::authorize('admin.brand.create');
         $breadcrumbs = Breadcrumbs::render('admin.brand.create')->getData()['breadcrumbs'];
 
         return view('Admin.Brand.create',compact('breadcrumbs'));
@@ -38,6 +41,7 @@ class BrandController extends Controller
      */
     public function store(BrandRequest $request, ImageService $imageService)
     {
+        Gate::authorize('admin.brand.create');
         $inputs = $request->all();
         $user = Auth::user();
         $imageService->setRootFolder('BrandStore' . DIRECTORY_SEPARATOR . "image");
@@ -72,6 +76,8 @@ class BrandController extends Controller
      */
     public function edit(Brand $brand)
     {
+        Gate::authorize('admin.brand.edit');
+
         $breadcrumbs = Breadcrumbs::render('admin.brand.edit',$brand)->getData()['breadcrumbs'];
         return view('Admin.Brand.edit', compact('brand','breadcrumbs'));
     }
@@ -81,6 +87,7 @@ class BrandController extends Controller
      */
     public function update(BrandRequest $request, ImageService $imageService, Brand $brand)
     {
+        Gate::authorize('admin.brand.edit');
         $user = Auth::user();
         $inputs = $request->all();
 

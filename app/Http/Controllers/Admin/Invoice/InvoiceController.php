@@ -23,6 +23,7 @@ use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 
 class InvoiceController extends Controller
@@ -32,7 +33,7 @@ class InvoiceController extends Controller
 
     public function productIndex()
     {
-
+        Gate::authorize('admin.invoice.product.index');
         $breadcrumbs = Breadcrumbs::render('admin.invoice.product.index')->getData()['breadcrumbs'];
         $invoices = Invoice::search()->whereHas('invoiceItem', function (Builder $query) {
             $query->where('type', 'product');
@@ -51,6 +52,7 @@ class InvoiceController extends Controller
      */
     public function create()
     {
+        Gate::authorize('admin.invoice.product.create');
         $categories = Category::where('status', 'active')->get();
         $brands = Brand::where("status", 'active')->get();
         $breadcrumbs = Breadcrumbs::render('admin.invoice.product.create')->getData()['breadcrumbs'];
@@ -64,6 +66,7 @@ class InvoiceController extends Controller
      */
     public function store(InvoiceRequest $request)
     {
+        Gate::authorize('admin.invoice.product.create');
         $inputs = $request->all();
         $user = Auth::user();
         $productItems = $this->separationOfArraysFromText($inputs);
@@ -183,6 +186,7 @@ class InvoiceController extends Controller
 
     public function editProduct(Invoice $invoice)
     {
+        Gate::authorize('admin.invoice.product.edit');
         $categories = Category::where('status', 'active')->get();
         $brands = Brand::where("status", 'active')->get();
         $breadcrumbs = Breadcrumbs::render('admin.invoice.product.edit', $invoice)->getData()['breadcrumbs'];
@@ -195,6 +199,8 @@ class InvoiceController extends Controller
 
     public function updateProduct(InvoiceRequest $request, Invoice $invoice)
     {
+        Gate::authorize('admin.invoice.product.edit');
+
         DB::beginTransaction();
 
         try {
@@ -276,6 +282,7 @@ class InvoiceController extends Controller
 
     public function serviceIndex()
     {
+        Gate::authorize('admin.invoice.service.index');
         $breadcrumbs = Breadcrumbs::render('admin.invoice.service.index')->getData()['breadcrumbs'];
 
         $invoices = Invoice::search()->whereHas('invoiceItem', function (Builder $query) {
@@ -294,6 +301,7 @@ class InvoiceController extends Controller
 
     public function serviceCreate()
     {
+        Gate::authorize('admin.invoice.service.create');
         $categories = Category::where('status', 'active')->get();
         $brands = Brand::where("status", 'active')->get();
         $breadcrumbs = Breadcrumbs::render('admin.invoice.service.create')->getData()['breadcrumbs'];
@@ -305,6 +313,7 @@ class InvoiceController extends Controller
 
     public function serviceStore(ServiceRequest $request)
     {
+        Gate::authorize('admin.invoice.service.create');
         $inputs = $request->all();
         $user = Auth::user();
         $productItems = $this->separationOfArraysFromText($inputs);
@@ -364,6 +373,7 @@ class InvoiceController extends Controller
 
     public function serviceEdit(Invoice $invoice)
     {
+        Gate::authorize('admin.invoice.service.edit');
         $categories = Category::where('status', 'active')->get();
         $brands = Brand::where("status", 'active')->get();
         $breadcrumbs = Breadcrumbs::render('admin.invoice.service.edit', $invoice)->getData()['breadcrumbs'];
@@ -375,6 +385,7 @@ class InvoiceController extends Controller
 
     public function serviceUpdate(Invoice $invoice, ServiceRequest $request)
     {
+        Gate::authorize('admin.invoice.service.edit');
         DB::beginTransaction();
 
         try {
