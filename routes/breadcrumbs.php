@@ -203,6 +203,19 @@ Breadcrumbs::for('admin.supplier.category.edit', function (BreadcrumbTrail $trai
     $trail->parent('admin.supplier.category.index');
     $trail->push('ویرایش دسته بندی تامین کنندگان', route('admin.supplier.category.edit', $category));
 });
+Breadcrumbs::for('admin.resideCapsule.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('panel.admin');
+    $trail->push('لیست رسید های کپسول', route('admin.resideCapsule.index'));
+});
+Breadcrumbs::for('admin.chargingTheCapsule.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.resideCapsule.index');
+    $trail->push('پذیرش کپسول', route('admin.chargingTheCapsule.index'));
+});
+Breadcrumbs::for('admin.sale.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('panel.admin');
+    $trail->push('فروش کپسول', route('admin.sale.index'));
+});
+
 
 
 

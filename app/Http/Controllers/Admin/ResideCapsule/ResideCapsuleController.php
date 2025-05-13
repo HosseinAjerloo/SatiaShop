@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\ResideCapsule;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ResidChargeCapsule\ResidChargeCapsuleSearchRequest;
 use App\Models\Reside;
+use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
 
 class ResideCapsuleController extends Controller
@@ -14,8 +15,9 @@ class ResideCapsuleController extends Controller
      */
     public function index()
     {
+        $breadcrumbs = Breadcrumbs::render('admin.resideCapsule.index')->getData()['breadcrumbs'];
         $resides=Reside::all();
-        return view('Admin.ListResideCapsule.index',compact('resides'));
+        return view('Admin.ListResideCapsule.index',compact('resides','breadcrumbs'));
     }
 
     /**
