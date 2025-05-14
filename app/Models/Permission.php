@@ -11,10 +11,6 @@ class Permission extends Model
 
         // category
         [
-            'name'=>'reside-capsule',
-            'persian_name'=>'لیست رسید ها'
-        ],
-        [
             'name'=>'admin.category.index',
             'persian_name'=>'صفحه دسته بندی ها'
         ],

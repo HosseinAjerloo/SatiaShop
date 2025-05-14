@@ -153,7 +153,8 @@
                                 </div>
                             </td>
                             <td class="border border-gray-400   text-center ">
-                                <a href="{{route('admin.chargingTheCapsule.printReside',$reside)}}" class="w-full flex items-center justify-center p-1">
+                                <a href="{{route('admin.chargingTheCapsule.printReside',$reside)}}"
+                                   class="w-full flex items-center justify-center p-1">
                                     <img src="{{asset('capsule/images/printerIcon.svg')}}" alt="">
                                 </a>
                             </td>
