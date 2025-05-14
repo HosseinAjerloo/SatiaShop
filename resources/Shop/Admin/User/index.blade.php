@@ -73,7 +73,9 @@
                             نام
                         </p>
                         <p class="text-sky-500  text-min_sm sm:font-bold  h-full flex items-center text-right leading-8 underline underline-offset-4   whitespace-normal break-words ">
-                            {{$user->name??''}}
+                            <a href="{{route('admin.user.edit',$user)}}">
+                                {{$user->name??''}}
+                            </a>
                         </p>
                     </div>
                     <div class="border-b border-black/35 sm:border-none w-full justify-between   sm:w-[11%] sm:max-w-[11%] text-min_sm   h-full flex items-center text-right whitespace-normal break-words ">

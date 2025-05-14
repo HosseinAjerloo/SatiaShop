@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\SearchRequest;
+use App\Http\Requests\Admin\User\UpdateUserProfile;
+use App\Models\Role;
 use App\Models\User;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
@@ -29,5 +31,16 @@ class UserController extends Controller
         $inputs=$request->all();
         $users=User::Search($inputs)->get();
         return view('Admin.User.search',compact('users'));
+    }
+
+    public function edit(User $user)
+    {
+        $roles=Role::all();
+        return view('Admin.User.edit',compact('user'),compact('roles'));
+    }
+
+    public function update(User $user,UpdateUserProfile $request)
+    {
+        dd('hossien ajerloo',$user);
     }
 }

@@ -14,6 +14,7 @@ use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Mockery\Exception;
 
 class SaleController extends Controller
@@ -22,6 +23,7 @@ class SaleController extends Controller
 
     public function index()
     {
+        Gate::authorize('admin.sale.index');
         $breadcrumbs = Breadcrumbs::render('admin.sale.index')->getData()['breadcrumbs'];
 
         $user = Auth::user();
@@ -36,6 +38,7 @@ class SaleController extends Controller
 
     public function store(SaleProductRequest $request)
     {
+        Gate::authorize('admin.sale.index');
         $inputs = $request->all();
         return $this->registerSealCapsule();
     }

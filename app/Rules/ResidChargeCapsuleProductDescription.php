@@ -28,13 +28,9 @@ class ResidChargeCapsuleProductDescription implements ValidationRule
         foreach ($value as $key => $item){
             $key=explode('_',$key)[0];
             $product=$this->hasProduct($key);
-            if ($product){
-                if (empty($item))
-                {
-                    $fail($product->removeUnderLine.' قسمت توضیحات نمیتوان خالی باشد ');
-                }
-            }else{
+            if (!$product){
                 $fail('محصول انتخابی مورد تایید نمیباشد.');
+
             }
 
         }

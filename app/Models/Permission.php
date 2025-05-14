@@ -8,14 +8,7 @@ class Permission extends Model
 {
     protected $fillable=['name','persian_name'];
     const permission=[
-        [
-            'name'=>'charging-the-capsule',
-            'persian_name'=>'پذیرش کپسول'
-        ],
-        [
-            'name'=>'sale',
-            'persian_name'=>'فروش کپسول'
-        ],
+
         // category
         [
             'name'=>'reside-capsule',
@@ -205,6 +198,31 @@ class Permission extends Model
             'name'=>'admin.role.destroy',
             'persian_name'=>'حذف نقش'
         ],
+        [
+            'name'=>'admin.chargingTheCapsule.index',
+            'persian_name'=>'پذیرش کپسول'
+        ],
+        [
+            'name'=>'admin.chargingTheCapsule.edit',
+            'persian_name'=>'ویرایش پذیرش کپسول'
+        ],
+        [
+            'name'=>'admin.sale.index',
+            'persian_name'=>'فروش کپسول'
+        ],
+        [
+            'name'=>'admin.resideCapsule.index',
+            'persian_name'=>'صفحه رسید های کپسول'
+        ],
+        [
+            'name'=>'admin.invoice.issuance.index',
+            'persian_name'=>'صفحه صدور فاکتور'
+        ],
+        [
+            'name'=>'admin.invoice.issuance.operation',
+            'persian_name'=>'صفحه سرویس های کپسول'
+        ],
+
 
 
 

@@ -78,8 +78,9 @@ class ResidChargeCapsuleRequest extends FormRequest
 
     private function generateDefaultValidation()
     {
+
         $this->validate['product_status']=['required','array',new ResidChargeCapsuleProductStatus];
-        $this->validate['product_description']=['required','array',new ResidChargeCapsuleProductDescription];
+        $this->validate['product_description']=['nullable','array',new ResidChargeCapsuleProductDescription];
     }
 
 

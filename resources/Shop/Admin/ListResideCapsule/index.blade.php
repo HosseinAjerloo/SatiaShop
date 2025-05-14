@@ -31,13 +31,16 @@
                         <th class=" text-sm font-light px-2 leading-6 text-white ">
                             <span>شماره رسید</span>
                         </th>
-                        @can('reside-capsule')
+                        @can('admin.invoice.issuance.index')
                             <th class=" text-sm font-light px-2 leading-6 text-white ">
                                 <span>صدور فاکتور</span>
                             </th>
                         @endcan
                         <th class=" text-sm font-light px-2 leading-6 text-white ">
                             <span>نام پذیرنده</span>
+                        </th>
+                        <th class=" text-sm font-light px-2 leading-6 text-white ">
+                            <span>چاپ</span>
                         </th>
                     </tr>
 
@@ -80,7 +83,7 @@
                                        data-name="reside_id">
                             </div>
                         </td>
-                        @can('reside-capsule')
+                        @can('admin.invoice.issuance.index')
 
                             <td class="border border-gray-400   text-center p-1">
                                 <div class="w-full flex items-center ">
@@ -95,6 +98,13 @@
                                 <input type="text"
                                        class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1"
                                        data-name="operator_name">
+                            </div>
+                        </td>
+                        <td class="border border-gray-400   text-center p-1">
+                            <div class="w-full flex items-center ">
+                                <input type="text"
+                                       class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1"
+                                       disabled>
                             </div>
                         </td>
 
@@ -126,7 +136,7 @@
                                     {{$reside->id}}
                                 </p>
                             </td>
-                            @can('reside-capsule')
+                            @can('admin.invoice.issuance.index')
                                 <td class="border border-gray-400   text-center ">
                                     <div class="w-full flex items-center justify-center p-1">
 
@@ -142,7 +152,11 @@
                                     {{$reside->operator->fullName??''}}
                                 </div>
                             </td>
-
+                            <td class="border border-gray-400   text-center ">
+                                <a href="{{route('admin.chargingTheCapsule.printReside',$reside)}}" class="w-full flex items-center justify-center p-1">
+                                    <img src="{{asset('capsule/images/printerIcon.svg')}}" alt="">
+                                </a>
+                            </td>
                         </tr>
                     @endforeach
 
@@ -213,6 +227,7 @@
             xmlHttpRequest.onreadystatechange = function () {
                 if (xmlHttpRequest.readyState === 4 && xmlHttpRequest.status === 200) {
                     let responseXml = JSON.parse(xmlHttpRequest.response)
+                    console.log(responseXml);
                     if (xmlHttpRequest.response !== '' && xmlHttpRequest.response !== undefined && !('errors' in responseXml) && responseXml.data.length !== 0) {
                         generateElement(responseXml);
                     }

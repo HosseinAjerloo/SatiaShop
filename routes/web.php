@@ -89,6 +89,8 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
 
     Route::prefix('user')->name('admin.user.')->group(function () {
         Route::get('/', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('index');
+        Route::get('edit/{user}',[App\Http\Controllers\Admin\UserController::class, 'edit'])->name('edit');
+        Route::put('update/{user}',[App\Http\Controllers\Admin\UserController::class, 'update'])->name('update');
     });
 
 

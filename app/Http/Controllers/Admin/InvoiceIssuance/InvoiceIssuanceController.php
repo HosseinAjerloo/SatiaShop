@@ -9,7 +9,9 @@ use App\Http\Traits\HasDiscount;
 use App\Models\Category;
 use App\Models\Reside;
 use App\Models\ResideItem;
+use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class
 InvoiceIssuanceController extends Controller
@@ -18,13 +20,18 @@ InvoiceIssuanceController extends Controller
 
     public function index(Reside $reside)
     {
-        return view('Admin.InvoiceIssuance.index', compact('reside'));
+        Gate::authorize('admin.invoice.issuance.index');
+        $breadcrumbs = Breadcrumbs::render('admin.invoice.issuance.index', $reside)->getData()['breadcrumbs'];
+        return view('Admin.InvoiceIssuance.index', compact('reside', 'breadcrumbs'));
     }
 
     public function operation(Reside $reside, ResideItem $resideItem)
     {
+        Gate::authorize('admin.invoice.issuance.operation');
+        $breadcrumbs = Breadcrumbs::render('admin.invoice.issuance.operation', $reside, $resideItem)->getData()['breadcrumbs'];
+
         $categories = Category::class;
-        return view('Admin.SelectCapsule.index', compact('reside', 'resideItem', 'categories'));
+        return view('Admin.SelectCapsule.index', compact('reside', 'resideItem', 'categories', 'breadcrumbs'));
     }
 
     public function store(Reside $reside, FinalInvoiceIssuanceRequest $request)
@@ -35,7 +42,7 @@ InvoiceIssuanceController extends Controller
             if (isset($inputs['sodurFactor']) && $inputs['sodurFactor'] == 'yes') {
                 return redirect()->route('admin.invoice.issuance.printFactor', $reside)->with(['success' => 'عملیات با موفقیت انجام شد']);
             } else {
-                return redirect()->route('admin.invoice.issuance.index', $reside)->with(['success' => 'عملیات با موفقیت انجام شد']);
+                return redirect()->route('admin.resideCapsule.index', $reside)->with(['success' => 'عملیات با موفقیت انجام شد']);
             }
 
         } catch (\Exception $exception) {

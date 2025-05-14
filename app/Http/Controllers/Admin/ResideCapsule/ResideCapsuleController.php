@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\ResidChargeCapsule\ResidChargeCapsuleSearchRequest;
 use App\Models\Reside;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ResideCapsuleController extends Controller
 {
@@ -15,6 +16,7 @@ class ResideCapsuleController extends Controller
      */
     public function index()
     {
+        Gate::authorize('admin.resideCapsule.index');
         $breadcrumbs = Breadcrumbs::render('admin.resideCapsule.index')->getData()['breadcrumbs'];
         $resides=Reside::all();
         return view('Admin.ListResideCapsule.index',compact('resides','breadcrumbs'));
@@ -73,7 +75,7 @@ class ResideCapsuleController extends Controller
         foreach ($resides as $key => $reside){
                         $reside->jalalidate= \Morilog\Jalali\Jalalian::forge($reside->created_at)->format('Y/m/d');
                         $reside->custumerName= $reside->user->fullName ?? '';
-                        $reside->capsuleCount= $reside->resideItem()->where('status','recharge')->count();
+                        $reside->capsuleCount= $reside->resideItem()->count();
                         $reside->operatorName= $reside->operator->fullName ?? '';
                         $reside->route= route('admin.invoice.issuance.index',$reside);
         }

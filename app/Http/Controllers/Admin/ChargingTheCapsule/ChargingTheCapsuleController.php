@@ -13,6 +13,7 @@ use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class ChargingTheCapsuleController extends Controller
 {
@@ -20,6 +21,7 @@ class ChargingTheCapsuleController extends Controller
 
     public function index()
     {
+        Gate::authorize('admin.chargingTheCapsule.index');
         $breadcrumbs = Breadcrumbs::render('admin.chargingTheCapsule.index')->getData()['breadcrumbs'];
 
         $user = Auth::user();
@@ -33,11 +35,13 @@ class ChargingTheCapsuleController extends Controller
 
     public function store(ResidChargeCapsuleRequest $request)
     {
+        Gate::authorize('admin.chargingTheCapsule.index');
         return $this->registerResideCapsule();
     }
 
     public function edit(Reside $reside)
     {
+        Gate::authorize('admin.chargingTheCapsule.edit');
         $user = Auth::user();
         $allUser = User::all();
         $myFavorites = $user->productFavorite()->where('status', 'active')->where('type', 'service')->get();
@@ -48,6 +52,7 @@ class ChargingTheCapsuleController extends Controller
 
     public function update(ResidChargeCapsuleRequest $request, Reside $reside)
     {
+        Gate::authorize('admin.chargingTheCapsule.edit');
         app('request')->merge(['reside' => $reside]);
         return $this->updateResideCapsule();
     }
