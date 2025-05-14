@@ -50,7 +50,7 @@
                                value="{{old('address',$user->address)}}">
                     </div>
                 </section>
-                <input type="hidden" name="roles" id="roles">
+                <input type="hidden" name="roles" id="roles" value="{{implode(',',$user->roles->pluck('id')->toArray())}}">
             </section>
             <section class="flex items-center justify-center space-x-reverse space-x-3 p-5">
                 <div class="bg-268832 px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
@@ -68,8 +68,9 @@
         $(".js-example-tokenizer").select2({
             tags: true,
         });
+        $('.js-example-tokenizer').val(window.roles.value.split(',')).trigger('change')
+
         $('.submitBtn').click(function (event) {
-            alert('ad')
             event.preventDefault();
             window.roles.value = $(".js-example-tokenizer").val().join(',');
             $("#form").submit();

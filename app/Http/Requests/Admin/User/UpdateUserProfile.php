@@ -39,7 +39,7 @@ class UpdateUserProfile extends FormRequest
                 'mobile' => ['min:11', 'max:11', new MobileFormat, 'unique:users,mobile,' . $user->id],
                 'national_code' => ['required', new NationalCode, 'unique:users,national_code,' . $user->id],
                 'address' => 'nullable',
-                'roles' => 'required'
+                'roles' => 'required|array|exists:roles,id'
             ];
         } else {
             $user = Auth::user();
@@ -74,11 +74,12 @@ class UpdateUserProfile extends FormRequest
         }
         return [];
     }
+
     protected function prepareForValidation(): void
     {
-        $permission=request()->get('permission_id')??'';
+        $permission = request()->get('roles') ?? '';
         $this->merge([
-            'permission_id' =>explode(',',$permission)
+            'roles' => explode(',', $permission)
         ]);
     }
 }
