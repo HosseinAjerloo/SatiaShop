@@ -164,7 +164,7 @@ trait  HasResideChargeCapsule
             $reside->resideItem()->createMany($this->resideItems);
             DB::commit();
 
-            $this->redirectUri = redirect()->route('admin.sale.shop', $reside)->with(['success' => 'رسید شما صادر شد و عملیات با موفقیت انجام شد.']);;
+            $this->redirectUri = redirect()->route('admin.sale.show', $reside)->with(['success' => 'رسید شما صادر شد و عملیات با موفقیت انجام شد.']);;
 
             return $this->redirectUri;
 

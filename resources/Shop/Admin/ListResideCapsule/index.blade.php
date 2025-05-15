@@ -153,7 +153,7 @@
                                 </div>
                             </td>
                             <td class="border border-gray-400   text-center ">
-                                <a href="{{route('admin.chargingTheCapsule.printReside',$reside)}}"
+                                <a href="@if($reside->reside_type=='recharge') {{route('admin.chargingTheCapsule.printReside',$reside)}} @else {{route('admin.sale.printFactor',$reside)}} @endif"
                                    class="w-full flex items-center justify-center p-1">
                                     <img src="{{asset('capsule/images/printerIcon.svg')}}" alt="">
                                 </a>
