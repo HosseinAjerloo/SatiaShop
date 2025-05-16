@@ -139,11 +139,23 @@
                             @can('admin.invoice.issuance.index')
                                 <td class="border border-gray-400   text-center ">
                                     <div class="w-full flex items-center justify-center p-1">
+                                        @if($reside->reside_type=='sell')
 
-                                        <a href="{{route('admin.invoice.issuance.index',$reside->id)}}">
-                                            <img src="{{asset("capsule/images/hand-Invoice.svg")}}" alt=""
-                                                 class="w-10 h-10">
-                                        </a>
+                                            <a href="@if($reside->status=='paid') #  @else {{route('admin.sale.show',$reside->id)}} @endif">
+                                                <img
+                                                    src="@if($reside->status=='paid'){{asset('capsule/images/finalFactor.svg')}} @else {{asset("capsule/images/hand-Invoice.svg")}} @endif"
+                                                    alt=""
+                                                    class="w-10 h-10">
+                                            </a>
+
+                                        @else
+                                            <a href="@if($reside->status=='paid') #  @else {{route('admin.invoice.issuance.index',$reside->id)}} @endif">
+                                                <img
+                                                    src="@if($reside->status=='paid'){{asset('capsule/images/finalFactor.svg')}} @else {{asset("capsule/images/hand-Invoice.svg")}} @endif"
+                                                    alt=""
+                                                    class="w-10 h-10">
+                                            </a>
+                                        @endif
                                     </div>
                                 </td>
                             @endcan
@@ -153,10 +165,18 @@
                                 </div>
                             </td>
                             <td class="border border-gray-400   text-center ">
-                                <a href="@if($reside->reside_type=='recharge') {{route('admin.chargingTheCapsule.printReside',$reside)}} @else {{route('admin.sale.printFactor',$reside)}} @endif"
-                                   class="w-full flex items-center justify-center p-1">
-                                    <img src="{{asset('capsule/images/printerIcon.svg')}}" alt="">
-                                </a>
+                                @if($reside->reside_type=='sell')
+                                    <a href=" @if($reside->status=='paid') {{route('admin.sale.printFactor',$reside)}} @else # @endif"
+                                       class="w-full flex items-center justify-center p-1">
+                                        <img src="{{asset('capsule/images/printerIcon.svg')}}" alt="">
+                                    </a>
+
+                                @else
+                                    <a href=" @if($reside->status=='paid') {{route('admin.invoice.issuance.printFactor',$reside)}} @else {{route('admin.chargingTheCapsule.printReside',$reside)}} @endif"
+                                       class="w-full flex items-center justify-center p-1">
+                                        <img src="{{asset('capsule/images/printerIcon.svg')}}" alt="">
+                                    </a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

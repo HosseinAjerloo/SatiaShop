@@ -570,11 +570,11 @@ class Product extends Model
         $query->when(request()->input('date'), function ($query) {
             $query->whereDate('created_at', ">=", Carbon::now()->subMonths(request()->input('date'))->toDateString());
         })->when(request()->input('name'), function ($query) {
-            $query->where('title', 'like', "%" . request()->input('name') . "%");
+            $searchTerm = str_replace(' ', '_', request()->input('name')); // تبدیل فاصله به _
+            $query->where('title', 'like', "%" . $searchTerm . "%");
         })->when(request()->input('startDate'), function ($query) {
             $date = date('Y-m-d', changeFormatNumberToDate(request()->input('startDate')));
             $query->whereDate('created_at', ">=", $date);
-
         })->when(request()->input('endDate'), function ($query) {
             $date = date('Y-m-d', changeFormatNumberToDate(request()->input('endDate')));
             $query->whereDate('created_at', "<=", $date);
