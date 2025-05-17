@@ -40,7 +40,7 @@
                 <select name="related_goods" id="" class="outline-none border border-black rounded-md w-48 select2">
                     <option value="">انتخاب کنید</option>
                     @foreach($categories as $category)
-                        @if(str_contains($category->removeUnderline,'کالای مبوط'))
+                        @if(str_contains($category->removeUnderline,'کالای مربوط'))
                             <option
                                 @selected(old('related_goods')==$category->id) value="{{$category->id}}">{{$category->removeUnderLine??''}}
                             </option>
