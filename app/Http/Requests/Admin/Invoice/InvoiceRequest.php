@@ -25,9 +25,9 @@ class InvoiceRequest extends FormRequest
     {
         return [
             'supplier_id'=>'required|exists:suppliers,id',
-            'invoiceDesc'=>'required|string|min:3',
+            'invoiceDesc'=>'nullable|string|min:3',
             'product_id.*'=>'required|exists:products,id',
-            'description.*'=>'required|string|min:3',
+            'description.*'=>'nullable|string|min:3',
             'price.*'=>'required|numeric|min:3',
             'amount.*'=>'required|numeric',
         ];

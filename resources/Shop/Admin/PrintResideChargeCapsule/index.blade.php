@@ -22,13 +22,28 @@
 @endsection
 @section('content')
 
-    <section class=" space-y-6  px-2 md:w-2/3 md:mx-auto print">
+    <section class=" space-y-6  px-2 md:w-[50%] md:mx-auto print">
 
         <article class="space-y-5 rounded-md border border-2 border-black border-black/65  p-2">
             <article class="flex justify-center items-center w-full">
                 <h1>بسمه تعالی</h1>
 
             </article>
+            <div class="flex items-end justify-center flex-col px-4 space-y-3">
+                <p class="font-medium">
+                   شماره رسید :
+                    <span>{{$reside->id}}</span>
+                </p>
+                <p class="font-medium">
+                    تاریخ :
+                    <span>{{\Morilog\Jalali\Jalalian::forge($reside->created_at)->format('Y/m/d')}}</span>
+                </p>
+            </div>
+            <div class="flex items-center justify-center">
+                <p class="font-semibold">
+                    تعداد {{$reside->resideItem->count()}} عدد کپسول به شرح ذیل از آقای {{$reside->user->fullName}} جهت شارژ و تعمیر دریافت شد.
+                </p>
+            </div>
 
             <table class="border-collapse  border border-gray-400 w-full table-fixed">
                 <thead class="bg-F1F1F1">

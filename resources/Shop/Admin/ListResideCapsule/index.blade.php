@@ -56,7 +56,8 @@
                         </td>
                         <td class="border border-gray-400   text-center p-1">
                             <div class="w-full flex items-center  ">
-                                <img src="{{asset('capsule/images/date.svg')}}" alt="" class="w-5 h-5 sm:w-7 sm:h-7">
+                                <img src="{{asset('capsule/images/date.svg')}}" alt=""
+                                     class="w-5 h-5 sm:w-7 sm:h-7 date-icon cursor-pointer">
                                 <input type="text"
                                        class="w-full border border-black/60 outline-none rounded-md startDate text-min text-center py-1 sm:w-4/5 mr-[2px] sm:mr-[15px]">
                                 <input type="hidden" id="startDate" data-name="created_at">
@@ -321,5 +322,11 @@
             window.tbody.insertAdjacentHTML('beforeend', myHtml)
         }
 
+    </script>
+    <script>
+        let dateIcon = document.querySelector('.date-icon');
+        dateIcon.onclick = function () {
+            document.querySelector('.startDate').click();
+        }
     </script>
 @endsection

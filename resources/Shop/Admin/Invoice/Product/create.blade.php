@@ -39,6 +39,18 @@
 
                     @for($i=0;$i<$length;$i++)
                         <article class="space-y-3  shadow-lg p-4 shadow-gray-700 rounded-lg transition">
+
+                            <div class="flex items-center space-x-reverse space-x-8">
+                                <h5 class="text-min font-light w-28">انتخاب محصول:</h5>
+                                <select name="product_id[]"
+                                        class="productSelect outline-none border border-black rounded-md w-48 product-select select2">
+
+                                    @foreach($products as $product)
+                                        <option @if(separationOfArraysFromText(old())['product_id'][$i]==$product->id) selected="selected"
+                                                @endif  value="{{$product->id}}">{{$product->removeUnderLine}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="flex items-center space-x-reverse space-x-8">
                                 <h5 class="text-min font-light w-28"> قیمت هر واحد(ریال):</h5>
                                 <input type="text" name="price[]"
@@ -52,17 +64,7 @@
                                        value="{{separationOfArraysFromText(old())['amount'][$i]}}">
                             </div>
 
-                            <div class="flex items-center space-x-reverse space-x-8">
-                                <h5 class="text-min font-light w-28">انتخاب محصول:</h5>
-                                <select name="product_id[]"
-                                        class="productSelect outline-none border border-black rounded-md w-48 product-select select2">
 
-                                    @foreach($products as $product)
-                                        <option @if(separationOfArraysFromText(old())['product_id'][$i]==$product->id) selected="selected"
-                                                @endif  value="{{$product->id}}">{{$product->removeUnderLine}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
 
 
                             <div class="flex items-center space-x-reverse space-x-8 ">
@@ -79,16 +81,6 @@
                 @else
                     <article class="space-y-3  shadow-lg p-4 shadow-gray-700 rounded-lg transition ">
                         <div class="flex items-center space-x-reverse space-x-8">
-                            <h5 class="text-min font-light w-28"> قیمت خرید هر واحد(ریال):</h5>
-                            <input type="text" name="price[]" class="outline-none border border-black rounded-md w-48">
-                        </div>
-                        <div class="flex items-center space-x-reverse space-x-8">
-                            <h5 class="text-min font-light w-28"> تعداد :</h5>
-                            <input type="number" min="1" name="amount[]"
-                                   class="outline-none border border-black rounded-md w-48">
-                        </div>
-
-                        <div class="flex items-center space-x-reverse space-x-8">
                             <h5 class="text-min font-light w-28">انتخاب محصول:</h5>
                             <select name="product_id[]"
                                     class="productSelect outline-none border border-black rounded-md w-48  product-select select2">
@@ -99,6 +91,17 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="flex items-center space-x-reverse space-x-8">
+                            <h5 class="text-min font-light w-28"> قیمت خرید هر واحد(ریال):</h5>
+                            <input type="text" name="price[]" class="outline-none border border-black rounded-md w-48">
+                        </div>
+                        <div class="flex items-center space-x-reverse space-x-8">
+                            <h5 class="text-min font-light w-28"> تعداد :</h5>
+                            <input type="number" min="1" name="amount[]"
+                                   class="outline-none border border-black rounded-md w-48">
+                        </div>
+
+
 
 
                         <div class="flex items-center space-x-reverse space-x-8 ">
@@ -220,7 +223,7 @@
                     </div>
 
                     <div class="flex items-center justify-center  w-full">
-                        <button class="bg-2081F2 rounded-md py-1.5 w-full text-white append-product">ارسال</button>
+                        <button class="bg-2081F2 rounded-md py-1.5 w-full text-white append-product">ثبت</button>
                     </div>
 
                 </form>
@@ -263,18 +266,18 @@
 
             var record = '<article class="space-y-3  rounded-lg shadow-lg p-4 shadow-gray-700 p-4 transition">' +
                 '<div class="flex items-center space-x-reverse space-x-8">' +
+                '<h5 class="text-min font-light w-28">انتخاب محصول:</h5>' +
+                '<select name="product_id[]"  class="productSelect outline-none border border-black rounded-md w-48 w-full select2 product-select">' +
+                ' ' + SelectProduct() + ' ' +
+                '</select>' +
+                '</div>' +
+                '<div class="flex items-center space-x-reverse space-x-8">' +
                 '<h5 class="text-min font-light w-28"> قیمت هر واحد(ریال) :</h5>' +
                 '<input type="text" name="price[]" class="outline-none border border-black rounded-md w-48">' +
                 '</div>' +
                 '<div class="flex items-center space-x-reverse space-x-8">' +
                 '<h5 class="text-min font-light w-28"> تعداد :</h5>' +
                 '<input type="number" name="amount[]" min="1" class="outline-none border border-black rounded-md w-48">' +
-                '</div>' +
-                '<div class="flex items-center space-x-reverse space-x-8">' +
-                '<h5 class="text-min font-light w-28">انتخاب محصول:</h5>' +
-                '<select name="product_id[]"  class="productSelect outline-none border border-black rounded-md w-48 w-full select2 product-select">' +
-                ' ' + SelectProduct() + ' ' +
-                '</select>' +
                 '</div>' +
                 '<div class="flex items-center space-x-reverse space-x-8 ">' +
                 '<h5 class="text-min font-light w-48">توضیحات مربوط به محصول</h5>' +

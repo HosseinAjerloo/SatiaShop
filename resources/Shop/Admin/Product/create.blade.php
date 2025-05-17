@@ -128,7 +128,7 @@
             </div>
 
             <div class="flex items-center justify-center  w-full">
-                <button class="bg-2081F2 rounded-md py-1.5 w-full text-white">ارسال</button>
+                <button class="bg-2081F2 rounded-md py-1.5 w-full text-white">ثبت</button>
             </div>
         </form>
     </section>

@@ -98,7 +98,7 @@ class InvoiceController extends Controller
                 $updateCollectionProduct->push(
                     [
                         'product_id' => $item['product_id'],
-                        'description' => $item['description'],
+                        'description' => $item['description']??null,
                         'amount' => $amount,
                         'price' => $item['price'],
                         'type' => 'product'
@@ -237,7 +237,7 @@ class InvoiceController extends Controller
                     $updateCollectionProduct->push(
                         [
                             'product_id' => $item['product_id'],
-                            'description' => $item['description'],
+                            'description' => $item['description']??null,
                             'amount' => $amount,
                             'price' => $item['price'],
                             'type' => 'product',
@@ -344,7 +344,7 @@ class InvoiceController extends Controller
                 $updateCollectionProduct->push(
                     [
                         'product_id' => $item['product_id'],
-                        'description' => $item['description'],
+                        'description' => $item['description']??null,
                         'amount' => 1,
                         'price' => $item['price'],
                         'type' => 'service'
@@ -420,7 +420,7 @@ class InvoiceController extends Controller
                     $updateCollectionProduct->push(
                         [
                             'product_id' => $item['product_id'],
-                            'description' => $item['description'],
+                            'description' => $item['description']??null,
                             'amount' => 1,
                             'price' => $item['price'],
                             'type' => 'service'

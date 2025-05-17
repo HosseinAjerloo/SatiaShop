@@ -100,7 +100,7 @@
                                 <p class="sm:text-[15px] text-base font-semibold p-1 w-full max-w-max ">
                                     جمع کل:
                                 </p>
-                                <span class="totalPrice">{{numberFormat($reside->totalPricePlusTax())}} ریال </span>
+                                <span class="totalPrice" data-totalPrice="{{$reside->totalPricePlusTax()}}">{{numberFormat($reside->totalPricePlusTax())}} ریال </span>
                             </div>
                         </td>
 
@@ -112,7 +112,7 @@
                 <div class="mt-8 flex items-center  space-x-reverse space-x-4">
                     <h1 class="font-bold">تخفیف:</h1>
                     <input type="number" min="0" max="100" name="discount"
-                           class="w-[50px] p-[3px] text-center outline-none">
+                           class="w-[50px] p-[3px] text-center outline-none discount">
                     <h1 class="font-bold">درصد</h1>
                 </div>
                 <div class="mt-8 w-full">
@@ -196,11 +196,34 @@
             } else {
                 commissionAmount = totalPrice;
             }
+            document.querySelector('.totalPrice').setAttribute('data-totalPrice', commissionAmount) ;
+
             price = new Intl.NumberFormat('fa-IR', {
                 style: 'currency',
                 currency: 'IRR'
             }).format(commissionAmount);
+            document.querySelector('.discount').dispatchEvent(new Event('input'));
+
             document.querySelector('.totalPrice').innerText = price;
         })
+    </script>
+    <script>
+        let inputDiscount=document.querySelector('.discount');
+        inputDiscount.addEventListener('input',discount);
+
+        function discount(event) {
+            let totalPrice=document.querySelector('.totalPrice').dataset.totalprice
+            if (event.target.value>0)
+            {
+                let discount=((event.target.value * totalPrice) / 100) ;
+                discount=totalPrice - discount;
+                price = new Intl.NumberFormat('fa-IR', {
+                    style: 'currency',
+                    currency: 'IRR'
+                }).format(discount);
+                document.querySelector('.totalPrice').innerText = price;
+
+            }
+        }
     </script>
 @endsection

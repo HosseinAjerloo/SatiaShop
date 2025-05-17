@@ -26,7 +26,7 @@
             <div class="flex items-center space-x-reverse space-x-8">
                 <h5 class="text-min font-light w-28"> قیمت(ریال) :</h5>
                 <input type="text" name="price" class="outline-none border border-black rounded-md w-48"
-                       value="{{old('price',$product->price)}}">
+                       value="{{(float)old('price',$product->price)}}">
             </div>
 
             <div class="flex items-center space-x-reverse space-x-8">
@@ -139,7 +139,7 @@
             </div>
 
             <div class="flex items-center justify-center  w-full">
-                <button class="bg-2081F2 rounded-md py-1.5 w-full text-white">ارسال</button>
+                <button class="bg-2081F2 rounded-md py-1.5 w-full text-white">ثبت</button>
             </div>
         </form>
     </section>
