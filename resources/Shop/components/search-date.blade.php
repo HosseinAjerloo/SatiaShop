@@ -54,3 +54,11 @@
 
 
 </form>
+<script>
+    window.input_search.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            document.getElementById("form").submit();
+        }
+    });
+</script>

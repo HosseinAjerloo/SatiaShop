@@ -144,17 +144,17 @@
 
                                             <a href="@if($reside->status=='paid') #  @else {{route('admin.sale.show',$reside->id)}} @endif">
                                                 <img
-                                                    src="@if($reside->status=='paid'){{asset('capsule/images/finalFactor.svg')}} @else {{asset("capsule/images/hand-Invoice.svg")}} @endif"
+                                                    src="@if($reside->status=='paid'){{asset('capsule/images/finalFactor.svg')}} @else {{asset("capsule/images/hand-Invoice.png")}} @endif "
                                                     alt=""
-                                                    class="w-10 h-10">
+                                                    class="w-8 h-8">
                                             </a>
 
                                         @else
                                             <a href="@if($reside->status=='paid') #  @else {{route('admin.invoice.issuance.index',$reside->id)}} @endif">
                                                 <img
-                                                    src="@if($reside->status=='paid'){{asset('capsule/images/finalFactor.svg')}} @else {{asset("capsule/images/hand-Invoice.svg")}} @endif"
+                                                    src="@if($reside->status=='paid'){{asset('capsule/images/finalFactor.svg')}} @else {{asset("capsule/images/hand-Invoice.png")}} @endif"
                                                     alt=""
-                                                    class="w-10 h-10">
+                                                    class="w-8 h-8">
                                             </a>
                                         @endif
                                     </div>
@@ -307,7 +307,7 @@
                         <td class="border border-gray-400   text-center ">
                             <div class="w-full flex items-center justify-center p-1">
                                     <a href="${value.route}">
-                                        <img src="{{asset("capsule/images/hand-Invoice.svg")}}" alt="" class="w-10 h-10">
+                                        <img src="${value.img}" alt="" class="w-8 h-8">
                                     </a>
                                 </div>
                             </td>
@@ -315,6 +315,13 @@
                                 <div class="w-full flex items-center justify-center p-1">
                                     ${value.operatorName}
                             </div>
+                        </td>
+                        <td class="border border-gray-400   text-center ">
+
+                               <a href="${value.routePrint}"
+                                       class="w-full flex items-center justify-center p-1">
+                                        <img src="{{asset('capsule/images/printerIcon.svg')}}" alt="">
+                                    </a>
                         </td>
 
                     </tr>`;

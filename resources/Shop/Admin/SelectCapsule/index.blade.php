@@ -58,7 +58,7 @@
                                 <select class="select2 w-full sm:w-[60%]" name="balloons">
                                     <option value="">انتخاب کنید</option>
                                     <option value="internal" @if($resideItem->balloons=='internal') selected="selected" @endif>داخلی</option>
-                                    <option value="external" @if($resideItem->balloons=='external') selected="selected" @endif>خارجی</option>
+                                    <option value="external" @if($resideItem->balloons=='external') selected="selected" @endif>بغل دار</option>
                                 </select>
                             </div>
                             <div

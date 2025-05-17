@@ -53,14 +53,6 @@
                     </div>
 
 
-                    <div class="w-full lg:w-[20%]  mt-3 lg:mt-0 flex items-center md:justify-end">
-
-                        <div
-                            class="flex items-center  space-x-1 space-x-reverse  rounded-md text-min">
-                            <h5 class="font-bold">شماره رسید</h5>
-                            <span>10001</span>
-                        </div>
-                    </div>
                 </div>
             </article>
 

@@ -10,7 +10,7 @@
             @csrf
 
             <div class="flex items-center space-x-reverse space-x-8">
-                <h5 class="text-min font-light w-28">نام مقش:</h5>
+                <h5 class="text-min font-light w-28">نام نقش:</h5>
                 <input type="text" name="name" class="outline-none border border-black rounded-md w-64" value="{{old('name')}}">
             </div>
 

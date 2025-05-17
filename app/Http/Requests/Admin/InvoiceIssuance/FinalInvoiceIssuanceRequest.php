@@ -23,7 +23,7 @@ class FinalInvoiceIssuanceRequest extends FormRequest
     {
         return [
             'description'=>'nullable|string',
-            'discount'=>'nullable|numeric|min:1|max:100',
+            'discount'=>'nullable|numeric|min:0|max:100',
             'sodurFactor'=>'sometimes|required|in:yes',
             'commission'=>'sometimes|required|in:yes',
         ];

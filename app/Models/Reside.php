@@ -53,11 +53,11 @@ class Reside extends Model
         })->when(request()->input('reside_id'), function ($query) {
             $query->where('id', request()->input('reside_id'));
         })->when(request()->input('operator_name'), function ($query) {
+
             $name = request()->input('operator_name');
-            $user = User::where(function ($query) use ($name) {
+        User::where(function ($query) use ($name) {
                 $query->orWhere('name', 'like', "%$name%")->orWhere('family', 'like', "%$name%");
-            })->first();
-            $user ? $query->where('user_id', $user->id) : '';
+            });
         })->when(request()->input('created_at'), function ($query) {
             $date = substr(request()->input('created_at'), 0, 10);
             $date = date('Y/m/d', $date);

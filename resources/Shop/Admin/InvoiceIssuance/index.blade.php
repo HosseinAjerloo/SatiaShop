@@ -208,6 +208,7 @@
         })
     </script>
     <script>
+
         let inputDiscount=document.querySelector('.discount');
         inputDiscount.addEventListener('input',discount);
 
@@ -223,6 +224,12 @@
                 }).format(discount);
                 document.querySelector('.totalPrice').innerText = price;
 
+            }else {
+                price = new Intl.NumberFormat('fa-IR', {
+                    style: 'currency',
+                    currency: 'IRR'
+                }).format(totalPrice);
+                document.querySelector('.totalPrice').innerText = price;
             }
         }
     </script>

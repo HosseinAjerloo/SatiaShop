@@ -34,7 +34,7 @@ Breadcrumbs::for('panel.payment.advance', function (BreadcrumbTrail $trail) {
 
 
 Breadcrumbs::for('panel.admin', function (BreadcrumbTrail $trail) {
-    $trail->push('ادمین  پیج', route('panel.admin'));
+    $trail->push('داشبورد', route('panel.admin'));
 
 });
 Breadcrumbs::for('admin.category.index', function (BreadcrumbTrail $trail) {

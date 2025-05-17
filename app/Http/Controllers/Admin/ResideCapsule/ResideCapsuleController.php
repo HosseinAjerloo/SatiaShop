@@ -18,8 +18,8 @@ class ResideCapsuleController extends Controller
     {
         Gate::authorize('admin.resideCapsule.index');
         $breadcrumbs = Breadcrumbs::render('admin.resideCapsule.index')->getData()['breadcrumbs'];
-        $resides=Reside::all();
-        return view('Admin.ListResideCapsule.index',compact('resides','breadcrumbs'));
+        $resides = Reside::all();
+        return view('Admin.ListResideCapsule.index', compact('resides', 'breadcrumbs'));
     }
 
     /**
@@ -69,16 +69,38 @@ class ResideCapsuleController extends Controller
     {
         //
     }
+
     public function search(ResidChargeCapsuleSearchRequest $request)
     {
         $resides = Reside::search()->get();
-        foreach ($resides as $key => $reside){
-                        $reside->jalalidate= \Morilog\Jalali\Jalalian::forge($reside->created_at)->format('Y/m/d');
-                        $reside->custumerName= $reside->user->fullName ?? '';
-                        $reside->capsuleCount= $reside->resideItem()->count();
-                        $reside->operatorName= $reside->operator->fullName ?? '';
-                        $reside->route= route('admin.invoice.issuance.index',$reside);
+        foreach ($resides as $key => $reside) {
+            $reside->jalalidate = \Morilog\Jalali\Jalalian::forge($reside->created_at)->format('Y/m/d');
+            $reside->custumerName = $reside->user->fullName ?? '';
+            $reside->capsuleCount = $reside->resideItem()->count();
+            $reside->operatorName = $reside->operator->fullName ?? '';
+            if ($reside->reside_type == 'sell') {
+                if ($reside->status == 'paid') {
+                    $reside->img = asset('capsule/images/finalFactor.svg');
+                    $reside->route = '#';
+                    $reside->routePrint = route('admin.sale.printFactor',$reside);
+                } else {
+                    $reside->img = asset("capsule/images/hand-Invoice.png");
+                    $reside->route = route('admin.sale.show', $reside->id);
+                    $reside->routePrint = '#';
+
+                }
+            } else {
+                if ($reside->status == 'paid') {
+                    $reside->img = asset('capsule/images/finalFactor.svg');
+                    $reside->route = '#';
+                    $reside->routePrint=route('admin.invoice.issuance.printFactor',$reside);
+                } else {
+                    $reside->img = asset("capsule/images/hand-Invoice.png");
+                    $reside->route = route('admin.invoice.issuance.index', $reside->id);
+                    $reside->routePrint=route('admin.chargingTheCapsule.printReside',$reside);
+                }
+            }
         }
-        return response()->json(['success'=>true,'data'=>$resides]);
+        return response()->json(['success' => true, 'data' => $resides]);
     }
 }

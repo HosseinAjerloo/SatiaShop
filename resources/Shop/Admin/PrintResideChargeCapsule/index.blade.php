@@ -124,8 +124,13 @@
 
         </article>
         <section class="flex items-center  space-x-reverse space-x-3 redirect-back">
-            <div class="bg-FF3100 px-4 text-sm font-medium shadow py-1 text-white  rounded-md">
-                <a href="{{route('admin.chargingTheCapsule.edit',$reside)}}">بازگشت</a>
+            <div class="bg-FF3100 px-4 text-sm font-medium shadow py-1 text-white space-x-reverse space-x-4 rounded-md">
+                <a href="{{route('admin.resideCapsule.index')}}">بازگشت</a>
+
+            </div>
+            <div class="bg-268832 px-4 text-sm font-medium shadow py-1 text-white space-x-reverse space-x-4 rounded-md">
+                <button id="btnPrint">چاپ</button>
+
             </div>
 
         </section>
@@ -135,8 +140,11 @@
 @section('script')
 
     <script>
-        window.addEventListener('load', function () {
-            window.print();
-        })
+
+            window.addEventListener('load', function () {
+                window.print();
+            })
+
+        window.btnPrint.onclick=()=>window.print();
     </script>
 @endsection

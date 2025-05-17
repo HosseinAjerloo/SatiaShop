@@ -106,4 +106,5 @@ select2Start();
         }
 
     }
+
 </script>
