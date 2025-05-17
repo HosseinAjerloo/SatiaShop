@@ -26,13 +26,12 @@
                 <select name="category_id" id="" class="outline-none border border-black rounded-md w-48 select2">
 
                     @foreach($categories as $category)
-                        @if(!str_contains($category->removeUnderline,'کالای مبوط'))
+
 
                         <option
                             @selected(old('category_id')==$category->id) value="{{$category->id}}">{{$category->removeUnderLine??''}}
                         </option>
 
-                        @endif
                     @endforeach
                 </select>
             </div>

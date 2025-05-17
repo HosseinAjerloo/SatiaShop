@@ -97,7 +97,8 @@
                                 <p class="sm:text-[15px] text-[10px] p-1 w-full max-w-max space-x-reverse space-x-2">
                                     {{env('Commission')}}% مالیات بر ارزش افزوده
                                 </p>
-                                <input name="commission" type="checkbox" value="yes" @if($reside->commission>0) checked="checked" @endif>
+                                <input name="commission" type="checkbox" value="yes"
+                                       @if($reside->commission>0) checked="checked" @endif>
                             </div>
                         </td>
                         <td class="border border-gray-400  text-center  p-1" colspan="3">
@@ -118,7 +119,8 @@
                 <div class="mt-8 flex items-center  space-x-reverse space-x-4">
                     <h1 class="font-bold">تخفیف:</h1>
                     <input type="number" min="0" max="100" name="discount"
-                           class="w-[50px] p-[3px] text-center outline-none discount" value="{{(float)$reside->discount_collection}}">
+                           class="w-[50px] p-[3px] text-center outline-none discount"
+                           value="{{(float)$reside->discount_collection}}">
                     <h1 class="font-bold">درصد</h1>
                 </div>
                 <div class="mt-8 w-full">
@@ -200,7 +202,7 @@
             } else {
                 commissionAmount = totalPrice;
             }
-            document.querySelector('.totalPrice').setAttribute('data-totalPrice', commissionAmount) ;
+            document.querySelector('.totalPrice').setAttribute('data-totalPrice', commissionAmount);
 
             price = new Intl.NumberFormat('fa-IR', {
                 style: 'currency',
@@ -212,15 +214,14 @@
         })
     </script>
     <script>
-        let inputDiscount=document.querySelector('.discount');
-        inputDiscount.addEventListener('input',discount);
+        let inputDiscount = document.querySelector('.discount');
+        inputDiscount.addEventListener('input', discount);
 
         function discount(event) {
-            let totalPrice=document.querySelector('.totalPrice').dataset.totalprice
-            if (event.target.value>0)
-            {
-                let discount=((event.target.value * totalPrice) / 100) ;
-                discount=totalPrice - discount;
+            let totalPrice = document.querySelector('.totalPrice').dataset.totalprice
+            if (event.target.value > 0) {
+                let discount = ((event.target.value * totalPrice) / 100);
+                discount = totalPrice - discount;
                 price = new Intl.NumberFormat('fa-IR', {
                     style: 'currency',
                     currency: 'IRR'
