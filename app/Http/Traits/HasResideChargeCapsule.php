@@ -120,7 +120,7 @@ trait  HasResideChargeCapsule
             if (isset($inputs['print'])) {
                 $this->redirectUri = redirect()->route('admin.chargingTheCapsule.printReside', $reside)->with(['success' => 'رسید شما صادر شد و عملیات با موفقیت انجام شد.']);;
             } else {
-                $this->redirectUri = redirect()->route('admin.chargingTheCapsule.index')->with(['success' => 'رسید شما صادر شد و عملیات با موفقیت انجام شد.']);
+                $this->redirectUri = redirect()->route('admin.resideCapsule.index')->with(['success' => 'رسید شما صادر شد و عملیات با موفقیت انجام شد.']);
             }
             return $this->redirectUri;
 

@@ -90,13 +90,11 @@
 </script>
 <script>
 
-function select2Start()
-{
-    $(".select2").select2({
+    function select2Start() {
+        $(".select2").select2({});
+    }
 
-    });
-}
-select2Start();
+    select2Start();
 </script>
 <script>
     function toast(message, status) {
@@ -107,4 +105,14 @@ select2Start();
 
     }
 
+</script>
+
+<script>
+    window.input_search.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            let searchIcon=document.querySelector('.search');
+            searchIcon.click();
+        }
+    });
 </script>

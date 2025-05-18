@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\InvoiceIssuance\FinalInvoiceIssuanceRequest;
 use App\Http\Requests\Admin\InvoiceIssuance\InvoiceIssuanceRequest;
 use App\Http\Traits\HasDiscount;
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\Reside;
 use App\Models\ResideItem;
 use Diglactic\Breadcrumbs\Breadcrumbs;
@@ -20,6 +21,7 @@ InvoiceIssuanceController extends Controller
 
     public function index(Reside $reside)
     {
+
         Gate::authorize('admin.invoice.issuance.index');
         $breadcrumbs = Breadcrumbs::render('admin.invoice.issuance.index', $reside)->getData()['breadcrumbs'];
         return view('Admin.InvoiceIssuance.index', compact('reside', 'breadcrumbs'));
@@ -61,7 +63,12 @@ InvoiceIssuanceController extends Controller
         try {
 
             $inputs = $request->all();
-            $resideItem->productResidItem()->sync($inputs['product_id']);
+            $productItems=[];
+            foreach ($inputs['product_id'] as $key => $product)
+            {
+                $productItems[$product]=['price'=>Product::find($product)->price];
+            }
+            $resideItem->productResidItem()->sync($productItems);
             $resideItem->update([
                 'balloons' => $inputs['balloons'],
                 'salary' => $inputs['salary']

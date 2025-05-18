@@ -22,9 +22,10 @@ class ResideItem extends Model
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
+
     public function reside()
     {
-        return $this->belongsTo(Reside::class,'reside_id');
+        return $this->belongsTo(Reside::class, 'reside_id');
     }
 
     public function getStatusItem()
@@ -34,15 +35,14 @@ class ResideItem extends Model
 
     public function productResidItem()
     {
-        return $this->belongsToMany(Product::class, 'product_reside_items', 'reside_item_id', 'product_id')->withTimestamps();
+        return $this->belongsToMany(Product::class, 'product_reside_items', 'reside_item_id', 'product_id')->withPivot('price')->withTimestamps();
     }
 
     public function getTotalProductPriceItems()
     {
-
         $totalPrice = 0;
         foreach ($this->productResidItem as $product) {
-            $totalPrice += $product->price;
+            $totalPrice += $product->pivot->price;
         }
         return $totalPrice + ($this->salary ?? 0);
     }

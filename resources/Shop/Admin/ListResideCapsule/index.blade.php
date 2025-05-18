@@ -133,9 +133,9 @@
                                 </p>
                             </td>
                             <td class="border border-gray-400   text-center p-1">
-                                <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full underline underline-sky-500 underline-offset-4 decoration-sky-500 text-sky-600">
+                                <a href="{{route('admin.chargingTheCapsule.edit',$reside)}}" class="sm:font-normal sm:text-sm text-[13px] p-1 w-full underline underline-sky-500 underline-offset-4 decoration-sky-500 text-sky-600">
                                     {{$reside->id}}
-                                </p>
+                                </a>
                             </td>
                             @can('admin.invoice.issuance.index')
                                 <td class="border border-gray-400   text-center ">
