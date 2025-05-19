@@ -16,9 +16,10 @@ class ResideCapsuleController extends Controller
      */
     public function index()
     {
+
         Gate::authorize('admin.resideCapsule.index');
         $breadcrumbs = Breadcrumbs::render('admin.resideCapsule.index')->getData()['breadcrumbs'];
-        $resides = Reside::all();
+        $resides = Reside::orderBy('created_at', 'desc')->get();
         return view('Admin.ListResideCapsule.index', compact('resides', 'breadcrumbs'));
     }
 
@@ -72,7 +73,7 @@ class ResideCapsuleController extends Controller
 
     public function search(ResidChargeCapsuleSearchRequest $request)
     {
-        $resides = Reside::search()->get();
+        $resides = Reside::search()->orderBy('created_at', 'desc')->get();
         foreach ($resides as $key => $reside) {
             $reside->jalalidate = \Morilog\Jalali\Jalalian::forge($reside->created_at)->format('Y/m/d');
             $reside->custumerName = $reside->user->fullName ?? '';
@@ -82,7 +83,7 @@ class ResideCapsuleController extends Controller
                 if ($reside->status == 'paid') {
                     $reside->img = asset('capsule/images/finalFactor.svg');
                     $reside->route = '#';
-                    $reside->routePrint = route('admin.sale.printFactor',$reside);
+                    $reside->routePrint = route('admin.sale.printFactor', $reside);
                 } else {
                     $reside->img = asset("capsule/images/hand-Invoice.png");
                     $reside->route = route('admin.sale.show', $reside->id);
@@ -93,11 +94,11 @@ class ResideCapsuleController extends Controller
                 if ($reside->status == 'paid') {
                     $reside->img = asset('capsule/images/finalFactor.svg');
                     $reside->route = '#';
-                    $reside->routePrint=route('admin.invoice.issuance.printFactor',$reside);
+                    $reside->routePrint = route('admin.invoice.issuance.printFactor', $reside);
                 } else {
                     $reside->img = asset("capsule/images/hand-Invoice.png");
                     $reside->route = route('admin.invoice.issuance.index', $reside->id);
-                    $reside->routePrint=route('admin.chargingTheCapsule.printReside',$reside);
+                    $reside->routePrint = route('admin.chargingTheCapsule.printReside', $reside);
                 }
             }
         }

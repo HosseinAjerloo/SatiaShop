@@ -23,23 +23,26 @@
             <article class="flex justify-between items-center flex-wrap">
                 <div
                     class=" flex flex-wrap items-center w-full  ">
-                    <div class=" flex flex-wrap items-center w-full lg:w-[70%]">
-                        <h1 class="font-bold w-36 ">جستوجوی مشتری:</h1>
+                    <div class=" flex flex-wrap items-center w-full">
+                        <div class="flex items-center sm:w-[50%]">
+                            <h1 class="font-bold w-36 ">جستوجوی مشتری:</h1>
 
-                        <div class="relative w-full mt-3 sm:mt-0 sm:w-[50%]">
-                            <select type="text"
-                                    class="select-user placeholder:text-min placeholder:text-black/50 outline-none searchInput bg-transparent w-full select2 px-10"
-                                    name="name" id="input_search">
-                                <option data-type="customSelect">انتخاب کنید</option>
-                                @foreach($allUser as $user)
-                                    <option value="{{$user->id}}" data-user_value="{{json_encode($user)}}"
-                                            data-type="{{$user->customer_type}}" @if($reside->user_id==$user->id) selected="selected" @endif>{{$user->fullName??'-'}}</option>
-                                @endforeach
-                            </select>
-                            <img src=" {{asset('capsule/images/search.svg')}}" alt=""
-                                 class="search cursor-pointer absolute top-[50%] right-[20px] translate-y-[-50%]">
+                            <div class="relative w-full mt-3 sm:mt-0 sm:w-[50%]">
+                                <select type="text"
+                                        class="select-user placeholder:text-min placeholder:text-black/50 outline-none searchInput bg-transparent w-full select2 px-10"
+                                        name="name" id="input_search">
+                                    <option data-type="customSelect">انتخاب کنید</option>
+                                    @foreach($allUser as $user)
+                                        <option value="{{$user->id}}" data-user_value="{{json_encode($user)}}"
+                                                data-type="{{$user->customer_type}}"
+                                                @if($reside->user_id==$user->id) selected="selected" @endif>{{$user->fullName??'-'}}</option>
+                                    @endforeach
+                                </select>
+                                <img src=" {{asset('capsule/images/search.svg')}}" alt=""
+                                     class="search cursor-pointer absolute top-[50%] right-[20px] translate-y-[-50%]">
+                            </div>
                         </div>
-                        <div class="flex items-center space-x-4 mt-4 sm:mt-0 space-x-reverse py-1.5 sm:px-2 rounded-md">
+                        <div class="flex items-center space-x-4 mt-4 sm:mt-0 space-x-reverse py-1.5 sm:px-2 rounded-md  w-[50%]">
                             <div>
                                 <label>حقیقی</label>
                                 <input type="radio" class="person_type" name="customer_type" value="natural_person"
@@ -48,16 +51,16 @@
                             <div>
                                 <label>حقوقی</label>
                                 <input class="person_type" type="radio" name="customer_type" value="juridical_person"
-                                        @if(old('customer_type')=='juridical_person') checked="checked" @endif>
+                                       @if(old('customer_type')=='juridical_person') checked="checked" @endif>
                             </div>
                         </div>
                     </div>
 
 
-                    <div class="w-full lg:w-[20%]  mt-3 lg:mt-0 flex items-center md:justify-end">
+                    <div class="w-full lg:w-[20%]  mt-5 lg:mt-0 flex items-center ">
 
                         <div
-                            class="flex items-center  space-x-1 space-x-reverse  rounded-md text-min">
+                            class="flex items-center  space-x-1 space-x-reverse  rounded-md text-sm">
                             <h5 class="font-bold">شماره رسید</h5>
                             <span>{{$reside->id}}</span>
                         </div>
@@ -238,11 +241,16 @@
                                     class="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-reverse sm:space-x-6">
                                     <div>
                                         <label class="text-[12px] sm:text-[15px]">استفاده شده</label>
-                                        <input type="radio" name="product_status[{{$resideItem->product_id}}_key_{{$key}}]" value="used" @if($resideItem->status=='used') checked="checked" @endif>
+                                        <input type="radio"
+                                               name="product_status[{{$resideItem->product_id}}_key_{{$key}}]"
+                                               value="used" @if($resideItem->status=='used') checked="checked" @endif>
                                     </div>
                                     <div>
                                         <label class="text-[12px] sm:text-[15px]">تمدید شارژ</label>
-                                        <input type="radio" name="product_status[{{$resideItem->product_id}}_key_{{$key}}]" value="recharge" @if($resideItem->status=='recharge') checked="checked" @endif>
+                                        <input type="radio"
+                                               name="product_status[{{$resideItem->product_id}}_key_{{$key}}]"
+                                               value="recharge"
+                                               @if($resideItem->status=='recharge') checked="checked" @endif>
                                     </div>
                                 </div>
                             </td>
@@ -278,7 +286,7 @@
                     <button>ویرایش رسید</button>
                 </div>
                 <div class="bg-FFB01B px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
-                    <button onclick="printChargeCapsule(event)" type="button">ویرایش و جاپ رسید</button>
+                    <button onclick="printChargeCapsule(event)" type="button">ویرایش و چاپ رسید</button>
                 </div>
             </section>
 
@@ -812,36 +820,31 @@
         }
     </script>
     <script>
-        function printChargeCapsule(e)
-        {
+        function printChargeCapsule(e) {
             e.preventDefault();
-            let form=document.getElementById('form');
-            let myInput=document.createElement('input');
-            let hasInput=document.querySelector('input[name="print"]');
-            if (!hasInput)
-            {
-                myInput.setAttribute('type','hidden');
-                myInput.setAttribute('name','print');
-                myInput.setAttribute('value','print');
+            let form = document.getElementById('form');
+            let myInput = document.createElement('input');
+            let hasInput = document.querySelector('input[name="print"]');
+            if (!hasInput) {
+                myInput.setAttribute('type', 'hidden');
+                myInput.setAttribute('name', 'print');
+                myInput.setAttribute('value', 'print');
                 form.append(myInput);
             }
             form.submit();
         }
     </script>
     <script>
-        window.addEventListener('load',function (){
-            let selectUser=document.querySelector('.select-user');
-            let optionSelect=selectUser.options[selectUser.selectedIndex];
-            let userType=optionSelect.dataset.type;
-            let userInformation=optionSelect.dataset.user_value;
-            if (userInformation!=null && userInformation!=undefined && userType!=null && userType!=undefined)
-            {
-                userInformation=JSON.parse(userInformation);
-                pushValue(userType,userInformation)
+        window.addEventListener('load', function () {
+            let selectUser = document.querySelector('.select-user');
+            let optionSelect = selectUser.options[selectUser.selectedIndex];
+            let userType = optionSelect.dataset.type;
+            let userInformation = optionSelect.dataset.user_value;
+            if (userInformation != null && userInformation != undefined && userType != null && userType != undefined) {
+                userInformation = JSON.parse(userInformation);
+                pushValue(userType, userInformation)
             }
         });
     </script>
-
-
 
 @endsection

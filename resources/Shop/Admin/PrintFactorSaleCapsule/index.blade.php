@@ -133,7 +133,7 @@
                     <td class="border border-gray-400 text-center  p-1" colspan="2">
                         <div class="flex items-center justify-center space-x-reverse space-x-3 p-1">
                             @if($reside->commission>0)
-                                <p class="font-semibold">بدون احتساب مالیات بر ارزش افزوده{{$reside->commission}}</p>
+                                <p class="font-semibold">با احتساب مالیات بر ارزش افزوده</p>
 
                             @else
                                 <p class="font-semibold">بدون احتساب مالیات بر ارزش افزوده</p>
@@ -197,12 +197,12 @@
         generateQrCode();
     </script>
 
-    <script>
+{{--    <script>--}}
 
-        window.addEventListener('load', function () {
-            window.print();
-        })
+{{--        window.addEventListener('load', function () {--}}
+{{--            window.print();--}}
+{{--        })--}}
 
-        window.btnPrint.onclick = () => window.print();
-    </script>
+{{--        window.btnPrint.onclick = () => window.print();--}}
+{{--    </script>--}}
 @endsection

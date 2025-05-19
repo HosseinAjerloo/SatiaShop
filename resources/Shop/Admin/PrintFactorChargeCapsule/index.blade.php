@@ -129,7 +129,7 @@
                 <tr>
                     <td class="border border-gray-400 text-center  p-1" colspan="2">
                         <div class="flex items-center justify-center space-x-reverse space-x-3 p-1">
-                            <p class="font-semibold">بدون احتساب مالیات بر ارزش افزوده</p>
+                            <p class="font-semibold"> @if($reside->commission>0) با احتساب مالیات بر ارزش افزوده @else بدون احتساب مالیات بر ارزش افزوده @endif</p>
                         </div>
                     </td>
                     <td class="border border-gray-400 text-center  p-1" colspan="3">

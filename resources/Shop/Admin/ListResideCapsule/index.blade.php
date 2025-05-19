@@ -23,6 +23,9 @@
                             <span>تاریخ</span>
                         </th>
                         <th class=" text-sm font-light px-2 leading-6 text-white text-nowrap max-w-max">
+                            <span>نوع رسید</span>
+                        </th>
+                        <th class=" text-sm font-light px-2 leading-6 text-white text-nowrap max-w-max">
                             <span>نام مشتری</span>
                         </th>
                         <th class=" text-sm font-light px-2 leading-6 text-white max-w-max">
@@ -122,6 +125,11 @@
                                     {{\Morilog\Jalali\Jalalian::forge($reside->created_at)->format('Y/m/d')}}
                                 </p>
                             </td>
+                            <td class="border border-gray-400  text-center  p-1">
+                                <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full ">
+                                    {{$reside->reside_type=='sell'?'فروش':'شارژ و تمدید کپسول'}}
+                                </p>
+                            </td>
                             <td class="border border-gray-400   text-center p-1">
                                 <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full  ">
                                     {{$reside->user->fullName??''}}
@@ -133,7 +141,8 @@
                                 </p>
                             </td>
                             <td class="border border-gray-400   text-center p-1">
-                                <a href="{{route('admin.chargingTheCapsule.edit',$reside)}}" class="sm:font-normal sm:text-sm text-[13px] p-1 w-full underline underline-sky-500 underline-offset-4 decoration-sky-500 text-sky-600">
+                                <a href="{{route('admin.chargingTheCapsule.edit',$reside)}}"
+                                   class="sm:font-normal sm:text-sm text-[13px] p-1 w-full underline underline-sky-500 underline-offset-4 decoration-sky-500 text-sky-600">
                                     {{$reside->id}}
                                 </a>
                             </td>
