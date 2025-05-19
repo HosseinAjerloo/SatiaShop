@@ -34,7 +34,7 @@
                 <select name="category_id" id="" class="outline-none border border-black rounded-md w-48 select2">
 
                     @foreach($categories as $category)
-                        @if(str_contains($category->removeUnderline,'کالای مربوط'))
+                        @if(!str_contains($category->removeUnderline,'کالای مربوط'))
                             <option
                                 @selected(old('category_id',$product->category_id)==$category->id) value="{{$category->id}}">{{$category->removeUnderLine??''}}</option>
                         @endif
@@ -46,7 +46,7 @@
                 <select name="related_goods" id="" class="outline-none border border-black rounded-md w-48 select2">
                     <option value="">انتخاب کنید</option>
                     @foreach($categories as $category)
-                        @if(str_contains($category->removeUnderline,'کالای مبوط'))
+                        @if(str_contains($category->removeUnderline,'کالای مربوط'))
                             <option
                                 @selected(old('related_goods',$product->related_goods)==$category->id) value="{{$category->id}}">{{$category->removeUnderLine??''}}
                             </option>
