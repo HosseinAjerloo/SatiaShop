@@ -18,11 +18,11 @@
                            class=" mobile w-full h-full inline-block outline-none px-2 placeholder:text-center placeholder:text-sm"
                            placeholder="شماره همراه  (*********09)" name="mobile" value="{{old('mobile')}}">
                 </div>
-                
+
             </div>
-          
-        
-            <button type="button"  class=" bg-2081F2 text-sm h-10 rounded-md text-white font-bold submit w-full">
+
+
+            <button type="submit"  class=" bg-2081F2 text-sm h-10 rounded-md text-white font-bold submit w-full">
               دریافت لینک تغییر کلمه عبور
             </button>
 
