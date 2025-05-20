@@ -118,7 +118,6 @@ class PaymentController extends Controller
             $myCart->update(['status','applyToTheBank']);
             return $objBank->connectionToBank($token);
         } catch (\Exception $e) {
-            SendAppAlertsJob::dispatch('در ارتباط با بانک در پروژه کپسول خطایی پیش آمدر لطفا ارتباط خود را برسی کنید')->onQueue('perfectmoney');
             Log::emergency(PHP_EOL . $e->getMessage() . PHP_EOL);
             return redirect()->route('panel.cart.index')->with(['error-SweetAlert' => 'ارتباط با بانک فراهم نشد لطفا چند دقیقه بعد تلاش فرماید.']);
         }
@@ -157,7 +156,7 @@ class PaymentController extends Controller
                 $invoice->update([ 'description' => ' پرداخت موفقیت آمیز نبود ' . $objBank->transactionStatus(),'status_bank'=>'failed']);
                 $financeTransaction->update(['description' => ' پرداخت موفقیت آمیز نبود ' . $objBank->transactionStatus(), 'status' => 'fail']);
 
-                $bankErrorMessage = "درگاه بانک سامان تراکنش شمارا به دلیل " . $objBank->transactionStatus() . " ناموفق اعلام کرد باتشکر " . PHP_EOL . 'پشتیبانی بانک سامان' . PHP_EOL . '021-6422';
+                $bankErrorMessage = " درگاه بانک $bank->name  تراکنش شمارا به دلیل " . $objBank->transactionStatus() . " ناموفق اعلام کرد باتشکر " . PHP_EOL ;
                 $satiaService->send($bankErrorMessage, $user->mobile, env('SMS_Number'), env('SMS_Username'), env('SMS_Password'));
 
                 return redirect()->route('panel.index')->with(['error-SweetAlert' => ' پرداخت موفقیت آمیز نبود ' . $objBank->transactionStatus()]);
@@ -176,7 +175,7 @@ class PaymentController extends Controller
                 $invoice->update([ 'description' => ' پرداخت موفقیت آمیز نبود ' . $objBank->verifyTransaction($back_price),'status_bank'=>'failed']);
                 $financeTransaction->update(['description' => ' پرداخت موفقیت آمیز نبود ' . $objBank->verifyTransaction($back_price), 'status' => 'fail']);
 
-                $bankErrorMessage = "درگاه بانک سامان تراکنش شمارا به دلیل " . $objBank->verifyTransaction($back_price) . " ناموفق اعلام کرد باتشکر " . PHP_EOL . 'پشتیبانی بانک سامان' . PHP_EOL . '021-6422';
+                $bankErrorMessage = " درگاه بانک $bank->name تراکنش شمارا به دلیل " . $objBank->verifyTransaction($back_price) . " ناموفق اعلام کرد باتشکر " . PHP_EOL ;
 
                 $satiaService->send($bankErrorMessage, $user->mobile, env('SMS_Number'), env('SMS_Username'), env('SMS_Password'));
                 Log::channel('bankLog')->emergency(PHP_EOL . "Bank Credit VerifyTransaction Purchase Voucher : " . json_encode($request->all()) . PHP_EOL .
@@ -245,7 +244,6 @@ class PaymentController extends Controller
         } catch (\Exception $e) {
 
             Log::channel('bankLog')->emergency(PHP_EOL . "Purchase validation from the payment gateway : " .  $e->getMessage() . PHP_EOL);
-            SendAppAlertsJob::dispatch('(هنگام برگشت از بانک جهت اعتبارسنجی پرداخت کاربر خطایی به وجود آمد لطفا برسی کنید)')->onQueue('perfectmoney');
 
             return redirect()->route('panel.index')->with(['error-SweetAlert' => "خطایی رخ داد لطفا جهت پیگیری پرداخت با پشتیبانی تماس حاصل فرمایید باتشکر"]);
 
