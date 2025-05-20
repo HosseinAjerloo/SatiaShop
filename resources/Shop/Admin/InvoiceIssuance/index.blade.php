@@ -10,7 +10,7 @@
                     <img src="{{asset("capsule/images/blue-user.svg")}}" alt="">
                     <div class="flex items-center space-x-2 space-x-reverse">
                         <h1 class="font-bold text-sm sm:tetx-base">نام مشتری:</h1>
-                        <span class="text-sm sm:tetx-base">حسین آجرلو</span>
+                        <span class="text-sm sm:tetx-base">{{$reside->user->fullName??''}}</span>
                     </div>
 
                 </div>
