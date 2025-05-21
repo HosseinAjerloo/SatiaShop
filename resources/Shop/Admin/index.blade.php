@@ -26,7 +26,7 @@
                     </p>
                 </div>
             </a>
-            <div class="border border-black/30 rounded-md  flex items-center justify-center flex-col sm:w-[23%] w-[30%] mt-2">
+            <div class="border border-black/30 rounded-md  flex items-center justify-center flex-col  w-[30%] sm:w-[23%] mt-2">
                 <div class="p-2">
                     <img src="{{asset("capsule/images/list-factor.svg")}}" alt="" class="w-14 h-14">
                 </div>
