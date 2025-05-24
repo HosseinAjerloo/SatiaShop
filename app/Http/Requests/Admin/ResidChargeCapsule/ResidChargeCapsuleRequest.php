@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\ResidChargeCapsule;
 
 use App\Http\Traits\HasResideChargeCapsule;
+use App\Models\User;
 use App\Rules\MobileFormat;
 use App\Rules\NationalCode;
 use App\Rules\ResidChargeCapsuleProductDescription;
@@ -28,7 +29,6 @@ class ResidChargeCapsuleRequest extends FormRequest
      */
     public function rules(): array
     {
-
         if (request()->get('customer_type') and (request()->input('customer_type') == 'natural_person' or request()->input('customer_type') == 'juridical_person')) {
 
              $this->validationField();
@@ -44,6 +44,12 @@ class ResidChargeCapsuleRequest extends FormRequest
     private function validationField()
     {
         $this->generateDefaultValidation();
+        $user=null;
+        if (request()->input('fakeMobile') or  request()->input('fakeMobile'))
+        {
+            $mobile=request()->input('mobile')?request()->input('mobile'):request()->input('fakeMobile');
+            $user=User::where('mobile',$mobile)->first();
+        }
 
 
         if (request()->input('customer_type') == 'natural_person') {
@@ -54,7 +60,7 @@ class ResidChargeCapsuleRequest extends FormRequest
                 'customer_type' => 'required|in:natural_person,juridical_person',
                 'name' => 'required|min:2',
                 'family' => 'required|min:2',
-                'mobile' => ['required','min:11','max:11',new MobileFormat,],
+                'mobile' => ['required','min:11','max:11',new MobileFormat,$user?'':'unique:users,mobile'],
                 'address' => 'required|min:5',
                 'national_code'=>['required',new NationalCode,],
                 'print'=>'sometimes|required|in:print'
@@ -71,7 +77,8 @@ class ResidChargeCapsuleRequest extends FormRequest
                     'representative_name'=>'required|min:1',
                     'economic_code'=>'required|min:2',
                     'tel'=>'required|min:2',
-                    'print'=>'sometimes|required|in:print'
+                    'print'=>'sometimes|required|in:print',
+                    'mobile_' => ['required','min:11','max:11',new MobileFormat,$user?'':'unique:users,mobile']
                 ]);
         }
     }

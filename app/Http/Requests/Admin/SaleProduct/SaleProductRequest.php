@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\SaleProduct;
 
 use App\Http\Traits\HasResideChargeCapsule;
+use App\Models\User;
 use App\Rules\MobileFormat;
 use App\Rules\NationalCode;
 use App\Rules\ResidChargeCapsuleProductDescription;
@@ -13,7 +14,9 @@ use Illuminate\Foundation\Http\FormRequest;
 class SaleProductRequest extends FormRequest
 {
     use HasResideChargeCapsule;
-    protected $validate=[];
+
+    protected $validate = [];
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -46,49 +49,55 @@ class SaleProductRequest extends FormRequest
     {
         $this->generateDefaultValidation();
 
-
+        $user = null;
+        if (request()->input('mobile') or request()->input('mobile_')) {
+            $mobile = request()->input('mobile') ? request()->input('mobile') : request()->input('mobile_');
+            $user = User::where('mobile', $mobile)->first();
+        }
         if (request()->input('customer_type') == 'natural_person') {
 
-            $this->validate=array_merge(
+            $this->validate = array_merge(
                 $this->validate
-                ,[
+                , [
                 'customer_type' => 'required|in:natural_person,juridical_person',
                 'name' => 'required|min:2',
                 'family' => 'required|min:2',
-                'mobile' => ['required','min:11','max:11',new MobileFormat,],
+                'mobile' => ['required', 'min:11', 'max:11', new MobileFormat,$user?'':'unique:users,mobile'],
                 'address' => 'required|min:5',
-                'national_code'=>['required',new NationalCode,],
-                'print'=>'sometimes|required|in:print'
+                'national_code' => ['required', new NationalCode,],
+                'print' => 'sometimes|required|in:print'
 
             ]);
         } else {
-            $this->validator=array_merge(
+            $this->validator = array_merge(
                 $this->validate,
                 [
                     'customer_type' => 'required|in:natural_person,juridical_person',
-                    'organizationORcompanyName'=>'required|min:2',
-                    'registration_number'=>'required|min:2',
-                    'national_id'=>'required|min:2',
-                    'representative_name'=>'required|min:1',
-                    'economic_code'=>'required|min:2',
-                    'tel'=>'required|min:2',
-                    'print'=>'sometimes|required|in:print'
+                    'organizationORcompanyName' => 'required|min:2',
+                    'registration_number' => 'required|min:2',
+                    'national_id' => 'required|min:2',
+                    'representative_name' => 'required|min:1',
+                    'economic_code' => 'required|min:2',
+                    'tel' => 'required|min:2',
+                    'print' => 'sometimes|required|in:print',
+                    'mobile_' => ['required', 'min:11', 'max:11', new MobileFormat,$user?'':'unique:users,mobile']
+
                 ]);
         }
     }
 
     private function generateDefaultValidation()
     {
-        $this->validate['product_amount']=['required','array',new RuleProductCount()];
-        $this->validate['product_description']=['required','array',new ResidChargeCapsuleProductDescription];
+        $this->validate['product_amount'] = ['required', 'array', new RuleProductCount()];
+        $this->validate['product_description'] = ['required', 'array', new ResidChargeCapsuleProductDescription];
     }
 
 
     public function attributes()
     {
         return [
-            'product_amount'=>'تعداد کالا',
-            'product_description'=>'توضیحات کالا'
+            'product_amount' => 'تعداد کالا',
+            'product_description' => 'توضیحات کالا'
         ];
     }
 }

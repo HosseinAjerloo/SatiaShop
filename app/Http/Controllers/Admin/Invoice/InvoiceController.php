@@ -52,6 +52,7 @@ class InvoiceController extends Controller
      */
     public function create()
     {
+
         Gate::authorize('admin.invoice.product.create');
         $categories = Category::where('status', 'active')->get();
         $brands = Brand::where("status", 'active')->get();
@@ -141,6 +142,10 @@ class InvoiceController extends Controller
         $inputs = $request->all();
         parse_str($inputs['content'], $output);
         $output['file'] = $request->file('file');
+        if ($output['related_goods']=='null')
+        {
+            $output['related_goods']=null;
+        }
         $validation = Validator::make($output, [
             'title' => ['required', 'min:3', new CustomUniqueTitle],
             'product-price' => 'required|numeric:min:10000',
@@ -148,7 +153,8 @@ class InvoiceController extends Controller
             'brand_id' => 'required|exists:brands,id',
             'status' => 'required|in:active,inactive',
             'type' => 'required|in:goods,service',
-            'description' => 'required|min:3',
+            'related_goods'=>'nullable|exists:categories,id',
+            'description' => 'nullable|min:3',
             'file' => [
                 'required',
                 'file',
@@ -156,7 +162,8 @@ class InvoiceController extends Controller
                 'max:' . env('FILE_SIZE')],
         ], attributes: [
             'type' => 'نوع محصول',
-            'product-price' => 'قیمت'
+            'product-price' => 'قیمت',
+            'related_goods'=>'خدمات مربوط'
         ]);
         if (!$validation->validate()) {
             return true;

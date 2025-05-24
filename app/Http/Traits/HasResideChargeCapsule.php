@@ -5,6 +5,7 @@ namespace App\Http\Traits;
 use App\Models\Product;
 use App\Models\Reside;
 use App\Models\User;
+use App\Services\SmsService\SatiaService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -51,7 +52,6 @@ trait  HasResideChargeCapsule
 
 
         } catch (\Exception $exception) {
-            dd($exception->getMessage(), $exception->getLine());
             DB::rollBack();
             return redirect()->back()->withErrors(['error' => 'خطایی در ثبت اطلاعات شما رخ داد لطفا با پشتیبانی تماس حاصل فرمایید']);
         }
@@ -170,7 +170,6 @@ trait  HasResideChargeCapsule
 
 
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
             DB::rollBack();
             return redirect()->back()->withErrors(['error' => 'خطایی در ثبت اطلاعات شما رخ داد لطفا با پشتیبانی تماس حاصل فرمایید']);
         }
@@ -204,28 +203,19 @@ trait  HasResideChargeCapsule
     protected function whoIsUser()
     {
         $inputs = request()->all();
-        if ($inputs['customer_type'] == 'natural_person') {
-            $user = User::updateOrCreate(
-                ['national_code' => $inputs['national_code']],
-                [
-                    'name' => $inputs['name'],
-                    'mobile' => $inputs['mobile'],
-                    'customer_type' => $inputs['customer_type'],
-                    'family' => $inputs['family'],
-                    'address' => $inputs['address']
-                ]
-            );
+        $mobile = isset($inputs['mobile']) ? $inputs['mobile'] : $inputs['mobile_'];
+        $user = User::where('mobile', $mobile)->first();
+        $inputs['mobile']=$mobile;
+        $inputs['password'] = password_hash($mobile, PASSWORD_DEFAULT);
+        if ($user) {
+            $user->update($inputs);
         } else {
-            $user = User::updateOrCreate(
-                ['registration_number' => $inputs['registration_number'], 'national_id' => $inputs['national_id']],
-                [
-                    'organizationORcompanyName' => $inputs['organizationORcompanyName'],
-                    'representative_name' => $inputs['representative_name'],
-                    'economic_code' => $inputs['economic_code'],
-                    'tel' => $inputs['tel']
-                ]
-            );
+            $user=User::create($inputs);
         }
+
+        $smsService = new SatiaService();
+        $smsService->send('کاربرگرامی شماره موبایل شما همان کلمه عبور شما در نظر گرفته شده است . لطفا در اسرع وقت آن را ویرایش کنید', $user->mobile);
+
         return $user;
     }
 

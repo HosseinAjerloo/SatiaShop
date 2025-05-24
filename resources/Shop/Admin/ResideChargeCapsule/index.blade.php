@@ -125,8 +125,16 @@
                                value="{{old('economic_code')}}">
                     </div>
                     <div class="w-[49%] flex  flex-col space-y-2">
-                        <label for="" class="flex items-center font-bold">شماره تماس :</label>
+                        <label for="" class="flex items-center font-bold">شماره تماس شرکت:</label>
                         <input type="text" class="border-0 w-full py-1.5 px-2" name="tel" value="{{old('tel')}}">
+                    </div>
+
+                </section>
+                <section class="flex items-center  justify-between">
+                    <div class="w-[49%] flex  flex-col space-y-2">
+                        <label for="" class="flex items-center font-bold">تلفن همراه :</label>
+                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5 px-2" name="mobile_"
+                               value="{{old('mobile_')}}">
                     </div>
                 </section>
             </section>

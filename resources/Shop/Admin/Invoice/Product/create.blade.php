@@ -172,6 +172,22 @@
                         </select>
                     </div>
                     <div class="flex items-center space-x-reverse space-x-8">
+                        <h5 class="text-min font-light w-28">خدمات مربوط:</h5>
+                        <select name="related_goods"
+                                class="outline-none border border-black rounded-md w-48 select2">
+                            <option selected="selected" value="null">
+                                انتخاب کنید
+                            </option>
+                            @foreach($categories as $category)
+                                @if(str_contains($category->removeUnderline,'کالای مربوط'))
+                                    <option
+                                        @selected(old('related_goods')==$category->id) value="{{$category->id}}">{{$category->removeUnderLine??''}}
+                                    </option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="flex items-center space-x-reverse space-x-8">
                         <h5 class="text-min font-light w-28">برند :</h5>
                         <select name="brand_id"  class="outline-none border border-black rounded-md w-48 select2">
                             @foreach($brands as $brand)

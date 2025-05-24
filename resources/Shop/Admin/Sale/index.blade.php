@@ -32,7 +32,7 @@
                                 <option data-type="customSelect">انتخاب کنید</option>
                                 @foreach($allUser as $user)
                                     <option value="{{$user->id}}" data-user_value="{{json_encode($user)}}"
-                                            data-type="{{$user->customer_type}}">{{$user->fullName??'-'}}</option>
+                                            data-type="{{$user->customer_type}}">@if($user->customer_type=='juridical_person') {{$user->organizationORcompanyName??$user->fullName??''}}@else {{$user->fullName??'-'}} @endif</option>
                                 @endforeach
                             </select>
                             <img src=" {{asset('capsule/images/search.svg')}}" alt=""
@@ -130,8 +130,15 @@
                                value="{{old('economic_code')}}">
                     </div>
                     <div class="w-[49%] flex  flex-col space-y-2">
-                        <label for="" class="flex items-center font-bold">شماره تماس :</label>
+                        <label for="" class="flex items-center font-bold">شماره تماس شرکت:</label>
                         <input type="text" class="border-0 w-full py-1.5 px-2" name="tel" value="{{old('tel')}}">
+                    </div>
+                </section>
+                <section class="flex items-center  justify-between">
+                    <div class="w-[49%] flex  flex-col space-y-2">
+                        <label for="" class="flex items-center font-bold">تلفن همراه :</label>
+                        <input type="text" class="border-0 w-full rounded-[5px] shadow py-1.5 px-2" name="mobile_"
+                               value="{{old('mobile_')}}">
                     </div>
                 </section>
             </section>

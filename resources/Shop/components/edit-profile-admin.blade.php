@@ -53,7 +53,7 @@
 
                 <div class="w-full space-y-2  flex-wrap flex  items-center mt-5">
                     <label class="text-black  w-full">ادرس:</label>
-                    <textarea class="w-[99%] resize-y h-64 border border-black rounded-lg px-2" name="address">{{old('address',$user->address??'')}}</textarea>
+                    <textarea class="w-[99%] resize-y h-36 border border-black rounded-lg p-4" name="address">{{old('address',$user->address??'')}}</textarea>
                 </div>
                 <button class="mt-5 py-4 rounded-md bg-2081F2 w-full text-white text-lg cursor-pointer">ویرایش</button>
             </section>
