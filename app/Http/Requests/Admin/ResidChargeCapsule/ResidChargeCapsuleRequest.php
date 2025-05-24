@@ -45,9 +45,9 @@ class ResidChargeCapsuleRequest extends FormRequest
     {
         $this->generateDefaultValidation();
         $user=null;
-        if (request()->input('fakeMobile') or  request()->input('fakeMobile'))
+        if (request()->input('mobile') or  request()->input('mobile_'))
         {
-            $mobile=request()->input('mobile')?request()->input('mobile'):request()->input('fakeMobile');
+            $mobile=request()->input('mobile')?request()->input('mobile'):request()->input('mobile_');
             $user=User::where('mobile',$mobile)->first();
         }
 
