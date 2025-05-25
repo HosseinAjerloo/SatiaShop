@@ -23,7 +23,7 @@ class SupplierRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "supplier_category_id"=>'required|exists:supplier_categories,id',
+            "supplier_category_id"=>'nullable|exists:supplier_categories,id',
             'name'=>'required|min:3',
             "mobile"=>["required",new MobileFormat(),'unique:users,mobile'],
             'phone'=>'required|min:11|max:11',

@@ -199,19 +199,31 @@
                     </p>
                 </div>
             </a>
-
-            <a href="{{route('admin.supplier.category.index')}}"
+            <a href="{{route('admin.setting.index')}}"
                class="border border-black/30 rounded-md  flex items-center justify-center flex-col w-[32%]">
                 <div class="p-2">
-                    <img src="{{asset("capsule/images/supplier.png")}}" alt="" class="w-14 h-14">
+                    <img src="{{asset('capsule/images/logo.png')}}" alt="" class="w-14 h-14">
                 </div>
                 <div
                     class="flex items-center justify-center mt-3 bg-F1F1F1 w-full py-1.5 px-1 rounded-md rounded-se-none rounded-ss-none h-10">
                     <p class="text-sm font-bold text-center ">
-                        دسته بندی تامین کنندگان
+                        لگو و نام نرم افزار
                     </p>
                 </div>
             </a>
+
+{{--            <a href="{{route('admin.supplier.category.index')}}"--}}
+{{--               class="border border-black/30 rounded-md  flex items-center justify-center flex-col w-[32%]">--}}
+{{--                <div class="p-2">--}}
+{{--                    <img src="{{asset("capsule/images/supplier.png")}}" alt="" class="w-14 h-14">--}}
+{{--                </div>--}}
+{{--                <div--}}
+{{--                    class="flex items-center justify-center mt-3 bg-F1F1F1 w-full py-1.5 px-1 rounded-md rounded-se-none rounded-ss-none h-10">--}}
+{{--                    <p class="text-sm font-bold text-center ">--}}
+{{--                        دسته بندی تامین کنندگان--}}
+{{--                    </p>--}}
+{{--                </div>--}}
+{{--            </a>--}}
 
 
             <div class="border border-black/30 rounded-md  flex items-center justify-center flex-col w-[32%]">
@@ -231,18 +243,7 @@
         <section class="flex items-center justify-between ">
 
 
-            <a href="{{route('admin.setting.index')}}"
-               class="border border-black/30 rounded-md  flex items-center justify-center flex-col w-[32%]">
-                <div class="p-2">
-                    <img src="{{asset('capsule/images/logo.png')}}" alt="" class="w-14 h-14">
-                </div>
-                <div
-                    class="flex items-center justify-center mt-3 bg-F1F1F1 w-full py-1.5 px-1 rounded-md rounded-se-none rounded-ss-none h-10">
-                    <p class="text-sm font-bold text-center ">
-                        لگو و نام نرم افزار
-                    </p>
-                </div>
-            </a>
+
             {{--            <div class="border border-black/30 rounded-md  flex items-center justify-center flex-col w-[32%]">--}}
             {{--                <div class="p-2">--}}
             {{--                    <img src="{{asset("capsule/images/ticket.png")}}" alt="" class="w-14 h-14">--}}

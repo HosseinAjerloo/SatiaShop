@@ -77,8 +77,9 @@ class ResideCapsuleController extends Controller
         foreach ($resides as $key => $reside) {
             $reside->jalalidate = \Morilog\Jalali\Jalalian::forge($reside->created_at)->format('Y/m/d');
             $reside->custumerName = $reside->user->fullName ?? '';
-            $reside->capsuleCount = $reside->resideItem()->count();
+            $reside->capsuleCount = $reside->reside_type=='sell'?$reside->resideItem->sum('amount'):$reside->resideItem->count();
             $reside->operatorName = $reside->operator->fullName ?? '';
+            $reside->type_change = $reside->reside_type == 'recharge' ? 'شارژ و تمدید کپسول' : 'فروش';
             if ($reside->reside_type == 'sell') {
                 if ($reside->status == 'paid') {
                     $reside->img = asset('capsule/images/finalFactor.svg');

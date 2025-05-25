@@ -64,7 +64,7 @@
                 </div>
             </article>
 
-            <section class="space-y-5 w-full natural-person-section natural_person">
+            <section class="space-y-5 w-full natural-person-section natural_person data">
                 <section class="flex items-center justify-between">
                     <div class="w-[49%] flex  flex-col  space-y-2">
                         <label for="" class="flex items-center font-bold">نام :</label>
@@ -98,7 +98,7 @@
                 </section>
             </section>
 
-            <section class="space-y-5 w-full legal-entity-section juridical_person" style="display: none;">
+            <section class="space-y-5 w-full legal-entity-section juridical_person data" style="display: none;">
                 <section class="flex items-center justify-between">
                     <div class="w-[49%] flex  flex-col  space-y-2">
                         <label for="" class="flex items-center font-bold">نام سازمان/شرکت :</label>
@@ -366,7 +366,7 @@
                             ذخیره
                         </button>
                         <button type="button" onclick="closeModal()"
-                                class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto sm:mr-4">
+                                class="mt-3 inline-flex w-full justify-center ml-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto sm:mr-4">
                             انصراف
                         </button>
                     </div>
@@ -751,15 +751,20 @@
             let userSelectBox = $('.select-user');
             if (userSelectBox.length > 0) {
                 userSelectBox.change(function (e) {
-                    let selectOption = $(".select-user option:selected")
-                    let userType = selectOption.data('type');
-                    let userInformation = selectOption.data('user_value');
-                    pushValue(userType, userInformation);
+                    if (this.selectedIndex){
+                        let selectOption = $(".select-user option:selected")
+                        let userType = selectOption.data('type');
+                        let userInformation = selectOption.data('user_value');
+                        pushValue(userType, userInformation);
+                    }
+                    else {
+                        for (const input of document.querySelectorAll('.data input')) {
+                            input.value = '';
+                        }
+                    }
 
 
                 });
-            } else {
-                console.log('هیچ المانی با کلاس select-user پیدا نشد!');
             }
         });
 

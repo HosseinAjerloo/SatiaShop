@@ -1,5 +1,5 @@
 
-<div  class="editPro @if($errors->first('updateUserProfile')) editProActive  @endif w-full   sm:w-1/2  backdrop-blur-md absolute  left-1/2  rounded-lg   ">
+<div  class="editPro @if($errors->first('updateUserProfile')) editProActive  @endif w-full   sm:w-1/2  backdrop-blur-md fixed  left-1/2  rounded-lg   ">
     <div class="w-full h-full shadow shadow-black/35 p-3">
         <div>
             <img src="{{asset("capsule/images/close.svg")}}" alt="" class="cursor-pointer close-profile">

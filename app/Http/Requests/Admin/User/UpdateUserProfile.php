@@ -30,8 +30,11 @@ class UpdateUserProfile extends FormRequest
     public function rules(): array
     {
         $this->route = Route::current();
+        $user=null;
+        if (isset($this->route->parameters['user'])) {
+            $user = $this->route->parameters['user'];
+        }
 
-        $user = $this->route->parameters['user'];
         if ($this->route()->getName() == 'admin.user.update' and isset($user)) {
             return [
                 'name' => 'required|min:3',

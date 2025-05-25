@@ -26,7 +26,7 @@
                             <span>نوع رسید</span>
                         </th>
                         <th class=" text-sm font-light px-2 leading-6 text-white text-nowrap max-w-max">
-                            <span>نام مشتری</span>
+                            <span>نام مشتری/سازمان</span>
                         </th>
                         <th class=" text-sm font-light px-2 leading-6 text-white max-w-max">
                             <span>تعداد کپسول</span>
@@ -70,6 +70,13 @@
                             <div class="w-full flex items-center ">
                                 <input type="text"
                                        class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1"
+                                       data-name="reside_type">
+                            </div>
+                        </td>
+                        <td class="border border-gray-400   text-center p-1">
+                            <div class="w-full flex items-center ">
+                                <input type="text"
+                                       class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1"
                                        data-name="customer_name">
                             </div>
                         </td>
@@ -77,7 +84,7 @@
                             <div class="w-full flex items-center ">
                                 <input type="number"
                                        class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1"
-                                       data-name="count_capsule">
+                                       data-name="count_capsule" disabled="disabled">
                             </div>
                         </td>
                         <td class="border border-gray-400   text-center ">
@@ -132,16 +139,25 @@
                             </td>
                             <td class="border border-gray-400   text-center p-1">
                                 <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full  ">
-                                    {{$reside->user->fullName??''}}
+                                    @if($reside->user->customer_type=='natural_person' or empty($reside->user->customer_type))
+                                        {{$reside->user->fullName??''}}
+                                    @else
+                                        {{$reside->user->organizationORcompanyName??''}}
+                                    @endif
+
                                 </p>
                             </td>
                             <td class="border border-gray-400   text-center p-1">
                                 <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full  ">
-                                    {{$reside->resideItem->count()}}
+                                    @if($reside->reside_type=='sell')
+                                    {{$reside->resideItem->sum('amount')}}
+                                    @else
+                                        {{$reside->resideItem->count()}}
+                                    @endif
                                 </p>
                             </td>
                             <td class="border border-gray-400   text-center p-1">
-                                <a href="{{route('admin.chargingTheCapsule.edit',$reside)}}"
+                                <a href="@if($reside->reside_type=='recharge') {{route('admin.chargingTheCapsule.edit',$reside)}} @endif"
                                    class="sm:font-normal sm:text-sm text-[13px] p-1 w-full underline underline-sky-500 underline-offset-4 decoration-sky-500 text-sky-600">
                                     {{$reside->id}}
                                 </a>
@@ -295,6 +311,12 @@
                         <td class="border border-gray-400  text-center  p-1">
                             <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full ">
                                     ${value.jalalidate}
+                            </p>
+                        </td>
+                             <td class="border border-gray-400   text-center p-1">
+                            <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full  ">
+                                ${value.type_change}
+
                             </p>
                         </td>
                         <td class="border border-gray-400   text-center p-1">

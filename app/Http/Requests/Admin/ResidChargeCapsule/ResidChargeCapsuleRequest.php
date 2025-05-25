@@ -54,7 +54,7 @@ class ResidChargeCapsuleRequest extends FormRequest
 
         if (request()->input('customer_type') == 'natural_person') {
 
-            $this->validate=array_merge(
+            $validation=array_merge(
                 $this->validate
                 ,[
                 'customer_type' => 'required|in:natural_person,juridical_person',
@@ -66,8 +66,9 @@ class ResidChargeCapsuleRequest extends FormRequest
                 'print'=>'sometimes|required|in:print'
 
             ]);
+            $this->validate=$validation;
         } else {
-            $this->validator=array_merge(
+            $validation=array_merge(
                 $this->validate,
                 [
                     'customer_type' => 'required|in:natural_person,juridical_person',
@@ -80,6 +81,8 @@ class ResidChargeCapsuleRequest extends FormRequest
                     'print'=>'sometimes|required|in:print',
                     'mobile_' => ['required','min:11','max:11',new MobileFormat,$user?'':'unique:users,mobile']
                 ]);
+            $this->validate=$validation;
+
         }
     }
 

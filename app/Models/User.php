@@ -60,7 +60,12 @@ class User extends Authenticatable
         'representative_name',
         'economic_code'
     ];
-   
+    protected $appends = ['mobile_'];
+    public function getMobileAttribute()
+    {
+        return $this->attributes['mobile'];
+    }
+
     public function scopeSearch(Builder $query): void
     {
 

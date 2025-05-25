@@ -46,6 +46,14 @@ class Reside extends Model
                 $query->orWhere('name', 'like', "%$name%")->orWhere('family', 'like', "%$name%");
             })->first();
             $user ? $query->where('user_id', $user->id) : '';
+        })->when(request()->input('reside_type'),function ($query){
+            $resideType=request()->input('reside_type');
+            if (str_contains($resideType,'شارژ')){
+                $query->where('reside_type','recharge');
+            }elseif (str_contains($resideType,'فروش')){
+                $query->where('reside_type','sell');
+
+            }
         })->when(request()->input('count_capsule'), function ($query) {
             $query->whereHas('resideItem',function ($builder){
                $builder->where('status','recharge');

@@ -33,7 +33,13 @@
                                     <option data-type="customSelect">انتخاب کنید</option>
                                     @foreach($allUser as $user)
                                         <option value="{{$user->id}}" data-user_value="{{json_encode($user)}}"
-                                                data-type="{{$user->customer_type}}">{{$user->fullName??'-'}}</option>
+                                                data-type="{{$user->customer_type}}">
+                                            @if($user->customer_type=='natural_person' or empty($user->customer_type))
+                                                {{$user->fullName??''}}
+                                            @else
+                                                {{$user->organizationORcompanyName??''}}
+                                            @endif
+                                        </option>
                                     @endforeach
                                 </select>
                                 <img src=" {{asset('capsule/images/search.svg')}}" alt=""
@@ -59,7 +65,7 @@
                 </div>
             </article>
 
-            <section class="space-y-5 w-full natural-person-section natural_person">
+            <section class="space-y-5 w-full natural-person-section natural_person data">
                 <section class="flex items-center justify-between">
                     <div class="w-[49%] flex  flex-col  space-y-2">
                         <label for="" class="flex items-center font-bold">نام :</label>
@@ -93,7 +99,7 @@
                 </section>
             </section>
 
-            <section class="space-y-5 w-full legal-entity-section juridical_person" style="display: none;">
+            <section class="space-y-5 w-full legal-entity-section juridical_person data" style="display: none;">
                 <section class="flex items-center justify-between">
                     <div class="w-[49%] flex  flex-col  space-y-2">
                         <label for="" class="flex items-center font-bold">نام سازمان/شرکت :</label>
@@ -777,20 +783,27 @@
         });
     </script>
     <script>
-
+       var te= document.querySelector('.select-user');
         $(document).ready(function () {
             let userSelectBox = $('.select-user');
             if (userSelectBox.length > 0) {
                 userSelectBox.change(function (e) {
-                    let selectOption = $(".select-user option:selected")
-                    let userType = selectOption.data('type');
-                    let userInformation = selectOption.data('user_value');
-                    pushValue(userType, userInformation);
+                    if (this.selectedIndex){
+                        let selectOption = $(".select-user option:selected")
+                        let userType = selectOption.data('type');
+                        let userInformation = selectOption.data('user_value');
+                        pushValue(userType, userInformation);
+                    }
+                    else {
+                        for (const input of document.querySelectorAll('.data input'))
+                        {
+                            input.value='';
+                        }
+                    }
+
 
 
                 });
-            } else {
-                console.log('هیچ المانی با کلاس select-user پیدا نشد!');
             }
         });
 

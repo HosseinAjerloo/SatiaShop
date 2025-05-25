@@ -264,7 +264,7 @@ Route::get('test2', function () {
 });
 
 Route::get('test', function () {
-    dd(User::find(1));
+    dd(User::find(1)->toArray());
 })->name('test');
 
 Route::post('create-product', function () {

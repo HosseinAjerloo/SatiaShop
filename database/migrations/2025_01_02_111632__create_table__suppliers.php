@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('suppliers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('supplier_category_id')->constrained('supplier_categories')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('supplier_category_id')->nullable()->constrained('supplier_categories')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('name')->nullable();
             $table->string('mobile')->nullable();
             $table->enum('status',['active','inactive'])->default('active');

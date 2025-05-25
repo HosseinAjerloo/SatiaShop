@@ -35,14 +35,21 @@
                                     @foreach($allUser as $user)
                                         <option value="{{$user->id}}" data-user_value="{{json_encode($user)}}"
                                                 data-type="{{$user->customer_type}}"
-                                                @if($reside->user_id==$user->id) selected="selected" @endif>{{$user->fullName??'-'}}</option>
+                                                @if($reside->user_id==$user->id) selected="selected" @endif>
+                                            @if($user->customer_type=='natural_person' or empty($user->customer_type))
+                                                {{$user->fullName??''}}
+                                            @else
+                                                {{$user->organizationORcompanyName??''}}
+                                            @endif
+                                        </option>
                                     @endforeach
                                 </select>
                                 <img src=" {{asset('capsule/images/search.svg')}}" alt=""
                                      class="search cursor-pointer absolute top-[50%] right-[20px] translate-y-[-50%]">
                             </div>
                         </div>
-                        <div class="flex items-center space-x-4 mt-4 sm:mt-0 space-x-reverse py-1.5 sm:px-2 rounded-md  w-[50%]">
+                        <div
+                            class="flex items-center space-x-4 mt-4 sm:mt-0 space-x-reverse py-1.5 sm:px-2 rounded-md  w-[50%]">
                             <div>
                                 <label>حقیقی</label>
                                 <input type="radio" class="person_type" name="customer_type" value="natural_person"
@@ -68,7 +75,7 @@
                 </div>
             </article>
 
-            <section class="space-y-5 w-full natural-person-section natural_person">
+            <section class="space-y-5 w-full natural-person-section natural_person data">
                 <section class="flex items-center justify-between">
                     <div class="w-[49%] flex  flex-col  space-y-2">
                         <label for="" class="flex items-center font-bold">نام :</label>
@@ -102,7 +109,7 @@
                 </section>
             </section>
 
-            <section class="space-y-5 w-full legal-entity-section juridical_person" style="display: none;">
+            <section class="space-y-5 w-full legal-entity-section juridical_person data" style="display: none;">
                 <section class="flex items-center justify-between">
                     <div class="w-[49%] flex  flex-col  space-y-2">
                         <label for="" class="flex items-center font-bold">نام سازمان/شرکت :</label>
@@ -792,16 +799,23 @@
         $(document).ready(function () {
             let userSelectBox = $('.select-user');
             if (userSelectBox.length > 0) {
+
+
                 userSelectBox.change(function (e) {
-                    let selectOption = $(".select-user option:selected")
-                    let userType = selectOption.data('type');
-                    let userInformation = selectOption.data('user_value');
-                    pushValue(userType, userInformation);
+                    if (this.selectedIndex) {
+                        let selectOption = $(".select-user option:selected")
+                        let userType = selectOption.data('type');
+                        let userInformation = selectOption.data('user_value');
+                        pushValue(userType, userInformation);
 
-
+                    } else {
+                        for (const input of document.querySelectorAll('.data input')) {
+                            input.value = '';
+                        }
+                    }
                 });
-            } else {
-                console.log('هیچ المانی با کلاس select-user پیدا نشد!');
+
+
             }
         });
 
