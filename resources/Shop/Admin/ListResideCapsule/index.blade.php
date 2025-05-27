@@ -157,7 +157,7 @@
                                 </p>
                             </td>
                             <td class="border border-gray-400   text-center p-1">
-                                <a href="@if($reside->reside_type=='recharge') {{route('admin.chargingTheCapsule.edit',$reside)}} @endif"
+                                <a href="@if($reside->reside_type=='recharge') {{route('admin.chargingTheCapsule.edit',$reside)}} @else {{route('admin.sale.edit',$reside)}} @endif"
                                    class="sm:font-normal sm:text-sm text-[13px] p-1 w-full underline underline-sky-500 underline-offset-4 decoration-sky-500 text-sky-600">
                                     {{$reside->id}}
                                 </a>

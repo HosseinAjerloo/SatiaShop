@@ -235,6 +235,8 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
     Route::prefix('sale')->name('admin.sale.')->group(function () {
         Route::get('', [App\Http\Controllers\Admin\Sale\SaleController::class, 'index'])->name('index');
         Route::post('', [App\Http\Controllers\Admin\Sale\SaleController::class, 'store'])->name('store');
+        Route::get('edit/{reside}',[App\Http\Controllers\Admin\Sale\SaleController::class,'edit'])->name('edit');
+        Route::put('update/{reside}',[App\Http\Controllers\Admin\Sale\SaleController::class,'update'])->name('update');
         Route::get('show/{reside}', [App\Http\Controllers\Admin\Sale\SaleController::class, 'show'])->name('show');
         Route::post('generate-factor/{reside}', [App\Http\Controllers\Admin\Sale\SaleController::class, 'generateFactor'])->name('generate.factor');
         Route::get('print-factor/{reside}', [App\Http\Controllers\Admin\Sale\SaleController::class, 'printFactor'])->name('printFactor');
