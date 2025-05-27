@@ -22,8 +22,9 @@
             <article class="flex justify-between items-center flex-wrap">
                 <div
                     class=" flex flex-wrap items-center w-full  ">
-                    <div class=" flex flex-wrap items-center w-full lg:w-[70%]">
-                        <h1 class="font-bold w-36 ">جستوجوی مشتری:</h1>
+                    <div class=" flex justify-between items-center w-full ">
+                        <div class="flex items-center sm:w-[50%]">
+                            <h1 class="font-bold w-36 ">جستوجوی مشتری:</h1>
 
                         <div class="relative w-full mt-3 sm:mt-0 sm:w-[50%]">
                             <select type="text"
@@ -38,7 +39,8 @@
                             <img src=" {{asset('capsule/images/search.svg')}}" alt=""
                                  class="search cursor-pointer absolute top-[50%] right-[20px] translate-y-[-50%]">
                         </div>
-                        <div class="flex items-center space-x-4 mt-4 sm:mt-0 space-x-reverse py-1.5 sm:px-2 rounded-md">
+                        </div>
+                        <div class="flex items-center space-x-4 mt-4 sm:mt-0 space-x-reverse py-1.5 sm:px-2 rounded-md w-[50%]">
                             <div>
                                 <label>حقیقی</label>
                                 <input type="radio" class="person_type" name="customer_type" value="natural_person"
@@ -53,14 +55,7 @@
                     </div>
 
 
-                    <div class="w-full lg:w-[20%]  mt-3 lg:mt-0 flex items-center md:justify-end">
-
-                        <div
-                            class="flex items-center  space-x-1 space-x-reverse  rounded-md text-min">
-                            <h5 class="font-bold">شماره رسید</h5>
-                            <span>10001</span>
-                        </div>
-                    </div>
+                 
                 </div>
             </article>
 
@@ -217,7 +212,7 @@
                                 </td>
                                 <td class="border p-2 text-center flex items-center justify-center">
                                     <img src="{{asset('capsule/images/delete.svg')}}" alt=""
-                                         class="cursor-pointer mx-auto delete-row w-3 sm:w-auto" onclick="deleteRow(this)">
+                                         class="cursor-pointer mx-auto delete-row w-3 sm:w-auto" onclick="deleteRow(this)" data-id="{{$product->id}}">
                                 </td>
                             </tr>
 
@@ -257,7 +252,7 @@
                             </td>
                             <td class="border p-2 text-center flex items-center justify-center">
                                 <img src="{{asset('capsule/images/delete.svg')}}" alt=""
-                                     class="cursor-pointer mx-auto delete-row w-3 sm:w-auto" onclick="deleteRow(this)">
+                                     class="cursor-pointer mx-auto delete-row w-3 sm:w-auto" onclick="deleteRow(this)" data-id="{{$myFavorite->id}}">
                             </td>
                         </tr>
                     @endforeach
@@ -620,7 +615,7 @@
                                 <input type="text" name="product_description[${productId}]" class="w-full border rounded-md border-2 p-1 border-black/40 outline-none px-1.5" placeholder="توضیحات" value="${description}">
                             </td>
                             <td class="border p-2 text-center flex items-center justify-center">
-                                <img src="{{asset('capsule/images/delete.svg')}}" alt="" class="cursor-pointer mx-auto delete-row w-3 sm:w-auto" onclick="deleteRow(this)">
+                                <img src="{{asset('capsule/images/delete.svg')}}" alt="" class="cursor-pointer mx-auto delete-row w-3 sm:w-auto" onclick="deleteRow(this)" data-id='${productId}'>
                             </td>
                         </tr>
                     `;
@@ -672,9 +667,19 @@
         }
 
         // تابع حذف ردیف
-        function deleteRow(element) {
+            function deleteRow(element) {
+                console.log(selectedProductIds +' one');
+                
+            if (selectedProductIds.includes(element.dataset.id))
+            {
+               let index=selectedProductIds.indexOf(element.dataset.id);
+                selectedProductIds.splice(index,1)
+            }
+                console.log(selectedProductIds +' tow');
+                
             $(element).closest('tr').remove();
         }
+
 
         // تابع به‌روزرسانی قیمت محصول
         function updateProductPrice(input) {

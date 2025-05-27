@@ -197,12 +197,11 @@
         generateQrCode();
     </script>
 
-{{--    <script>--}}
+   <script>
+    window.addEventListener('load', function () {
+      window.print();
+       })
 
-{{--        window.addEventListener('load', function () {--}}
-{{--            window.print();--}}
-{{--        })--}}
-
-{{--        window.btnPrint.onclick = () => window.print();--}}
-{{--    </script>--}}
+      window.btnPrint.onclick = () => window.print();
+   </script>
 @endsection

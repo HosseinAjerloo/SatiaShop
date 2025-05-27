@@ -59,7 +59,11 @@ class SaleController extends Controller
 
     public function update(SaleProductRequest $request,Reside $reside)
     {
-        dd($request->all(),$reside);
+        
+                Gate::authorize('admin.sale.index');
+                 app('request')->merge(['reside'=>$reside]);
+                return $this->updateSealCapsule();
+
     }
     public function show(Reside $reside)
     {
@@ -70,7 +74,6 @@ class SaleController extends Controller
 
     public function generateFactor(Reside $reside, FinalInvoiceIssuanceRequest $request)
     {
-        dd('ad');
         try {
             $this->compilationResideFactor($reside);
             return redirect()->route('admin.sale.printFactor',$reside)->with(['success' => 'خطایی در ثبت اطلاعات شما رخ داد لطفا با پشتیبانی تماس حاصل فرمایید']);

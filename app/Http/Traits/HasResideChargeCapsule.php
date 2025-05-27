@@ -175,6 +175,53 @@ trait  HasResideChargeCapsule
         }
     }
 
+
+       protected function updateSealCapsule()
+    {
+        $reside=request()->reside;
+        $inputs = request()->all();
+        DB::beginTransaction();
+        $totalPrice = 0;
+        try {
+            $operator = Auth::user();
+            $user = $this->whoIsUser();
+            if ($this->getResideSaleCapsuleItem()) {
+                foreach ($this->resideItems as $productItem) {
+                    $totalPrice += $productItem['price'] * $productItem['amount'];
+                }
+                $reside->update(
+                    [
+                        'user_id' => $user->id,
+                        'operator_id' => $operator->id,
+                        'status_bank' => 'requested',
+                        'total_price' => $totalPrice,
+                        'discount_collection' => 0,
+                        'final_price' => $totalPrice,
+                        'status' => 'not_paid',
+                        'reside_type' => 'sell',
+                        'type' => 'reside'
+                    ]
+                );
+
+            } else {
+                return redirect()->back()->withErrors(['error' => 'پارامتر وارد شده معتبر نمیباشد']);
+            }
+                        $reside->resideItem->each->forceDelete();
+
+            $reside->resideItem()->createMany($this->resideItems);
+            DB::commit();
+
+            $this->redirectUri = redirect()->route('admin.sale.show', $reside)->with(['success' => 'رسید شما صادر شد و عملیات با موفقیت انجام شد.']);;
+
+            return $this->redirectUri;
+
+
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            return redirect()->back()->withErrors(['error' => 'خطایی در ثبت اطلاعات شما رخ داد لطفا با پشتیبانی تماس حاصل فرمایید']);
+        }
+    }
+
     protected function getResideSaleCapsuleItem(): bool
     {
         $inputs = request()->all();
@@ -205,11 +252,12 @@ trait  HasResideChargeCapsule
         $inputs = request()->all();
         $mobile = isset($inputs['mobile']) ? $inputs['mobile'] : $inputs['mobile_'];
         $user = User::where('mobile', $mobile)->first();
-        $inputs['mobile']=$mobile;
-        $inputs['password'] = password_hash($mobile, PASSWORD_DEFAULT);
+      
         if ($user) {
             $user->update($inputs);
         } else {
+              $inputs['mobile']=$mobile;
+                $inputs['password'] = password_hash($mobile, PASSWORD_DEFAULT);
             $user=User::create($inputs);
         }
 
