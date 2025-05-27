@@ -223,10 +223,11 @@
                 let discount = ((event.target.value * totalPrice) / 100);
                 discount = totalPrice - discount;
                 price = new Intl.NumberFormat('fa-IR', {
-                    style: 'currency',
+                    // style: 'currency',
                     currency: 'IRR'
                 }).format(discount);
                 document.querySelector('.totalPrice').innerText = price;
+                document.querySelector('.totalPrice').innerText += ' ریال ';
 
             }
             else {

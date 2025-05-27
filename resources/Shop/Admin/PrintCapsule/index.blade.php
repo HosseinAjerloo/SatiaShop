@@ -72,8 +72,15 @@
                     <p class="font-semibold text-sms leading-6">آدرس : اردبیل ، میدان بعثت ، روبروی آهن فروشان تلفن 33619000</p>
                 </div>
             </div>
+
         </article>
 
+        <section class="flex items-center justify-center  redirect-back ">
+            <div class="bg-FF3100 px-4 text-sm font-medium shadow py-1 text-white   rounded-md">
+                <a href="{{route('admin.resideCapsule.index')}}">بازگشت</a>
+            </div>
+
+        </section>
     </section>
 
 @endsection
@@ -101,8 +108,8 @@
             generateQrCode();
         </script>
         <script>
-            window.addEventListener('load',function (){
-                window.print();
-            })
+            // window.addEventListener('load',function (){
+            //     window.print();
+            // })
         </script>
     @endsection

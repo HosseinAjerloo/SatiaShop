@@ -149,7 +149,7 @@
         </article>
         <section class="flex items-center  space-x-reverse space-x-3 redirect-back">
             <div class="bg-FF3100 px-4 text-sm font-medium shadow py-1 text-white  rounded-md">
-                <a href="{{route('admin.chargingTheCapsule.edit',$reside)}}">بازگشت</a>
+                <a href="{{route('admin.resideCapsule.index')}}">بازگشت</a>
             </div>
 
         </section>

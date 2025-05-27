@@ -121,10 +121,10 @@
                 </div>
                 <section class="flex items-center justify-center space-x-reverse space-x-3 p-5">
                     <div class="bg-268832 px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
-                        <button class="sodurFactor" type="button">صدور فاکتورنهایی</button>
+                        <button class="sodurFactor" type="button">صدور فاکتورنهایی وپرینت</button>
                     </div>
                     <div class="bg-2081F2 px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
-                        <button>صدور و پرینت</button>
+                        <button>صدور فاکتور</button>
                     </div>
                 </section>
             </form>
@@ -199,12 +199,13 @@
             document.querySelector('.totalPrice').setAttribute('data-totalPrice', commissionAmount) ;
 
             price = new Intl.NumberFormat('fa-IR', {
-                style: 'currency',
+                // style: 'currency',
                 currency: 'IRR'
             }).format(commissionAmount);
             document.querySelector('.discount').dispatchEvent(new Event('input'));
 
             document.querySelector('.totalPrice').innerText = price;
+            document.querySelector('.totalPrice').innerText += ' ریال ';
         })
     </script>
     <script>
@@ -219,10 +220,11 @@
                 let discount=((event.target.value * totalPrice) / 100) ;
                 discount=totalPrice - discount;
                 price = new Intl.NumberFormat('fa-IR', {
-                    style: 'currency',
+                    // style: 'currency',
                     currency: 'IRR'
                 }).format(discount);
                 document.querySelector('.totalPrice').innerText = price;
+                document.querySelector('.totalPrice').innerText += ' ریال ';
 
             }else {
                 price = new Intl.NumberFormat('fa-IR', {

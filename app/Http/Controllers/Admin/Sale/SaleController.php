@@ -45,6 +45,7 @@ class SaleController extends Controller
 
     public function show(Reside $reside)
     {
+
         return view('Admin.InvoiceIssuance.sale', compact('reside'));
 
     }

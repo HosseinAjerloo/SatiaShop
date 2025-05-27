@@ -251,6 +251,8 @@
                 }
                 if (event.target !== undefined && (event.target.value.length >= 3 || (event.target.dataset.name in valid && valid[event.target.dataset.name]))) {
                     requestToServer();
+                }else {
+                    requestToServer();
                 }
             })
         }
