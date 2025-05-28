@@ -74,11 +74,13 @@ class ResideCapsuleController extends Controller
     public function search(ResidChargeCapsuleSearchRequest $request)
     {
         $resides = Reside::search()->orderBy('created_at', 'desc')->get();
+//        dd($resides);
         foreach ($resides as $key => $reside) {
             $reside->jalalidate = \Morilog\Jalali\Jalalian::forge($reside->created_at)->format('Y/m/d');
-            $reside->custumerName = $reside->user->fullName ?? '';
+            $reside->custumerName =($reside->user->customer_type=='natural_person' or empty($reside->user->customer_type))?$reside->user->fullName??'' : $reside->user->organizationORcompanyName??'';
             $reside->capsuleCount = $reside->reside_type=='sell'?$reside->resideItem->sum('amount'):$reside->resideItem->count();
             $reside->operatorName = $reside->operator->fullName ?? '';
+            $reside->update='#';
             $reside->type_change = $reside->reside_type == 'recharge' ? 'شارژ و تمدید کپسول' : 'فروش';
             if ($reside->reside_type == 'sell') {
                 if ($reside->status == 'paid') {
@@ -89,6 +91,8 @@ class ResideCapsuleController extends Controller
                     $reside->img = asset("capsule/images/hand-Invoice.png");
                     $reside->route = route('admin.sale.show', $reside->id);
                     $reside->routePrint = '#';
+                    $reside->update=route('admin.sale.edit',$reside);
+
 
                 }
             } else {
@@ -100,6 +104,8 @@ class ResideCapsuleController extends Controller
                     $reside->img = asset("capsule/images/hand-Invoice.png");
                     $reside->route = route('admin.invoice.issuance.index', $reside->id);
                     $reside->routePrint = route('admin.chargingTheCapsule.printReside', $reside);
+                    $reside->update=route('admin.chargingTheCapsule.edit',$reside);
+
                 }
             }
         }

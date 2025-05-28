@@ -84,7 +84,7 @@
                             <div class="w-full flex items-center ">
                                 <input type="number"
                                        class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1"
-                                       data-name="count_capsule" disabled="disabled">
+                                       data-name="count_capsule" >
                             </div>
                         </td>
                         <td class="border border-gray-400   text-center ">
@@ -334,7 +334,7 @@
                         </td>
                         <td class="border border-gray-400   text-center p-1">
                             <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full underline underline-sky-500 underline-offset-4 decoration-sky-500 text-sky-600">
-                               ${value.id}
+                               <a href="${value.update}">${value.id}</a>
                             </p>
                         </td>
                         <td class="border border-gray-400   text-center ">

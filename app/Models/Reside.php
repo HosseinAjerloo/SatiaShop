@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 class Reside extends Model
 {
@@ -46,24 +47,30 @@ class Reside extends Model
                 $query->orWhere('name', 'like', "%$name%")->orWhere('family', 'like', "%$name%");
             })->first();
             $user ? $query->where('user_id', $user->id) : '';
-        })->when(request()->input('reside_type'),function ($query){
-            $resideType=request()->input('reside_type');
-            if (str_contains($resideType,'شارژ')){
-                $query->where('reside_type','recharge');
-            }elseif (str_contains($resideType,'فروش')){
-                $query->where('reside_type','sell');
+        })->when(request()->input('reside_type'), function ($query) {
+            $resideType = request()->input('reside_type');
+            if (str_contains($resideType, 'شارژ')) {
+                $query->where('reside_type', 'recharge');
+            } elseif (str_contains($resideType, 'فروش')) {
+                $query->where('reside_type', 'sell');
 
             }
         })->when(request()->input('count_capsule'), function ($query) {
-            $query->whereHas('resideItem',function ($builder){
-               $builder->where('status','recharge');
-            },request()->input('count_capsule'));
+            $query->whereHas('resideItem', function ($builder) {
+                $builder->where('status', 'sell')
+                    ->groupBy('reside_id')
+                    ->havingRaw('SUM(amount) >= ?', [request()->input('count_capsule')]);
+            })->orWhereHas('resideItem', function ($builder) {
+                $builder->whereIn('status', ['used', 'recharge'])
+                    ->groupBy('reside_id')
+                    ->havingRaw('COUNT(*) >= ?', [request()->input('count_capsule')]);
+            });
         })->when(request()->input('reside_id'), function ($query) {
             $query->where('id', request()->input('reside_id'));
         })->when(request()->input('operator_name'), function ($query) {
 
             $name = request()->input('operator_name');
-        User::where(function ($query) use ($name) {
+            User::where(function ($query) use ($name) {
                 $query->orWhere('name', 'like', "%$name%")->orWhere('family', 'like', "%$name%");
             });
         })->when(request()->input('created_at'), function ($query) {
@@ -73,17 +80,19 @@ class Reside extends Model
             $query->whereDate('created_at', ">=", $date);
         });
     }
+
     public function totalPrice()
     {
-        $total=0;
+        $total = 0;
         foreach ($this->resideItem as $item) {
             $total += $item->getTotalProductPriceItems();
         }
         return $total;
     }
+
     public function totalPriceSale()
     {
-        $total=0;
+        $total = 0;
         foreach ($this->resideItem as $item) {
             $total += $item->price * $item->amount;
         }
@@ -92,11 +101,10 @@ class Reside extends Model
 
     public function totalPricePlusTax()
     {
-        $total=$this->totalPrice();
+        $total = $this->totalPrice();
 
-        if ($this->commission>0)
-        {
-            $total=(($total * $this->commission )/100)+ $total;
+        if ($this->commission > 0) {
+            $total = (($total * $this->commission) / 100) + $total;
         }
         return $total;
     }
