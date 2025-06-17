@@ -64,9 +64,12 @@
                             <div
                                 class=" flex justify-center items-start flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
                                 <label class="font-semibold text-sm">اجرت (ریال) :</label>
-                                <input type="number"
+                                <input type="hidden"
                                        class="w-full sm:w-[60%] outline-none p-[2.5px] text-center border-black/50 border rounded-[5px]"
-                                       name="salary" min="0" value="{{(float)$resideItem->salary??0}}">
+                                       name="salary" min="0" value="{{(float)$resideItem->product->salary??0}}" >
+                                <p class="w-full sm:w-[60%] outline-none p-[2.5px] text-center border-black/50 border rounded-[5px]">
+                                    {{numberFormat((float)$resideItem->product->salary??0)}}
+                                </p>
                             </div>
                         </article>
                         <article class="flex items-center space-x-reverse space-x-4">

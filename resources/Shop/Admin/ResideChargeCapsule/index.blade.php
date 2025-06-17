@@ -37,7 +37,7 @@
                                             @if($user->customer_type=='natural_person' or empty($user->customer_type))
                                                 {{$user->fullName??''}}
                                             @else
-                                                {{$user->organizationORcompanyName??''}}
+                                                {{$user->organizationORcompanyName??$user->fullName??''}}
                                             @endif
                                         </option>
                                     @endforeach

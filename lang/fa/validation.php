@@ -240,6 +240,7 @@ return [
         'related_goods'=>'خدمات مربوطه',
         'balloons'=>'نوع بالن',
         'product'=>'کالا',
+        'product_id'=>'انتخاب نوع کالا',
         'permission_id'=>'الگوی دسترسی'
     ],
 

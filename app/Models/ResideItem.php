@@ -15,7 +15,6 @@ class ResideItem extends Model
         'status',
         'description',
         'balloons',
-        'salary'
     ];
 
     public function product()
@@ -42,7 +41,7 @@ class ResideItem extends Model
     {
         $totalPrice = 0;
         foreach ($this->productResidItem as $product) {
-            $totalPrice += $product->pivot->price;
+            $totalPrice += ($product->pivot->price+ $this->product->salary);
         }
         return $totalPrice + ($this->salary ?? 0);
     }

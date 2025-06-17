@@ -24,9 +24,14 @@
                        value="{{old('title',$product->removeUnderLine)}}">
             </div>
             <div class="flex items-center space-x-reverse space-x-8">
-                <h5 class="text-min font-light w-28"> قیمت(ریال) :</h5>
+                <h5 class="text-min font-light w-28"> قیمت فروش(ریال) :</h5>
                 <input type="text" name="price" class="outline-none border border-black rounded-md w-48"
                        value="{{(float)old('price',$product->price)}}">
+            </div>
+            <div class="flex items-center space-x-reverse space-x-8">
+                <h5 class="text-min font-light w-28"> اجرت(ریال) :</h5>
+                <input type="text" name="salary" class="outline-none border border-black rounded-md w-48"
+                       value="{{(float)old('salary',$product->salary)}}">
             </div>
 
             <div class="flex items-center space-x-reverse space-x-8">

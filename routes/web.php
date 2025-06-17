@@ -266,7 +266,7 @@ Route::get('test2', function () {
 });
 
 Route::get('test', function () {
-    dd(User::find(1)->toArray());
+    dd(Product::find(55)->salary);
 })->name('test');
 
 Route::post('create-product', function () {

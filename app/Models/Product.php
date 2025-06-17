@@ -23,7 +23,8 @@ class Product extends Model
         'status',
         'price',
         'user_id',
-        'related_goods'
+        'related_goods',
+        'salary'
     ];
 
     protected $appends = ['is_favorite'];

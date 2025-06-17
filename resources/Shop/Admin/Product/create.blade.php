@@ -16,11 +16,15 @@
                        value="{{old('title')}}">
             </div>
             <div class="flex items-center space-x-reverse space-x-8">
-                <h5 class="text-min font-light w-28"> قیمت(ریال) :</h5>
+                <h5 class="text-min font-light w-28"> قیمت فروش(ریال) :</h5>
                 <input type="text" name="price" class="outline-none border border-black rounded-md w-48"
                        value="{{old('price')}}">
             </div>
-
+            <div class="flex items-center space-x-reverse space-x-8">
+                <h5 class="text-min font-light w-28"> قیمت اجرت(ریال) :</h5>
+                <input type="text" name="salary" class="outline-none border border-black rounded-md w-48"
+                       value="{{old('salary')}}">
+            </div>
             <div class="flex items-center space-x-reverse space-x-8">
                 <h5 class="text-min font-light w-28">دستبه بندی:</h5>
                 <select name="category_id" id="" class="outline-none border border-black rounded-md w-48 select2">

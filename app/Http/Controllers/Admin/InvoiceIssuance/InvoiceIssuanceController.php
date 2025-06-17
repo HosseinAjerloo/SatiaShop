@@ -71,7 +71,7 @@ InvoiceIssuanceController extends Controller
             $resideItem->productResidItem()->sync($productItems);
             $resideItem->update([
                 'balloons' => $inputs['balloons'],
-                'salary' => $inputs['salary']
+
             ]);
             return redirect()->route('admin.invoice.issuance.index', $reside)->with('success', "تعوضی موارد مورد نیاز برای کالا {$resideItem->product->removeUnderLine} ثبت شد ");
         } catch (\Exception $exception) {

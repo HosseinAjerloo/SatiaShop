@@ -21,7 +21,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->enum('type',['service','goods'])->default('goods');
             $table->enum('status',['active','inactive'])->default('active');
-            $table->decimal('price',20,3);
+            $table->decimal('price',20,3)->default(0);
+            $table->decimal('salary',20,3)->default(0);
             $table->timestamps();
             $table->softDeletes();
 
