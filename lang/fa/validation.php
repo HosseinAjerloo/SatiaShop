@@ -241,7 +241,8 @@ return [
         'balloons'=>'نوع بالن',
         'product'=>'کالا',
         'product_id'=>'انتخاب نوع کالا',
-        'permission_id'=>'الگوی دسترسی'
+        'permission_id'=>'الگوی دسترسی',
+        'discountFile'=>'فایل ضمیمه تخفیف'
     ],
 
 ];

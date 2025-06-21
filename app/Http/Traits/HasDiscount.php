@@ -3,6 +3,8 @@
 namespace App\Http\Traits;
 
 use App\Models\Reside;
+use App\Services\ImageService\ImageService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 trait HasDiscount
@@ -40,5 +42,19 @@ trait HasDiscount
             'description' => $inputs['description'],
             'commission' => $inputs['commission']
         ]);
+        if (request()->file('discountFile'))
+        {
+            $imageService=new ImageService();
+            $imageService->setRootFolder('discountFile\\images');
+            $path=$imageService->saveImage(request()->file('discountFile'));
+            $reside->file()->updateOrCreate([
+                'fileable_id'=>$reside->id,
+            ],
+            [
+                'user_id'=>Auth::user()->id,
+                'path'=>$path,
+            ]);
+        }
+
     }
 }

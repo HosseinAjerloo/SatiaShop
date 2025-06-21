@@ -108,4 +108,7 @@ class Reside extends Model
         }
         return $total;
     }
+    public function file(){
+        return $this->morphOne(File::class,'files','fileable_type','fileable_id');
+    }
 }

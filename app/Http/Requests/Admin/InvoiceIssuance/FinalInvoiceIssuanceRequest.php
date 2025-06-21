@@ -26,6 +26,7 @@ class FinalInvoiceIssuanceRequest extends FormRequest
             'discount'=>'nullable|numeric|min:0|max:100',
             'sodurFactor'=>'sometimes|required|in:yes',
             'commission'=>'sometimes|required|in:yes',
+            'discountFile'=>'file|mimes:jpg,jpeg,png|max:'.env('FILE_SIZE')
         ];
     }
     public function attributes()

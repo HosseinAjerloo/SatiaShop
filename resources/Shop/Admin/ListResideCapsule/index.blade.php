@@ -34,6 +34,9 @@
                         <th class=" text-sm font-light px-2 leading-6 text-white ">
                             <span>شماره رسید</span>
                         </th>
+                        <th class=" text-sm font-light px-2 leading-6 text-white ">
+                            <span>فایل ضمیمه</span>
+                        </th>
                         @can('admin.invoice.issuance.index')
                             <th class=" text-sm font-light px-2 leading-6 text-white ">
                                 <span>صدور فاکتور</span>
@@ -92,6 +95,13 @@
                                 <input type="number"
                                        class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1"
                                        data-name="reside_id">
+                            </div>
+                        </td>
+                        <td class="border border-gray-400   text-center ">
+                            <div class="w-full flex items-center ">
+                                <input type="number"
+                                       class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1"
+                                      disabled="disabled">
                             </div>
                         </td>
                         @can('admin.invoice.issuance.index')
@@ -161,6 +171,16 @@
                                    class="sm:font-normal sm:text-sm text-[13px] p-1 w-full underline underline-sky-500 underline-offset-4 decoration-sky-500 text-sky-600">
                                     {{$reside->id}}
                                 </a>
+                            </td>
+                            <td class="border border-gray-400   text-center p-1">
+                                @if($reside->file)
+                                <a href="@if($reside->reside_type=='recharge') {{route('admin.resideCapsule.download',$reside)}} @else {{route('admin.sale.edit',$reside)}} @endif"
+                                   class="flex items-center justify-center">
+                                    <img src="{{asset("capsule/images/fileDownload.svg")}}" alt="" class="max-w-max ">
+                                </a>
+                                @else
+                                    ---
+                                @endif
                             </td>
                             @can('admin.invoice.issuance.index')
                                 <td class="border border-gray-400   text-center ">

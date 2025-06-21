@@ -31,7 +31,7 @@
                     <span class="text-sm sm:tetx-base">{{$reside->id??""}}</span>
                 </div>
             </article>
-            <form action="{{route('admin.invoice.issuance.store',$reside->id)}}" method="post" class="w-full" id="form">
+            <form action="{{route('admin.invoice.issuance.store',$reside->id)}}" enctype="multipart/form-data" method="post" class="w-full" id="form">
                 @csrf
 
                 <table class="border-collapse   border border-gray-400 w-full table-fixed">
@@ -114,6 +114,12 @@
                     <input type="number" min="0" max="100" name="discount"
                            class="w-[50px] p-[3px] text-center outline-none discount">
                     <h1 class="font-bold">درصد</h1>
+                </div>
+                <div class="mt-8 flex items-center  space-x-reverse space-x-4">
+                    <h1 class="font-bold">فایل ضمیمه:</h1>
+                    <input type="file" name="discountFile"
+                           class="p-[3px] text-center outline-none">
+
                 </div>
                 <div class="mt-8 w-full">
                     <h1 class="font-bold mb-3">توضیحات تخفیفی</h1>

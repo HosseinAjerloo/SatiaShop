@@ -21,7 +21,6 @@ InvoiceIssuanceController extends Controller
 
     public function index(Reside $reside)
     {
-
         Gate::authorize('admin.invoice.issuance.index');
         $breadcrumbs = Breadcrumbs::render('admin.invoice.issuance.index', $reside)->getData()['breadcrumbs'];
         return view('Admin.InvoiceIssuance.index', compact('reside', 'breadcrumbs'));
@@ -38,6 +37,7 @@ InvoiceIssuanceController extends Controller
 
     public function store(Reside $reside, FinalInvoiceIssuanceRequest $request)
     {
+
         try {
             $inputs = $request->all();
             $this->compilationResideFactor($reside);

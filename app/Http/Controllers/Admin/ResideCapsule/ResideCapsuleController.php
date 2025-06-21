@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\ResidChargeCapsule\ResidChargeCapsuleSearchRequest;
 use App\Models\Reside;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
 
 class ResideCapsuleController extends Controller
@@ -110,5 +111,19 @@ class ResideCapsuleController extends Controller
             }
         }
         return response()->json(['success' => true, 'data' => $resides]);
+    }
+    public function download(Reside $reside)
+    {
+        if (!empty($reside->file))
+        {
+            $path=str_replace('/',DIRECTORY_SEPARATOR,$reside->file->path);
+            $path=str_replace('\\',DIRECTORY_SEPARATOR,$path);
+                if (File::exists(public_path($path)))
+                {
+                    return response()->download(public_path($path));
+                }
+        }
+        return redirect()->back()->withErrors('error','خطایی رخ داد فایلی برای دانلود پیدا نشدا لطفا چند دقیقه دیگر تلاش فرمایید.');
+
     }
 }
