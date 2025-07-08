@@ -267,9 +267,20 @@ Route::get('test2', function () {
 });
 
 Route::get('test', function () {
-    dd(Product::find(55)->salary);
+        $onCrypt=false;
+        $randomPseudo=openssl_random_pseudo_bytes(6);
+        $number=null;
+        foreach (str_split($randomPseudo) as $char)
+        {
+            $number.=ord($char);
+        }
+        var_dump(substr($number,0,6));
+
 })->name('test');
 
 Route::post('create-product', function () {
     dd(request()->all());
 })->name('hossein.back');
+
+
+

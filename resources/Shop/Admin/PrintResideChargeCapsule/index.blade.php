@@ -59,6 +59,9 @@
                         <span>وضعیت کپسول</span>
                     </th>
                     <th class="border border-gray-400 text-sm font-light px-2 leading-6 text-black font-semibold max-w-max">
+                        <span>کدیکتا هرکپسول</span>
+                    </th>
+                    <th class="border border-gray-400 text-sm font-light px-2 leading-6 text-black font-semibold max-w-max">
                         <span>توضیحات </span>
                     </th>
 
@@ -84,6 +87,11 @@
                         <td class="border border-gray-400 text-center p-1">
                             <p class=" sm:font-normal sm:text-sm text-[10px] p-1 w-full ">
                                 {{$resideItem->getStatusItem()}}
+                            </p>
+                        </td>
+                        <td class="border border-gray-400 text-center p-1">
+                            <p class=" sm:font-normal sm:text-sm text-[10px] p-1 w-full ">
+                                {{$resideItem->unique_code??''}}
                             </p>
                         </td>
                         <td class="border border-gray-400 text-center p-1">

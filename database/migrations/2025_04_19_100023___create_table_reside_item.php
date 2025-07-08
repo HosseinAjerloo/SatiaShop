@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('reside_id')->constrained('resides')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('product_id')->constrained('products')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->text('unique_code')->nullable();
             $table->decimal('price',20,3)->nullable();
             $table->integer('amount')->default(1);
             $table->enum('balloons',['internal','external'])->nullable();

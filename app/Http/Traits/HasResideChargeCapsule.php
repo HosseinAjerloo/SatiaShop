@@ -4,6 +4,7 @@ namespace App\Http\Traits;
 
 use App\Models\Product;
 use App\Models\Reside;
+use App\Models\ResideItem;
 use App\Models\User;
 use App\Services\SmsService\SatiaService;
 use Illuminate\Support\Facades\Auth;
@@ -59,6 +60,7 @@ trait  HasResideChargeCapsule
 
     protected function getResideCapsuleItem(): bool
     {
+//        $this->generateUniqueCode();
         $inputs = request()->all();
         if (count($inputs['product_description']) != count($inputs['product_status'])) {
             return false;
@@ -74,7 +76,8 @@ trait  HasResideChargeCapsule
                 'price' => 0,
                 'type' => $product->type,
                 'status' => $inputs['product_status'][$key],
-                'description' => $value
+                'description' => $value,
+                'unique_code' => $this->generateUniqueCode()
             ];
             array_push($this->resideItems, $resideItem);
         }
@@ -82,6 +85,29 @@ trait  HasResideChargeCapsule
         if (empty($this->resideItems))
             return false;
         return true;
+    }
+
+    protected function generateUniqueCode()
+    {
+        $randomPseudo = openssl_random_pseudo_bytes(6);
+        $number = null;
+        foreach (str_split($randomPseudo) as $char) {
+            $number .= ord($char);
+        }
+        $number = substr($number, 0, 6);
+        if (!$this->isUnique($number)) {
+            $this->generateUniqueCode();
+        }
+        return $number;
+    }
+
+    protected function isUnique($number)
+    {
+        $resideItem = ResideItem::where('unique_code', $number)->count();
+        if ($resideItem == 0) {
+            return true;
+        }
+        return false;
     }
 
 
@@ -176,9 +202,9 @@ trait  HasResideChargeCapsule
     }
 
 
-       protected function updateSealCapsule()
+    protected function updateSealCapsule()
     {
-        $reside=request()->reside;
+        $reside = request()->reside;
         $inputs = request()->all();
         DB::beginTransaction();
         $totalPrice = 0;
@@ -206,7 +232,7 @@ trait  HasResideChargeCapsule
             } else {
                 return redirect()->back()->withErrors(['error' => 'پارامتر وارد شده معتبر نمیباشد']);
             }
-                        $reside->resideItem->each->forceDelete();
+            $reside->resideItem->each->forceDelete();
 
             $reside->resideItem()->createMany($this->resideItems);
             DB::commit();
@@ -252,13 +278,13 @@ trait  HasResideChargeCapsule
         $inputs = request()->all();
         $mobile = isset($inputs['mobile']) ? $inputs['mobile'] : $inputs['mobile_'];
         $user = User::where('mobile', $mobile)->first();
-      
+
         if ($user) {
             $user->update($inputs);
         } else {
-              $inputs['mobile']=$mobile;
-                $inputs['password'] = password_hash($mobile, PASSWORD_DEFAULT);
-            $user=User::create($inputs);
+            $inputs['mobile'] = $mobile;
+            $inputs['password'] = password_hash($mobile, PASSWORD_DEFAULT);
+            $user = User::create($inputs);
         }
 
         $smsService = new SatiaService();

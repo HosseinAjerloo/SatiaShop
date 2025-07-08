@@ -48,6 +48,9 @@
                             <span class="text-min sm:text-sm text-nowrap">عملیات</span>
                         </th>
                         <th class=" text-sm font-light px-2 leading-6 text-white  p-2">
+                            <span class="text-min sm:text-sm text-nowrap">کد یکتا هر کپسول</span>
+                        </th>
+                        <th class=" text-sm font-light px-2 leading-6 text-white  p-2">
                             <span class="text-min sm:text-sm text-nowrap">چاپ بارکد</span>
                         </th>
 
@@ -76,6 +79,14 @@
 
                                 </div>
                             </td>
+                            <td class="border border-gray-400   text-center p-1">
+                                <div class="w-full flex items-center justify-center">
+                                    <p>
+                                        {{$resideItem->unique_code??''}}
+                                    </p>
+
+                                </div>
+                            </td>
                             <td class="border border-gray-300/75 flex items-center justify-center  text-center">
                                 <a href="{{route('admin.print.capsule',$resideItem)}}">
                                     <canvas class="qrcode !w-full sm:!w-[80px] !h-auto "
@@ -95,7 +106,7 @@
                                 <input name="commission" type="checkbox" value="yes" @if($reside->commission>0) checked="checked" @endif>
                             </div>
                         </td>
-                        <td class="border border-gray-400  text-center  p-1" colspan="3">
+                        <td class="border border-gray-400  text-center  p-1" colspan="4">
                             <div class="flex items-center justify-center">
                                 <p class="sm:text-[15px] text-base font-semibold p-1 w-full max-w-max ">
                                     جمع کل:

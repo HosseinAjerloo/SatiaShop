@@ -86,6 +86,9 @@
                         <span>بارکد  </span>
                     </th>
                     <th class="border border-gray-400 text-sm font-light px-2 leading-6 text-black font-semibold max-w-max">
+                        <span>کدیکتا هرکپسول  </span>
+                    </th>
+                    <th class="border border-gray-400 text-sm font-light px-2 leading-6 text-black font-semibold max-w-max">
                         <span>قیمت </span>
                     </th>
 
@@ -119,6 +122,11 @@
                             </div>
                         </td>
                         <td class="border border-gray-400 text-center p-1">
+                            <div class="flex items-center justify-center">
+                                {{$resideItem->unique_code??''}}
+                            </div>
+                        </td>
+                        <td class="border border-gray-400 text-center p-1">
                             <p class=" sm:font-normal sm:text-sm text-[10px] p-1 w-full ">
                                 {{numberFormat($resideItem->getTotalProductPriceItems())}}
                             </p>
@@ -132,7 +140,7 @@
                             <p class="font-semibold"> @if($reside->commission>0) با احتساب مالیات بر ارزش افزوده @else بدون احتساب مالیات بر ارزش افزوده @endif</p>
                         </div>
                     </td>
-                    <td class="border border-gray-400 text-center  p-1" colspan="3">
+                    <td class="border border-gray-400 text-center  p-1" colspan="4">
                         <div class="flex items-center space-x-reverse space-x-3 p-1">
                             <h1 class="font-semibold text-base">مجموع کل :</h1>
                             <p class="cpasule-count font-semibold">{{numberFormat($reside->final_price)??0}} ریال </p>
