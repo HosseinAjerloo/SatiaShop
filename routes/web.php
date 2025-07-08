@@ -7,6 +7,7 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Payment;
 use App\Models\Product;
+use App\Models\ResideItem;
 use App\Models\User;
 use App\Services\ImageService\ImageService;
 use Carbon\Carbon;
@@ -251,6 +252,11 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
        Route::get('edit/{role}',[App\Http\Controllers\Admin\Role\RoleController::class,'edit'])->name('edit');
        Route::put('update/{role}',[App\Http\Controllers\Admin\Role\RoleController::class,'update'])->name('update');
        Route::get('delete/{role}',[App\Http\Controllers\Admin\Role\RoleController::class,'destroy'])->name('destroy');
+    });
+
+
+    Route::prefix('scan-qrCode')->name('admin.scanQrCode.')->group(function (){
+        Route::get('/{resideItem:unique_code}',[App\Http\Controllers\Admin\ScanQrCode\ScanQrCodeController::class,'index'])->name('index');
     });
     Route::get('print-capsule/{resideItem}',[App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'printCapsule'])->name('admin.print.capsule');
 

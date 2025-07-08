@@ -49,14 +49,10 @@ class ResideItem extends Model
 
     public function changeToQrcodeNameProduct()
     {
-        $value = $this->productResidItem->pluck("title")->toArray();
-        if (!empty($value)) {
-            foreach ($value as $key => $item) {
-                $value[$key] = str_replace('-', ' ', $item);
-            }
-            return implode(' / ', $value);
-        } else
-            return '-';
+        if (isset($this->unique_code) and !empty($this->unique_code))
+            return route('admin.scanQrCode.index',$this);
+
+        return '';
 
     }
 

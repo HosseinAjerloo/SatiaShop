@@ -262,7 +262,9 @@ trait  HasResideChargeCapsule
                 'type' => $product->type,
                 'status' => 'sell',
                 'description' => $value,
-                'amount' => $inputs['product_amount'][$key]
+                'amount' => $inputs['product_amount'][$key],
+                'unique_code' => $this->generateUniqueCode()
+
             ];
             array_push($this->resideItems, $resideItem);
         }
