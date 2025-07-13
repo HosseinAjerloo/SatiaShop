@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\ResideItem;
 use App\Models\User;
 use App\Services\ImageService\ImageService;
+use App\Services\SmsService\SatiaService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -269,4 +270,7 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
 Route::fallback(function () {
     abort(404);
 });
+Route::get('test',function (){
 
+
+});
