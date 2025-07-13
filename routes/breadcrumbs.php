@@ -223,6 +223,9 @@ Breadcrumbs::for('admin.invoice.issuance.operation', function (BreadcrumbTrail $
     $trail->parent('admin.invoice.issuance.index', $reside);
     $trail->push('سرویس کپسول', route('admin.invoice.issuance.operation', [$reside, $reside]));
 });
+Breadcrumbs::for('admin.scanQrCode.index', function (BreadcrumbTrail $trail, $resideItemHistory) {
+    $trail->push('تاریخچه شارژ کپسول', route('admin.scanQrCode.index',  $resideItemHistory));
+});
 
 
 

@@ -30,8 +30,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Route::bind('resideItemHistory', function ($value) {
-            return ResideItem::where('unique_code', $value)->get();
-
+            $resideItem= ResideItem::where('unique_code', $value)->get();
+            if (!empty($resideItem->count()))
+                return $resideItem;
+            else
+                abort(404);
         });
         \Illuminate\Support\Facades\View::composer('Panel.Layout.header', function (View $view) {
             $user = Auth::user();
