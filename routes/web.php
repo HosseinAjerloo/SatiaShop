@@ -256,7 +256,7 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
 
 
     Route::prefix('scan-qrCode')->name('admin.scanQrCode.')->group(function (){
-        Route::get('/{resideItem:unique_code}',[App\Http\Controllers\Admin\ScanQrCode\ScanQrCodeController::class,'index'])->name('index');
+        Route::get('/{resideItemHistory}',[App\Http\Controllers\Admin\ScanQrCode\ScanQrCodeController::class,'index'])->name('index');
     });
     Route::get('print-capsule/{resideItem}',[App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'printCapsule'])->name('admin.print.capsule');
 
@@ -267,26 +267,4 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
 Route::fallback(function () {
     abort(404);
 });
-
-Route::get('test2', function () {
-    return redirect()->route('test', ['parametr' => 1]);
-});
-
-Route::get('test', function () {
-        $onCrypt=false;
-        $randomPseudo=openssl_random_pseudo_bytes(6);
-        $number=null;
-        foreach (str_split($randomPseudo) as $char)
-        {
-            $number.=ord($char);
-        }
-        var_dump(substr($number,0,6));
-
-})->name('test');
-
-Route::post('create-product', function () {
-    dd(request()->all());
-})->name('hossein.back');
-
-
 

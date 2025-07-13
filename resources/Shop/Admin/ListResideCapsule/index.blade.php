@@ -10,7 +10,7 @@
                 </a>
                 <h1 class="font-semibold w-44">رسیدهای کپسول</h1>
             </article>
-            <form action="{{route('hossein.back')}}" method="post" class="w-full">
+            <form action="" method="post" class="w-full">
                 @csrf
 
                 <table class="border-collapse  border border-gray-400 w-full table-fixed">

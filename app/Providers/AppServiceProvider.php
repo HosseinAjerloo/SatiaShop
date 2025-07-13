@@ -6,9 +6,11 @@ use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Permission;
 use App\Models\Product;
+use App\Models\ResideItem;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\View;
@@ -27,7 +29,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Route::bind('resideItemHistory', function ($value) {
+            return ResideItem::where('unique_code', $value)->get();
 
+        });
         \Illuminate\Support\Facades\View::composer('Panel.Layout.header', function (View $view) {
             $user = Auth::user();
             $myCart = Cart::where('status', 'addToCart')->when($user, function ($query) use ($user) {
@@ -45,7 +50,7 @@ class AppServiceProvider extends ServiceProvider
 
 
         });
-        if (Schema::hasTable('permissions')){
+        if (Schema::hasTable('permissions')) {
             foreach (Permission::all() as $permission) {
                 Gate::define($permission->name, function (User $user) use ($permission) {
                     if (in_array($permission->id, $user->getAllPermissionUser())) {

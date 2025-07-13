@@ -8,8 +8,7 @@ use Illuminate\Http\Request;
 
 class ScanQrCodeController extends Controller
 {
-    public function index(ResideItem $resideItem){
-
-        return view('Admin.ScanQrCode.index',compact('resideItem'));
+    public function index($resideItemHistory){
+        return view('Admin.ScanQrCode.index',compact('resideItemHistory'));
     }
 }

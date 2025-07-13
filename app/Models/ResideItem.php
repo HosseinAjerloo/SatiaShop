@@ -56,4 +56,18 @@ class ResideItem extends Model
 
     }
 
+    public function getResideItemProduct()
+    {
+            $products=$this->productResidItem()->pluck('title')->toArray();
+            if (!empty($products))
+            {
+                $filter=function ($value){
+                    return str_replace('-',' ',$value);
+                };
+                $products=array_map($filter,$products);
+                return implode(' - ',$products);
+            }
+            return  '----';
+    }
+
 }
