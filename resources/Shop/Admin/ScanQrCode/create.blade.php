@@ -4,18 +4,22 @@
     <section class="space-y-5">
         <article class="p-4 flex flex-wrap space-y-6 bg-F1F1F1 rounded-md">
             <div class="flex flex-wrap justify-between items-center w-full space-y-4 sm:space-y-0">
-                <div class="flex  items-center sm:justify-start space-x-reverse space-x-2 w-full sm:w-1/3">
+                <div class="flex  items-center  space-x-reverse space-x-2 w-full sm:w-1/4">
                     <img src="{{asset('capsule/images/blueUserIcon.svg')}}" alt="" class="w-6">
                     <h2 class="font-bold ">نام مشتری</h2>
-                    <p class="font-thin">{{$resideItemHistory->first()->reside->user->fullName}}</p>
+                    <p class="font-thin">{{$resideItemHistory->first()->reside->user->fullName??''}}</p>
                 </div>
-                <div class="flex  items-center sm:justify-center space-x-reverse space-x-2 w-full sm:w-1/3">
+                <div class="flex  items-center justify-center space-x-reverse space-x-2 w-full sm:w-1/4">
+                    <h2 class="font-bold "> کدملی</h2>
+                    <p class="font-thin">{{$resideItemHistory->first()->reside->user->national_code??''}}</p>
+                </div>
+                <div class="flex  items-center justify-center space-x-reverse space-x-2 w-full sm:w-1/4">
 
                     <h2 class="font-bold ">نوع کپسول</h2>
-                    <p class="font-thin">{{$resideItemHistory->first()->product->removeUnderLine}}</p>
+                    <p class="font-thin">{{$resideItemHistory->first()->product->removeUnderLine??''}}</p>
                 </div>
 
-                <div class="flex  items-center space-x-reverse sm:justify-end space-x-2 w-full sm:w-1/3">
+                <div class="flex  items-center space-x-reverse justify-center space-x-2 w-full sm:w-1/4">
                     <h2 class="font-bold ">تلفن همراه:</h2>
                     <p class="font-thin">{{$resideItemHistory->first()->reside->user->mobile??''}}</p>
                 </div>
@@ -26,14 +30,10 @@
                     <h2 class="font-bold ">آدرس</h2>
                     <p class="font-thin">{{$resideItemHistory->first()->reside->user->address??''}}15</p>
                 </div>
-                <div class="flex justify-between items-center space-x-reverse space-x-2 mt-2">
-                    <a href="{{route('admin.scanQrCode.create',$resideItemHistory->first()->unique_code)}}" class="px-6 py-2 rounded-lg text-white shadow-lg bg-2081F2 text-min_sm">شارژ جدید</a>
-                </div>
-
             </div>
         </article>
-        <article class=" bg-F1F1F1 p-3 rounded-md">
-
+        <form class=" bg-F1F1F1 p-3 rounded-md" action="{{route('admin.scanQrCode.store',$residItem->unique_code)}}" method="POST">
+        @csrf
 
 
             <article class="flex justify-between items-center">
@@ -79,9 +79,7 @@
 
                                 <td class="border border-gray-300 text-center p-1">
                                     <div class="flex space-x-reverse space-x-1">
-                                        @if(!str_contains($key,'_'))
-                                            <img src="{{asset('capsule/images/selected.svg')}}" alt="" class="w-5">
-                                        @endif
+
                                         <p class="font-semibold text-[12px] sm:text-[15px] p-1 w-full border rounded-md border-2 border-black/40">
                                             {{$product->removeUnderline??''}}
                                         </p>
@@ -109,11 +107,7 @@
                                            placeholder="توضیحات"
                                            value="{{isset(old('product_description')[$key])? old('product_description')[$key]:''}}">
                                 </td>
-                                <td class="border p-2 text-center flex items-center justify-center">
-                                    <img src="{{asset('capsule/images/delete.svg')}}" alt=""
-                                         class="cursor-pointer mx-auto delete-row w-3 sm:w-auto"
-                                         onclick="deleteRow(this)">
-                                </td>
+
                             </tr>
 
                         @endforeach
@@ -144,6 +138,7 @@
                             <input type="text" name="product_description[{{$residItem->product->id}}]"
                                    class="w-full border rounded-md border-2 p-1 border-black/40 outline-none px-1.5"
                                    placeholder="توضیحات">
+
                         </td>
 
                     </tr>
@@ -173,7 +168,7 @@
             </section>
 
 
-        </article>
+        </form>
 
     </section>
 

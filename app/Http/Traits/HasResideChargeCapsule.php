@@ -17,12 +17,13 @@ trait  HasResideChargeCapsule
 
     protected function registerResideCapsule()
     {
+
         $inputs = request()->all();
         DB::beginTransaction();
 
         try {
             $operator = Auth::user();
-            $user = $this->whoIsUser();
+            $user = $this->findUserWidthScanQrCode()?:$this->whoIsUser();
             if ($this->getResideCapsuleItem()) {
                 $totalPrice = array_sum(array_column($this->resideItems, 'price'));
                 $reside = Reside::create(
@@ -77,7 +78,7 @@ trait  HasResideChargeCapsule
                 'type' => $product->type,
                 'status' => $inputs['product_status'][$key],
                 'description' => $value,
-                'unique_code' => $this->generateUniqueCode()
+                'unique_code' => isset($inputs['unique_code'])? $inputs['unique_code']: $this->generateUniqueCode()
             ];
             array_push($this->resideItems, $resideItem);
         }
@@ -293,6 +294,15 @@ trait  HasResideChargeCapsule
         $smsService->send('کاربرگرامی شماره موبایل شما همان کلمه عبور شما در نظر گرفته شده است . لطفا در اسرع وقت آن را ویرایش کنید', $user->mobile);
 
         return $user;
+    }
+
+    protected function findUserWidthScanQrCode()
+    {
+        $inputs=request()->all();
+        if (!empty($inputs['user']))
+            return $inputs['user'];
+        else
+            return false;
     }
 
 }
