@@ -257,6 +257,7 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
 
     Route::prefix('scan-qrCode')->name('admin.scanQrCode.')->group(function (){
         Route::get('/{resideItemHistory}',[App\Http\Controllers\Admin\ScanQrCode\ScanQrCodeController::class,'index'])->name('index');
+        Route::get('/{resideItemHistory}/create',[App\Http\Controllers\Admin\ScanQrCode\ScanQrCodeController::class,'create'])->name('create');
     });
     Route::get('print-capsule/{resideItem}',[App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'printCapsule'])->name('admin.print.capsule');
 

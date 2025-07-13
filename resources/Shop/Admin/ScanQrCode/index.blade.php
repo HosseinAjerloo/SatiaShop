@@ -10,27 +10,27 @@
                 <div class="flex  items-center sm:justify-start space-x-reverse space-x-2 w-full sm:w-1/3">
                     <img src="{{asset('capsule/images/blueUserIcon.svg')}}" alt="" class="w-6">
                     <h2 class="font-bold ">نام مشتری</h2>
-                    <p class="font-thin">حسین آجرلو</p>
+                    <p class="font-thin">{{$resideItemHistory->first()->reside->user->fullName}}</p>
                 </div>
                 <div class="flex  items-center sm:justify-center space-x-reverse space-x-2 w-full sm:w-1/3">
 
                     <h2 class="font-bold ">نوع کپسول</h2>
-                    <p class="font-thin">پودروگاز</p>
+                    <p class="font-thin">{{$resideItemHistory->first()->product->removeUnderLine}}</p>
                 </div>
 
                 <div class="flex  items-center space-x-reverse sm:justify-end space-x-2 w-full sm:w-1/3">
                     <h2 class="font-bold ">تلفن همراه:</h2>
-                    <p class="font-thin">09186414452</p>
+                    <p class="font-thin">{{$resideItemHistory->first()->reside->user->mobile??''}}</p>
                 </div>
             </div>
 
             <div class="flex flex-wrap justify-between items-center w-full">
                 <div class="flex justify-between items-center space-x-reverse space-x-2">
                     <h2 class="font-bold ">آدرس</h2>
-                    <p class="font-thin">اراک رودکی کوچه شهید طاهری پلاک 15</p>
+                    <p class="font-thin">{{$resideItemHistory->first()->reside->user->address??''}}15</p>
                 </div>
                 <div class="flex justify-between items-center space-x-reverse space-x-2 mt-2">
-                    <a href="" class="px-6 py-2 rounded-lg text-white shadow-lg bg-2081F2 text-min_sm">شارژ جدید</a>
+                    <a href="{{route('admin.scanQrCode.create',$resideItemHistory->first()->unique_code)}}" class="px-6 py-2 rounded-lg text-white shadow-lg bg-2081F2 text-min_sm">شارژ جدید</a>
                 </div>
 
             </div>

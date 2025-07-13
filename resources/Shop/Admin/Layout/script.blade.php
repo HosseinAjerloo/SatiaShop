@@ -108,11 +108,15 @@
 </script>
 
 <script>
-    window.input_search.addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
-            event.preventDefault();
-            let searchIcon=document.querySelector('.search');
-            searchIcon.click();
-        }
-    });
+    if ('input_search' in window)
+    {
+        window.input_search.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                let searchIcon=document.querySelector('.search');
+                searchIcon.click();
+            }
+        });
+    }
+
 </script>
