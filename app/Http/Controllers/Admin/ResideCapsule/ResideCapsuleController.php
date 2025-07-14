@@ -17,7 +17,6 @@ class ResideCapsuleController extends Controller
      */
     public function index()
     {
-
         Gate::authorize('admin.resideCapsule.index');
         $breadcrumbs = Breadcrumbs::render('admin.resideCapsule.index')->getData()['breadcrumbs'];
         $resides = Reside::orderBy('created_at', 'desc')->get();
@@ -82,6 +81,12 @@ class ResideCapsuleController extends Controller
             $reside->capsuleCount = $reside->reside_type=='sell'?$reside->resideItem->sum('amount'):$reside->resideItem->count();
             $reside->operatorName = $reside->operator->fullName ?? '';
             $reside->update='#';
+            if ($reside->file){
+                $reside->download=route('admin.resideCapsule.download',$reside);
+            }
+            else{
+                $reside->download=false;
+            }
             $reside->type_change = $reside->reside_type == 'recharge' ? 'شارژ و تمدید کپسول' : 'فروش';
             if ($reside->reside_type == 'sell') {
                 if ($reside->status == 'paid') {

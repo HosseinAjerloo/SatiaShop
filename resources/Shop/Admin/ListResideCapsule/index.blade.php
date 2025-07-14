@@ -174,7 +174,7 @@
                             </td>
                             <td class="border border-gray-400   text-center p-1">
                                 @if($reside->file)
-                                <a href="@if($reside->reside_type=='recharge') {{route('admin.resideCapsule.download',$reside)}} @else {{route('admin.sale.edit',$reside)}} @endif"
+                                <a href="{{route('admin.resideCapsule.download',$reside)}} "
                                    class="flex items-center justify-center">
                                     <img src="{{asset("capsule/images/fileDownload.svg")}}" alt="" class="max-w-max ">
                                 </a>
@@ -357,9 +357,16 @@
                                <a href="${value.update}">${value.id}</a>
                             </p>
                         </td>
-                        <td class="border border-gray-400   text-center ">
-                            <div class="w-full flex items-center justify-center p-1">
-                                    <a href="${value.route}">
+                         <td class="border border-gray-400   text-center p-1">
+                                    <a href="${(value.download)? value.download : '#'}"
+                                   class="flex items-center justify-center">
+                                   ${(value.download)? '<img src="{{asset("capsule/images/fileDownload.svg")}}" alt="" class="max-w-max ">' : '--'}
+
+                                </a>
+                         </td>
+            <td class="border border-gray-400   text-center ">
+                <div class="w-full flex items-center justify-center p-1">
+                        <a href="${value.route}">
                                         <img src="${value.img}" alt="" class="w-8 h-8">
                                     </a>
                                 </div>
