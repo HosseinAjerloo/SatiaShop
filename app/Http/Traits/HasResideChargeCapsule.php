@@ -47,7 +47,7 @@ trait  HasResideChargeCapsule
 
             DB::commit();
             $sms=new SatiaService();
-            $sms->send("مشتری گرامی در تاریخ ".\Morilog\Jalali\Jalalian::now()->format('Y/m/d')." ساعت ".date('H:i:s')." تعداد ".$reside->resideItem->count()." عدد کپسول جهت شارژ از شما دریافت شد. شماره رسید : ".$reside->id." با تشکر سازمان آتش نشانی شهرداری اردبیل",'09186414452');
+            $sms->send("مشتری گرامی در تاریخ ".\Morilog\Jalali\Jalalian::now()->format('Y/m/d')." ساعت ".date('H:i:s')." تعداد ".$reside->resideItem->count()." عدد کپسول جهت شارژ از شما دریافت شد. شماره رسید : ".$reside->id." با تشکر سازمان آتش نشانی شهرداری اردبیل",$reside->user->mobile);
             if (isset($inputs['print'])) {
                 $this->redirectUri = redirect()->route('admin.chargingTheCapsule.printReside', $reside)->with(['success' => 'رسید شما صادر شد و عملیات با موفقیت انجام شد.']);;
             } else {
@@ -307,5 +307,6 @@ trait  HasResideChargeCapsule
         else
             return false;
     }
+
 
 }

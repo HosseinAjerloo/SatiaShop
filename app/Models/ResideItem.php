@@ -15,7 +15,8 @@ class ResideItem extends Model
         'status',
         'description',
         'balloons',
-        'unique_code'
+        'unique_code',
+        'flag_sms'
     ];
 
     public function product()
