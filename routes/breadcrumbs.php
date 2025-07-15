@@ -239,6 +239,18 @@ Breadcrumbs::for('admin.scanQrCode.index', function (BreadcrumbTrail $trail, $re
     $trail->parent('panel.admin');
     $trail->push('تاریخچه شارژ کپسول', route('admin.scanQrCode.index',  $resideItemHistory));
 });
+Breadcrumbs::for('admin.role.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('panel.admin');
+    $trail->push('نقش ها', route('admin.role.index'));
+});
+Breadcrumbs::for('admin.role.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.role.index');
+    $trail->push('ایجاد نقش جدید', route('admin.role.create'));
+});
+Breadcrumbs::for('admin.role.edit', function (BreadcrumbTrail $trail, $role) {
+    $trail->parent('admin.role.index');
+    $trail->push('ویرایش نقش ', route('admin.role.edit',  $role));
+});
 
 
 

@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Reside;
 use App\Models\ResideItem;
+use App\Services\SmsService\SatiaService;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -41,6 +42,8 @@ InvoiceIssuanceController extends Controller
         try {
             $inputs = $request->all();
             $this->compilationResideFactor($reside);
+            $sms=new SatiaService();
+            $sms->send('کاربر گرامی کپسول شما آماده تحویل میباشد لطفا در اسرع وقت به سازمان آتش نشانی اردبیل مراجعه فرمایید.',$reside->user->mobile);
             if (isset($inputs['sodurFactor']) && $inputs['sodurFactor'] == 'yes') {
                 return redirect()->route('admin.invoice.issuance.printFactor', $reside)->with(['success' => 'عملیات با موفقیت انجام شد']);
             } else {

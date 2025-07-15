@@ -243,7 +243,8 @@ return [
         'product_id'=>'انتخاب نوع کالا',
         'permission_id'=>'الگوی دسترسی',
         'discountFile'=>'فایل ضمیمه تخفیف',
-        'roles'=>'نقش ها'
+        'roles'=>'نقش ها',
+
     ],
 
 ];

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Role\RoleRequest;
 use App\Models\Permission;
 use App\Models\Role;
+use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -14,15 +15,19 @@ class RoleController extends Controller
     public function index()
     {
         Gate::authorize('admin.role.index');
+        $breadcrumbs = Breadcrumbs::render('admin.role.index')->getData()['breadcrumbs'];
+
         $roles = Role::all();
-        return view('Admin.Role.index', compact('roles'));
+        return view('Admin.Role.index', compact('roles','breadcrumbs'));
     }
 
     public function create()
     {
+        $breadcrumbs = Breadcrumbs::render('admin.role.create')->getData()['breadcrumbs'];
+
         Gate::authorize('admin.role.create');
         $permissions = Permission::all();
-        return view('Admin.Role.create', compact('permissions'));
+        return view('Admin.Role.create', compact('permissions','breadcrumbs'));
     }
 
     public function store(RoleRequest $request)
@@ -40,9 +45,11 @@ class RoleController extends Controller
 
     public function edit(Role $role)
     {
+        $breadcrumbs = Breadcrumbs::render('admin.role.edit',$role)->getData()['breadcrumbs'];
+
         Gate::authorize('admin.role.edit');
         $permissions = Permission::all();
-        return view('Admin.Role.edit', compact('permissions', 'role'));
+        return view('Admin.Role.edit', compact('permissions', 'role','breadcrumbs'));
     }
 
     public function update(RoleRequest $request, Role $role)

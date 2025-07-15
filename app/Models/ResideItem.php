@@ -51,7 +51,7 @@ class ResideItem extends Model
     public function changeToQrcodeNameProduct()
     {
         if (isset($this->unique_code) and !empty($this->unique_code))
-            return route('admin.scanQrCode.index',$this);
+            return route('admin.scanQrCode.index',$this->unique_code);
 
         return '';
 

@@ -29,7 +29,8 @@ class UserRequest extends FormRequest
             'mobile' => ['min:11', 'max:11', new MobileFormat, 'unique:users,mobile,' ],
             'national_code' => ['required', new NationalCode, 'unique:users,national_code,'],
             'address' => 'nullable',
-            'roles' => 'required|array|exists:roles,id'
+            'roles' => 'required|array|exists:roles,id',
+            'customer_type'=>'nullable|in:admin'
         ];
     }
 
@@ -39,5 +40,9 @@ class UserRequest extends FormRequest
         $this->merge([
             'roles' => explode(',', $permission)
         ]);
+    }
+    public function attributes()
+    {
+        return ['type'=>'نوع کاربر'];
     }
 }

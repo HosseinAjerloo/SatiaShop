@@ -80,9 +80,6 @@
                     </th>
 
                     <th class="border border-gray-400 text-sm font-light px-2 leading-6 text-black font-semibold max-w-max">
-                        <span>کالای های تعویض/استفاده شده</span>
-                    </th>
-                    <th class="border border-gray-400 text-sm font-light px-2 leading-6 text-black font-semibold max-w-max">
                         <span>بارکد  </span>
                     </th>
                     <th class="border border-gray-400 text-sm font-light px-2 leading-6 text-black font-semibold max-w-max">
@@ -110,11 +107,6 @@
                             </p>
                         </td>
 
-                        <td class="border border-gray-400 text-center p-1">
-                            <p class=" sm:font-normal sm:text-sm text-[10px] p-1 w-full ">
-                                {{$resideItem->changeToQrcodeNameProduct()}}
-                            </p>
-                        </td>
                         <td class="border border-gray-400 text-center p-1">
                             <div class="flex items-center justify-center">
                                 <canvas class="qrcode !w-full sm:!w-[130px] !h-auto "
