@@ -2,8 +2,8 @@
 
 @section('content')
 
-    <x-Search-date routeSearch="{{route('admin.user.index')}}" routeList="null"
-                   name="لیست کاربران"  placeholder='شماره موبایل کاربر را وارد نمائید ...' imagePath='{{asset("capsule/images/user.png")}}'/>
+    <x-Search-date routeSearch="{{route('admin.user.index')}}" routeList="{{route('admin.user.create')}}"
+                   name="لیست کاربران"  placeholder='شماره موبایل کاربر را وارد نمائید ...' imagePath='{{asset("capsule/images/plus.svg")}}'/>
 
     <section class="px-2 mt-5">
         <article

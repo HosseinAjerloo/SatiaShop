@@ -109,6 +109,14 @@ Breadcrumbs::for('admin.user.index', function (BreadcrumbTrail $trail) {
     $trail->parent('panel.admin');
     $trail->push('کاربران', route('admin.user.index'));
 });
+Breadcrumbs::for('admin.user.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.user.index');
+    $trail->push('ایجاد کاربر جدید', route('admin.user.create'));
+});
+Breadcrumbs::for('admin.user.edit', function (BreadcrumbTrail $trail,$user) {
+    $trail->parent('admin.user.index');
+    $trail->push('ویرایش کاربر', route('admin.user.edit',$user));
+});
 Breadcrumbs::for('admin.product.transaction.index', function (BreadcrumbTrail $trail) {
     $trail->parent('panel.admin');
     $trail->push('گردش کالا', route('admin.product.transaction.index'));

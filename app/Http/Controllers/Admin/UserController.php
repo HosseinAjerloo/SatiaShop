@@ -38,8 +38,10 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
+        $breadcrumbs = Breadcrumbs::render('admin.user.edit',$user)->getData()['breadcrumbs'];
+
         $roles = Role::all();
-        return view('Admin.User.edit', compact('user'), compact('roles'));
+        return view('Admin.User.edit', compact('user'), compact('roles','breadcrumbs'));
     }
 
     public function update(User $user, UpdateUserProfile $request)
@@ -57,11 +59,14 @@ class UserController extends Controller
 
     public function create()
     {
+        $breadcrumbs = Breadcrumbs::render('admin.user.create')->getData()['breadcrumbs'];
+
         $roles = Role::all();
-        return view('Admin.user.create',compact('roles'));
+        return view('Admin.User.create',compact('roles','breadcrumbs'));
     }
     public function store( UserRequest $request)
     {
+
         try {
             $inputs = $request->all();
             $inputs['password']=password_hash($inputs['national_code'],PASSWORD_DEFAULT);
