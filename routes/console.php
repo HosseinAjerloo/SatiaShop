@@ -5,3 +5,8 @@ use Illuminate\Support\Facades\Artisan;
 use \Illuminate\Support\Facades\Schedule;
 Schedule::job(new \App\Jobs\SendNotificationWidthSms())->everyFiveMinutes();
 Schedule::command('queue:work --stop-when-empty --queue sendNotificationWidthSms')->everyMinute()->runInBackground();
+///
+Schedule::job(new \App\Jobs\ClearReservedProducts())->everyFiveMinutes();
+Schedule::command('queue:work --stop-when-empty --queue ClearReservedProducts')->everyMinute()->runInBackground();
+
+
