@@ -154,9 +154,14 @@
                                value="{{old("title")}}">
                     </div>
                     <div class="flex items-center space-x-reverse space-x-8">
-                        <h5 class="text-min font-light w-28"> قیمت(ریال) :</h5>
+                        <h5 class="text-min font-light w-28">قیمت فروش(ریال) :</h5>
                         <input type="text" name="product-price" class="outline-none border border-black rounded-md w-48"
                                value="{{old('product-price')}}">
+                    </div>
+                    <div class="flex items-center space-x-reverse space-x-8">
+                        <h5 class="text-min font-light w-28">قیمت اجرت(ریال) :</h5>
+                        <input type="text" name="salary" class="outline-none border border-black rounded-md w-48"
+                               value="{{old('salary')}}">
                     </div>
 
                     <div class="flex items-center space-x-reverse space-x-8">
@@ -211,6 +216,22 @@
                                 <label>غیرفعال</label>
                                 <input type="radio" name="status"  value="inactive"
                                        @if(old('status')=='inactive') checked="checked" @endif >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-reverse space-x-8 ">
+                        <h5 class="text-min font-light w-28">نوع محصول:</h5>
+                        <div class="flex items-center space-x-3 space-x-reverse">
+                            <div>
+                                <label>کالا</label>
+                                <input type="radio" name="type" value="goods"
+                                       @if(old('type')=='goods') checked="checked" @endif >
+
+                            </div>
+                            <div>
+                                <label>سرویس</label>
+                                <input type="radio" name="type"  value="service"
+                                       @if(old('type')=='service') checked="checked" @endif >
                             </div>
                         </div>
                     </div>

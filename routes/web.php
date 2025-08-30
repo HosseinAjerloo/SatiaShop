@@ -271,4 +271,4 @@ Route::fallback(function () {
     abort(404);
 });
 
-Route::view('test','index');
+

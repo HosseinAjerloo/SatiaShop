@@ -112,10 +112,6 @@ class ProductController extends Controller
         $inputs = $request->all();
         $user = Auth::user();
 
-        // حذف فیلد is_favorite از inputs برای جلوگیری از خطا در update
-        $is_favorite = $inputs['is_favorite'] ? $inputs['is_favorite'] : 0;
-        unset($inputs['is_favorite']);
-
         if ($request->hasFile('file')) {
 
             $imageService->setRootFolder('ProductStore' . DIRECTORY_SEPARATOR . "image");
@@ -143,8 +139,10 @@ class ProductController extends Controller
         }
 
         $result = $product->update($inputs);
-
-        $product->userFavorite()->toggle($user->id);
+        if ($inputs['is_favorite'])
+        {
+            $product->userFavorite()->toggle($user->id);
+        }
 
         if ($result) {
             return redirect()->route('admin.product.index')->with(['success' => 'محصول ویرایش شد']);
