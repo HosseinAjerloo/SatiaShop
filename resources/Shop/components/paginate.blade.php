@@ -1,52 +1,42 @@
-<section class="min-w-full flex justify-center items-center space-x-reverse space-x-2 px-2 flex-wrap">
+<section class="min-w-full flex justify-end items-center space-x-reverse space-x-4 px-2 flex-wrap">
+    <div>
+        <p>مجموع <span class="font-bold text-sm">{{$items->total()??0}}</span> مورد</p>
+    </div>
+    <div>
+        <ul class="flex items-center justify-center space-x-reverse space-x-4 font-bold text-sm">
+            <li>
 
-    @if($items->currentPage()>1)
-
-        @for($j=$items->currentPage()-5;$j<$items->currentPage();$j++)
-            @if($j!=$items->currentPage() and $j>0)
-                <a href="{{$items->url($j)}}"
-                   class="w-8 h-8 rounded-sm  flex items-center justify-center font-bold shadow shadow-2081F2 mt-5 @if($items->currentPage()==$j) @endif">
-                    {{$j}}
+                <a href="@if($items->currentPage()>1) {{$items->url($items->currentPage()-1)}} @endif">
+                    <i class="fa-solid fa-angle-right"></i>
                 </a>
+            </li>
+            @if($items->hasPages() and ($items->lastPage() - $items->currentPage()) > 3 )
+                @for($i=$items->currentPage();$i< $items->currentPage()+3;$i++)
+                    <a href="{{$items->url($i)}}">
+                        <li class="@if($i==$items->currentPage()) activePage @endif">{{$i}}</li>
+                    </a>
+                @endfor
+                <li>...</li>
+                <a href="{{$items->url($items->lastPage())}}">
+                    <li>{{$items->lastPage()}}</li>
+                </a>
+
+            @else
+                                @for($i=1;$i<$items->lastPage()+1;$i++)
+
+                                    <a href="{{$items->url($i)}}">
+                                        <li class="@if($i==$items->currentPage()) activePage @endif">{{$i}}</li>
+                                    </a>
+                                @endfor
+
             @endif
 
-        @endfor
-        <div
-            class="w-8 h-8 rounded-sm  flex items-center justify-center font-bold shadow shadow-2081F2 mt-5">
-            ...
-        </div>
-    @endif
-    @if($items->hasPages())
-        @for($i=$items->currentPage();$i<$items->currentPage()+3;$i++)
-
-            @if($items->lastPage()>=$i)
-                <a href="{{$items->url($i)}}"
-                   class="w-8 h-8 rounded-sm  flex items-center justify-center font-bold shadow shadow-2081F2 mt-5 @if($items->currentPage()==$i)selectPage @endif">
-                    {{$i}}
+            <li>
+                <a href="@if($items->currentPage()<$items->lastPage()) {{$items->url($items->currentPage()+1)}} @endif">
+                    <i class="fa-solid fa-angle-left"></i>
                 </a>
-            @endif
-
-        @endfor
-    @endif
-    @if($items->hasMorePages() )
-        <div
-            class="w-8 h-8 rounded-sm  flex items-center justify-center font-bold shadow shadow-2081F2 mt-5">
-            ...
-        </div>
-    @endif
-
-    @if($items->hasMorePages() and $items->currentPage()>=3)
-        @for($i=$items->currentPage()+4;$i<$items->currentPage()+6;$i++)
-            @if($items->lastPage()>=$i)
-                <a href="{{$items->url($i)}}"
-                   class="w-8 h-8 rounded-sm  flex items-center justify-center font-bold shadow shadow-2081F2 mt-5 @if($items->currentPage()==$i)selectPage @endif">
-                    {{$i}}
-                </a>
-            @endif
-        @endfor
-    @endif
-
-
-
+            </li>
+        </ul>
+    </div>
 
 </section>

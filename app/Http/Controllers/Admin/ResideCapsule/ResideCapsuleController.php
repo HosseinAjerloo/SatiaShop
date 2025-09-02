@@ -19,7 +19,7 @@ class ResideCapsuleController extends Controller
     {
         Gate::authorize('admin.resideCapsule.index');
         $breadcrumbs = Breadcrumbs::render('admin.resideCapsule.index')->getData()['breadcrumbs'];
-        $resides = Reside::orderBy('created_at', 'desc')->get();
+        $resides = Reside::orderBy('created_at', 'desc')->paginate(10);
         return view('Admin.ListResideCapsule.index', compact('resides', 'breadcrumbs'));
     }
 
@@ -74,7 +74,6 @@ class ResideCapsuleController extends Controller
     public function search(ResidChargeCapsuleSearchRequest $request)
     {
         $resides = Reside::search()->orderBy('created_at', 'desc')->get();
-//        dd($resides);
         foreach ($resides as $key => $reside) {
             $reside->jalalidate = \Morilog\Jalali\Jalalian::forge($reside->created_at)->format('Y/m/d');
             $reside->custumerName =($reside->user->customer_type=='natural_person' or empty($reside->user->customer_type))?$reside->user->fullName??'' : $reside->user->organizationORcompanyName??'';

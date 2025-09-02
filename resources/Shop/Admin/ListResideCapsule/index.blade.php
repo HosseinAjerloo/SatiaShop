@@ -34,14 +34,8 @@
                         <th class=" text-sm font-light px-2 leading-6 text-white ">
                             <span>شماره رسید</span>
                         </th>
-                        <th class=" text-sm font-light px-2 leading-6 text-white ">
-                            <span>فایل ضمیمه</span>
-                        </th>
-                        @can('admin.invoice.issuance.index')
-                            <th class=" text-sm font-light px-2 leading-6 text-white ">
-                                <span>صدور فاکتور</span>
-                            </th>
-                        @endcan
+
+
                         <th class=" text-sm font-light px-2 leading-6 text-white ">
                             <span>نام پذیرنده</span>
                         </th>
@@ -87,7 +81,7 @@
                             <div class="w-full flex items-center ">
                                 <input type="number"
                                        class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1"
-                                       data-name="count_capsule" >
+                                       data-name="count_capsule">
                             </div>
                         </td>
                         <td class="border border-gray-400   text-center ">
@@ -97,23 +91,7 @@
                                        data-name="reside_id">
                             </div>
                         </td>
-                        <td class="border border-gray-400   text-center ">
-                            <div class="w-full flex items-center ">
-                                <input type="number"
-                                       class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1"
-                                      disabled="disabled">
-                            </div>
-                        </td>
-                        @can('admin.invoice.issuance.index')
 
-                            <td class="border border-gray-400   text-center p-1">
-                                <div class="w-full flex items-center ">
-                                    <input type="text"
-                                           class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1"
-                                           disabled>
-                                </div>
-                            </td>
-                        @endcan
                         <td class="border border-gray-400   text-center p-1">
                             <div class="w-full flex items-center ">
                                 <input type="text"
@@ -130,11 +108,11 @@
                         </td>
 
                     </tr>
-                    @foreach($resides as $key=> $reside)
-                        <tr class="@if($key%2==0) bg-white @else bg-gray-200/70 @endif">
+                    @foreach($resides as  $reside)
+                        <tr class="@if( $resides->firstItem() + $loop->index%2==0) bg-white @else bg-gray-200/70 @endif">
                             <td class="border border-gray-400  text-center  p-1">
                                 <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full ">
-                                    {{$key+1}}
+                                    {{ $resides->firstItem() + $loop->index}}
                                 </p>
                             </td>
                             <td class="border border-gray-400  text-center  p-1">
@@ -160,7 +138,7 @@
                             <td class="border border-gray-400   text-center p-1">
                                 <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full  ">
                                     @if($reside->reside_type=='sell')
-                                    {{$reside->resideItem->sum('amount')}}
+                                        {{$reside->resideItem->sum('amount')}}
                                     @else
                                         {{$reside->resideItem->count()}}
                                     @endif
@@ -172,39 +150,8 @@
                                     {{$reside->id}}
                                 </a>
                             </td>
-                            <td class="border border-gray-400   text-center p-1">
-                                @if($reside->file)
-                                <a href="{{route('admin.resideCapsule.download',$reside)}} "
-                                   class="flex items-center justify-center">
-                                    <img src="{{asset("capsule/images/fileDownload.svg")}}" alt="" class="max-w-max ">
-                                </a>
-                                @else
-                                    ---
-                                @endif
-                            </td>
-                            @can('admin.invoice.issuance.index')
-                                <td class="border border-gray-400   text-center ">
-                                    <div class="w-full flex items-center justify-center p-1">
-                                        @if($reside->reside_type=='sell')
 
-                                            <a href="@if($reside->status=='paid') #  @else {{route('admin.sale.show',$reside->id)}} @endif">
-                                                <img
-                                                    src="@if($reside->status=='paid'){{asset('capsule/images/finalFactor.svg')}} @else {{asset("capsule/images/hand-Invoice.png")}} @endif "
-                                                    alt=""
-                                                    class="w-8 h-8">
-                                            </a>
 
-                                        @else
-                                            <a href="@if($reside->status=='paid') #  @else {{route('admin.invoice.issuance.index',$reside->id)}} @endif">
-                                                <img
-                                                    src="@if($reside->status=='paid'){{asset('capsule/images/finalFactor.svg')}} @else {{asset("capsule/images/hand-Invoice.png")}} @endif"
-                                                    alt=""
-                                                    class="w-8 h-8">
-                                            </a>
-                                        @endif
-                                    </div>
-                                </td>
-                            @endcan
                             <td class="border border-gray-400   text-center ">
                                 <div class="w-full flex items-center justify-center p-1">
                                     {{$reside->operator->fullName??''}}
@@ -235,7 +182,7 @@
 
 
         </article>
-
+        <x-paginate :items="$resides"/>
     </section>
 
 @endsection
@@ -271,7 +218,7 @@
                 }
                 if (event.target !== undefined && (event.target.value.length >= 3 || (event.target.dataset.name in valid && valid[event.target.dataset.name]))) {
                     requestToServer();
-                }else {
+                } else {
                     requestToServer();
                 }
             })
@@ -357,20 +304,7 @@
                                <a href="${value.update}">${value.id}</a>
                             </p>
                         </td>
-                         <td class="border border-gray-400   text-center p-1">
-                                    <a href="${(value.download)? value.download : '#'}"
-                                   class="flex items-center justify-center">
-                                   ${(value.download)? '<img src="{{asset("capsule/images/fileDownload.svg")}}" alt="" class="max-w-max ">' : '--'}
 
-                                </a>
-                         </td>
-            <td class="border border-gray-400   text-center ">
-                <div class="w-full flex items-center justify-center p-1">
-                        <a href="${value.route}">
-                                        <img src="${value.img}" alt="" class="w-8 h-8">
-                                    </a>
-                                </div>
-                            </td>
                             <td class="border border-gray-400   text-center ">
                                 <div class="w-full flex items-center justify-center p-1">
                                     ${value.operatorName}
@@ -381,7 +315,7 @@
                                <a href="${value.routePrint}"
                                        class="w-full flex items-center justify-center p-1">
                                         <img src="{{asset('capsule/images/printerIcon.svg')}}" alt="">
-                                    </a>
+                                   </a>
                         </td>
 
                     </tr>`;

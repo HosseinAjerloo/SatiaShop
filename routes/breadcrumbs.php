@@ -215,6 +215,10 @@ Breadcrumbs::for('admin.resideCapsule.index', function (BreadcrumbTrail $trail) 
     $trail->parent('panel.admin');
     $trail->push('لیست رسید های کپسول', route('admin.resideCapsule.index'));
 });
+Breadcrumbs::for('admin.charging-operation.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('panel.admin');
+    $trail->push('عملیات شارژ', route('admin.charging-operation.index'));
+});
 Breadcrumbs::for('admin.chargingTheCapsule.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.resideCapsule.index');
     $trail->push('پذیرش کپسول', route('admin.chargingTheCapsule.index'));

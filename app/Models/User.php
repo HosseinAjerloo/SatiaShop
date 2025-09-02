@@ -131,6 +131,8 @@ class User extends Authenticatable
                     return $this->name;
                 } elseif (isset($this->family)) {
                     return $this->family;
+                }elseif (isset($this->organizationORcompanyName)){
+                    return  $this->organizationORcompanyName;
                 } else {
                     return $this->mobile;
                 }

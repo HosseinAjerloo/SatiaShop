@@ -202,3 +202,6 @@ body{
     clip-path: circle(10% at center);
     transition: .5s;
 }
+.activePage{
+    @apply flex items-center justify-center px-2 py-1 border border-black/75 bg-F1F1F1 rounded-lg
+}

@@ -255,6 +255,10 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
        Route::get('delete/{role}',[App\Http\Controllers\Admin\Role\RoleController::class,'destroy'])->name('destroy');
     });
 
+    Route::prefix('charging-operation')->name('admin.charging-operation.')->group(function (){
+            Route::get('',[App\Http\Controllers\Admin\ChargingOperation\ChargingOperationController::class,'index'])->name('index');
+    });
+
 
     Route::prefix('scan-qrCode')->name('admin.scanQrCode.')->group(function (){
         Route::get('/{resideItemHistory}',[App\Http\Controllers\Admin\ScanQrCode\ScanQrCodeController::class,'index'])->name('index');

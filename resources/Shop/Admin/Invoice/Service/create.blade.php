@@ -463,8 +463,10 @@
                 processData: false,
                 success: function (response) {
                     if (response.status && response.data && response.product) {
-                        products = response.data;
-                        console.log(response, products)
+                        products=response.data.filter((item)=>{
+                            if (item.type!="goods")
+                                return item
+                        })
                         let allSelectElement = document.getElementsByClassName('product-select');
                         for (const select of allSelectElement) {
                             var data = {
