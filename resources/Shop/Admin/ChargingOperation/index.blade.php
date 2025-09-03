@@ -75,7 +75,7 @@
 
                     </tr>
                     @foreach($resideItems as  $resideItem)
-                        <tr class="basic-data @if( $resideItems->firstItem() + $loop->index%2==0) bg-white @else bg-gray-200/70 @endif">
+                        <tr class="basic-data @if( ($resideItems->firstItem() + $loop->index)%2==0) bg-white @else bg-gray-200/70 @endif">
                             <td class="border border-gray-400  text-center  p-1 ">
                                 <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full ">
                                     {{ $resideItems->firstItem() + $loop->index}}
@@ -119,8 +119,9 @@
         let inputs = document.querySelectorAll('td div input:not([disabled])');
         let page = document.querySelector('.page');
         let nexPageUrl = '';
+        let oldNexPageUrl = '';
         let hasMorePages = false;
-        let test=false;
+        let isRemove=false;
         let urlRequest = "{{route('admin.charging-operation.searchAjax')}}";
         inputs.forEach((input) => {
             input.addEventListener('input', changeValue)
@@ -130,7 +131,7 @@
 
         function changeValue(e) {
 
-            test=true;
+            isRemove=true;
             formData.append(e.target.dataset.name, e.target.value)
             request(urlRequest);
         }
@@ -144,7 +145,6 @@
         }
 
         const request = (url) => {
-
             let html = '';
             let httpRequest = new XMLHttpRequest();
             httpRequest.open('POST', url);
@@ -153,14 +153,15 @@
             httpRequest.onreadystatechange = () => {
                 if (httpRequest.status === 200 && httpRequest.readyState === 4) {
                     let response = JSON.parse(httpRequest.response);
-                        if (test)
+                        if (isRemove)
                         {
                             removeTrTable();
+                            count=0;
                         }
                     if (response.status) {
-                        count=0
                         nexPageUrl = response.nexPageUrl;
                         hasMorePages = response.hasMorePages
+
                         response.data.forEach((value, index) => {
 
                             html = ` <tr class="basic-data ${count % 2 == 0 ? 'bg-white' : 'bg-gray-200/70'}  \">
@@ -181,9 +182,16 @@
 
                         </p>
                     </td>
+                     <td class="border border-gray-400 flex items-center justify-center cursor-pointer text-center  p-1">
+                                <a href="${value.link}">
+                                    <img src="${value.image}" alt=""
+                                         class="w-10 border-none">
+
+                                </a>
+                            </td>
                     `;
-                            count++
                             window.tbody.insertAdjacentHTML('beforeend', html)
+                            count++
                         })
 
                         page.style.display = 'none';
@@ -196,10 +204,10 @@
         window.addEventListener('scroll', function (e) {
             let totalScroll = document.body.offsetHeight - 200;
             let onScroll = window.innerHeight + window.scrollY;
-            if (onScroll >= totalScroll && hasMorePages) {
-                test=false
-                console.log(nexPageUrl)
+            if (onScroll >= totalScroll && hasMorePages && oldNexPageUrl!=nexPageUrl) {
+                isRemove=false
                 request(nexPageUrl);
+                oldNexPageUrl=nexPageUrl;
             }
         })
 
