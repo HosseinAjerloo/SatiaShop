@@ -1,4 +1,4 @@
-<section class="min-w-full flex justify-end items-center space-x-reverse space-x-4 px-2 flex-wrap">
+<section class="page min-w-full flex justify-end items-center space-x-reverse space-x-4 px-2 flex-wrap">
     <div>
         <p>مجموع <span class="font-bold text-sm">{{$items->total()??0}}</span> مورد</p>
     </div>

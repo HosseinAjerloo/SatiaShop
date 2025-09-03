@@ -21,17 +21,17 @@
                 <table class="border-collapse  border border-gray-400 w-full table-fixed">
                     <thead class="bg-2081F2">
                     <tr>
-                        <th class=" text-sm font-light px-2 leading-6 text-white ">
+                        <th class=" text-sm font-light px-2 leading-6 text-white w-[10%]">
                             <span>ردیف</span>
                         </th>
                         <th class=" text-sm font-light px-2 leading-6 text-white ">
                             <span>کدیکتا</span>
                         </th>
 
-                        <th class=" text-sm font-light px-2 leading-6 text-white text-nowrap max-w-max">
+                        <th class=" text-sm font-light px-2 leading-6 text-white text-nowrap max-w-max ">
                             <span>نام مشتری/سازمان</span>
                         </th>
-                        <th class=" text-sm font-light px-2 leading-6 text-white max-w-max">
+                        <th class=" text-sm font-light px-2 leading-6 text-white max-w-max  w-[10%]">
                             <span>عملیات شارژ</span>
                         </th>
 
@@ -54,14 +54,14 @@
                             <div class="w-full flex items-center ">
                                 <input type="text"
                                        class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1"
-                                       data-name="customer_name">
+                                       data-name="uniqueCode">
                             </div>
                         </td>
                         <td class="border border-gray-400   text-center p-1">
                             <div class="w-full flex items-center ">
                                 <input type="text"
                                        class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1"
-                                       data-name="reside_type">
+                                       data-name="name">
                             </div>
                         </td>
                         <td class="border border-gray-400   text-center p-1">
@@ -73,19 +73,17 @@
                         </td>
 
 
-
-
                     </tr>
                     @foreach($resideItems as  $resideItem)
-                        <tr class="@if( $resideItems->firstItem() + $loop->index%2==0) bg-white @else bg-gray-200/70 @endif">
-                            <td class="border border-gray-400  text-center  p-1">
+                        <tr class="basic-data @if( $resideItems->firstItem() + $loop->index%2==0) bg-white @else bg-gray-200/70 @endif">
+                            <td class="border border-gray-400  text-center  p-1 ">
                                 <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full ">
                                     {{ $resideItems->firstItem() + $loop->index}}
                                 </p>
                             </td>
                             <td class="border border-gray-400  text-center  p-1">
                                 <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full ">
-                                  {{$resideItem->unique_code}}
+                                    {{$resideItem->unique_code}}
                                 </p>
                             </td>
                             <td class="border border-gray-400  text-center  p-1">
@@ -96,11 +94,11 @@
                             </td>
                             <td class="border border-gray-400 flex items-center justify-center cursor-pointer text-center  p-1">
                                 <a href="{{route('admin.invoice.issuance.operation', [$resideItem->reside,$resideItem])}}">
-                                    <img src="{{asset('capsule/images/activecharging.svg')}}" alt="" class="w-10 border-none">
+                                    <img src="{{asset('capsule/images/activecharging.svg')}}" alt=""
+                                         class="w-10 border-none">
 
                                 </a>
                             </td>
-
 
                     @endforeach
 
@@ -117,5 +115,93 @@
 
 @endsection
 @section('script')
+    <script>
+        let inputs = document.querySelectorAll('td div input:not([disabled])');
+        let page = document.querySelector('.page');
+        let nexPageUrl = '';
+        let hasMorePages = false;
+        let test=false;
+        let urlRequest = "{{route('admin.charging-operation.searchAjax')}}";
+        inputs.forEach((input) => {
+            input.addEventListener('input', changeValue)
+        });
+        let count = 0;
+        const formData = new FormData();
 
+        function changeValue(e) {
+
+            test=true;
+            formData.append(e.target.dataset.name, e.target.value)
+            request(urlRequest);
+        }
+
+        const removeTrTable = () => {
+            let tresTable = document.querySelectorAll('.basic-data');
+
+            tresTable.forEach((tr) => {
+                tr.remove();
+            })
+        }
+
+        const request = (url) => {
+
+            let html = '';
+            let httpRequest = new XMLHttpRequest();
+            httpRequest.open('POST', url);
+            httpRequest.setRequestHeader('X-CSRF-TOKEN', "{{csrf_token()}}");
+            httpRequest.send(formData)
+            httpRequest.onreadystatechange = () => {
+                if (httpRequest.status === 200 && httpRequest.readyState === 4) {
+                    let response = JSON.parse(httpRequest.response);
+                        if (test)
+                        {
+                            removeTrTable();
+                        }
+                    if (response.status) {
+                        count=0
+                        nexPageUrl = response.nexPageUrl;
+                        hasMorePages = response.hasMorePages
+                        response.data.forEach((value, index) => {
+
+                            html = ` <tr class="basic-data ${count % 2 == 0 ? 'bg-white' : 'bg-gray-200/70'}  \">
+                            <td class="border border-gray-400  text-center  p-1 ">
+                                <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full ">
+                                ${count + 1}
+
+                        </p>
+                    </td>
+                    <td class="border border-gray-400  text-center  p-1">
+                        <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full ">
+                        ${value.unique_code}
+                        </p>
+                    </td>
+                    <td class="border border-gray-400  text-center  p-1">
+                        <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full ">
+                          ${value.fullName}
+
+                        </p>
+                    </td>
+                    `;
+                            count++
+                            window.tbody.insertAdjacentHTML('beforeend', html)
+                        })
+
+                        page.style.display = 'none';
+                    }
+                }
+            }
+        }
+
+
+        window.addEventListener('scroll', function (e) {
+            let totalScroll = document.body.offsetHeight - 200;
+            let onScroll = window.innerHeight + window.scrollY;
+            if (onScroll >= totalScroll && hasMorePages) {
+                test=false
+                console.log(nexPageUrl)
+                request(nexPageUrl);
+            }
+        })
+
+    </script>
 @endsection

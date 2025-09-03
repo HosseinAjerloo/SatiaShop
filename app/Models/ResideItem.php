@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class ResideItem extends Model
@@ -69,6 +70,17 @@ class ResideItem extends Model
                 return implode(' - ',$products);
             }
             return  '----';
+    }
+    public function scopeSearch(Builder $builder){
+        $inputs=request()->all();
+        $builder->when($inputs['uniqueCode']??false,function ($qu,$value) {
+           $qu->where('unique_code',$value);
+        })->when($inputs['name']??false,function ($qu,$value){
+            $users=User::whereLike(['name','family','organizationORcompanyName'],$value)->get()->pluck('id')->toArray();
+            $qu->whereHas('reside',function ($query) use ($users){
+                $query->whereIn('user_id',$users);
+            });
+        });
     }
 
 }
