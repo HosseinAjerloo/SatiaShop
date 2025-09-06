@@ -205,3 +205,10 @@ body{
 .activePage{
     @apply flex items-center justify-center px-2 py-1 border border-black/75 bg-F1F1F1 rounded-lg
 }
+.hiddenLayer{
+    @apply  invisible z-[0];
+}
+
+.showLayer{
+    @apply  visible z-[100];
+}

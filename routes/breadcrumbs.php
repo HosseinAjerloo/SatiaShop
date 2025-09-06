@@ -219,6 +219,10 @@ Breadcrumbs::for('admin.charging-operation.index', function (BreadcrumbTrail $tr
     $trail->parent('panel.admin');
     $trail->push('عملیات شارژ', route('admin.charging-operation.index'));
 });
+Breadcrumbs::for('admin.invoice.issuance.operation', function (BreadcrumbTrail $trail, $reside, $resideItem) {
+    $trail->parent('admin.charging-operation.index');
+    $trail->push('سرویس کپسول', route('admin.invoice.issuance.operation', [$reside, $resideItem]));
+});
 Breadcrumbs::for('admin.chargingTheCapsule.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.resideCapsule.index');
     $trail->push('پذیرش کپسول', route('admin.chargingTheCapsule.index'));
@@ -235,10 +239,7 @@ Breadcrumbs::for('admin.invoice.issuance.index', function (BreadcrumbTrail $trai
     $trail->parent('admin.resideCapsule.index');
     $trail->push('صدور فاکتور', route('admin.invoice.issuance.index', $reside));
 });
-Breadcrumbs::for('admin.invoice.issuance.operation', function (BreadcrumbTrail $trail, $reside, $resideItem) {
-    $trail->parent('admin.invoice.issuance.index', $reside);
-    $trail->push('سرویس کپسول', route('admin.invoice.issuance.operation', [$reside, $reside]));
-});
+
 Breadcrumbs::for('admin.scanQrCode.index', function (BreadcrumbTrail $trail, $resideItemHistory) {
     $trail->parent('panel.admin');
     $trail->push('تاریخچه شارژ کپسول', route('admin.scanQrCode.index',  $resideItemHistory));

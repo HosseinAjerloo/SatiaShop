@@ -120,3 +120,8 @@
     }
 
 </script>
+<script>
+    function numberToPersian(value){
+        let localLang=value.cobve
+    }
+</script>

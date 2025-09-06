@@ -24,7 +24,6 @@ class ChargingOperationController extends Controller
     }
     public function searchAjax(Request $request)
     {
-
         $resideItems = ResideItem::Search()->whereHas('reside',function ($q){
             $q->where('type', 'reside');
         })->doesntHave('productResidItem')->cursorPaginate(20);

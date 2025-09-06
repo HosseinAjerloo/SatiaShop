@@ -1,5 +1,5 @@
 @include('Admin.Layout.head')
-<body class="overflow-x-hidden">
+<body class="overflow-x-hidden ">
 
 @include('Admin.Layout.header')
 @yield('header')
@@ -22,6 +22,7 @@
     @endif
     @yield('content')
 </main>
+@yield('content-blur')
 
 
 @include('Admin.Layout.script')
