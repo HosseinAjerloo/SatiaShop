@@ -51,12 +51,7 @@
 
                     </div>
 
-                    <div class="mt-8 flex items-center  space-x-reverse space-x-4">
-                        <h1 class="font-bold">تخفیف:</h1>
-                        <input type="number" min="0" max="100" name="discount"
-                               class="w-[50px] p-[3px] text-center outline-none discount">
-                        <h1 class="font-bold">درصد</h1>
-                    </div>
+
 
                 </div>
                 <div class="w-[49%]">
@@ -161,20 +156,31 @@
                                                       {{numberFormat($reside->totalPricePlusTax())??''}}
                                                 </span>
                                             </div>
-                                            <div class="px-1.5 py-2 space-y-5">
+                                            <div class="px-1.5 py-2 space-y-4">
                                                 <div class="flex items-center space-x-2 space-x-reverse">
                                                     <label class="w-1/4 flex items-center justify-start">بدون
                                                         تخفیف</label>
                                                     <input type="radio" name="disc">
+
                                                 </div>
                                                 <div class="flex items-center space-x-2 space-x-reverse">
                                                     <label class="w-1/4 flex items-center justify-start">% قیمت</label>
                                                     <input type="radio" name="disc">
+                                                    <div class="invisible flex items-center   space-x-reverse space-x-4 ">
+                                                        <input type="number" min="0" max="100" name="discount"
+                                                               class="border w-[50px] rounded-md p-[3px] text-center outline-none discount">
+                                                        <h1 class="font-bold">درصد</h1>
+                                                    </div>
                                                 </div>
-                                                <div class="flex items-center space-x-2 space-x-reverse">
-                                                    <label class="w-1/4 flex items-center justify-start">کسر از
-                                                        قیمت</label>
-                                                    <input type="radio" name="disc">
+                                                <div class="flex items-center space-x-2 space-x-reverse ">
+                                                        <label class="w-1/4 flex items-center justify-start">کسر از
+                                                            قیمت</label>
+                                                        <input type="radio" name="disc">
+                                                    <div class="invisible flex items-center w-3/5  space-x-reverse space-x-4 ">
+                                                        <input type="number" min="0" max="100" name="discount"
+                                                               class="w-4/5 border  rounded-md p-[3px] text-center outline-none discount">
+                                                        <h1 class="font-bold">مبلغ</h1>
+                                                    </div>
                                                 </div>
                                                 <div class="flex items-center justify-center space-x-4 space-x-reverse text-white ">
                                                     <button type="button" class="px-10 py-1.5 rounded-lg bg-268832 submit">ذخیره</button>
@@ -343,7 +349,26 @@
         }
     </script>
     <script>
+        let discRadio=document.querySelectorAll('input[name="disc"]');
+        discRadio.forEach((radio)=>{
+            if (radio.nextElementSibling)
+            {
+                radio.nextElementSibling.classList.contains('invisible')?'':radio.nextElementSibling.classList.add('invisible')
+            }
+            radio.addEventListener('change',function (e){
 
+                discRadio.forEach((radio)=>{
+                    if (radio.nextElementSibling)
+                    {
+                        radio.nextElementSibling.classList.contains('invisible')?'':radio.nextElementSibling.classList.add('invisible')
+                    }
+                })
+                if (e.target.nextElementSibling)
+                {
+                    e.target.nextElementSibling.classList.toggle('invisible')
+                }
+            })
+        })
         let closeBtnDisc=document.querySelector('.close-btn-discount');
         let checkBoxDiscount=document.querySelector('input[name="discountChecked"]');
         let disCountBox=''
