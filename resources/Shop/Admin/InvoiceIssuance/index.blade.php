@@ -86,12 +86,13 @@
                         </thead>
                         <tbody>
                         @foreach($reside->resideItem as $key=> $resideItem)
+
                             @foreach($resideItem->productResidItem as $index=>$productItem)
 
                                 <tr class=" bg-white">
 
                                     <td class="border border-gray-400  text-center">
-                                        <p class="text-[15px]  sm:text-[13px] p-1 w-full ">
+                                        <p class="text-[15px]  sm:text-[13px] p-1 w-full font-bold">
                                             {{$count }}
                                         </p>
                                     </td>
@@ -110,7 +111,7 @@
                                     </td>
                                     <td class="border border-gray-400  text-center">
                                         <p class="  text-[15px] sm:text-[13px] p-1 w-full ">
-                                            {{numberFormat($productItem->price??0)}}
+                                            {{numberFormat(($productItem->price+$resideItem->product->salary)??0)}}
                                         </p>
                                     </td>
 
@@ -130,27 +131,96 @@
                                 @endphp
                             @endforeach
                         @endforeach
-                        {{--                        <tr class="@if($key%2==0) bg-white @else bg-gray-200/70 @endif">--}}
+                        <tr class=" bg-white">
+                            <td class="border border-gray-400  text-center" colspan="3">
+                                <p class="text-[15px]  sm:text-[13px]  p-1 w-full font-bold">
+                                    جمع کل
+                                </p>
+                            </td>
+                            <td class="border border-gray-400  text-center" colspan="2">
+                                <p class="text-[15px]  sm:text-[13px]  p-1 w-full ">
+                                    {{numberFormat($reside->totalPrice())??''}}
+                                    ریال
+                                </p>
+                            </td>
+                        </tr>
+                        <tr class=" bg-white">
+                            <td class="border border-gray-400  text-center" colspan="3">
+                                <div class="text-[15px]  sm:text-[13px]  p-1 w-full ">
+                                    <div class="text-[15px]  sm:text-[13px]  p-1 w-full font-bold relative">
+                                        <input name="discountChecked" type="checkbox">
+                                        <span>تخفیف</span>
+                                        <div
+                                            class="invisible transition-all absolute z-[101] w-2/3 h-75  top-0 right-[60%] rounded-lg  bg-white shadow-md shadow-black/35 ">
+                                            <div
+                                                class="flex items-center justify-start space-x-reverse space-x-2 bg-E0E0E0  border-2 border-b-black p-2">
+                                                <p class="font-medium">
+                                                    تعیین تخفیف برای :
+                                                </p>
+                                                <span class="font-semibold">
+                                                      {{numberFormat($reside->totalPricePlusTax())??''}}
+                                                </span>
+                                            </div>
+                                            <div class="px-1.5 py-2 space-y-5">
+                                                <div class="flex items-center space-x-2 space-x-reverse">
+                                                    <label class="w-1/4 flex items-center justify-start">بدون
+                                                        تخفیف</label>
+                                                    <input type="radio" name="disc">
+                                                </div>
+                                                <div class="flex items-center space-x-2 space-x-reverse">
+                                                    <label class="w-1/4 flex items-center justify-start">% قیمت</label>
+                                                    <input type="radio" name="disc">
+                                                </div>
+                                                <div class="flex items-center space-x-2 space-x-reverse">
+                                                    <label class="w-1/4 flex items-center justify-start">کسر از
+                                                        قیمت</label>
+                                                    <input type="radio" name="disc">
+                                                </div>
+                                                <div class="flex items-center justify-center space-x-4 space-x-reverse text-white ">
+                                                    <button type="button" class="px-10 py-1.5 rounded-lg bg-268832 submit">ذخیره</button>
+                                                    <button type="button" class="px-10 py-1.5 rounded-lg bg-FF3100 close close-btn-discount">لغو</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                        {{--                            <td class="border border-gray-400  text-center  p-1">--}}
-                        {{--                                <div class="flex items-center justify-center">--}}
-                        {{--                                    <p class="sm:text-[15px] text-[10px] p-1 w-full max-w-max space-x-reverse space-x-2">--}}
-                        {{--                                        {{env('Commission')}}% مالیات بر ارزش افزوده--}}
-                        {{--                                    </p>--}}
-                        {{--                                    <input name="commission" type="checkbox" value="yes"--}}
-                        {{--                                           @if($reside->commission>0) checked="checked" @endif>--}}
-                        {{--                                </div>--}}
-                        {{--                            </td>--}}
-                        {{--                            <td class="border border-gray-400  text-center  p-1" colspan="4">--}}
-                        {{--                                <div class="flex items-center justify-center">--}}
-                        {{--                                    <p class="sm:text-[15px] text-base font-semibold p-1 w-full max-w-max ">--}}
-                        {{--                                        جمع کل:--}}
-                        {{--                                    </p>--}}
-                        {{--                                    <span class="totalPrice" data-totalPrice="{{$reside->totalPricePlusTax()}}">{{numberFormat($reside->totalPricePlusTax())}} ریال </span>--}}
-                        {{--                                </div>--}}
-                        {{--                            </td>--}}
 
-                        {{--                        </tr>--}}
+                                </div>
+                            </td>
+                            <td class="border border-gray-400  text-center" colspan="2">
+                                <p class="text-[15px] space-x-reverse space-x-2  sm:text-[13px]  p-1 w-full font-bold flex items-center justify-center">
+                                    {{numberFormat($reside->totalPricePlusTax())??''}}
+                                </p>
+                            </td>
+                        </tr>
+                        <tr class=" bg-white">
+                            <td class="border border-gray-400  text-center" colspan="3">
+                                <div
+                                    class="text-[15px] space-x-reverse space-x-2  sm:text-[13px]  p-1 w-full font-bold flex items-center justify-center">
+                                    <input name="commission" type="checkbox" value="yes"
+                                           @if($reside->commission>0) checked="checked" @endif>
+                                    <span>  {{env('Commission')}}%مالیات</span>
+                                </div>
+                            </td>
+                            <td class="border border-gray-400  text-center" colspan="2">
+                                <span class="text-[15px]  sm:text-[13px]  p-1 w-full totalPrice"
+                                      data-totalPrice="{{$reside->totalPricePlusTax()}}">
+                                    {{numberFormat($reside->totalPricePlusTax())??''}}
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class=" bg-white">
+                            <td class="border border-gray-400  text-center" colspan="3">
+                                <p class="text-[15px]  sm:text-[13px]  p-1 w-full font-bold">
+                                    جمع کل
+                                </p>
+                            </td>
+                            <td class="border border-gray-400  text-center" colspan="2">
+                                <p class="text-[15px]  sm:text-[13px]  p-1 w-full ">
+                                    {{numberFormat($reside->totalPricePlusTax())??''}}
+                                </p>
+                            </td>
+                        </tr>
 
 
                         </tbody>
@@ -173,6 +243,12 @@
     </section>
 
 @endsection
+@section('content-blur')
+    <section class="absolute top-0 right-0 bg-black/65 w-full h-full transition-all hiddenLayer final-tide ">
+
+    </section>
+@endsection
+
 @section('script')
     <script>
         // function generateQrCode() {
@@ -202,7 +278,7 @@
 
 
     <script>
-
+        let darkLayer=document.querySelector('.final-tide');
         let sodurFactor = document.querySelector('.sodurFactor');
         sodurFactor.onclick = function (event) {
             event.preventDefault();
@@ -234,7 +310,6 @@
                 // style: 'currency',
                 currency: 'IRR'
             }).format(commissionAmount);
-            document.querySelector('.discount').dispatchEvent(new Event('input'));
 
             document.querySelector('.totalPrice').innerText = price;
             document.querySelector('.totalPrice').innerText += ' ریال ';
@@ -247,7 +322,8 @@
 
         function discount(event) {
             let totalPrice = document.querySelector('.totalPrice').dataset.totalprice
-            if (event.target.value > 0) {
+
+            if (event.target.value > 0 && event.target.value <= 100) {
                 let discount = ((event.target.value * totalPrice) / 100);
                 discount = totalPrice - discount;
                 price = new Intl.NumberFormat('fa-IR', {
@@ -265,5 +341,35 @@
                 document.querySelector('.totalPrice').innerText = price;
             }
         }
+    </script>
+    <script>
+
+        let closeBtnDisc=document.querySelector('.close-btn-discount');
+        let checkBoxDiscount=document.querySelector('input[name="discountChecked"]');
+        let disCountBox=''
+        checkBoxDiscount.addEventListener('change',function (e){
+             disCountBox =e.target.nextElementSibling.nextElementSibling;
+
+            if (e.target.checked)
+            {
+                darkLayer.classList.remove('hiddenLayer');
+                darkLayer.classList.add('shownLayer');
+                disCountBox.classList.add('visible');
+                disCountBox.classList.remove('invisible')
+            }
+            else {
+                darkLayer.classList.remove('showLayer');
+                darkLayer.classList.add('hiddenLayer');
+            }
+        })
+        closeBtnDisc.addEventListener('click',function (){
+            darkLayer.classList.remove('showLayer');
+            darkLayer.classList.add('hiddenLayer');
+
+            disCountBox.classList.remove('visible');
+
+            disCountBox.classList.add('invisible')
+            checkBoxDiscount.checked=false
+        })
     </script>
 @endsection

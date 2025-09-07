@@ -104,6 +104,7 @@ class Reside extends Model
         $total = $this->totalPrice();
 
         if ($this->commission > 0) {
+            dd('da');
             $total = (($total * $this->commission) / 100) + $total;
         }
         return $total;
