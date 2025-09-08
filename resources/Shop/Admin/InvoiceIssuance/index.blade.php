@@ -314,6 +314,7 @@
         let finalPrice = totalPrice;
         let inputDiscounts = document.querySelectorAll('.discount');
         const event = new Event('input', {bubbles: true});
+        const eventChange= new Event('change',{bubbles:true});
 
         inputDiscounts.forEach((input) => {
             input.addEventListener('input', discount);
@@ -331,17 +332,17 @@
                     document.querySelector('input[name="discountDecimal"]').value =0;
                     discountPrice(event)
                 }
+                inputCommission.dispatchEvent(eventChange)
             }
             else {
 
                 price = new Intl.NumberFormat('fa-IR', {
-                    style: 'currency',
-                    currency: 'IRR'
+
                 }).format(totalPrice);
                 finalPrice = totalPrice;
-                document.querySelector('.totalPriceDiscount').innerText = price;
-                document.querySelector('.totalPricePlusTax').innerText = price;
-                document.querySelector('.final-price').innerText = price;
+                document.querySelector('.totalPriceDiscount').innerText = price+" ریال";
+                document.querySelector('.totalPricePlusTax').innerText = price+" ریال";
+                document.querySelector('.final-price').innerText = price+" ریال";
             }
 
         }
@@ -396,17 +397,15 @@
     <script>
         let inputCommission = document.querySelector('input[name="commission"]');
         let commissionAmount = 0;
-        let commission = "{{env('Commission')}}";
+        let commission = Number("{{env('Commission')}}");
         let price = 0;
-        commission = Number(commission);
-        totalPrice = Number(totalPrice);
         inputCommission.addEventListener('change', function (event) {
+            finalPrice = Number(finalPrice);
             if (event.target.checked) {
-                commissionAmount = ((totalPrice * commission) / 100) + totalPrice;
+                commissionAmount = ((finalPrice * commission) / 100) + finalPrice;
             } else {
-                commissionAmount = totalPrice;
+                commissionAmount = finalPrice;
             }
-            document.querySelector('.totalPrice').setAttribute('data-totalPrice', commissionAmount);
 
             price = new Intl.NumberFormat('fa-IR', {
                 // style: 'currency',
@@ -415,6 +414,8 @@
 
             document.querySelector('.totalPricePlusTax').innerText = price;
             document.querySelector('.totalPricePlusTax').innerText += ' ریال ';
+            document.querySelector('.final-price').innerText = price+" ریال";
+
         })
     </script>
 
@@ -453,6 +454,7 @@
                 darkLayer.classList.remove('showLayer');
                 darkLayer.classList.add('hiddenLayer');
                 removeAllDiscount();
+                inputCommission.dispatchEvent(eventChange)
             }
         })
 
@@ -474,6 +476,7 @@
             if (checked){
                 checkBoxDiscount.checked = false;
                 removeAllDiscount()
+                inputCommission.dispatchEvent(eventChange)
             }
 
 
