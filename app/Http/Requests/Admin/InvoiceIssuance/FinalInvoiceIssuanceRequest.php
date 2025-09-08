@@ -21,6 +21,7 @@ class FinalInvoiceIssuanceRequest extends FormRequest
      */
     public function rules(): array
     {
+        dd(request()->all());
         return [
             'description'=>'nullable|string',
             'discount'=>'nullable|numeric|min:0|max:100',

@@ -324,22 +324,27 @@
 
         function discount(event) {
             if (event.target.value>0) {
-                if (event.target.getAttribute('name') === 'discountDecimal') {
-                    document.querySelector('input[name="discountPrice"]').value =0;
+                if (event.target.getAttribute('name') === 'discountDecimal' && event.target.value<=100) {
+                    document.querySelector('input[name="discountPrice"]').value ='';
                     discountDecimal(event)
                 }
-                else {
-                    document.querySelector('input[name="discountDecimal"]').value =0;
+                else if(event.target.getAttribute('name') === 'discountPrice' && event.target.value<=totalPrice) {
+                    document.querySelector('input[name="discountDecimal"]').value ='';
                     discountPrice(event)
+                }
+                else {
+                    removeAllDiscount()
                 }
                 inputCommission.dispatchEvent(eventChange)
             }
             else {
 
+                finalPrice = totalPrice;
                 price = new Intl.NumberFormat('fa-IR', {
 
-                }).format(totalPrice);
-                finalPrice = totalPrice;
+                }).format(finalPrice);
+                console.log(finalPrice)
+
                 document.querySelector('.totalPriceDiscount').innerText = price+" ریال";
                 document.querySelector('.totalPricePlusTax').innerText = price+" ریال";
                 document.querySelector('.final-price').innerText = price+" ریال";
@@ -386,7 +391,7 @@
         function removeAllDiscount()
         {
             inputDiscounts.forEach((input) => {
-                input.value=0
+                input.value=''
                 input.dispatchEvent(event)
             })
         }
