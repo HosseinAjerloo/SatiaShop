@@ -52,7 +52,6 @@
                     </div>
 
 
-
                 </div>
                 <div class="w-[49%]">
                     <table class="border-collapse   border border-gray-400 table-fixed w-full">
@@ -129,11 +128,11 @@
                         <tr class=" bg-white">
                             <td class="border border-gray-400  text-center" colspan="3">
                                 <p class="text-[15px]  sm:text-[13px]  p-1 w-full font-bold">
-                                    جمع کل
+                                    جمع
                                 </p>
                             </td>
                             <td class="border border-gray-400  text-center" colspan="2">
-                                <p class="text-[15px]  sm:text-[13px]  p-1 w-full ">
+                                <p class=" text-[15px]  sm:text-[13px]  p-1 w-full ">
                                     {{numberFormat($reside->totalPrice())??''}}
                                     ریال
                                 </p>
@@ -144,7 +143,10 @@
                                 <div class="text-[15px]  sm:text-[13px]  p-1 w-full ">
                                     <div class="text-[15px]  sm:text-[13px]  p-1 w-full font-bold relative">
                                         <input name="discountChecked" type="checkbox">
-                                        <span>تخفیف</span>
+                                        <span>
+                                            <span>تخفیف</span>
+                                            <span>(0)</span>
+                                        </span>
                                         <div
                                             class="invisible transition-all absolute z-[101] w-2/3 h-75  top-0 right-[60%] rounded-lg  bg-white shadow-md shadow-black/35 ">
                                             <div
@@ -153,7 +155,7 @@
                                                     تعیین تخفیف برای :
                                                 </p>
                                                 <span class="font-semibold">
-                                                      {{numberFormat($reside->totalPricePlusTax())??''}}
+                                                      {{numberFormat($reside->totalPrice())??''}}
                                                 </span>
                                             </div>
                                             <div class="px-1.5 py-2 space-y-4">
@@ -166,25 +168,34 @@
                                                 <div class="flex items-center space-x-2 space-x-reverse">
                                                     <label class="w-1/4 flex items-center justify-start">% قیمت</label>
                                                     <input type="radio" name="disc">
-                                                    <div class="invisible flex items-center   space-x-reverse space-x-4 ">
-                                                        <input type="number" min="0" max="100" name="discount"
+                                                    <div
+                                                        class="invisible flex items-center   space-x-reverse space-x-4 ">
+                                                        <input type="number" min="0" max="100"  name="discountDecimal"
                                                                class="border w-[50px] rounded-md p-[3px] text-center outline-none discount">
                                                         <h1 class="font-bold">درصد</h1>
                                                     </div>
                                                 </div>
                                                 <div class="flex items-center space-x-2 space-x-reverse ">
-                                                        <label class="w-1/4 flex items-center justify-start">کسر از
-                                                            قیمت</label>
-                                                        <input type="radio" name="disc">
-                                                    <div class="invisible flex items-center w-3/5  space-x-reverse space-x-4 ">
-                                                        <input type="number" min="0" max="100" name="discount"
-                                                               class="w-4/5 border  rounded-md p-[3px] text-center outline-none discount">
-                                                        <h1 class="font-bold">مبلغ</h1>
+                                                    <label class="w-1/4 flex items-center justify-start">کسر از
+                                                        قیمت</label>
+                                                    <input type="radio" name="disc">
+                                                    <div
+                                                        class="invisible flex items-center w-3/5  space-x-reverse space-x-4 ">
+                                                        <input type="number" min="0" max="100" name="discountPrice"
+                                                               class="w-3/5	 border  rounded-md p-[3px] text-center outline-none discount">
+                                                        <h1 class="font-bold">ریال مبلغ</h1>
                                                     </div>
                                                 </div>
-                                                <div class="flex items-center justify-center space-x-4 space-x-reverse text-white ">
-                                                    <button type="button" class="px-10 py-1.5 rounded-lg bg-268832 submit">ذخیره</button>
-                                                    <button type="button" class="px-10 py-1.5 rounded-lg bg-FF3100 close close-btn-discount">لغو</button>
+                                                <div
+                                                    class="flex items-center justify-center space-x-4 space-x-reverse text-white ">
+                                                    <button type="button"
+                                                            class="px-10 py-1.5 rounded-lg bg-268832 submit-discount">
+                                                        ذخیره
+                                                    </button>
+                                                    <button type="button"
+                                                            class="px-10 py-1.5 rounded-lg bg-FF3100 close close-btn-discount">
+                                                        لغو
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -194,8 +205,8 @@
                                 </div>
                             </td>
                             <td class="border border-gray-400  text-center" colspan="2">
-                                <p class="text-[15px] space-x-reverse space-x-2  sm:text-[13px]  p-1 w-full font-bold flex items-center justify-center">
-                                    {{numberFormat($reside->totalPricePlusTax())??''}}
+                                <p class="totalPriceDiscount text-[15px] space-x-reverse space-x-2  sm:text-[13px]  p-1 w-full flex items-center justify-center">
+                                    {{numberFormat($reside->totalPrice())??''}}
                                 </p>
                             </td>
                         </tr>
@@ -209,9 +220,9 @@
                                 </div>
                             </td>
                             <td class="border border-gray-400  text-center" colspan="2">
-                                <span class="text-[15px]  sm:text-[13px]  p-1 w-full totalPrice"
-                                      data-totalPrice="{{$reside->totalPricePlusTax()}}">
-                                    {{numberFormat($reside->totalPricePlusTax())??''}}
+                                <span class="totalPricePlusTax text-[15px]  sm:text-[13px]  p-1 w-full "
+                                >
+                                    {{numberFormat($reside->totalPrice())??''}}
                                 </span>
                             </td>
                         </tr>
@@ -222,8 +233,8 @@
                                 </p>
                             </td>
                             <td class="border border-gray-400  text-center" colspan="2">
-                                <p class="text-[15px]  sm:text-[13px]  p-1 w-full ">
-                                    {{numberFormat($reside->totalPricePlusTax())??''}}
+                                <p class="final-price  text-[15px]  sm:text-[13px]  p-1 w-full ">
+                                    {{numberFormat($reside->final_price)??''}}
                                 </p>
                             </td>
                         </tr>
@@ -284,7 +295,7 @@
 
 
     <script>
-        let darkLayer=document.querySelector('.final-tide');
+        let darkLayer = document.querySelector('.final-tide');
         let sodurFactor = document.querySelector('.sodurFactor');
         sodurFactor.onclick = function (event) {
             event.preventDefault();
@@ -296,11 +307,96 @@
             window.form.submit();
         }
     </script>
+
+
+    <script>
+        let totalPrice = Number("{{$reside->totalPrice()}}");
+        let finalPrice = totalPrice;
+        let inputDiscounts = document.querySelectorAll('.discount');
+        const event = new Event('input', {bubbles: true});
+
+        inputDiscounts.forEach((input) => {
+            input.addEventListener('input', discount);
+            input.dispatchEvent(event);
+        })
+
+
+        function discount(event) {
+            if (event.target.value>0) {
+                if (event.target.getAttribute('name') === 'discountDecimal') {
+                    document.querySelector('input[name="discountPrice"]').value =0;
+                    discountDecimal(event)
+                }
+                else {
+                    document.querySelector('input[name="discountDecimal"]').value =0;
+                    discountPrice(event)
+                }
+            }
+            else {
+
+                price = new Intl.NumberFormat('fa-IR', {
+                    style: 'currency',
+                    currency: 'IRR'
+                }).format(totalPrice);
+                finalPrice = totalPrice;
+                document.querySelector('.totalPriceDiscount').innerText = price;
+                document.querySelector('.totalPricePlusTax').innerText = price;
+                document.querySelector('.final-price').innerText = price;
+            }
+
+        }
+
+        function discountDecimal(event) {
+            if (event.target.value > 0 && event.target.value <= 100) {
+                let discount = ((event.target.value * totalPrice) / 100);
+                discount = totalPrice - discount;
+                finalPrice = discount;
+                price = new Intl.NumberFormat('fa-IR', {
+                    // style: 'currency',
+                    currency: 'IRR'
+                }).format(discount);
+                document.querySelector('.totalPriceDiscount').innerText = price;
+                document.querySelector('.totalPriceDiscount').innerText += ' ریال ';
+                document.querySelector('.totalPricePlusTax').innerText = price;
+                document.querySelector('.totalPricePlusTax').innerText += ' ریال ';
+                document.querySelector('.final-price').innerText = price;
+                document.querySelector('.final-price').innerText += ' ریال ';
+
+            }
+
+
+        }
+
+        function discountPrice(event) {
+           let discount=totalPrice-event.target.value;
+           finalPrice=discount;
+            price = new Intl.NumberFormat('fa-IR', {
+                // style: 'currency',
+                currency: 'IRR'
+            }).format(discount);
+            document.querySelector('.totalPriceDiscount').innerText = price;
+            document.querySelector('.totalPriceDiscount').innerText += ' ریال ';
+            document.querySelector('.totalPricePlusTax').innerText = price;
+            document.querySelector('.totalPricePlusTax').innerText += ' ریال ';
+            document.querySelector('.final-price').innerText = price;
+            document.querySelector('.final-price').innerText += ' ریال ';
+        }
+
+        function removeAllDiscount()
+        {
+            inputDiscounts.forEach((input) => {
+                input.value=0
+                input.dispatchEvent(event)
+            })
+        }
+    </script>
+
+
+
     <script>
         let inputCommission = document.querySelector('input[name="commission"]');
         let commissionAmount = 0;
         let commission = "{{env('Commission')}}";
-        let totalPrice = "{{$reside->totalPrice()}}";
         let price = 0;
         commission = Number(commission);
         totalPrice = Number(totalPrice);
@@ -317,84 +413,70 @@
                 currency: 'IRR'
             }).format(commissionAmount);
 
-            document.querySelector('.totalPrice').innerText = price;
-            document.querySelector('.totalPrice').innerText += ' ریال ';
+            document.querySelector('.totalPricePlusTax').innerText = price;
+            document.querySelector('.totalPricePlusTax').innerText += ' ریال ';
         })
     </script>
+
     <script>
 
-        let inputDiscount = document.querySelector('.discount');
-        inputDiscount.addEventListener('input', discount);
-
-        function discount(event) {
-            let totalPrice = document.querySelector('.totalPrice').dataset.totalprice
-
-            if (event.target.value > 0 && event.target.value <= 100) {
-                let discount = ((event.target.value * totalPrice) / 100);
-                discount = totalPrice - discount;
-                price = new Intl.NumberFormat('fa-IR', {
-                    // style: 'currency',
-                    currency: 'IRR'
-                }).format(discount);
-                document.querySelector('.totalPrice').innerText = price;
-                document.querySelector('.totalPrice').innerText += ' ریال ';
-
-            } else {
-                price = new Intl.NumberFormat('fa-IR', {
-                    style: 'currency',
-                    currency: 'IRR'
-                }).format(totalPrice);
-                document.querySelector('.totalPrice').innerText = price;
+        let discRadio = document.querySelectorAll('input[name="disc"]');
+        discRadio.forEach((radio) => {
+            if (radio.nextElementSibling) {
+                radio.nextElementSibling.classList.contains('invisible') ? '' : radio.nextElementSibling.classList.add('invisible')
             }
-        }
-    </script>
-    <script>
-        let discRadio=document.querySelectorAll('input[name="disc"]');
-        discRadio.forEach((radio)=>{
-            if (radio.nextElementSibling)
-            {
-                radio.nextElementSibling.classList.contains('invisible')?'':radio.nextElementSibling.classList.add('invisible')
-            }
-            radio.addEventListener('change',function (e){
+            radio.addEventListener('change', function (e) {
 
-                discRadio.forEach((radio)=>{
-                    if (radio.nextElementSibling)
-                    {
-                        radio.nextElementSibling.classList.contains('invisible')?'':radio.nextElementSibling.classList.add('invisible')
+                discRadio.forEach((radio) => {
+                    if (radio.nextElementSibling) {
+                        radio.nextElementSibling.classList.contains('invisible') ? '' : radio.nextElementSibling.classList.add('invisible')
                     }
                 })
-                if (e.target.nextElementSibling)
-                {
+                if (e.target.nextElementSibling) {
                     e.target.nextElementSibling.classList.toggle('invisible')
                 }
             })
         })
-        let closeBtnDisc=document.querySelector('.close-btn-discount');
-        let checkBoxDiscount=document.querySelector('input[name="discountChecked"]');
-        let disCountBox=''
-        checkBoxDiscount.addEventListener('change',function (e){
-             disCountBox =e.target.nextElementSibling.nextElementSibling;
+        let closeBtnDisc = document.querySelector('.close-btn-discount');
+        let submitDiscount = document.querySelector('.submit-discount');
+        let checkBoxDiscount = document.querySelector('input[name="discountChecked"]');
+        let disCountBox = ''
+        checkBoxDiscount.addEventListener('change', function (e) {
+            disCountBox = e.target.nextElementSibling.nextElementSibling;
 
-            if (e.target.checked)
-            {
+            if (e.target.checked) {
                 darkLayer.classList.remove('hiddenLayer');
                 darkLayer.classList.add('shownLayer');
                 disCountBox.classList.add('visible');
                 disCountBox.classList.remove('invisible')
-            }
-            else {
+            } else {
                 darkLayer.classList.remove('showLayer');
                 darkLayer.classList.add('hiddenLayer');
+                removeAllDiscount();
             }
         })
-        closeBtnDisc.addEventListener('click',function (){
+
+
+        closeBtnDisc.addEventListener('click', () => {
+            closeDiscountBox(true);
+        })
+
+        submitDiscount.onclick = function () {
+            closeDiscountBox(false)
+        }
+        const closeDiscountBox = (checked = false) => {
             darkLayer.classList.remove('showLayer');
             darkLayer.classList.add('hiddenLayer');
 
             disCountBox.classList.remove('visible');
 
             disCountBox.classList.add('invisible')
-            checkBoxDiscount.checked=false
-        })
+            if (checked){
+                checkBoxDiscount.checked = false;
+                removeAllDiscount()
+            }
+
+
+        }
     </script>
 @endsection
