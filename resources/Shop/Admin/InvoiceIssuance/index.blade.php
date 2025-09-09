@@ -33,7 +33,33 @@
                   method="post" class="w-full flex  justify-between flex-wrap" id="form">
                 @csrf
 
-                <div class="w-[49%]">
+                <div class="w-[49%] space-y-3">
+                    <div class="w-full p-4  border border-2 border-black rounded-lg bg-white ">
+                        <p>
+                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است،
+                            چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی
+                            مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه
+                            درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری
+                            را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این
+                            صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و
+                            زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی
+                            اساسا مورد استفاده قرار گیرد.لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با
+                            استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم
+                            است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می
+                            باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد،
+                            تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو
+                            در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها،
+                            و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات
+                            پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.لورم ایپسوم متن ساختگی با تولید سادگی
+                            نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در
+                            ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف
+                            بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان
+                            جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص
+                            طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و
+                            دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی
+                            دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+                        </p>
+                    </div>
                     <div>
                         <h1 class="font-bold mb-3">توضیحات تخفیفی</h1>
                         <textarea name="description" id="description" class="w-full border-none p-2 outline-none"
@@ -49,6 +75,10 @@
                         <input type="file" name="discountFile"
                                class="hidden">
 
+                    </div>
+                    <div class="flex items-center justify-center space-x-reverse space-x-2">
+                        <button class="rounded-lg bg-268832 text-white px-10 py-1.5">ذخیره</button>
+                        <button class="rounded-lg bg-FF3100 text-white px-10 py-1.5">لغو</button>
                     </div>
 
 
@@ -136,7 +166,6 @@
 
                             </tr>
 
-
                         @endforeach
                         <tr class=" bg-white">
                             <td class="border border-gray-400  text-center" colspan="3">
@@ -158,7 +187,7 @@
                                         <input name="discountChecked" type="checkbox">
                                         <span>
                                             <span>تخفیف</span>
-                                            <span>(0)</span>
+                                            <span class="showDiscount">(0)</span>
                                         </span>
                                         <div
                                             class="invisible transition-all absolute z-[101] w-2/3 h-75  top-0 right-[60%] rounded-lg  bg-white shadow-md shadow-black/35 ">
@@ -326,6 +355,7 @@
         let totalPrice = Number("{{$reside->totalPrice()}}");
         let finalPrice = totalPrice;
         let inputDiscounts = document.querySelectorAll('.discount');
+        let showDiscount = document.querySelector('.showDiscount');
         const event = new Event('input', {bubbles: true});
         const eventChange = new Event('change', {bubbles: true});
 
@@ -375,6 +405,7 @@
                 document.querySelector('.totalPricePlusTax').innerText += ' ریال ';
                 document.querySelector('.final-price').innerText = price;
                 document.querySelector('.final-price').innerText += ' ریال ';
+                showDiscount.innerText = "(%" + event.target.value + ')';
 
             }
 
@@ -394,6 +425,7 @@
             document.querySelector('.totalPricePlusTax').innerText += ' ریال ';
             document.querySelector('.final-price').innerText = price;
             document.querySelector('.final-price').innerText += ' ریال ';
+            showDiscount.innerText = "(" + event.target.value + "ریال )";
         }
 
         function removeAllDiscount() {
@@ -401,6 +433,8 @@
                 input.value = ''
                 input.dispatchEvent(event)
             })
+            showDiscount.innerText = 0;
+
         }
     </script>
 
