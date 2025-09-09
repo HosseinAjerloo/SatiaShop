@@ -34,31 +34,8 @@
                 @csrf
 
                 <div class="w-[49%] space-y-3">
-                    <div class="w-full p-4  border border-2 border-black rounded-lg bg-white ">
-                        <p>
-                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است،
-                            چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی
-                            مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه
-                            درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری
-                            را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این
-                            صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و
-                            زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی
-                            اساسا مورد استفاده قرار گیرد.لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با
-                            استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم
-                            است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می
-                            باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد،
-                            تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو
-                            در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها،
-                            و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات
-                            پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.لورم ایپسوم متن ساختگی با تولید سادگی
-                            نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در
-                            ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف
-                            بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان
-                            جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص
-                            طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و
-                            دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی
-                            دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
-                        </p>
+                    <div class="w-full p-4  border border-2 border-black rounded-lg bg-white discountDescShow hidden">
+
                     </div>
                     <div>
                         <h1 class="font-bold mb-3">توضیحات تخفیفی</h1>
@@ -70,15 +47,21 @@
                         <div class="bg-white p-2 rounded-md flex items-center justify-between w-2/5	">
                             <img src="{{asset('capsule/images/uploadFile.svg')}}" alt="">
                             <span class="text-gray-400/75">فایلی موجود نمیباشد</span>
-                            <button class="bg-2081F2 text-white rounded-lg text-white p-2">انتخاب کنید</button>
+                            <button class="bg-2081F2 text-white rounded-lg text-white p-2 btn-file" type="button">انتخاب
+                                کنید
+                            </button>
                         </div>
                         <input type="file" name="discountFile"
                                class="hidden">
 
                     </div>
                     <div class="flex items-center justify-center space-x-reverse space-x-2">
-                        <button class="rounded-lg bg-268832 text-white px-10 py-1.5">ذخیره</button>
-                        <button class="rounded-lg bg-FF3100 text-white px-10 py-1.5">لغو</button>
+                        <button class="rounded-lg bg-268832 text-white px-10 py-1.5 btnSaveDescDiscount" type="button">
+                            ذخیره
+                        </button>
+                        <button class="rounded-lg bg-FF3100 text-white px-10 py-1.5  btnCancelDescDiscount"
+                                type="button">لغو
+                        </button>
                     </div>
 
 
@@ -303,7 +286,8 @@
 
 @endsection
 @section('content-blur')
-    <section class="absolute top-0 right-0 bg-black/65 w-full h-full transition-all hiddenLayer final-tide ">
+    <section
+        class="fixed top-0 bottom-0 left-0 right-0 bg-black/65 w-full h-full transition-all hiddenLayer final-tide ">
 
     </section>
 @endsection
@@ -335,7 +319,28 @@
         // generateQrCode();
     </script>
 
+    <script>
+        let btnFile = document.querySelector('.btn-file');
+        let file = document.querySelector('input[type="file"]');
+        let description = document.getElementById('description');
+        let discountDescShow = document.querySelector('.discountDescShow');
+        let btnSaveDescDiscount = document.querySelector('.btnSaveDescDiscount');
+        let btnCancelDescDiscount = document.querySelector('.btnCancelDescDiscount');
+        btnFile.onclick = () => {
+            file.click();
 
+        }
+        btnSaveDescDiscount.onclick = () => {
+            if (description.value.length > 0) {
+                description.classList.toggle('hidden');
+                discountDescShow.innerText = description.value
+                discountDescShow.classList.toggle('hidden')
+
+            }
+        }
+
+
+    </script>
     <script>
         let darkLayer = document.querySelector('.final-tide');
         let sodurFactor = document.querySelector('.sodurFactor');
@@ -381,7 +386,6 @@
 
                 finalPrice = totalPrice;
                 price = new Intl.NumberFormat('fa-IR', {}).format(finalPrice);
-                console.log(finalPrice)
 
                 document.querySelector('.totalPriceDiscount').innerText = price + " ریال";
                 document.querySelector('.totalPricePlusTax').innerText = price + " ریال";

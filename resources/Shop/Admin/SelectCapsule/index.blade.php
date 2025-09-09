@@ -98,7 +98,7 @@
     </section>
 @endsection
 @section('content-blur')
-    <section class="absolute top-0 right-0 bg-black/65 w-full h-full transition-all hiddenLayer final-tide ">
+    <section class="fixed top-0 right-0 bg-black/65 w-full h-full transition-all hiddenLayer final-tide ">
         <div
             class=" absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-white info-box w-4/12 rounded-md">
             <div class="h-10 bg-2081F2 flex justify-between items-center p-2 py-3 rounded-md">

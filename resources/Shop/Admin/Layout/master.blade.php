@@ -4,7 +4,7 @@
 @include('Admin.Layout.header')
 @yield('header')
 
-<main class="py-8 container mx-auto relative">
+<main class="py-8 container mx-auto ">
     <x-edit-profile-admin />
     @if(isset($breadcrumbs))
         <section class=" hidden sm:flex">
