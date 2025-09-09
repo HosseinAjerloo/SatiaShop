@@ -2,7 +2,7 @@
 
 @section('content')
     @php
-        $count=1;
+        $count=0;
     @endphp
     <section class=" space-y-3 relative">
         <article class="space-y-5 bg-F1F1F1 p-6 rounded-md">
@@ -80,7 +80,9 @@
                         </thead>
                         <tbody>
                         @foreach($reside->resideItem as $key=> $resideItem)
-
+                            @php
+                                $count++
+                            @endphp
                             @foreach($resideItem->productResidItem as $index=>$productItem)
 
                                 <tr class=" bg-white">
@@ -92,7 +94,7 @@
                                     </td>
                                     @if($index==0)
                                         <td class="border border-gray-400  text-center  "
-                                            rowspan="{{$resideItem->productResidItem->count()}}">
+                                            rowspan="{{$resideItem->productResidItem->count()+1}}">
                                             <p class=" text-[15px] sm:text-[13px]  p-1 w-full ">
                                                 {{$resideItem->unique_code??''}}
                                             </p>
@@ -105,7 +107,7 @@
                                     </td>
                                     <td class="border border-gray-400  text-center">
                                         <p class="  text-[15px] sm:text-[13px] p-1 w-full ">
-                                            {{numberFormat(($productItem->price+$resideItem->product->salary)??0)}}
+                                            {{numberFormat(($productItem->pivot->price)??0)}}
                                         </p>
                                     </td>
 
@@ -124,6 +126,17 @@
                                     $count++
                                 @endphp
                             @endforeach
+                            <tr class=" bg-white">
+
+                                <td class="border border-gray-400  text-center  font-bold">{{$count}}</td>
+                                <td class="border border-gray-400  text-center  ">اجرت</td>
+                                <td class="border border-gray-400  text-center  "
+                                    colspan="2">{{numberFormat($resideItem->product->salary)??0}}</td>
+
+
+                            </tr>
+
+
                         @endforeach
                         <tr class=" bg-white">
                             <td class="border border-gray-400  text-center" colspan="3">
@@ -170,7 +183,7 @@
                                                     <input type="radio" name="disc">
                                                     <div
                                                         class="invisible flex items-center   space-x-reverse space-x-4 ">
-                                                        <input type="number" min="0" max="100"  name="discountDecimal"
+                                                        <input type="number" min="0" max="100" name="discountDecimal"
                                                                class="border w-[50px] rounded-md p-[3px] text-center outline-none discount">
                                                         <h1 class="font-bold">درصد</h1>
                                                     </div>
@@ -314,7 +327,7 @@
         let finalPrice = totalPrice;
         let inputDiscounts = document.querySelectorAll('.discount');
         const event = new Event('input', {bubbles: true});
-        const eventChange= new Event('change',{bubbles:true});
+        const eventChange = new Event('change', {bubbles: true});
 
         inputDiscounts.forEach((input) => {
             input.addEventListener('input', discount);
@@ -323,31 +336,26 @@
 
 
         function discount(event) {
-            if (event.target.value>0) {
-                if (event.target.getAttribute('name') === 'discountDecimal' && event.target.value<=100) {
-                    document.querySelector('input[name="discountPrice"]').value ='';
+            if (event.target.value > 0) {
+                if (event.target.getAttribute('name') === 'discountDecimal' && event.target.value <= 100) {
+                    document.querySelector('input[name="discountPrice"]').value = '';
                     discountDecimal(event)
-                }
-                else if(event.target.getAttribute('name') === 'discountPrice' && event.target.value<=totalPrice) {
-                    document.querySelector('input[name="discountDecimal"]').value ='';
+                } else if (event.target.getAttribute('name') === 'discountPrice' && event.target.value <= totalPrice) {
+                    document.querySelector('input[name="discountDecimal"]').value = '';
                     discountPrice(event)
-                }
-                else {
+                } else {
                     removeAllDiscount()
                 }
                 inputCommission.dispatchEvent(eventChange)
-            }
-            else {
+            } else {
 
                 finalPrice = totalPrice;
-                price = new Intl.NumberFormat('fa-IR', {
-
-                }).format(finalPrice);
+                price = new Intl.NumberFormat('fa-IR', {}).format(finalPrice);
                 console.log(finalPrice)
 
-                document.querySelector('.totalPriceDiscount').innerText = price+" ریال";
-                document.querySelector('.totalPricePlusTax').innerText = price+" ریال";
-                document.querySelector('.final-price').innerText = price+" ریال";
+                document.querySelector('.totalPriceDiscount').innerText = price + " ریال";
+                document.querySelector('.totalPricePlusTax').innerText = price + " ریال";
+                document.querySelector('.final-price').innerText = price + " ریال";
             }
 
         }
@@ -374,8 +382,8 @@
         }
 
         function discountPrice(event) {
-           let discount=totalPrice-event.target.value;
-           finalPrice=discount;
+            let discount = totalPrice - event.target.value;
+            finalPrice = discount;
             price = new Intl.NumberFormat('fa-IR', {
                 // style: 'currency',
                 currency: 'IRR'
@@ -388,10 +396,9 @@
             document.querySelector('.final-price').innerText += ' ریال ';
         }
 
-        function removeAllDiscount()
-        {
+        function removeAllDiscount() {
             inputDiscounts.forEach((input) => {
-                input.value=''
+                input.value = ''
                 input.dispatchEvent(event)
             })
         }
@@ -419,7 +426,7 @@
 
             document.querySelector('.totalPricePlusTax').innerText = price;
             document.querySelector('.totalPricePlusTax').innerText += ' ریال ';
-            document.querySelector('.final-price').innerText = price+" ریال";
+            document.querySelector('.final-price').innerText = price + " ریال";
 
         })
     </script>
@@ -478,7 +485,7 @@
             disCountBox.classList.remove('visible');
 
             disCountBox.classList.add('invisible')
-            if (checked){
+            if (checked) {
                 checkBoxDiscount.checked = false;
                 removeAllDiscount()
                 inputCommission.dispatchEvent(eventChange)

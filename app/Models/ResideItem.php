@@ -44,9 +44,10 @@ class ResideItem extends Model
     {
         $totalPrice = 0;
         foreach ($this->productResidItem as $product) {
-            $totalPrice += ($product->pivot->price+ $this->product->salary);
+            $totalPrice += ($product->pivot->price);
         }
-        return $totalPrice + ($this->salary ?? 0);
+        $totalPrice=$this->product->salary+$totalPrice;
+        return $totalPrice;
     }
 
     public function changeToQrcodeNameProduct()

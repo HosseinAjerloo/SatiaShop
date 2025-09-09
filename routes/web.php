@@ -270,7 +270,6 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
     Route::view('my-menu','Admin.adminMenu')->name('admin.my-menu');
 });
 
-
 Route::fallback(function () {
     abort(404);
 });

@@ -17,6 +17,7 @@ class Reside extends Model
             'total_price',
             'commission',
             'discount_collection',
+            'discount_price',
             'final_price',
             'status',
             'reside_type',
