@@ -363,10 +363,15 @@
             window.form.appendChild(file);
             file.click()
             file.addEventListener('change', function (e) {
-                if (e.target.files[0]) {
-                    addImageLocation(URL.createObjectURL(e.target.files[0]), `file-${fileCount}`);
-                    removeImageLocation();
-                    fileCount++;
+                let type=e.target.files[0].type;
+                if (e.target.files[0] && type) {
+                    type=type.split('/')[0];
+                   if (type =='image'){
+                       addImageLocation(URL.createObjectURL(e.target.files[0]), `file-${fileCount}`);
+                       removeImageLocation();
+                       fileCount++;
+                   }
+
                 }
             })
 
