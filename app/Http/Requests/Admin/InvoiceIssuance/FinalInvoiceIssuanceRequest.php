@@ -3,9 +3,13 @@
 namespace App\Http\Requests\Admin\InvoiceIssuance;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
 
 class FinalInvoiceIssuanceRequest extends FormRequest
 {
+    protected $reside;
+    protected $totalPrice=0;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -21,17 +25,22 @@ class FinalInvoiceIssuanceRequest extends FormRequest
      */
     public function rules(): array
     {
-        dd(request()->all());
+        if (Route::current()->hasParameter('reside')) {
+            $this->reside = $this->route('reside');
+            $this->totalPrice=$this->reside->totalPrice();
+        }
         return [
-            'description'=>'nullable|string',
-            'discount'=>'nullable|numeric|min:0|max:100',
-            'sodurFactor'=>'sometimes|required|in:yes',
-            'commission'=>'sometimes|required|in:yes',
-            'discountFile'=>'file|mimes:jpg,jpeg,png|max:'.env('FILE_SIZE')
+            'description' => 'nullable|string',
+            'discount' => 'nullable|numeric|min:0|max:100',
+            'discount_price' => 'nullable|numeric|min:10000|max:'.$this->totalPrice,
+            'sodurFactor' => 'sometimes|required|in:yes',
+            'commission' => 'sometimes|required|in:yes',
+            'discountFile.*' => 'file|mimes:jpg,jpeg,png|max:' . env('FILE_SIZE')
         ];
     }
+
     public function attributes()
     {
-        return ['sodurFactor'=>'گزینه صدور فاکتور معتبر نمیباشد'];
+        return ['sodurFactor' => 'گزینه صدور فاکتور معتبر نمیباشد'];
     }
 }

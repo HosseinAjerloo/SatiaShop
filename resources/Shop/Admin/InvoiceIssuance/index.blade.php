@@ -34,13 +34,16 @@
                 @csrf
 
                 <div class="w-[49%] space-y-3">
-                    <div class="w-full p-4  border border-2 border-black rounded-lg bg-white discountDescShow hidden">
 
-                    </div>
-                    <div>
-                        <h1 class="font-bold mb-3">توضیحات تخفیفی</h1>
-                        <textarea name="description" id="description" class="w-full border-none p-2 outline-none"
-                                  cols="30"></textarea>
+                    <div class="bg-white ">
+                        <h1 class="font-bold mb-3 bg-F1F1F1 py-1.5">توضیحات تخفیفی</h1>
+                        <textarea name="description" id="description"
+                                  class="w-full transition-all border-none p-2 py-1.5 outline-none"
+                                  rows="3"></textarea>
+                        <div class="flex items-center flex-wrap space-x-reverse space-x-2 image-location">
+
+
+                        </div>
                     </div>
                     <div class="mt-8 flex items-center  space-x-reverse space-x-4">
                         <h1 class="font-bold">فایل ضمیمه:</h1>
@@ -51,17 +54,8 @@
                                 کنید
                             </button>
                         </div>
-                        <input type="file" name="discountFile"
-                               class="hidden">
 
-                    </div>
-                    <div class="flex items-center justify-center space-x-reverse space-x-2">
-                        <button class="rounded-lg bg-268832 text-white px-10 py-1.5 btnSaveDescDiscount" type="button">
-                            ذخیره
-                        </button>
-                        <button class="rounded-lg bg-FF3100 text-white px-10 py-1.5  btnCancelDescDiscount"
-                                type="button">لغو
-                        </button>
+
                     </div>
 
 
@@ -92,7 +86,7 @@
 
                         </thead>
                         <tbody>
-                        @foreach($reside->resideItem as $key=> $resideItem)
+                        @foreach($reside->resideItem()->has('productResidItem')->get() as $key=> $resideItem)
                             @php
                                 $count++
                             @endphp
@@ -108,9 +102,10 @@
                                     @if($index==0)
                                         <td class="border border-gray-400  text-center  "
                                             rowspan="{{$resideItem->productResidItem->count()+1}}">
-                                            <p class=" text-[15px] sm:text-[13px]  p-1 w-full ">
+                                            <a href="{{route('admin.invoice.issuance.operation',[$resideItem->reside_id,$resideItem->id])}}"
+                                               class="underline decoration-2 underline-offset-4	 decoration-2081F2 text-[15px] sm:text-[13px]  p-1 w-full ">
                                                 {{$resideItem->unique_code??''}}
-                                            </p>
+                                            </a>
                                         </td>
                                     @endif
                                     <td class="border border-gray-400  text-center">
@@ -139,12 +134,13 @@
                                     $count++
                                 @endphp
                             @endforeach
+
                             <tr class=" bg-white">
 
                                 <td class="border border-gray-400  text-center  font-bold">{{$count}}</td>
                                 <td class="border border-gray-400  text-center  ">اجرت</td>
                                 <td class="border border-gray-400  text-center  "
-                                    colspan="2">{{numberFormat($resideItem->product->salary)??0}}</td>
+                                    colspan="2">{{numberFormat($resideItem->product->salary)??100}}</td>
 
 
                             </tr>
@@ -206,7 +202,7 @@
                                                     <input type="radio" name="disc">
                                                     <div
                                                         class="invisible flex items-center w-3/5  space-x-reverse space-x-4 ">
-                                                        <input type="number" min="0" max="100" name="discountPrice"
+                                                        <input type="number" min="0" max="100" name="discount_price"
                                                                class="w-3/5	 border  rounded-md p-[3px] text-center outline-none discount">
                                                         <h1 class="font-bold">ریال مبلغ</h1>
                                                     </div>
@@ -320,23 +316,60 @@
     </script>
 
     <script>
-        let btnFile = document.querySelector('.btn-file');
-        let file = document.querySelector('input[type="file"]');
-        let description = document.getElementById('description');
-        let discountDescShow = document.querySelector('.discountDescShow');
-        let btnSaveDescDiscount = document.querySelector('.btnSaveDescDiscount');
-        let btnCancelDescDiscount = document.querySelector('.btnCancelDescDiscount');
-        btnFile.onclick = () => {
-            file.click();
 
-        }
-        btnSaveDescDiscount.onclick = () => {
-            if (description.value.length > 0) {
-                description.classList.toggle('hidden');
-                discountDescShow.innerText = description.value
-                discountDescShow.classList.toggle('hidden')
+        let btnFile = document.querySelector('.btn-file');
+        const removeImageLocation = () => {
+            let imageLocation = document.querySelector('.image-location');
+            for (const childLocation of imageLocation.children) {
+                childLocation.children[0].addEventListener('click', function (e) {
+                    childLocation.style.transform = `scale(0)`;
+                    document.querySelector(`input[data-file=${e.target.dataset.file}]`).remove();
+                    childLocation.addEventListener('transitionend', function () {
+                        childLocation.remove();
+                    });
+                })
 
             }
+
+        }
+        removeImageLocation();
+        const addImageLocation = (src, datasetValue) => {
+            let imageLocation = document.querySelector('.image-location');
+            let childLocation = document.createElement('div');
+            childLocation.classList.add('relative', 'p-2', 'transition-all')
+            let ImageLocationImgRemove = document.createElement('img');
+            ImageLocationImgRemove.dataset.file = datasetValue;
+            ImageLocationImgRemove.setAttribute('src', "{{asset('capsule/images/delete.svg')}}");
+            ImageLocationImgRemove.classList.add('absolute', 'left-0', 'top-0', 'bg-white', 'rounded-50%', 'cursor-pointer');
+
+            let imageFile = document.createElement('img');
+            imageFile.classList.add('w-32', 'object-contain')
+            imageFile.setAttribute('src', src);
+            childLocation.append(ImageLocationImgRemove);
+            childLocation.append(imageFile);
+            imageLocation.append(childLocation)
+
+        }
+        let fileCount = 0;
+        btnFile.onclick = () => {
+            let file = document.createElement('input');
+            // <input type="file" name="discountFile[]"
+            //        class="hidden" multiple>
+            file.setAttribute('name', 'discountFile[]');
+            file.setAttribute('type', 'file');
+
+            file.dataset.file = `file-${fileCount}`
+            file.classList.add("hidden")
+            window.form.appendChild(file);
+            file.click()
+            file.addEventListener('change', function (e) {
+                if (e.target.files[0]) {
+                    addImageLocation(URL.createObjectURL(e.target.files[0]), `file-${fileCount}`);
+                    removeImageLocation();
+                    fileCount++;
+                }
+            })
+
         }
 
 
@@ -373,9 +406,9 @@
         function discount(event) {
             if (event.target.value > 0) {
                 if (event.target.getAttribute('name') === 'discountDecimal' && event.target.value <= 100) {
-                    document.querySelector('input[name="discountPrice"]').value = '';
+                    document.querySelector('input[name="discount_price"]').value = '';
                     discountDecimal(event)
-                } else if (event.target.getAttribute('name') === 'discountPrice' && event.target.value <= totalPrice) {
+                } else if (event.target.getAttribute('name') === 'discount_price' && event.target.value <= totalPrice) {
                     document.querySelector('input[name="discountDecimal"]').value = '';
                     discountPrice(event)
                 } else {
@@ -531,5 +564,20 @@
 
 
         }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let description = document.getElementById('description');
+
+            description.addEventListener('input', function () {
+                autoResize(description)
+            })
+
+            const autoResize = (e) => {
+                e.style.height = 'auto';
+                e.style.height = e.scrollHeight + 'px';
+            };
+        })
+
     </script>
 @endsection
