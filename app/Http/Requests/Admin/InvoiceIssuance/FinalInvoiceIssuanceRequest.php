@@ -31,7 +31,7 @@ class FinalInvoiceIssuanceRequest extends FormRequest
         }
         return [
             'description' => 'nullable|string',
-            'discount' => 'nullable|numeric|min:0|max:100',
+            'discountDecimal' => 'nullable|numeric|min:0|max:100',
             'discount_price' => 'nullable|numeric|min:10000|max:'.$this->totalPrice,
             'sodurFactor' => 'sometimes|required|in:yes',
             'commission' => 'sometimes|required|in:yes',

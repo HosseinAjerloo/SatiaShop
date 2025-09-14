@@ -4,13 +4,13 @@ namespace App\Services\ImageService;
 
 class ImageProvider
 {
-    protected $rootFolder;
-    protected $fileFolder;
-    protected $fileName;
-    protected $fileType;
-    protected $objFile;
-    protected $fileSize;
-    protected $addressFile;
+    protected $rootFolder=null;
+    protected $fileFolder=null;
+    protected $fileName=null;
+    protected $fileType=null;
+    protected $objFile=null;
+    protected $fileSize=null;
+    protected $addressFile=null;
 
     /**
      * @return mixed
@@ -67,6 +67,7 @@ class ImageProvider
      */
     public function getFileName()
     {
+
         return $this->fileName;
     }
 
@@ -163,6 +164,16 @@ class ImageProvider
         $this->setFileType($fileType);
         $this->setFileName($fileName);
         $this->generate();
+    }
+    public function reset()
+    {
+        $this->rootFolder=null;
+        $this->fileFolder=null;
+        $this->fileName=null;
+        $this->fileType=null;
+        $this->objFile=null;
+        $this->fileSize=null;
+        $this->addressFile=null;
     }
 
 

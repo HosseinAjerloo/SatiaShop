@@ -219,7 +219,10 @@ class Permission extends Model
             'persian_name'=>'صفحه سرویس های کپسول'
         ],
 
-
+        [
+            'name'=>'admin.charging-operation.index',
+            'persian_name'=>'لیست کپسول های در انتظار شارژ'
+        ],
 
 
     ];

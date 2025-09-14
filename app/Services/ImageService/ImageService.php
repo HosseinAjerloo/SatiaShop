@@ -32,13 +32,31 @@ class ImageService extends ImageProvider
 
         $this->setObjFile($image);
         $this->provider();
-        $result=$this->getObjFile()->move($this->getAddressFile(),$this->getFinalImageName());
-        if ($result)
-        {
+        $result = $this->getObjFile()->move($this->getAddressFile(), $this->getFinalImageName());
+        if ($result) {
             return $this->getFinalFileAddres();
         }
         return false;
     }
+
+    public function saveImageMany($images)
+    {
+        $imageFiles = [];
+        foreach ($images as $image) {
+            $time=time();
+            $this->setFileName($time.rand(1111,9999));
+            $this->setObjFile($image);
+            $this->provider();
+            $result = $this->getObjFile()->move($this->getAddressFile(), $this->getFinalImageName());
+            if ($result) {
+                array_push($imageFiles,$this->getFinalFileAddres());
+            }
+        }
+        return  $imageFiles;
+
+
+    }
+
     public function deleteImage($path)
     {
         if (file_exists($path)) {

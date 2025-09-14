@@ -49,7 +49,7 @@
                         <h1 class="font-bold">فایل ضمیمه:</h1>
                         <div class="bg-white p-2 rounded-md flex items-center justify-between w-2/5	">
                             <img src="{{asset('capsule/images/uploadFile.svg')}}" alt="">
-                            <span class="text-gray-400/75">فایلی موجود نمیباشد</span>
+                            <span class="text-gray-400/75 file-counter">فایلی موجود نمیباشد</span>
                             <button class="bg-2081F2 text-white rounded-lg text-white p-2 btn-file" type="button">انتخاب
                                 کنید
                             </button>
@@ -370,6 +370,7 @@
                        addImageLocation(URL.createObjectURL(e.target.files[0]), `file-${fileCount}`);
                        removeImageLocation();
                        fileCount++;
+                       document.querySelector('.file-counter').innerHTML=fileCount+' فایل انتخاب شده است '
                    }
 
                 }

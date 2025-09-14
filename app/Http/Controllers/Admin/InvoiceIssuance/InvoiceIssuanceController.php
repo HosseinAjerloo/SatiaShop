@@ -38,7 +38,6 @@ InvoiceIssuanceController extends Controller
 
     public function store(Reside $reside, FinalInvoiceIssuanceRequest $request)
     {
-        dd($request->all(),$request->file());
         try {
             $inputs = $request->all();
             $this->compilationResideFactor($reside);

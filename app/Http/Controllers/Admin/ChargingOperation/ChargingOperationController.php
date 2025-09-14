@@ -9,17 +9,16 @@ use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\Gate;
 class ChargingOperationController extends Controller
 {
     public function index()
     {
-        //todo اضافه کردن سطوح دسترسی
+        Gate::authorize('admin.charging-operation.index');
         $breadcrumbs = Breadcrumbs::render('admin.charging-operation.index')->getData()['breadcrumbs'];
         $resideItems = ResideItem::whereHas('reside', function (Builder $query) {
             $query->where('type', 'reside')->orderBy('user_id','desc');
-        })->orderBy('reside_id')->doesntHave('productResidItem')->paginate(20);
-
+        })->where('status','recharge')->orWhere('status','used')->orderBy('reside_id')->doesntHave('productResidItem')->paginate(20);
         return view('Admin.ChargingOperation.index', compact('resideItems', 'breadcrumbs'));
     }
     public function searchAjax(Request $request)

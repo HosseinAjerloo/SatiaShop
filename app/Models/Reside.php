@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use App\Http\Traits\HasDiscount;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Reside extends Model
 {
+    use SoftDeletes,HasDiscount;
     protected $fillable =
         [
             'user_id',
@@ -110,6 +114,40 @@ class Reside extends Model
         return $total;
     }
     public function file(){
-        return $this->morphOne(File::class,'files','fileable_type','fileable_id');
+        return $this->morphMany(File::class,'files','fileable_type','fileable_id');
+    }
+    public function calculationWithDiscount()
+    {
+        $price=0;
+        if ($this->discount_collection>0)
+        {
+            $price=$this->calculateDecimal($this->total_price,$this->discount_collection);
+        }elseif ($this->discount_price>0)
+        {
+            $price=$this->calculatePrice($this->total_price,$this->discount_price);
+        }
+        else{
+            $price=0;
+        }
+        return $price;
+    }
+
+    protected function resideDiscountAmount(): Attribute
+    {
+        return Attribute::make(
+            get: function (){
+                if ($this->discount_collection)
+                {
+                    return $this->discount_collection.'%';
+                }
+                elseif ($this->discount_price)
+                {
+                    return numberFormat($this->discount_price)."ریال";
+                }
+                else{
+                    return 0;
+                }
+            }
+        );
     }
 }
