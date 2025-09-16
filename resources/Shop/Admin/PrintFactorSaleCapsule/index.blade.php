@@ -346,10 +346,10 @@
 
         generateQrCode();
     </script>
-    {{--    <script>--}}
-    {{--        window.addEventListener('load', function () {--}}
-    {{--            window.print();--}}
-    {{--        })--}}
-    {{--    </script>--}}
+        <script>
+            window.addEventListener('load', function () {
+                window.print();
+            })
+        </script>
 
 @endsection

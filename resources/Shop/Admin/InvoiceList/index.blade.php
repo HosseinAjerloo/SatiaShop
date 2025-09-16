@@ -115,7 +115,7 @@
                             </td>
                             <td class="border border-gray-400   text-center ">
 
-                                <a href="{{route('admin.invoice.issuance.index', $reside)}}" class="w-full flex items-center justify-center p-1">
+                                <a href="@if($reside->reside_type=='sell') {{route('admin.sale.show', $reside)}}  @else {{route('admin.invoice.issuance.index', $reside)}} @endif" class="w-full flex items-center justify-center p-1">
                                     <img src="{{asset('capsule/images/eya.svg')}}" alt="">
                                 </a>
 
@@ -140,7 +140,7 @@
 
                             <td class="border border-gray-400   text-center ">
                                 <div class="w-full flex items-center justify-center p-1">
-                                    {{$reside->reside_type=='sell'?'فروش':'شارژ'}}
+                                    {{$reside->reside_type=='sell'?'فروش':'شارژ و تمدید کپسول'}}
                                 </div>
                             </td>
                             <td class="border border-gray-400   text-center p-1">

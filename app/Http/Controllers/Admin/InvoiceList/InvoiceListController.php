@@ -18,7 +18,7 @@ class InvoiceListController extends Controller
                 })
                 ->whereDoesntHave('resideItem', function ($query) {
                     $query->doesntHave('productResidItem');
-                })
+                })->orWhere('reside_type', 'sell')
                 ->paginate(10);
             return view('Admin.InvoiceList.index', compact('resides', 'breadcrumbs'));
         }
@@ -28,7 +28,7 @@ class InvoiceListController extends Controller
             $query->whereHas('productResidItem');
         })->whereDoesntHave('resideItem', function ($query) {
                 $query->doesntHave('productResidItem');
-            })->get();
+            })->orWhere('reside_type', 'sell')->get();
         foreach ($resides as $key => $reside) {
             $reside->jalalidate = \Morilog\Jalali\Jalalian::forge($reside->created_at)->format('Y/m/d');
             $reside->custumerName = ($reside->user->customer_type == 'natural_person' or empty($reside->user->customer_type)) ? $reside->user->fullName ?? '' : $reside->user->organizationORcompanyName ?? '';
@@ -36,7 +36,7 @@ class InvoiceListController extends Controller
             $reside->operatorName = $reside->operator->fullName ?? '';
             $reside->final_pricePersian = numberFormat($reside->final_price) ?? 0;
             $reside->update = '#';
-            $reside->invoiceRoute = \route('admin.invoice.issuance.index', $reside);
+            $reside->invoiceRoute = $reside->reside_type=='sell' ? route('admin.sale.show', $reside)  : route('admin.invoice.issuance.index', $reside);
             if ($reside->file) {
                 $reside->download = route('admin.resideCapsule.download', $reside);
             } else {

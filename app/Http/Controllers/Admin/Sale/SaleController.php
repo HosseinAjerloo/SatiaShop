@@ -89,10 +89,9 @@ class SaleController extends Controller
 
     public function generateFactor(Reside $reside, FinalInvoiceIssuanceRequest $request)
     {
-
         try {
             $this->compilationResideFactor($reside);
-            return redirect()->route('admin.sale.printFactor', $reside)->with(['success' => 'خطایی در ثبت اطلاعات شما رخ داد لطفا با پشتیبانی تماس حاصل فرمایید']);
+            return redirect()->route('admin.sale.printFactor', $reside)->with(['success' => 'اطلاعات شما با موفقیت ذخیره شد']);
 
         } catch (Exception $exception) {
             return redirect()->back()->withErrors(['error' => 'خطایی در ثبت اطلاعات شما رخ داد لطفا با پشتیبانی تماس حاصل فرمایید']);
