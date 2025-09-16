@@ -108,7 +108,7 @@
                 </div>
                 <div class="flex items-center space-x-reverse space-x-2 text-white">
                     <h2 class="font-semibold text-md">کدیکتا</h2>
-                    <span class="tex-sm font-medium">1155</span>
+                    <span class="tex-sm font-medium">{{$resideItem->unique_code}}</span>
                 </div>
             </div>
 

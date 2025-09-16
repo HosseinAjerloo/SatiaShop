@@ -389,6 +389,7 @@
 
         inputDiscounts.forEach((input) => {
             input.addEventListener('input', discount);
+            if (input.value>0)
             input.dispatchEvent(event);
         })
 
@@ -490,6 +491,8 @@
             document.querySelector('.final-price').innerText = price + " ریال";
 
         })
+        inputCommission.dispatchEvent(eventChange)
+
     </script>
 
     <script>
@@ -563,11 +566,12 @@
                 autoResize(description)
             })
 
-            const autoResize = (e) => {
-                e.style.height = 'auto';
-                e.style.height = e.scrollHeight + 'px';
-            };
+
         })
+        const autoResize = (e) => {
+            e.style.height = 'auto';
+            e.style.height = e.scrollHeight + 'px';
+        };
 
     </script>
 @endsection

@@ -264,7 +264,8 @@
                             </td>
                             <td class="border border-gray-400  text-center" colspan="3">
                                 <p class="totalPriceDiscount text-[15px] space-x-reverse space-x-2  sm:text-[13px]  p-1 w-full flex items-center justify-center">
-                                    {{numberFormat($reside->total_price)??''}}
+                                    {{numberFormat($reside->calculationWithDiscount())??''}}
+
                                     ریال
                                 </p>
                             </td>
