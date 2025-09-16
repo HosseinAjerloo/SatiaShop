@@ -145,8 +145,7 @@
                             </td>
                             <td class="border border-gray-400   text-center p-1">
                                 <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full  ">
-
-                                    {{numberFormat($reside->final_price??$reside->total_price())}}
+                                    {{$reside->final_price!=0?numberFormat($reside->final_price):numberFormat($reside->totalPrice())}}
                                     ریال
                                 </p>
                             </td>

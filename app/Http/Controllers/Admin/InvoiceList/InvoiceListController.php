@@ -12,13 +12,12 @@ class InvoiceListController extends Controller
 {
         public function index(){
             $breadcrumbs = Breadcrumbs::render('admin.invoice-list.index')->getData()['breadcrumbs'];
-            $resides = Reside::orderBy('created_at', 'desc')
-                ->whereHas('resideItem', function ($query) {
+            $resides = Reside::whereHas('resideItem', function ($query) {
                     $query->whereHas('productResidItem');
                 })
                 ->whereDoesntHave('resideItem', function ($query) {
                     $query->doesntHave('productResidItem');
-                })->orWhere('reside_type', 'sell')
+                })->orWhere('reside_type', 'sell')->orderBy('created_at', 'desc')
                 ->paginate(10);
             return view('Admin.InvoiceList.index', compact('resides', 'breadcrumbs'));
         }

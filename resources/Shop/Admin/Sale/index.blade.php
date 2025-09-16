@@ -55,7 +55,7 @@
                     </div>
 
 
-                 
+
                 </div>
             </article>
 
@@ -669,14 +669,14 @@
         // تابع حذف ردیف
             function deleteRow(element) {
                 console.log(selectedProductIds +' one');
-                
+
             if (selectedProductIds.includes(element.dataset.id))
             {
                let index=selectedProductIds.indexOf(element.dataset.id);
                 selectedProductIds.splice(index,1)
             }
                 console.log(selectedProductIds +' tow');
-                
+
             $(element).closest('tr').remove();
         }
 
@@ -811,31 +811,37 @@
         }
     </script>
     <script>
+        let add= function (event) {
+            let input = event.target.nextElementSibling;
+            input.value = (Number(input.value)+1)
+        };
+        let minusFunc=function (event){
+            let input = event.target.previousElementSibling;
+            if (input.value > 1) {
+                input.value = Number(input.value) - Number(1)
+            }
+        }
         function runCountProduct() {
+
             let btnPlus = document.querySelectorAll('.plus');
             for (const plus of btnPlus) {
-                plus.addEventListener('click', (event) => {
-                    let input = event.target.nextElementSibling;
-                    input.value = +input.value + 1
-                });
+                plus.removeEventListener('click', add);
+                plus.addEventListener('click', add);
 
             }
 
+
             let preveElement = document.querySelectorAll('.minus');
             for (const minus of preveElement) {
-                minus.addEventListener('click', (event) => {
-                    let input = event.target.previousElementSibling;
-                    if (input.value > 1) {
-                        input.value = +input.value - 1
-                    }
-                });
+                minus.removeEventListener('click', add);
+
+                minus.addEventListener('click',minusFunc);
 
             }
 
 
         }
-
-        runCountProduct();
+        runCountProduct()
     </script>
 
 @endsection
