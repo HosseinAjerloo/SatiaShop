@@ -1,14 +1,14 @@
 @extends('Admin.Layout.master')
 
 @section('content')
+
     <section class=" space-y-6 ">
         <article class="space-y-5 bg-F1F1F1 p-3 ">
             <article class="flex items-center space-x-reverse space-x-2">
 
-                <a href="{{$routeName=='admin.resideCapsule.index'?route('admin.chargingTheCapsule.index'):route('admin.sale.saleReside')}}">
                     <img src="{{asset('capsule/images/plus.svg')}}" alt="">
-                </a>
-                <h1 class="font-semibold w-52">{{$routeName=='admin.resideCapsule.index'?'رسیدهای پذیرش کپسول':'لیست کپسول های فروخته شده'}}</h1>
+
+                <h1 class="font-semibold w-52">لیست فاکتور ها</h1>
             </article>
             <form action="" method="post" class="w-full">
                 @csrf
@@ -20,26 +20,27 @@
                             <span>ردیف</span>
                         </th>
                         <th class=" text-sm font-light px-2 leading-6 text-white ">
-                            <span>تاریخ</span>
+                            <span>فاکتور</span>
                         </th>
 
                         <th class=" text-sm font-light px-2 leading-6 text-white text-nowrap max-w-max">
-                            <span>نام مشتری/سازمان</span>
+                            <span>شماره فاکتور</span>
+                        </th>
+                        <th class=" text-sm font-light px-2 leading-6 text-white text-nowrap max-w-max">
+                            <span>مشتری</span>
                         </th>
                         <th class=" text-sm font-light px-2 leading-6 text-white max-w-max">
-                            <span>تعداد کپسول</span>
+                            <span>نوع فاکتور</span>
                         </th>
                         <th class=" text-sm font-light px-2 leading-6 text-white ">
-                            <span>شماره رسید</span>
+                            <span>مبلغ</span>
                         </th>
 
 
                         <th class=" text-sm font-light px-2 leading-6 text-white ">
-                            <span>نام پذیرنده</span>
+                            <span>تاریخ</span>
                         </th>
-                        <th class=" text-sm font-light px-2 leading-6 text-white ">
-                            <span>چاپ</span>
-                        </th>
+
                     </tr>
 
                     </thead>
@@ -52,28 +53,17 @@
 
                             </div>
                         </td>
-                        <td class="border border-gray-400   text-center p-1">
-                            <div class="w-full flex items-center  ">
-                                <img src="{{asset('capsule/images/date.svg')}}" alt=""
-                                     class="w-5 h-5 sm:w-7 sm:h-7 date-icon cursor-pointer">
-                                <input type="text"
-                                       class="w-full border border-black/60 outline-none rounded-md startDate text-min text-center py-1 sm:w-4/5 mr-[2px] sm:mr-[15px]">
-                                <input type="hidden" id="startDate" data-name="created_at">
-                            </div>
-                        </td>
 
-                        <td class="border border-gray-400   text-center p-1">
-                            <div class="w-full flex items-center ">
-                                <input type="text"
-                                       class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1"
-                                       data-name="customer_name">
-                            </div>
-                        </td>
+
+
+
+
+
                         <td class="border border-gray-400   text-center p-1">
                             <div class="w-full flex items-center ">
                                 <input type="number"
                                        class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1"
-                                       data-name="count_capsule">
+                                       disabled>
                             </div>
                         </td>
                         <td class="border border-gray-400   text-center ">
@@ -88,31 +78,54 @@
                             <div class="w-full flex items-center ">
                                 <input type="text"
                                        class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1"
-                                       data-name="operator_name">
+                                       data-name="customer_name">
                             </div>
                         </td>
                         <td class="border border-gray-400   text-center p-1">
                             <div class="w-full flex items-center ">
                                 <input type="text"
                                        class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1"
-                                       disabled>
+                                       data-name="reside_type">
+                            </div>
+                        </td>
+                        <td class="border border-gray-400   text-center p-1">
+                            <div class="w-full flex items-center ">
+                                <input type="text"
+                                       class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1"
+                                       data-name="final_price">
                             </div>
                         </td>
 
+                        <td class="border border-gray-400   text-center p-1">
+                            <div class="w-full flex items-center  ">
+                                <img src="{{asset('capsule/images/date.svg')}}" alt=""
+                                     class="w-5 h-5 sm:w-7 sm:h-7 date-icon cursor-pointer">
+                                <input type="text"
+                                       class="w-full border border-black/60 outline-none rounded-md startDate text-min text-center py-1 sm:w-4/5 mr-[2px] sm:mr-[15px]">
+                                <input type="hidden" id="startDate" data-name="created_at">
+                            </div>
+                        </td>
                     </tr>
                     @foreach($resides as  $reside)
-                        <tr class="@if( $resides->firstItem() + $loop->index%2==0) bg-white @else bg-gray-200/70 @endif">
+                        <tr class="@if( ($resides->firstItem() + $loop->index)%2==0) bg-white @else bg-gray-200/70 @endif">
                             <td class="border border-gray-400  text-center  p-1">
                                 <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full ">
                                     {{ $resides->firstItem() + $loop->index}}
                                 </p>
                             </td>
-                            <td class="border border-gray-400  text-center  p-1">
-                                <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full ">
-                                    {{\Morilog\Jalali\Jalalian::forge($reside->created_at)->format('Y/m/d')}}
+                            <td class="border border-gray-400   text-center ">
+
+                                <a href="{{route('admin.invoice.issuance.index', $reside)}}" class="w-full flex items-center justify-center p-1">
+                                    <img src="{{asset('capsule/images/eya.svg')}}" alt="">
+                                </a>
+
+                            </td>
+                            <td class="border border-gray-400   text-center p-1">
+                                <p
+                                   class="sm:font-normal sm:text-sm text-[13px] p-1 w-full underline underline-sky-500 underline-offset-4 decoration-sky-500 text-sky-600">
+                                    {{$reside->id}}
                                 </p>
                             </td>
-
                             <td class="border border-gray-400   text-center p-1">
                                 <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full  ">
                                     @if($reside->user->customer_type=='natural_person' or empty($reside->user->customer_type))
@@ -123,42 +136,30 @@
 
                                 </p>
                             </td>
-                            <td class="border border-gray-400   text-center p-1">
-                                <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full  ">
-                                    @if($reside->reside_type=='sell')
-                                        {{$reside->resideItem->sum('amount')}}
-                                    @else
-                                        {{$reside->resideItem->count()}}
-                                    @endif
-                                </p>
-                            </td>
-                            <td class="border border-gray-400   text-center p-1">
-                                <a href="@if($reside->reside_type=='recharge') {{route('admin.chargingTheCapsule.edit',$reside)}} @else {{route('admin.sale.edit',$reside)}} @endif"
-                                   class="sm:font-normal sm:text-sm text-[13px] p-1 w-full underline underline-sky-500 underline-offset-4 decoration-sky-500 text-sky-600">
-                                    {{$reside->id}}
-                                </a>
-                            </td>
 
 
                             <td class="border border-gray-400   text-center ">
                                 <div class="w-full flex items-center justify-center p-1">
-                                    {{$reside->operator->fullName??''}}
+                                    {{$reside->reside_type=='sell'?'فروش':'شارژ'}}
                                 </div>
                             </td>
-                            <td class="border border-gray-400   text-center ">
-                                @if($reside->reside_type=='sell')
-                                    <a href=" @if($reside->status=='paid') {{route('admin.sale.printFactor',$reside)}} @else # @endif"
-                                       class="w-full flex items-center justify-center p-1">
-                                        <img src="{{asset('capsule/images/printerIcon.svg')}}" alt="">
-                                    </a>
-
-                                @else
-                                    <a href=" @if($reside->status=='paid') {{route('admin.invoice.issuance.printFactor',$reside)}} @else {{route('admin.chargingTheCapsule.printReside',$reside)}} @endif"
-                                       class="w-full flex items-center justify-center p-1">
-                                        <img src="{{asset('capsule/images/printerIcon.svg')}}" alt="">
-                                    </a>
-                                @endif
+                            <td class="border border-gray-400   text-center p-1">
+                                <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full  ">
+                                    {{numberFormat($reside->final_price)}}
+                                    ریال
+                                </p>
                             </td>
+
+
+
+
+
+                            <td class="border border-gray-400  text-center   p-1">
+                                <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full ">
+                                    {{\Morilog\Jalali\Jalalian::forge($reside->created_at)->format('Y/m/d')}}
+                                </p>
+                            </td>
+
                         </tr>
                     @endforeach
 
@@ -175,14 +176,14 @@
 
 @endsection
 @section('script')
+@section('script')
 
     <script>
         let firstTrTbodyTable = document.querySelector('table tbody tr:first-child');
         let allInputs = firstTrTbodyTable.querySelectorAll('input');
         let getDate = firstTrTbodyTable.querySelector('input[type="hidden"]');
         let data = {}
-        data['reside_type']="{{$routeName=='admin.resideCapsule.index'?'شارژ':'فروش'}}";
-        data['type']="reside";
+
 
         let mutations = new MutationObserver(function (mutations) {
             mutations.forEach(function (mutation) {
@@ -224,9 +225,8 @@
         }
 
         function requestToServer() {
-
             let xmlHttpRequest = new XMLHttpRequest();
-            xmlHttpRequest.open("POST", "{{route('admin.resideCapsule.search')}}");
+            xmlHttpRequest.open("POST", "{{route('admin.invoice-list.search')}}");
             xmlHttpRequest.setRequestHeader('X-CSRF-Token', "{{csrf_token()}}")
             xmlHttpRequest.setRequestHeader("Content-Type", "application/json");
             xmlHttpRequest.send(JSON.stringify(data));
@@ -261,14 +261,24 @@
             let myHtml = '';
             data.data.forEach(function (value, index) {
                 myHtml += `<tr class=" bg-white  bg-gray-200/78 ">
+
+
                             <td class="border border-gray-400  text-center  p-1">
                                 <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full ">
                                     ${index + 1}
                             </p>
                         </td>
+                        <td class="border border-gray-400   text-center ">
+
+                               <a href="${value.invoiceRoute}"
+                                       class="w-full flex items-center justify-center p-1">
+                                        <img src="{{asset('capsule/images/eya.svg')}}" alt="">
+                                   </a>
+                        </td>
                         <td class="border border-gray-400  text-center  p-1">
-                            <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full ">
-                                    ${value.jalalidate}
+                            <p class="sm:font-normal sm:text-sm  text-[13px] p-1 w-full underline underline-sky-500 underline-offset-4 decoration-sky-500 text-sky-600 ">
+                                 <p>${value.id}</p>
+
                             </p>
                         </td>
 
@@ -280,27 +290,21 @@
                         </td>
                         <td class="border border-gray-400   text-center p-1">
                             <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full  ">
-                                ${value.capsuleCount}
+                                ${value.type_change}
                             </p>
                         </td>
                         <td class="border border-gray-400   text-center p-1">
-                            <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full underline underline-sky-500 underline-offset-4 decoration-sky-500 text-sky-600">
-                               <a href="${value.update}">${value.id}</a>
+                            <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full text-sky-600">
+                               ${value.final_pricePersian}
                             </p>
                         </td>
 
                             <td class="border border-gray-400   text-center ">
                                 <div class="w-full flex items-center justify-center p-1">
-                                    ${value.operatorName}
+                                    ${value.jalalidate}
                             </div>
                         </td>
-                        <td class="border border-gray-400   text-center ">
 
-                               <a href="${value.routePrint}"
-                                       class="w-full flex items-center justify-center p-1">
-                                        <img src="{{asset('capsule/images/printerIcon.svg')}}" alt="">
-                                   </a>
-                        </td>
 
                     </tr>`;
             });

@@ -256,6 +256,10 @@ Breadcrumbs::for('admin.role.edit', function (BreadcrumbTrail $trail, $role) {
     $trail->parent('admin.role.index');
     $trail->push('ویرایش نقش ', route('admin.role.edit',  $role));
 });
+Breadcrumbs::for('admin.invoice-list.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('panel.admin');
+    $trail->push('لیست فاکتورها', route('admin.invoice-list.index'));
+});
 
 
 

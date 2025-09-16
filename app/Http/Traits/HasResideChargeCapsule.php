@@ -66,13 +66,17 @@ trait  HasResideChargeCapsule
     {
 //        $this->generateUniqueCode();
         $inputs = request()->all();
+
         if (count($inputs['product_description']) != count($inputs['product_status'])) {
             return false;
         }
         foreach ($inputs['product_description'] as $key => $value) {
             if (!isset($inputs['product_status'][$key]))
                 return false;
+
+
             $productId = str_contains($key, "_") ? explode('_', $key)[0] : $key;
+
 
             $product = Product::find($productId);
             $resideItem = [
@@ -83,12 +87,20 @@ trait  HasResideChargeCapsule
                 'description' => $value,
                 'unique_code' => isset($inputs['unique_code'])? $inputs['unique_code']: $this->generateUniqueCode()
             ];
+
             array_push($this->resideItems, $resideItem);
         }
 
-        if (empty($this->resideItems))
+        if (empty($this->resideItems)){
             return false;
+
+        }else{
+            foreach ($this->resideItems as $key=> $item){
+                $this->resideItems[$key]['id']=isset($inputs['resideId'][$key])?$inputs['resideId'][$key]:null;
+            }
+
         return true;
+        }
     }
 
     protected function generateUniqueCode()
@@ -119,7 +131,6 @@ trait  HasResideChargeCapsule
     {
         $inputs = request()->all();
         DB::beginTransaction();
-
         try {
             $reside = $inputs['reside'];
             $operator = Auth::user();
@@ -144,8 +155,23 @@ trait  HasResideChargeCapsule
             } else {
                 return redirect()->back()->withErrors(['error' => 'پارامتر وارد شده معتبر نمیباشد']);
             }
-            $reside->resideItem()->forceDelete();
-            $reside->resideItem()->createMany($this->resideItems);
+
+            $incomingIds = collect($this->resideItems)
+                ->pluck('id')
+                ->filter()
+                ->toArray();
+
+            $reside->resideItem()->whereNotIn('id',$incomingIds)->forceDelete();
+            foreach ($this->resideItems as $itemData) {
+
+                $reside->resideItem()->updateOrCreate([
+                    "id"=>$itemData['id']
+                ],
+                    $itemData
+                );
+            }
+
+
             DB::commit();
             if (isset($inputs['print'])) {
                 $this->redirectUri = redirect()->route('admin.chargingTheCapsule.printReside', $reside)->with(['success' => 'رسید شما صادر شد و عملیات با موفقیت انجام شد.']);;
@@ -291,10 +317,11 @@ trait  HasResideChargeCapsule
             $inputs['mobile'] = $mobile;
             $inputs['password'] = password_hash($mobile, PASSWORD_DEFAULT);
             $user = User::create($inputs);
+            $smsService = new SatiaService();
+            $smsService->send('کاربرگرامی شماره موبایل شما همان کلمه عبور شما در نظر گرفته شده است . لطفا در اسرع وقت آن را ویرایش کنید', $user->mobile);
+
         }
 
-        $smsService = new SatiaService();
-        $smsService->send('کاربرگرامی شماره موبایل شما همان کلمه عبور شما در نظر گرفته شده است . لطفا در اسرع وقت آن را ویرایش کنید', $user->mobile);
 
         return $user;
     }

@@ -52,16 +52,16 @@ class Reside extends Model
                 $query->orWhere('name', 'like', "%$name%")->orWhere('family', 'like', "%$name%");
             })->first();
             $user ? $query->where('user_id', $user->id) : '';
-        })->when(request()->input('reside_type'), function ($query) {
-            $resideType = request()->input('reside_type');
-            if (str_contains($resideType, 'شارژ')) {
-                $query->where('reside_type', 'recharge');
-            } elseif (str_contains($resideType, 'فروش')) {
-                $query->where('reside_type', 'sell');
-
-            }
         })->when(request()->input('count_capsule'), function ($query) {
-            $query->whereHas('resideItem', function ($builder) {
+            $query->when(request()->input('reside_type'),function ($query,$value){
+                $resideType = request()->input('reside_type');
+                if (str_contains($resideType, 'شارژ')) {
+                    $query->where('reside_type', 'recharge');
+                } elseif (str_contains($resideType, 'فروش')) {
+                    $query->where('reside_type', 'sell');
+
+                }
+            })->whereHas('resideItem', function ($builder) {
                 $builder->where('status', 'sell')
                     ->groupBy('reside_id')
                     ->havingRaw('SUM(amount) >= ?', [request()->input('count_capsule')]);
@@ -70,6 +70,15 @@ class Reside extends Model
                     ->groupBy('reside_id')
                     ->havingRaw('COUNT(*) >= ?', [request()->input('count_capsule')]);
             });
+        })->when(request()->input('reside_type'), function ($query) {
+            $resideType = request()->input('reside_type');
+            if (str_contains($resideType, 'شارژ')) {
+
+                $query->where('reside_type', 'recharge');
+            } elseif (str_contains($resideType, 'فروش')) {
+                $query->where('reside_type', 'sell');
+
+            }
         })->when(request()->input('reside_id'), function ($query) {
             $query->where('id', request()->input('reside_id'));
         })->when(request()->input('operator_name'), function ($query) {
@@ -82,8 +91,14 @@ class Reside extends Model
             $date = substr(request()->input('created_at'), 0, 10);
             $date = date('Y/m/d', $date);
 
-            $query->whereDate('created_at', ">=", $date);
+            $query->whereDate('created_at', ">", $date);
+        })->when(request()->input('type'),function ($query,$value){
+            $query->where('type',$value);
+        })->when(request()->input('final_price'),function ($query,$value){
+            $query->where('final_price',">=",$value);
         });
+
+
     }
 
     public function totalPrice()
@@ -116,9 +131,23 @@ class Reside extends Model
     public function file(){
         return $this->morphMany(File::class,'files','fileable_type','fileable_id');
     }
+    public function isDiscount()
+    {
+        $status=false;
+        if ($this->discount_collection>0)
+        {
+            $status=true;
+        }elseif ($this->discount_price>0)
+        {
+            $status=true;
+        }
+        return $status;
+
+
+    }
     public function calculationWithDiscount()
     {
-        $price=0;
+        $price=$this->total_price;
         if ($this->discount_collection>0)
         {
             $price=$this->calculateDecimal($this->total_price,$this->discount_collection);
@@ -126,9 +155,7 @@ class Reside extends Model
         {
             $price=$this->calculatePrice($this->total_price,$this->discount_price);
         }
-        else{
-            $price=0;
-        }
+
         return $price;
     }
 
@@ -138,7 +165,7 @@ class Reside extends Model
             get: function (){
                 if ($this->discount_collection)
                 {
-                    return $this->discount_collection.'%';
+                    return numberFormat($this->discount_collection).'%';
                 }
                 elseif ($this->discount_price)
                 {

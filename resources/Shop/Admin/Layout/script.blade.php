@@ -122,6 +122,8 @@
 </script>
 <script>
     function numberToPersian(value){
-        let localLang=value.cobve
+        let price=0;
+        price = new Intl.NumberFormat('fa-IR', {}).format(value);
+        return price;
     }
 </script>

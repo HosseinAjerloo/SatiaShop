@@ -236,6 +236,7 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
 
     Route::prefix('sale')->name('admin.sale.')->group(function () {
         Route::get('', [App\Http\Controllers\Admin\Sale\SaleController::class, 'index'])->name('index');
+        Route::get('capsule', [App\Http\Controllers\Admin\Sale\SaleController::class, 'saleReside'])->name('saleReside');
         Route::post('', [App\Http\Controllers\Admin\Sale\SaleController::class, 'store'])->name('store');
         Route::get('edit/{reside}',[App\Http\Controllers\Admin\Sale\SaleController::class,'edit'])->name('edit');
         Route::put('update/{reside}',[App\Http\Controllers\Admin\Sale\SaleController::class,'update'])->name('update');
@@ -264,6 +265,11 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
         Route::get('/{resideItemHistory}',[App\Http\Controllers\Admin\ScanQrCode\ScanQrCodeController::class,'index'])->name('index');
         Route::get('/{resideItemHistory}/create',[App\Http\Controllers\Admin\ScanQrCode\ScanQrCodeController::class,'create'])->name('create');
         Route::post('/{resideItemHistory}/store',[App\Http\Controllers\Admin\ScanQrCode\ScanQrCodeController::class,'store'])->name('store');
+    });
+
+    Route::prefix('invoice-list')->name('admin.invoice-list.')->group(function (){
+        Route::get('',[App\Http\Controllers\Admin\InvoiceList\InvoiceListController::class,'index'])->name('index');
+        Route::post('search',[App\Http\Controllers\Admin\InvoiceList\InvoiceListController::class,'search'])->name('search');
     });
     Route::get('print-capsule/{resideItem}',[App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'printCapsule'])->name('admin.print.capsule');
 

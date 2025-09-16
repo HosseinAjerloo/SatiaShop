@@ -18,7 +18,10 @@ class ChargingOperationController extends Controller
         $breadcrumbs = Breadcrumbs::render('admin.charging-operation.index')->getData()['breadcrumbs'];
         $resideItems = ResideItem::whereHas('reside', function (Builder $query) {
             $query->where('type', 'reside')->orderBy('user_id','desc');
-        })->where('status','recharge')->orWhere('status','used')->orderBy('reside_id')->doesntHave('productResidItem')->paginate(20);
+        })->where(function ($query){
+            $query->where('status','recharge')->orWhere('status','used');
+        })->doesntHave('productResidItem')->orderBy('reside_id')->paginate(20);
+
         return view('Admin.ChargingOperation.index', compact('resideItems', 'breadcrumbs'));
     }
     public function searchAjax(Request $request)

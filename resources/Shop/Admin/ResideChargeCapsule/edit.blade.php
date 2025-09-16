@@ -272,6 +272,8 @@
                                 <input type="text" name="product_description[{{$resideItem->product_id}}_key_{{$key}}]"
                                        class="w-full border rounded-md border-2 p-1 border-black/40 outline-none px-1.5"
                                        placeholder="توضیحات" value="{{$resideItem->description??''}}">
+                                <input type="hidden" name="resideId[]" value="{{$resideItem->id}}">
+
                             </td>
                             <td class="border p-2 text-center flex items-center justify-center">
                                 <img src="{{asset('capsule/images/delete.svg')}}" alt=""

@@ -15,15 +15,29 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Route;
 use Mockery\Exception;
 
 class SaleController extends Controller
 {
     use HasResideChargeCapsule, HasDiscount;
 
+
     public function index()
     {
         Gate::authorize('admin.sale.index');
+
+
+        $breadcrumbs = Breadcrumbs::render('admin.resideCapsule.index')->getData()['breadcrumbs'];
+        $resides = Reside::orderBy('created_at', 'desc')->where('reside_type','sell')->where('type','reside')->paginate(10);
+        $routeName=Route::current()->getName();
+        return view('Admin.ListResideCapsule.index', compact('resides', 'breadcrumbs','routeName'));
+    }
+    public function saleReside()
+    {
+
+        Gate::authorize('admin.sale.index');
+
         $breadcrumbs = Breadcrumbs::render('admin.sale.index')->getData()['breadcrumbs'];
 
         $user = Auth::user();
@@ -33,7 +47,6 @@ class SaleController extends Controller
         $filterProducts = Product::whereIn('id', Product::where('status', 'active')->where('type', 'goods')->select(DB::raw('max(id) as id'))->groupBy('category_id')->get()->pluck('id')->toArray())->get();
 
         return view('Admin.Sale.index', compact('myFavorites', 'products', 'filterProducts', 'allUser', 'breadcrumbs'));
-
     }
 
     public function store(SaleProductRequest $request)

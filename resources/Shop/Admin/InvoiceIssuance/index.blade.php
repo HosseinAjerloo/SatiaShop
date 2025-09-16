@@ -39,9 +39,14 @@
                         <h1 class="font-bold mb-3 bg-F1F1F1 py-1.5">توضیحات تخفیفی</h1>
                         <textarea name="description" id="description"
                                   class="w-full transition-all border-none p-2 py-1.5 outline-none"
-                                  rows="3"></textarea>
+                                  rows="3">{{$reside->description??''}}</textarea>
                         <div class="flex items-center flex-wrap space-x-reverse space-x-2 image-location">
 
+                           @foreach($reside->file as $file)
+                                <div class="relative p-2 transition-all">
+                                    <img class="w-32 object-contain" src="{{asset($file->path)}}" alt="">
+                                </div>
+                           @endforeach
 
                         </div>
                     </div>
@@ -163,10 +168,10 @@
                             <td class="border border-gray-400  text-center" colspan="3">
                                 <div class="text-[15px]  sm:text-[13px]  p-1 w-full ">
                                     <div class="text-[15px]  sm:text-[13px]  p-1 w-full font-bold relative">
-                                        <input name="discountChecked" type="checkbox">
+                                        <input name="discountChecked" type="checkbox" @if($reside->isDiscount()) checked="checked" @endif>
                                         <span>
                                             <span>تخفیف</span>
-                                            <span class="showDiscount">(0)</span>
+                                            <span class="showDiscount">({{$reside->resideDiscountAmount}})</span>
                                         </span>
                                         <div
                                             class="invisible transition-all absolute z-[101] w-2/3 h-75  top-0 right-[60%] rounded-lg  bg-white shadow-md shadow-black/35 ">
@@ -192,7 +197,7 @@
                                                     <div
                                                         class="invisible flex items-center   space-x-reverse space-x-4 ">
                                                         <input type="number" min="0" max="100" name="discountDecimal"
-                                                               class="border w-[50px] rounded-md p-[3px] text-center outline-none discount">
+                                                               class="border w-[50px] rounded-md p-[3px] text-center outline-none discount" value="{{$reside->discount_collection}}">
                                                         <h1 class="font-bold">درصد</h1>
                                                     </div>
                                                 </div>
@@ -203,7 +208,7 @@
                                                     <div
                                                         class="invisible flex items-center w-3/5  space-x-reverse space-x-4 ">
                                                         <input type="number" min="0" max="100" name="discount_price"
-                                                               class="w-3/5	 border  rounded-md p-[3px] text-center outline-none discount">
+                                                               class="w-3/5	 border  rounded-md p-[3px] text-center outline-none discount" value="{{$reside->discount_price}}">
                                                         <h1 class="font-bold">ریال مبلغ</h1>
                                                     </div>
                                                 </div>
@@ -316,7 +321,7 @@
     </script>
 
     <script>
-
+        let inputCommission = document.querySelector('input[name="commission"]');
         let btnFile = document.querySelector('.btn-file');
         const removeImageLocation = () => {
             let imageLocation = document.querySelector('.image-location');
@@ -336,6 +341,7 @@
         const addImageLocation = (src, datasetValue) => {
             let imageLocation = document.querySelector('.image-location');
             let childLocation = document.createElement('div');
+            //
             childLocation.classList.add('relative', 'p-2', 'transition-all')
             let ImageLocationImgRemove = document.createElement('img');
             ImageLocationImgRemove.dataset.file = datasetValue;
@@ -405,13 +411,16 @@
 
         inputDiscounts.forEach((input) => {
             input.addEventListener('input', discount);
+           if (input.value>0)
             input.dispatchEvent(event);
         })
 
 
         function discount(event) {
             if (event.target.value > 0) {
+
                 if (event.target.getAttribute('name') === 'discountDecimal' && event.target.value <= 100) {
+
                     document.querySelector('input[name="discount_price"]').value = '';
                     discountDecimal(event)
                 } else if (event.target.getAttribute('name') === 'discount_price' && event.target.value <= totalPrice) {
@@ -421,10 +430,11 @@
                     removeAllDiscount()
                 }
                 inputCommission.dispatchEvent(eventChange)
-            } else {
+            }
+            else {
 
                 finalPrice = totalPrice;
-                price = new Intl.NumberFormat('fa-IR', {}).format(finalPrice);
+                price = numberToPersian(finalPrice);
 
                 document.querySelector('.totalPriceDiscount').innerText = price + " ریال";
                 document.querySelector('.totalPricePlusTax').innerText = price + " ریال";
@@ -435,20 +445,18 @@
 
         function discountDecimal(event) {
             if (event.target.value > 0 && event.target.value <= 100) {
+                console.log('hossein')
                 let discount = ((event.target.value * totalPrice) / 100);
                 discount = totalPrice - discount;
                 finalPrice = discount;
-                price = new Intl.NumberFormat('fa-IR', {
-                    // style: 'currency',
-                    currency: 'IRR'
-                }).format(discount);
+                price = numberToPersian(discount);
                 document.querySelector('.totalPriceDiscount').innerText = price;
                 document.querySelector('.totalPriceDiscount').innerText += ' ریال ';
                 document.querySelector('.totalPricePlusTax').innerText = price;
                 document.querySelector('.totalPricePlusTax').innerText += ' ریال ';
                 document.querySelector('.final-price').innerText = price;
                 document.querySelector('.final-price').innerText += ' ریال ';
-                showDiscount.innerText = "(%" + event.target.value + ')';
+                showDiscount.innerText = "(%" + numberToPersian(event.target.value) + ')';
 
             }
 
@@ -458,17 +466,14 @@
         function discountPrice(event) {
             let discount = totalPrice - event.target.value;
             finalPrice = discount;
-            price = new Intl.NumberFormat('fa-IR', {
-                // style: 'currency',
-                currency: 'IRR'
-            }).format(discount);
+            price =numberToPersian(discount);
             document.querySelector('.totalPriceDiscount').innerText = price;
             document.querySelector('.totalPriceDiscount').innerText += ' ریال ';
             document.querySelector('.totalPricePlusTax').innerText = price;
             document.querySelector('.totalPricePlusTax').innerText += ' ریال ';
             document.querySelector('.final-price').innerText = price;
             document.querySelector('.final-price').innerText += ' ریال ';
-            showDiscount.innerText = "(" + event.target.value + "ریال )";
+            showDiscount.innerText = "(" + numberToPersian(event.target.value) + "ریال )";
         }
 
         function removeAllDiscount() {
@@ -484,28 +489,29 @@
 
 
     <script>
-        let inputCommission = document.querySelector('input[name="commission"]');
+
         let commissionAmount = 0;
         let commission = Number("{{env('Commission')}}");
         let price = 0;
         inputCommission.addEventListener('change', function (event) {
+            console.log('change')
             finalPrice = Number(finalPrice);
             if (event.target.checked) {
+                console.log('commission')
                 commissionAmount = ((finalPrice * commission) / 100) + finalPrice;
             } else {
                 commissionAmount = finalPrice;
             }
 
-            price = new Intl.NumberFormat('fa-IR', {
-                // style: 'currency',
-                currency: 'IRR'
-            }).format(commissionAmount);
+            price = numberToPersian(commissionAmount);
 
             document.querySelector('.totalPricePlusTax').innerText = price;
             document.querySelector('.totalPricePlusTax').innerText += ' ریال ';
             document.querySelector('.final-price').innerText = price + " ریال";
 
         })
+        inputCommission.dispatchEvent(eventChange)
+
     </script>
 
     <script>
@@ -574,16 +580,18 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             let description = document.getElementById('description');
+            autoResize(description)
 
             description.addEventListener('input', function () {
                 autoResize(description)
             })
 
-            const autoResize = (e) => {
-                e.style.height = 'auto';
-                e.style.height = e.scrollHeight + 'px';
-            };
+
         })
+        const autoResize = (e) => {
+            e.style.height = 'auto';
+            e.style.height = e.scrollHeight + 'px';
+        };
 
     </script>
 @endsection
