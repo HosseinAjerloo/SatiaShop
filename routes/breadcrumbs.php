@@ -232,11 +232,11 @@ Breadcrumbs::for('admin.sale.index', function (BreadcrumbTrail $trail) {
     $trail->push('فروش کپسول', route('admin.sale.index'));
 });
 Breadcrumbs::for('admin.sale.show', function (BreadcrumbTrail $trail,$reside) {
-    $trail->parent('admin.resideCapsule.index');
-    $trail->push('صدورفاکتور', route('admin.sale.show',$reside));
+    $trail->parent('admin.invoice-list.index');
+    $trail->push('صدور فاکتور', route('admin.sale.show',$reside));
 });
 Breadcrumbs::for('admin.invoice.issuance.index', function (BreadcrumbTrail $trail, $reside) {
-    $trail->parent('admin.resideCapsule.index');
+    $trail->parent('admin.invoice-list.index');
     $trail->push('صدور فاکتور', route('admin.invoice.issuance.index', $reside));
 });
 
