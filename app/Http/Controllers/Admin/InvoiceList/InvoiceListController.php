@@ -23,17 +23,18 @@ class InvoiceListController extends Controller
         }
     public function search(ResidChargeCapsuleSearchRequest $request)
     {
-        $resides = Reside::search()->orderBy('created_at', 'desc')->whereHas('resideItem', function ($query) {
+        $resides = Reside::whereHas('resideItem', function ($query) {
             $query->whereHas('productResidItem');
-        })->whereDoesntHave('resideItem', function ($query) {
+        })
+            ->whereDoesntHave('resideItem', function ($query) {
                 $query->doesntHave('productResidItem');
-            })->orWhere('reside_type', 'sell')->get();
+            })->orWhere('reside_type', 'sell')->orderBy('created_at', 'desc')->search()->get();
         foreach ($resides as $key => $reside) {
             $reside->jalalidate = \Morilog\Jalali\Jalalian::forge($reside->created_at)->format('Y/m/d');
             $reside->custumerName = ($reside->user->customer_type == 'natural_person' or empty($reside->user->customer_type)) ? $reside->user->fullName ?? '' : $reside->user->organizationORcompanyName ?? '';
             $reside->capsuleCount = $reside->reside_type == 'sell' ? $reside->resideItem->sum('amount') : $reside->resideItem->count();
             $reside->operatorName = $reside->operator->fullName ?? '';
-            $reside->final_pricePersian = numberFormat($reside->final_price) ?? 0;
+            $reside->final_pricePersian = $reside->final_price!=0?numberFormat($reside->final_price):numberFormat($reside->totalPrice());
             $reside->update = '#';
             $reside->invoiceRoute = $reside->reside_type=='sell' ? route('admin.sale.show', $reside)  : route('admin.invoice.issuance.index', $reside);
             if ($reside->file) {

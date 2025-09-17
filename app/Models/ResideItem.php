@@ -83,7 +83,12 @@ class ResideItem extends Model
             $qu->whereHas('reside',function ($query) use ($users){
                 $query->whereIn('user_id',$users);
             });
-        });
+        })->when($inputs['product_name']??false,function ($qu,$value){
+            $value=str_replace(' ','-',$value);
+            $product=Product::where('title','like',"%{$value}%")->first();
+            if ($product)
+                $qu->where("product_id",$product->id);
+        });;
     }
 
 }

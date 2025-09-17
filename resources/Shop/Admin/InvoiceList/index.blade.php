@@ -260,7 +260,7 @@
             removeRow()
             let myHtml = '';
             data.data.forEach(function (value, index) {
-                myHtml += `<tr class=" bg-white  bg-gray-200/78 ">
+                myHtml += `<tr class=" ${index %2 ==0?'bg-white ':'bg-gray-200/78'}   ">
 
 
                             <td class="border border-gray-400  text-center  p-1">

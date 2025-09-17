@@ -38,6 +38,7 @@ class ChargingOperationController extends Controller
                 $resideItem->fullName = $resideItem->reside->user->fullName;
                 $resideItem->image = asset('capsule/images/activecharging.svg');
                 $resideItem->link = route('admin.invoice.issuance.operation', [$resideItem->reside, $resideItem]);
+                $resideItem->product_name = $resideItem->product->removeUnderLine;
             }
             return response()->json(['status' => true, 'data' => $resideItems->items(), 'nexPageUrl' => $resideItems->nextPageUrl(), 'hasMorePages' => $resideItems->hasMorePages()]);
         } else

@@ -83,7 +83,7 @@
                         </article>
                         <article class="flex items-center space-x-reverse space-x-4">
                             <button type="button" class="px-6 py-1 bg-268832 text-white rounded-md save">ذخیره</button>
-                            <a href="{{route('admin.invoice.issuance.index',$reside)}}"
+                            <a href="{{route('panel.admin')}}"
                                class="px-6 py-1 bg-FF3100 text-white rounded-md">بازگشت</a>
                         </article>
                     </section>

@@ -27,6 +27,9 @@
                         <th class=" text-sm font-light px-2 leading-6 text-white ">
                             <span>کدیکتا</span>
                         </th>
+                        <th class=" text-sm font-light px-2 leading-6 text-white ">
+                            <span>عنوان محصول</span>
+                        </th>
 
                         <th class=" text-sm font-light px-2 leading-6 text-white text-nowrap max-w-max ">
                             <span>نام مشتری/سازمان</span>
@@ -61,6 +64,13 @@
                             <div class="w-full flex items-center ">
                                 <input type="text"
                                        class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1"
+                                       data-name="product_name">
+                            </div>
+                        </td>
+                        <td class="border border-gray-400   text-center p-1">
+                            <div class="w-full flex items-center ">
+                                <input type="text"
+                                       class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1"
                                        data-name="name">
                             </div>
                         </td>
@@ -84,6 +94,11 @@
                             <td class="border border-gray-400  text-center  p-1">
                                 <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full ">
                                     {{$resideItem->unique_code}}
+                                </p>
+                            </td>
+                            <td class="border border-gray-400  text-center  p-1">
+                                <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full ">
+                                    {{$resideItem->product->removeUnderLine??''}}
                                 </p>
                             </td>
                             <td class="border border-gray-400  text-center  p-1">
@@ -174,6 +189,11 @@
                     <td class="border border-gray-400  text-center  p-1">
                         <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full ">
                         ${value.unique_code}
+                        </p>
+                    </td>
+                <td class="border border-gray-400  text-center  p-1">
+                        <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full ">
+                        ${value.product_name}
                         </p>
                     </td>
                     <td class="border border-gray-400  text-center  p-1">

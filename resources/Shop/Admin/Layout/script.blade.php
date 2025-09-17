@@ -121,9 +121,65 @@
 
 </script>
 <script>
-    function numberToPersian(value){
-        let price=0;
-        price = new Intl.NumberFormat('fa-IR', {}).format(value);
-        return price;
+    function enToFaDigits(str) {
+        const map = {
+            '0': '۰',
+            '1': '۱',
+            '2': '۲',
+            '3': '۳',
+            '4': '۴',
+            '5': '۵',
+            '6': '۶',
+            '7': '۷',
+            '8': '۸',
+            '9': '۹'
+        };
+        return str.replace(/\d/g, d => map[d]);
     }
+
+    function convertTextNode(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+            const newText = enToFaDigits(node.textContent);
+            if (node.textContent !== newText) {
+                node.textContent = newText;
+            }
+        }
+    }
+
+    function convertElementAndChildren(el) {
+        convertTextNode(el);
+        el.childNodes.forEach(child => {
+            convertElementAndChildren(child);
+        });
+    }
+
+    function setupObserver() {
+        const observer = new MutationObserver(mutations => {
+            mutations.forEach(mutation => {
+                mutation.addedNodes.forEach(node => {
+                    if (node.nodeType === Node.ELEMENT_NODE) {
+                        convertElementAndChildren(node);
+                    } else if (node.nodeType === Node.TEXT_NODE) {
+                        convertTextNode(node);
+                    }
+                });
+
+                if (mutation.type === 'characterData') {
+                    convertTextNode(mutation.target);
+                }
+            });
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+            characterData: true
+        });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        convertElementAndChildren(document.body);
+        setupObserver();
+    });
 </script>
+
