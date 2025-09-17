@@ -78,8 +78,8 @@
     <section class="  relative">
 
         <article class="space-y-5 bg-F1F1F1 p-6 rounded-md ">
-            <section class="w-full printScale space-y-5  flex flex-col items-center justify-center">
-                <article class="flex  w-[49%]   items-center justify-between ">
+            <section class="w-full  space-y-5  flex flex-col items-center justify-center">
+                <article class="flex  w-[49%]  printScale items-center justify-between ">
                     <div class="flex items-center space-x-reverse space-x-2 ">
                         <img src="{{asset("capsule/images/blue-user.svg")}}" alt="">
                         <div class="flex items-center space-x-2 space-x-reverse">
@@ -176,7 +176,7 @@
                                     @if($index==0)
                                         <td class="border border-gray-300"
                                             rowspan="{{$resideItem->productResidItem->count()}}">
-                                            <canvas class="qrcode !w-full sm:!w-[130px] !h-auto "
+                                            <canvas class="qrcode !w-full sm:!w-[114px] !h-auto "
                                                     data-product="{{$resideItem->changeToQrcodeNameProduct()}}"></canvas>
 
                                         </td>
@@ -304,8 +304,20 @@
     </script>
 
     <script>
+        let element=document.querySelectorAll('.printScale')
         window.addEventListener('load', function () {
-            window.print();
+
+               window.print();
+        })
+        window.addEventListener('beforeprint',function (){
+            element.forEach(ele=>{
+                ele.style.width='100%';
+            })
+        });
+        window.addEventListener('afterprint',function (){
+            element.forEach(ele=>{
+                ele.style.width='49%';
+            })
         })
     </script>
 @endsection

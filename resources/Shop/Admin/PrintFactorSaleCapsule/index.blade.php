@@ -178,7 +178,7 @@
                                 </td>
                                 <td class="border border-gray-300">
 
-                                    <canvas class="qrcode !w-full sm:!w-[110px] !h-auto "
+                                    <canvas class="qrcode !w-full sm:!w-[95px] !h-auto "
                                             data-product="{{$resideItem->product->removeUnderline}}"></canvas>
 
                                 </td>
@@ -347,10 +347,23 @@
 
         generateQrCode();
     </script>
-        <script>
-            window.addEventListener('load', function () {
-                window.print();
+    <script>
+        let element=document.querySelectorAll('.printScale')
+        window.addEventListener('load', function () {
+
+            window.print();
+        })
+        window.addEventListener('beforeprint',function (){
+            element.forEach(ele=>{
+                ele.style.width='100%';
             })
-        </script>
+        });
+        window.addEventListener('afterprint',function (){
+            element.forEach(ele=>{
+                ele.style.width='49%';
+            })
+        })
+    </script>
+
 
 @endsection

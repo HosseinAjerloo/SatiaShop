@@ -121,6 +121,14 @@
 
 </script>
 <script>
+    function numberToPersian(value){
+        let localLang=value
+        let price=0;
+        price = new Intl.NumberFormat('fa-IR', {}).format(value);
+        return price;
+    }
+</script>
+<script>
     function enToFaDigits(str) {
         const map = {
             '0': '۰',
@@ -182,4 +190,3 @@
         setupObserver();
     });
 </script>
-

@@ -197,7 +197,7 @@
                                                     <div
                                                         class="invisible flex items-center   space-x-reverse space-x-4 ">
                                                         <input type="number" min="0" max="100" name="discountDecimal"
-                                                               class="border w-[50px] rounded-md p-[3px] text-center outline-none discount" value="{{$reside->discount_collection}}">
+                                                               class="border w-[50px] rounded-md p-[3px] text-center outline-none discount" value="{{$reside->discount_collection >0?$reside->discount_collection:null}}">
                                                         <h1 class="font-bold">درصد</h1>
                                                     </div>
                                                 </div>
@@ -208,7 +208,7 @@
                                                     <div
                                                         class="invisible flex items-center w-3/5  space-x-reverse space-x-4 ">
                                                         <input type="number" min="0" max="100" name="discount_price"
-                                                               class="w-3/5	 border  rounded-md p-[3px] text-center outline-none discount" value="{{$reside->discount_price}}">
+                                                               class="w-3/5	 border  rounded-md p-[3px] text-center outline-none discount" value="{{$reside->discount_price>0?$reside->discount_price:null}}">
                                                         <h1 class="font-bold">ریال مبلغ</h1>
                                                     </div>
                                                 </div>

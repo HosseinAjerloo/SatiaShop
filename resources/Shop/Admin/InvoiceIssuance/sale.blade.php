@@ -146,10 +146,10 @@
                             <td class="border border-gray-400  text-center" colspan="3">
                                 <div class="text-[15px]  sm:text-[13px]  p-1 w-full ">
                                     <div class="text-[15px]  sm:text-[13px]  p-1 w-full font-bold relative">
-                                        <input name="discountChecked" type="checkbox">
+                                        <input name="discountChecked" type="checkbox" @if($reside->isDiscount()) checked="checked" @endif>
                                         <span>
                                             <span>تخفیف</span>
-                                            <span class="showDiscount ">(0)</span>
+                                            <span class="showDiscount ">({{$reside->resideDiscountAmount}})</span>
                                         </span>
                                         <div
                                             class="invisible transition-all absolute z-[101] w-5/6	 h-75  top-0 right-[60%] rounded-lg  bg-white shadow-md shadow-black/35 ">
@@ -175,7 +175,7 @@
                                                     <div
                                                         class="invisible flex items-center   space-x-reverse space-x-4 ">
                                                         <input type="number" min="0" max="100" name="discountDecimal"
-                                                               class="border w-[50px] rounded-md p-[3px] text-center outline-none discount">
+                                                               class="border w-[50px] rounded-md p-[3px] text-center outline-none discount" value="{{$reside->discount_collection >0?$reside->discount_collection:null}}">
                                                         <h1 class="font-bold">درصد</h1>
                                                     </div>
                                                 </div>
@@ -186,7 +186,7 @@
                                                     <div
                                                         class="invisible flex items-center w-3/5  space-x-reverse space-x-4 ">
                                                         <input type="number" min="0" max="100" name="discount_price"
-                                                               class="w-3/5	 border  rounded-md p-[3px] text-center outline-none discount">
+                                                               class="w-3/5	 border  rounded-md p-[3px] text-center outline-none discount" value="{{$reside->discount_price>0?$reside->discount_price:null}}>
                                                         <h1 class="font-bold">ریال مبلغ</h1>
                                                     </div>
                                                 </div>
@@ -433,7 +433,7 @@
                 document.querySelector('.totalPricePlusTax').innerText += ' ریال ';
                 document.querySelector('.final-price').innerText = price;
                 document.querySelector('.final-price').innerText += ' ریال ';
-                showDiscount.innerText = "(%" + event.target.value + ')';
+                showDiscount.innerText = "(%" + numberToPersian(event.target.value) + ')';
 
             }
 
@@ -453,7 +453,8 @@
             document.querySelector('.totalPricePlusTax').innerText += ' ریال ';
             document.querySelector('.final-price').innerText = price;
             document.querySelector('.final-price').innerText += ' ریال ';
-            showDiscount.innerText = "(" + event.target.value + "ریال )";
+            showDiscount.innerText = "(%" + numberToPersian(event.target.value) + ')';
+
         }
 
         function removeAllDiscount() {

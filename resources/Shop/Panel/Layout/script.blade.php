@@ -379,51 +379,54 @@
 </script>
 
 <script>
-    function enToFaDigits(str) {
-        const map = {
-            '0': '۰',
-            '1': '۱',
-            '2': '۲',
-            '3': '۳',
-            '4': '۴',
-            '5': '۵',
-            '6': '۶',
-            '7': '۷',
-            '8': '۸',
-            '9': '۹'
+    function convertToPersian(nu) {
+        nu = nu.toString();
+        let numbers = {
+            0: "۰",
+            1: "۱",
+            2: "۲",
+            3: "۳",
+            4: "۴",
+            5: "۵",
+            6: "۶",
+            7: "۷",
+            8: "۸",
+            9: "۹"
         };
-        return str.replace(/\d/g, d => map[d]);
+        return nu.replace(/\d/g, match => numbers[match]);
     }
 
-    function convertTextNode(node) {
+    function changeTextNode(node) {
         if (node.nodeType === Node.TEXT_NODE) {
-            const newText = enToFaDigits(node.textContent);
-            if (node.textContent !== newText) {
-                node.textContent = newText;
-            }
+            node.textContent = convertToPersian(node.textContent);
         }
     }
 
-    function convertElementAndChildren(el) {
-        convertTextNode(el);
-        el.childNodes.forEach(child => {
-            convertElementAndChildren(child);
-        });
+    function convertToElement(el) {
+        changeTextNode(el);
+        el.childNodes.forEach(node => convertToElement(node));
     }
 
-    function setupObserver() {
+    function observerMutation() {
         const observer = new MutationObserver(mutations => {
             mutations.forEach(mutation => {
                 mutation.addedNodes.forEach(node => {
-                    if (node.nodeType === Node.ELEMENT_NODE) {
-                        convertElementAndChildren(node);
-                    } else if (node.nodeType === Node.TEXT_NODE) {
-                        convertTextNode(node);
-                    }
+                    observer.disconnect();
+                    convertToElement(node);
+                    observer.observe(document.body, {
+                        childList: true,
+                        subtree: true,
+                        characterData: true
+                    });
                 });
-
                 if (mutation.type === 'characterData') {
-                    convertTextNode(mutation.target);
+                    observer.disconnect();
+                    convertToElement(mutation.target);
+                    observer.observe(document.body, {
+                        childList: true,
+                        subtree: true,
+                        characterData: true
+                    });
                 }
             });
         });
@@ -436,8 +439,9 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-        convertElementAndChildren(document.body);
-        setupObserver();
+        convertToElement(document.body);
+        observerMutation();
     });
+
 </script>
 
