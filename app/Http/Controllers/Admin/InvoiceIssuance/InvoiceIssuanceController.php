@@ -47,7 +47,7 @@ InvoiceIssuanceController extends Controller
             if (isset($inputs['sodurFactor']) && $inputs['sodurFactor'] == 'yes') {
                 return redirect()->route('admin.invoice.issuance.printFactor', $reside)->with(['success' => 'عملیات با موفقیت انجام شد']);
             } else {
-                return redirect()->route('admin.resideCapsule.index', $reside)->with(['success' => 'عملیات با موفقیت انجام شد']);
+                return redirect()->route('admin.invoice-list.index', $reside)->with(['success' => 'عملیات با موفقیت انجام شد']);
             }
 
         } catch (\Exception $exception) {
