@@ -314,7 +314,7 @@
                     </table>
                     <div class="w-full mt-8 space-x-4 space-x-reverse flex items-center print-btn">
                         <button class="rounded-md px-4 py-1.5 flex items-center justify-center text-white bg-268832" onclick="print()">چاپ مجدد</button>
-                        <a href="{{route('admin.invoice.issuance.index',$reside)}}" class="rounded-md px-4 py-1.5 flex items-center justify-center text-white bg-FF3100">بازگشت</a>
+                        <a href="{{route('admin.invoice.issuance.index')}}" class="rounded-md px-4 py-1.5 flex items-center justify-center text-white bg-FF3100">بازگشت</a>
                     </div>
                 </div>
 
