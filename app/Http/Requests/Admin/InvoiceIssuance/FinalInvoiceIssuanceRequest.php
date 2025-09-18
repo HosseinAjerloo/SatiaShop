@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 class FinalInvoiceIssuanceRequest extends FormRequest
 {
+
     protected $reside;
     protected $totalPrice=0;
 
@@ -35,12 +36,14 @@ class FinalInvoiceIssuanceRequest extends FormRequest
             'discount_price' => 'nullable|numeric|min:10000|max:'.$this->totalPrice,
             'sodurFactor' => 'sometimes|required|in:yes',
             'commission' => 'sometimes|required|in:yes',
+            'discountFile' => 'array',
             'discountFile.*' => 'file|mimes:jpg,jpeg,png|max:' . env('FILE_SIZE')
         ];
     }
 
     public function attributes()
     {
-        return ['sodurFactor' => 'گزینه صدور فاکتور معتبر نمیباشد'];
+        return ['sodurFactor' => 'گزینه صدور فاکتور معتبر نمیباشد',
+            "discountFile.*"=>"فایل ضمیمه تخفیف"];
     }
 }

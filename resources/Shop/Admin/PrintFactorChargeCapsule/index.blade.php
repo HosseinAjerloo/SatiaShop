@@ -79,6 +79,12 @@
 
         <article class="space-y-5 bg-F1F1F1 p-6 rounded-md ">
             <section class="w-full  space-y-5  flex flex-col items-center justify-center">
+                <article class="flex  w-[49%]  printScale items-center  border-b-2 border-black ">
+                    <div>
+                        <img src="" alt="">
+                    </div>
+
+                </article>
                 <article class="flex  w-[49%]  printScale items-center justify-between ">
                     <div class="flex items-center space-x-reverse space-x-2 ">
                         <img src="{{asset("capsule/images/blue-user.svg")}}" alt="">
