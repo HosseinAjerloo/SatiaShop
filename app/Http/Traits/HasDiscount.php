@@ -67,7 +67,7 @@ trait HasDiscount
         {
             $filesPath=[];
             $imageService=new ImageService();
-            $imageService->setRootFolder('discountFile\\images');
+            $imageService->setRootFolder("discountFile".DIRECTORY_SEPARATOR."images");
             $filesPath=$imageService->saveImageMany(request()->file('discountFile'));
             if (!empty($filesPath))
             {
