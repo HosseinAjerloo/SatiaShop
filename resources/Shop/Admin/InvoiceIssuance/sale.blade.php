@@ -40,7 +40,13 @@
                                   rows="3"></textarea>
                         <div class="flex items-center flex-wrap space-x-reverse space-x-2 image-location">
 
-
+                            @foreach($reside->file as $file)
+                                <a href="{{route('admin.resideCapsule.download',[$reside,$file])}}"
+                                   class="relative p-2 transition-all">
+                                    <img class="w-32 object-contain" data-click="no_click" src="{{asset($file->path)}}"
+                                         alt="">
+                                </a>
+                            @endforeach
                         </div>
                     </div>
                     <div class="mt-8 flex items-center  space-x-reverse space-x-4">
@@ -88,7 +94,6 @@
                         </thead>
                         <tbody>
                         @foreach($reside->resideItem as $index=> $resideItem)
-
 
                             <tr class=" bg-white">
 
@@ -146,7 +151,8 @@
                             <td class="border border-gray-400  text-center" colspan="3">
                                 <div class="text-[15px]  sm:text-[13px]  p-1 w-full ">
                                     <div class="text-[15px]  sm:text-[13px]  p-1 w-full font-bold relative">
-                                        <input name="discountChecked" type="checkbox" @if($reside->isDiscount()) checked="checked" @endif>
+                                        <input name="discountChecked" type="checkbox"
+                                               @if($reside->isDiscount()) checked="checked" @endif>
                                         <span>
                                             <span>تخفیف</span>
                                             <span class="showDiscount ">({{$reside->resideDiscountAmount}})</span>
@@ -175,7 +181,8 @@
                                                     <div
                                                         class="invisible flex items-center   space-x-reverse space-x-4 ">
                                                         <input type="number" min="0" max="100" name="discountDecimal"
-                                                               class="border w-[50px] rounded-md p-[3px] text-center outline-none discount" value="{{$reside->discount_collection >0?$reside->discount_collection:null}}">
+                                                               class="border w-[50px] rounded-md p-[3px] text-center outline-none discount"
+                                                               value="{{$reside->discount_collection >0?$reside->discount_collection:null}}">
                                                         <h1 class="font-bold">درصد</h1>
                                                     </div>
                                                 </div>
@@ -186,8 +193,9 @@
                                                     <div
                                                         class="invisible flex items-center w-3/5  space-x-reverse space-x-4 ">
                                                         <input type="number" min="0" max="100" name="discount_price"
-                                                               class="w-3/5	 border  rounded-md p-[3px] text-center outline-none discount" value="{{$reside->discount_price>0?$reside->discount_price:null}}>
-                                                        <h1 class="font-bold">ریال مبلغ</h1>
+                                                               class="w-3/5	 border  rounded-md p-[3px] text-center outline-none discount"
+                                                               value="{{$reside->discount_price>0?$reside->discount_price:null}}>
+                                                        <h1 class=" font-bold">ریال مبلغ</h1>
                                                     </div>
                                                 </div>
                                                 <div
@@ -305,13 +313,16 @@
         const removeImageLocation = () => {
             let imageLocation = document.querySelector('.image-location');
             for (const childLocation of imageLocation.children) {
-                childLocation.children[0].addEventListener('click', function (e) {
-                    childLocation.style.transform = `scale(0)`;
-                    document.querySelector(`input[data-file=${e.target.dataset.file}]`).remove();
-                    childLocation.addEventListener('transitionend', function () {
-                        childLocation.remove();
-                    });
-                })
+                if (!childLocation.children[0].dataset.click) {
+
+                    childLocation.children[0].addEventListener('click', function (e) {
+                        childLocation.style.transform = `scale(0)`;
+                        document.querySelector(`input[data-file=${e.target.dataset.file}]`).remove();
+                        childLocation.addEventListener('transitionend', function () {
+                            childLocation.remove();
+                        });
+                    })
+                }
 
             }
 
@@ -347,14 +358,14 @@
             window.form.appendChild(file);
             file.click()
             file.addEventListener('change', function (e) {
-                let type=e.target.files[0].type;
+                let type = e.target.files[0].type;
                 if (e.target.files[0] && type) {
-                    type=type.split('/')[0];
-                    if (type =='image'){
+                    type = type.split('/')[0];
+                    if (type == 'image') {
                         addImageLocation(URL.createObjectURL(e.target.files[0]), `file-${fileCount}`);
                         removeImageLocation();
                         fileCount++;
-                        document.querySelector('.file-counter').innerHTML=fileCount+' فایل انتخاب شده است '
+                        document.querySelector('.file-counter').innerHTML = fileCount + ' فایل انتخاب شده است '
                     }
 
                 }
@@ -389,8 +400,8 @@
 
         inputDiscounts.forEach((input) => {
             input.addEventListener('input', discount);
-            if (input.value>0)
-            input.dispatchEvent(event);
+            if (input.value > 0)
+                input.dispatchEvent(event);
         })
 
 

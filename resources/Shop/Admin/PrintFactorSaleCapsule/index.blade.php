@@ -102,7 +102,7 @@
                     </div>
 
                 </article>
-                <article class="flex  w-[49%]   items-center justify-between ">
+                <article class="flex  w-full   items-center justify-between ">
                     <div class="flex items-center space-x-reverse space-x-2 ">
 
                         <div class="flex items-center space-x-2 space-x-reverse">
@@ -335,26 +335,26 @@
 
 @section('script')
 
-{{--    <script>--}}
-{{--        function generateQrCode() {--}}
-{{--            let qrCodeElement = document.querySelectorAll('.qrcode');--}}
-{{--            let color = '#ffffff';--}}
+    <script>
+        function generateQrCode() {
+            let qrCodeElement = document.querySelectorAll('.qrcode');
+            let color = '#ffffff';
 
-{{--            for (const imgQr of qrCodeElement) {--}}
+            for (const imgQr of qrCodeElement) {
 
-{{--                QRCode.toCanvas(imgQr, imgQr.dataset.product, {--}}
-{{--                    color: {--}}
-{{--                        dark: '#000000',--}}
-{{--                        light: color,--}}
+                QRCode.toCanvas(imgQr, imgQr.dataset.product, {
+                    color: {
+                        dark: '#000000',
+                        light: color,
 
-{{--                    }--}}
-{{--                });--}}
+                    }
+                });
 
-{{--            }--}}
-{{--        }--}}
+            }
+        }
 
-{{--        generateQrCode();--}}
-{{--    </script>--}}
+        generateQrCode();
+    </script>
     <script>
         let element=document.querySelectorAll('.printScale')
         window.addEventListener('load', function () {

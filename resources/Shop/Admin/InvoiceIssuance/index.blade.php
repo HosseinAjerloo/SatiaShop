@@ -43,9 +43,9 @@
                         <div class="flex items-center flex-wrap space-x-reverse space-x-2 image-location">
 
                            @foreach($reside->file as $file)
-                                <div class="relative p-2 transition-all">
-                                    <img class="w-32 object-contain" src="{{asset($file->path)}}" alt="">
-                                </div>
+                                <a href="{{route('admin.resideCapsule.download',[$reside,$file])}}" class="relative p-2 transition-all">
+                                    <img class="w-32 object-contain" data-click="no_click" src="{{asset($file->path)}}" alt="">
+                                </a>
                            @endforeach
 
                         </div>
@@ -326,13 +326,16 @@
         const removeImageLocation = () => {
             let imageLocation = document.querySelector('.image-location');
             for (const childLocation of imageLocation.children) {
-                childLocation.children[0].addEventListener('click', function (e) {
-                    childLocation.style.transform = `scale(0)`;
-                    document.querySelector(`input[data-file=${e.target.dataset.file}]`).remove();
-                    childLocation.addEventListener('transitionend', function () {
-                        childLocation.remove();
-                    });
-                })
+                if (!childLocation.children[0].dataset.click){
+                    childLocation.children[0].addEventListener('click', function (e) {
+                        childLocation.style.transform = `scale(0)`;
+                        document.querySelector(`input[data-file=${e.target.dataset.file}]`).remove();
+                        childLocation.addEventListener('transitionend', function () {
+                            childLocation.remove();
+                        });
+                    })
+                }
+
 
             }
 
@@ -445,7 +448,6 @@
 
         function discountDecimal(event) {
             if (event.target.value > 0 && event.target.value <= 100) {
-                console.log('hossein')
                 let discount = ((event.target.value * totalPrice) / 100);
                 discount = totalPrice - discount;
                 finalPrice = discount;
@@ -494,10 +496,8 @@
         let commission = Number("{{env('Commission')}}");
         let price = 0;
         inputCommission.addEventListener('change', function (event) {
-            console.log('change')
             finalPrice = Number(finalPrice);
             if (event.target.checked) {
-                console.log('commission')
                 commissionAmount = ((finalPrice * commission) / 100) + finalPrice;
             } else {
                 commissionAmount = finalPrice;

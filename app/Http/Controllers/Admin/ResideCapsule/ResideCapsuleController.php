@@ -124,14 +124,15 @@ class ResideCapsuleController extends Controller
         return response()->json(['success' => true, 'data' => $resides]);
     }
 
-    public function download(Reside $reside)
+    public function download(Reside $reside,\App\Models\File $file)
     {
-        if (!empty($reside->file)) {
-            $path = str_replace('/', DIRECTORY_SEPARATOR, $reside->file->path);
-            $path = str_replace('\\', DIRECTORY_SEPARATOR, $path);
-            if (File::exists(public_path($path))) {
-                return response()->download(public_path($path));
+        if ($reside->file()->exists() and !empty($file)) {
+                $path = str_replace(['/','\\'], DIRECTORY_SEPARATOR,$file->path);
+                if (File::exists(public_path($path))) {
+                    return response()->download(public_path($path));
+
             }
+
         }
         return redirect()->back()->withErrors('error', 'خطایی رخ داد فایلی برای دانلود پیدا نشدا لطفا چند دقیقه دیگر تلاش فرمایید.');
 
