@@ -37,11 +37,7 @@ class InvoiceListController extends Controller
             $reside->final_pricePersian = $reside->final_price!=0?numberFormat($reside->final_price):numberFormat($reside->totalPrice());
             $reside->update = '#';
             $reside->invoiceRoute = $reside->reside_type=='sell' ? route('admin.sale.show', $reside)  : route('admin.invoice.issuance.index', $reside);
-            if ($reside->file) {
-                $reside->download = route('admin.resideCapsule.download', $reside);
-            } else {
-                $reside->download = false;
-            }
+
             $reside->type_change = $reside->reside_type == 'recharge' ? 'شارژ و تمدید کپسول' : 'فروش';
             if ($reside->reside_type == 'sell') {
                 if ($reside->status == 'paid') {

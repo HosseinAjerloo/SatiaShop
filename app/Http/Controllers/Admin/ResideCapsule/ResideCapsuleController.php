@@ -88,11 +88,7 @@ class ResideCapsuleController extends Controller
             $reside->final_pricePersian = numberFormat($reside->final_price) ?? 0;
             $reside->update = '#';
             $reside->invoiceRoute = \route('admin.invoice.issuance.index', $reside);
-            if ($reside->file) {
-                $reside->download = route('admin.resideCapsule.download', $reside);
-            } else {
-                $reside->download = false;
-            }
+
             $reside->type_change = $reside->reside_type == 'recharge' ? 'شارژ و تمدید کپسول' : 'فروش';
             if ($reside->reside_type == 'sell') {
                 if ($reside->status == 'paid') {
