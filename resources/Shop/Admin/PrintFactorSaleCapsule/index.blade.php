@@ -77,15 +77,15 @@
     <section class=" space-y-3 relative">
         <article class="space-y-5 bg-F1F1F1 p-6 rounded-md ">
 
-            <section class="w-full printScale space-y-5  flex flex-col items-center justify-center">
-                <article class="flex  w-[49%]  printScale items-center  border-b-2 border-black ">
+            <section class=" printScale mx-auto w-[49%] space-y-5  flex flex-col items-center justify-center">
+                <article class="flex w-full    items-center  border-b-2 border-black ">
                     <div class="flex items-center space-x-reverse space-x-2 py-1.5">
                         <img src="{{asset('capsule/images/logo.svg')}}" alt="">
                         <p>سازمان آتش نشانی و خدمات ایمنی شهرداری اردبیل</p>
                     </div>
 
                 </article>
-                <article class="flex  w-[49%]   items-center justify-between ">
+                <article class="flex  w-full   items-center justify-between ">
 
                     <div class="flex items-center space-x-reverse space-x-2 ">
                         <img src="{{asset("capsule/images/blue-user.svg")}}" alt="">
@@ -314,7 +314,7 @@
                     </table>
                     <div class="w-full mt-8 space-x-4 space-x-reverse flex items-center print-btn">
                         <button class="rounded-md px-4 py-1.5 flex items-center justify-center text-white bg-268832" onclick="print()">چاپ مجدد</button>
-                        <a href="{{route('admin.invoice.issuance.index')}}" class="rounded-md px-4 py-1.5 flex items-center justify-center text-white bg-FF3100">بازگشت</a>
+                        <a href="{{route('admin.invoice-list.index')}}" class="rounded-md px-4 py-1.5 flex items-center justify-center text-white bg-FF3100">بازگشت</a>
                     </div>
                 </div>
 
@@ -335,26 +335,26 @@
 
 @section('script')
 
-    <script>
-        function generateQrCode() {
-            let qrCodeElement = document.querySelectorAll('.qrcode');
-            let color = '#ffffff';
+{{--    <script>--}}
+{{--        function generateQrCode() {--}}
+{{--            let qrCodeElement = document.querySelectorAll('.qrcode');--}}
+{{--            let color = '#ffffff';--}}
 
-            for (const imgQr of qrCodeElement) {
+{{--            for (const imgQr of qrCodeElement) {--}}
 
-                QRCode.toCanvas(imgQr, imgQr.dataset.product, {
-                    color: {
-                        dark: '#000000',
-                        light: color,
+{{--                QRCode.toCanvas(imgQr, imgQr.dataset.product, {--}}
+{{--                    color: {--}}
+{{--                        dark: '#000000',--}}
+{{--                        light: color,--}}
 
-                    }
-                });
+{{--                    }--}}
+{{--                });--}}
 
-            }
-        }
+{{--            }--}}
+{{--        }--}}
 
-        generateQrCode();
-    </script>
+{{--        generateQrCode();--}}
+{{--    </script>--}}
     <script>
         let element=document.querySelectorAll('.printScale')
         window.addEventListener('load', function () {
@@ -369,6 +369,7 @@
         window.addEventListener('afterprint',function (){
             element.forEach(ele=>{
                 ele.style.width='49%';
+                ele.style.margin='auto';
             })
         })
     </script>
