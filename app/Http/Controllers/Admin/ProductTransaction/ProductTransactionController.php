@@ -20,7 +20,7 @@ class ProductTransactionController extends Controller
         $breadcrumbs = Breadcrumbs::render('admin.product.transaction.index')->getData()['breadcrumbs'];
 
         $query = ProductTransaction::Search()->select(DB::raw('max(id) as id'))->groupBy('product_id')->get()->pluck('id')->toArray();
-        $productTransactions = ProductTransaction::whereIn('id',$query)->paginate(20,['*'],'page')->withQueryString();;
+        $productTransactions = ProductTransaction::whereIn('id',$query)->paginate(20,['*'],'page')->withQueryString();
 
         return view('Admin.ProductTransAction.index', compact('productTransactions', 'breadcrumbs'));
     }

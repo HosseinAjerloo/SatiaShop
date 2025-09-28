@@ -102,4 +102,8 @@ class SaleController extends Controller
     {
         return view('Admin.PrintFactorSaleCapsule.index', compact('reside'));
     }
+    public function printReside(Reside $reside)
+    {
+        return view('Admin.PrintResideSaleCapsule.index', compact('reside'));
+    }
 }

@@ -243,6 +243,7 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
         Route::get('show/{reside}', [App\Http\Controllers\Admin\Sale\SaleController::class, 'show'])->name('show');
         Route::post('generate-factor/{reside}', [App\Http\Controllers\Admin\Sale\SaleController::class, 'generateFactor'])->name('generate.factor');
         Route::get('print-factor/{reside}', [App\Http\Controllers\Admin\Sale\SaleController::class, 'printFactor'])->name('printFactor');
+        Route::get('print-reside/{reside}', [App\Http\Controllers\Admin\Sale\SaleController::class, 'printReside'])->name('printReside');
 
     });
 

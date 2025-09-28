@@ -101,7 +101,7 @@
 
                     </tr>
                     @foreach($resides as  $reside)
-                        <tr class="@if( $resides->firstItem() + $loop->index%2==0) bg-white @else bg-gray-200/70 @endif">
+                        <tr class="@if( ($resides->firstItem() + $loop->index)%2==0) bg-white @else bg-gray-200/70 @endif">
                             <td class="border border-gray-400  text-center  p-1">
                                 <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full ">
                                     {{ $resides->firstItem() + $loop->index}}
@@ -147,7 +147,7 @@
                             </td>
                             <td class="border border-gray-400   text-center ">
                                 @if($reside->reside_type=='sell')
-                                    <a href=" @if($reside->status=='paid') {{route('admin.sale.printFactor',$reside)}} @else # @endif"
+                                    <a href=" @if($reside->status=='paid') {{route('admin.sale.printFactor',$reside)}} @else{{route('admin.sale.printReside',$reside)}} @endif"
                                        class="w-full flex items-center justify-center p-1">
                                         <img src="{{asset('capsule/images/printerIcon.svg')}}" alt="">
                                     </a>
@@ -260,7 +260,7 @@
             removeRow()
             let myHtml = '';
             data.data.forEach(function (value, index) {
-                myHtml += `<tr class=" bg-white  bg-gray-200/78 ">
+                myHtml += `<tr class=" ${index%2==0?'bg-white':'bg-gray-200/78'}  ">
                             <td class="border border-gray-400  text-center  p-1">
                                 <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full ">
                                     ${index + 1}
