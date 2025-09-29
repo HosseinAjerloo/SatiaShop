@@ -42,11 +42,9 @@ class InvoiceListController extends Controller
             if ($reside->reside_type == 'sell') {
                 if ($reside->status == 'paid') {
                     $reside->img = asset('capsule/images/finalFactor.svg');
-                    $reside->route = '#';
                     $reside->routePrint = route('admin.sale.printFactor', $reside);
                 } else {
                     $reside->img = asset("capsule/images/hand-Invoice.png");
-                    $reside->route = route('admin.sale.show', $reside->id);
                     $reside->routePrint = '#';
                     $reside->update = route('admin.sale.edit', $reside);
 
@@ -55,11 +53,9 @@ class InvoiceListController extends Controller
             } else {
                 if ($reside->status == 'paid') {
                     $reside->img = asset('capsule/images/finalFactor.svg');
-                    $reside->route = '#';
                     $reside->routePrint = route('admin.invoice.issuance.printFactor', $reside);
                 } else {
                     $reside->img = asset("capsule/images/hand-Invoice.png");
-                    $reside->route = route('admin.invoice.issuance.index', $reside->id);
                     $reside->routePrint = route('admin.chargingTheCapsule.printReside', $reside);
                     $reside->update = route('admin.chargingTheCapsule.edit', $reside);
 

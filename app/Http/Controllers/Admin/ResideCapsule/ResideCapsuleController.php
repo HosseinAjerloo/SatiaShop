@@ -20,7 +20,7 @@ class ResideCapsuleController extends Controller
     {
         Gate::authorize('admin.resideCapsule.index');
         $breadcrumbs = Breadcrumbs::render('admin.resideCapsule.index')->getData()['breadcrumbs'];
-        $resides = Reside::orderBy('created_at', 'desc')->where('reside_type', 'recharge')->where('type', 'reside')->whereHas('resideItem',function ($q){
+        $resides = Reside::orderBy('created_at', 'desc')->where('reside_type', 'recharge')->where('type', 'reside')->whereHas('resideItem', function ($q) {
             $q->whereDoesntHave('productResidItem');
         })->paginate(10);
         $routeName = Route::current()->getName();
@@ -77,7 +77,7 @@ class ResideCapsuleController extends Controller
 
     public function search(ResidChargeCapsuleSearchRequest $request)
     {
-        $resides = Reside::search()->orderBy('created_at', 'desc')->whereHas('resideItem',function ($q){
+        $resides = Reside::search()->orderBy('created_at', 'desc')->whereHas('resideItem', function ($q) {
             $q->whereDoesntHave('productResidItem');
         })->get();
         foreach ($resides as $key => $reside) {
@@ -90,28 +90,24 @@ class ResideCapsuleController extends Controller
             $reside->invoiceRoute = \route('admin.invoice.issuance.index', $reside);
 
             $reside->type_change = $reside->reside_type == 'recharge' ? 'شارژ و تمدید کپسول' : 'فروش';
+            $reside->img = asset('capsule/images/printerIcon.svg');
             if ($reside->reside_type == 'sell') {
                 if ($reside->status == 'paid') {
-                    $reside->img = asset('capsule/images/finalFactor.svg');
-                    $reside->route = '#';
+//                    $reside->route = '#';
                     $reside->routePrint = route('admin.sale.printFactor', $reside);
+
                 } else {
-                    $reside->img = asset("capsule/images/hand-Invoice.png");
-                    $reside->route = route('admin.sale.show', $reside->id);
-                    $reside->routePrint = '#';
+//                    $reside->route = route('admin.sale.show', $reside->id);
+                    $reside->routePrint = route('admin.sale.printReside', $reside);
                     $reside->update = route('admin.sale.edit', $reside);
-
-
                 }
             } else {
                 if ($reside->status == 'paid') {
-                    $reside->img = asset('capsule/images/finalFactor.svg');
-                    $reside->route = '#';
-                    $reside->routePrint = route('admin.invoice.issuance.printFactor', $reside);
+//                    $reside->route = '#';
+                    $reside->routePrint = route('admin.invoice.issuance.printFactor',$reside);
                 } else {
-                    $reside->img = asset("capsule/images/hand-Invoice.png");
-                    $reside->route = route('admin.invoice.issuance.index', $reside->id);
-                    $reside->routePrint = route('admin.chargingTheCapsule.printReside', $reside);
+//                    $reside->route = route('admin.invoice.issuance.index', $reside->id);
+                    $reside->routePrint = route('admin.chargingTheCapsule.printReside',$reside);
                     $reside->update = route('admin.chargingTheCapsule.edit', $reside);
 
                 }
@@ -120,12 +116,12 @@ class ResideCapsuleController extends Controller
         return response()->json(['success' => true, 'data' => $resides]);
     }
 
-    public function download(Reside $reside,\App\Models\File $file)
+    public function download(Reside $reside, \App\Models\File $file)
     {
         if ($reside->file()->exists() and !empty($file)) {
-                $path = str_replace(['/','\\'], DIRECTORY_SEPARATOR,$file->path);
-                if (File::exists(public_path($path))) {
-                    return response()->download(public_path($path));
+            $path = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $file->path);
+            if (File::exists(public_path($path))) {
+                return response()->download(public_path($path));
 
             }
 

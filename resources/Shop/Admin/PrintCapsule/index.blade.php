@@ -77,7 +77,7 @@
 
         <section class="flex items-center justify-center  redirect-back ">
             <div class="bg-FF3100 px-4 text-sm font-medium shadow py-1 text-white   rounded-md">
-                <a href="{{route('admin.resideCapsule.index')}}">بازگشت</a>
+                <a href="{{route('admin.invoice.issuance.index',$resideItem->reside)}}">بازگشت</a>
             </div>
 
         </section>

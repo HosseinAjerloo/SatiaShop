@@ -3,7 +3,7 @@
         <a href="{{route('panel.admin')}}" class="flex items-center space-x-reverse space-x-2">
             <img src="{{asset("capsule/images/logo.svg")}}" alt="" class="cursor-pointer">
             <p class="font-bold text-white text-min ">
-                سامانه مدیریت شارژ کپسول آتش نشانی
+                {{env('APPLICATION_NAME')}}
             </p>
         </a>
        <div class="">
