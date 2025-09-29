@@ -23,7 +23,8 @@ class AdminController extends Controller
 
     public function updateUser(UpdateUserProfile $request)
     {
-        $user=Auth::user();
+        try {
+            $user=Auth::user();
             $inputs=$request->safe()->all();
             if (password_verify($inputs['oldPass'],$user->password))
             {
@@ -31,8 +32,12 @@ class AdminController extends Controller
                 return $result? redirect()->back()->with(['success'=>'اطلاعات کاربری شما با موفقیت بروز رسانی شد']):redirect()->back()->withErrors(['error'=>'خطایی رخ دادا لطفا چند دقیه دیگر تلاش فرمایید.']);
             }
             else{
-                return redirect()->back()->withErrors(['error'=>'خطایی رخ دادا لطفا چند دقیه دیگر تلاش فرمایید.']);
+                return redirect()->back()->withErrors(['error'=>'تکرار رمز عبور صحیح نمیباشد']);
             }
+        }catch (\Exception $error)
+        {
+            return redirect()->back()->withErrors(['error'=>'خطایی رخ دادا لطفا چند دقیه دیگر تلاش فرمایید.']);
+        }
     }
     public function loginAnotherUser(Request $request,User $user)
     {

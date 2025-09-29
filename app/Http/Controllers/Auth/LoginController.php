@@ -67,7 +67,7 @@ class LoginController extends Controller
 
 
         if (!$validPassword)
-            return redirect()->back()->withErrors(['passwordNotMatch' => 'کلمه عبور وارد شده صحیح نمیباشد']);
+            return redirect()->back()->withErrors(['passwordNotMatch' => 'نام کاربری یا رمز عبور اشتباه است.']);
 
         $remember = $simpleLoginPost->has('rememberMe') ? true : false;
         $cart=\session()->get('cart_id');
@@ -111,8 +111,6 @@ class LoginController extends Controller
             'password' => password_hash($inputs['password'], PASSWORD_DEFAULT)
         ]);
         return $result ? redirect()->route('login.index')->with(['success' => 'کلمه عبور شما ویرایش شد']) : redirect()->route('login.index')->withErrors(['token' => 'عملیات ویرایش کلمه عبور با شکست روبه رو شد لطفا چند دقیقه دیگر تلاش فرمایید']);
-
-
     }
 
     public function forgotPasswordToken(Request $request, Otp $otp)

@@ -13,6 +13,7 @@ use App\Services\ImageService\ImageService;
 use App\Services\SmsService\SatiaService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Traits\HasCart;
@@ -280,3 +281,4 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
 Route::fallback(function () {
     abort(404);
 });
+

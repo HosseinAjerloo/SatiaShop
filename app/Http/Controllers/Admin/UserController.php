@@ -74,7 +74,6 @@ class UserController extends Controller
             $user->roles()->sync($inputs['roles']);
             return redirect()->route('admin.user.index')->with(['success' => 'کاربر شما ویرایش شد']);
         } catch (\Exception $exception) {
-            dd($exception->getMessage(),$request->all());
             return redirect()->back()->withErrors(['error' => 'انجام عملیات با خطا مواجه شد لطفا با پشتیبانی تماس حاصل فرمایید.']);
         }
     }
