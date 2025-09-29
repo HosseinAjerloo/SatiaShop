@@ -694,7 +694,7 @@ class Product extends Model
     {
         $user = Auth::user();
 
-        $myCart = Cart::where('status', 'addToCart')->when($user, function ($query) use ($user) {
+        $myCart = Cart::where('status', 'addToCart')->orWhere('status','applyToTheBank')->when($user, function ($query) use ($user) {
             $query->where('user_id', $user->id);
         })->when(!$user, function ($query) {
             $query->where('id', session()->get('cart_id'));

@@ -27,7 +27,7 @@ class PaymentController extends Controller
         $user = Auth::user();
 
 
-        $myCart = Cart::where('status', 'addToCart')->when($user,function ($query) use ($user) {
+        $myCart = Cart::where('status', 'addToCart')->orWhere('status','applyToTheBank')->when($user,function ($query) use ($user) {
             $query->where('user_id',  $user->id);
         })->when(!$user,function ($query){
             $query->where('id', session()->get('cart_id'));
@@ -48,7 +48,7 @@ class PaymentController extends Controller
 
             $inputs = array_merge(request()->all(),request()->request->all());
             $bank = Bank::find($inputs['payment_type']);
-            $myCart = Cart::where('status', 'addToCart')->where('user_id', $user->id)->first();
+            $myCart = Cart::where('status', 'addToCart')->orWhere('status','applyToTheBank')->where('user_id', $user->id)->first();
             $myCart->finalPrice=round($myCart->finalPrice);
             $invoice = Invoice::create([
                 'user_id' => $user->id,

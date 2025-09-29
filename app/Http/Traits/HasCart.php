@@ -86,7 +86,7 @@ trait HasCart
     protected function myCartMerge()
     {
         $user=Auth::user();
-        $myCart = Cart::where('status', 'addToCart')->where('user_id', $user->id)->orderBy('id','desc')->get();
+        $myCart = Cart::where('status', 'addToCart')->orWhere('status','applyToTheBank')->where('user_id', $user->id)->orderBy('id','desc')->get();
 
         if ($myCart->count())
         {
@@ -112,8 +112,7 @@ trait HasCart
                 }
                 $theOtherCart->forceDelete();
             }
-            $myCart = Cart::where('status', 'addToCart')->where('user_id', $user->id)->orderBy('id','desc')->first();
-            $this->updateTotolProceCart($myCart);
+            $this->updateTotolProceCart($lastCreateCart);
 
         }
 
