@@ -60,7 +60,7 @@
                                         <i class="fa fa-store-alt cart-product-selected-store me-1"></i>
                                         <span>
                                         @if($product->isRemaining())
-                                                {{$product->productRemaining()}} {{$product->id}}
+                                                {{$product->productRemaining()}}
                                             @else
                                                 موجودی کافی نیست
                                             @endifکالا موجود در انبار

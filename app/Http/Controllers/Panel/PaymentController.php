@@ -115,7 +115,7 @@ class PaymentController extends Controller
                 'user ID: ' . $user->id
                 . PHP_EOL
             );
-            $myCart->update(['status','applyToTheBank']);
+            $myCart->update(['status'=>'applyToTheBank']);
             return $objBank->connectionToBank($token);
         } catch (\Exception $e) {
             Log::emergency(PHP_EOL . $e->getMessage() . PHP_EOL);
