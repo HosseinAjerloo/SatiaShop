@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Panel;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Panel\PaymentRequest;
+use App\Http\Traits\HasCart;
 use App\Jobs\SendAppAlertsJob;
 use App\Models\Bank;
 use App\Models\Cart;
@@ -22,6 +23,7 @@ use Illuminate\Support\Facades\Log;
 
 class PaymentController extends Controller
 {
+    use HasCart;
     public function advance(Request $request)
     {
         $user = Auth::user();
@@ -236,7 +238,7 @@ class PaymentController extends Controller
             if ($myCart->cartItem->count()<1)
                 $myCart->forceDelete();
 
-
+            $this->updateTotolProceCart($myCart);
             Order::create([
                 'user_id'=>$user->id,
                 'invoice_id'=>$invoice->id,
