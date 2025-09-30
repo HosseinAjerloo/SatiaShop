@@ -50,7 +50,7 @@ class PaymentController extends Controller
             $bank = Bank::find($inputs['payment_type']);
             $myCart = Cart::where('status', 'addToCart')->where('user_id', $user->id)->first();
             $myCart->cartItem()->update(['status'=>'applyToTheBank']);
-            $myCart->finalPrice=round($myCart->finalPrice);
+            $myCart->finalPrice=round($myCart->checkoutTotal());
             $invoice = Invoice::create([
                 'user_id' => $user->id,
                 'bank_id' => $bank->id,
@@ -158,6 +158,7 @@ class PaymentController extends Controller
 
                 $bankErrorMessage = " درگاه بانک $bank->name  تراکنش شمارا به دلیل " . $objBank->transactionStatus() . " ناموفق اعلام کرد باتشکر " . PHP_EOL ;
                 $satiaService->send($bankErrorMessage, $user->mobile, env('SMS_Number'), env('SMS_Username'), env('SMS_Password'));
+                $myCart->cartItem()->update(['status'=>'addToCart']);
 
                 return redirect()->route('panel.index')->with(['error-SweetAlert' => ' پرداخت موفقیت آمیز نبود ' . $objBank->transactionStatus()]);
             }
@@ -184,6 +185,7 @@ class PaymentController extends Controller
                     'user Id: ' . $user->id
                     . PHP_EOL
                 );
+                $myCart->cartItem()->update(['status'=>'addToCart']);
                 return redirect()->route('panel.index')->with(['error-SweetAlert'=>$objBank->verifyTransaction($back_price)]);
             }
 
@@ -214,7 +216,6 @@ class PaymentController extends Controller
 
 
             $cartItems=$myCart->cartItem()->where('status','applyToTheBank')->get();
-
             foreach ($cartItems as $cartItem) {
 
                 $product = $cartItem->product;

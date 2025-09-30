@@ -22,6 +22,16 @@ class Cart extends Model
     {
         return $this->hasMany(CartItem::class, 'cart_id');
     }
+    public function checkoutTotal()
+    {
+        $totalPrice=0;
+        $cartItems=$this->cartItem()->where('status','applyToTheBank')->get();
+        foreach ($cartItems as $cartItem)
+        {
+            $totalPrice+=$cartItem->product->price*$cartItem->amount;
+        }
+        return $totalPrice;
+    }
 
 
 }

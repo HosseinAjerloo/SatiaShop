@@ -73,7 +73,8 @@ class PanelController extends Controller
 
     public function findProductWithAjax(Request  $request)
     {
-        $product=Product::where('title','like','%'.$request->input('name').'%')->first();
+        $name=str_replace(' ','-',$request->input('name'));
+        $product=Product::where('title','like','%'.$name.'%')->first();
         if (!$product)
             return \response()->json(['status'=>false,'route'=>'']);
         return \response()->json(['status'=>true,'route'=>route('panel.product',$product->title)]);
