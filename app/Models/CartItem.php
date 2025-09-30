@@ -17,6 +17,7 @@ class CartItem extends Model
         'price',
         'amount',
         'type',
+        'status'
     ];
 
     public function product()

@@ -283,7 +283,7 @@ Route::fallback(function () {
 });
 Route::get('test',function (){
     $myCart = Cart::where('status', 'addToCart')->where('user_id',Auth::user()->id)->first();
-    dd($myCart->checkoutTotal());
-
+    $myCart->cartItem()->update(['status'=>'addToCart']);
+    dd($myCart);
 });
 
