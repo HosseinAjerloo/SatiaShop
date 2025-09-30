@@ -24,35 +24,37 @@ use Illuminate\Support\Facades\Log;
 class PaymentController extends Controller
 {
     use HasCart;
+
     public function advance(Request $request)
     {
         $user = Auth::user();
 
 
-        $myCart = Cart::where('status', 'addToCart')->when($user,function ($query) use ($user) {
-            $query->where('user_id',  $user->id);
-        })->when(!$user,function ($query){
+        $myCart = Cart::where('status', 'addToCart')->when($user, function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })->when(!$user, function ($query) {
             $query->where('id', session()->get('cart_id'));
         })->first();
 
         if (!$myCart)
-            return redirect()->route('panel.index')->with(['error'=>'سبد خرید شما خالی است لطفا کالایی را انتخاب کنید']);
-        $banks=Bank::where("is_active",'1')->get();
-        $breadcrumbs=Breadcrumbs::render('panel.payment.advance')->getData()['breadcrumbs'];
+            return redirect()->route('panel.index')->with(['error' => 'سبد خرید شما خالی است لطفا کالایی را انتخاب کنید']);
+        $banks = Bank::where("is_active", '1')->get();
+        $breadcrumbs = Breadcrumbs::render('panel.payment.advance')->getData()['breadcrumbs'];
 
-        return view('Panel.payment',compact('banks','myCart','breadcrumbs'));
+        return view('Panel.payment', compact('banks', 'myCart', 'breadcrumbs'));
     }
+
     public function payment(PaymentRequest $request)
     {
         try {
             $user = Auth::user();
             $balance = Auth::user()->getCreaditBalance();
 
-            $inputs = array_merge(request()->all(),request()->request->all());
+            $inputs = array_merge(request()->all(), request()->request->all());
             $bank = Bank::find($inputs['payment_type']);
             $myCart = Cart::where('status', 'addToCart')->where('user_id', $user->id)->first();
-            $myCart->cartItem()->update(['status'=>'applyToTheBank']);
-            $myCart->finalPrice=round($myCart->checkoutTotal());
+            $myCart->cartItem()->update(['status' => 'applyToTheBank']);
+            $myCart->finalPrice = round($myCart->checkoutTotal());
             $invoice = Invoice::create([
                 'user_id' => $user->id,
                 'bank_id' => $bank->id,
@@ -61,7 +63,7 @@ class PaymentController extends Controller
                 'status' => 'not_paid',
                 'type_of_business' => 'sales'
             ]);
-            $cartItems=$myCart->cartItem()->where('status','applyToTheBank')->get();
+            $cartItems = $myCart->cartItem()->where('status', 'applyToTheBank')->get();
             foreach ($cartItems as $cartItem) {
                 $invoice->invoiceItem()->create([
                     'product_id' => $cartItem->product_id,
@@ -99,7 +101,7 @@ class PaymentController extends Controller
                 'payment_id' => $payment->id,
             ]);
             if (!$status) {
-                $invoice->update(['description' => "به دلیل عدم ارتباط با بانک $bank->name سفارش شما لغو شد ",'status_bank'=>'fail']);
+                $invoice->update(['description' => "به دلیل عدم ارتباط با بانک $bank->name سفارش شما لغو شد ", 'status_bank' => 'fail']);
                 $financeTransaction->update(['description' => "به دلیل عدم ارتباط با بانک $bank->name سفارش شما لغو شد ", 'status' => 'fail']);
                 return redirect()->route('panel.cart.index')->with(['error-SweetAlert' => 'ارتباط با بانک فراهم نشد لطفا چند دقیقه بعد تلاش فرماید.']);
             }
@@ -124,6 +126,7 @@ class PaymentController extends Controller
             return redirect()->route('panel.cart.index')->with(['error-SweetAlert' => 'ارتباط با بانک فراهم نشد لطفا چند دقیقه بعد تلاش فرماید.']);
         }
     }
+
     public function paymentBack(Request $request)
     {
         try {
@@ -145,40 +148,41 @@ class PaymentController extends Controller
                 'user ID :' . $user->id
                 . PHP_EOL
             );
-         $inputs = array_merge(request()->all(),request()->request->all());
+            $inputs = array_merge(request()->all(), request()->request->all());
 
-        if (!$objBank->backBank()) {
+            if (!$objBank->backBank()) {
                 $payment->update(
                     [
-                        'RefNum' => $inputs['RefNum']??null,
+                        'RefNum' => $inputs['RefNum'] ?? null,
                         'ResNum' => $payment->order_id,
                         'state' => 'failed'
 
                     ]);
-                $invoice->update([ 'description' => ' پرداخت موفقیت آمیز نبود ' . $objBank->transactionStatus(),'status_bank'=>'failed']);
+                $invoice->update(['description' => ' پرداخت موفقیت آمیز نبود ' . $objBank->transactionStatus(), 'status_bank' => 'failed']);
                 $financeTransaction->update(['description' => ' پرداخت موفقیت آمیز نبود ' . $objBank->transactionStatus(), 'status' => 'fail']);
 
-                $bankErrorMessage = " درگاه بانک $bank->name  تراکنش شمارا به دلیل " . $objBank->transactionStatus() . " ناموفق اعلام کرد باتشکر " . PHP_EOL ;
+                $bankErrorMessage = " درگاه بانک $bank->name  تراکنش شمارا به دلیل " . $objBank->transactionStatus() . " ناموفق اعلام کرد باتشکر " . PHP_EOL;
                 $satiaService->send($bankErrorMessage, $user->mobile, env('SMS_Number'), env('SMS_Username'), env('SMS_Password'));
-                $myCart->cartItem()->update(['status'=>'addToCart']);
+                $myCart->cartItem()->update(['status' => 'addToCart']);
 
                 return redirect()->route('panel.index')->with(['error-SweetAlert' => ' پرداخت موفقیت آمیز نبود ' . $objBank->transactionStatus()]);
             }
 
             $back_price = $objBank->verify($payment->amount);
+            Log::emergency('bank price', $back_price);
             if ($back_price !== true or Payment::where("order_id", $payment->order_id)->count() > 1) {
 
                 $payment->update(
                     [
-                        'RefNum' => $inputs['RefNum']??null,
+                        'RefNum' => $inputs['RefNum'] ?? null,
                         'ResNum' => $payment->order_id,
                         'state' => 'failed'
 
                     ]);
-                $invoice->update([ 'description' => ' پرداخت موفقیت آمیز نبود ' . $objBank->verifyTransaction($back_price),'status_bank'=>'failed']);
+                $invoice->update(['description' => ' پرداخت موفقیت آمیز نبود ' . $objBank->verifyTransaction($back_price), 'status_bank' => 'failed']);
                 $financeTransaction->update(['description' => ' پرداخت موفقیت آمیز نبود ' . $objBank->verifyTransaction($back_price), 'status' => 'fail']);
 
-                $bankErrorMessage = " درگاه بانک $bank->name تراکنش شمارا به دلیل " . $objBank->verifyTransaction($back_price) . " ناموفق اعلام کرد باتشکر " . PHP_EOL ;
+                $bankErrorMessage = " درگاه بانک $bank->name تراکنش شمارا به دلیل " . $objBank->verifyTransaction($back_price) . " ناموفق اعلام کرد باتشکر " . PHP_EOL;
 
                 $satiaService->send($bankErrorMessage, $user->mobile, env('SMS_Number'), env('SMS_Username'), env('SMS_Password'));
                 Log::channel('bankLog')->emergency(PHP_EOL . "Bank Credit VerifyTransaction Purchase Voucher : " . json_encode($request->all()) . PHP_EOL .
@@ -187,8 +191,8 @@ class PaymentController extends Controller
                     'user Id: ' . $user->id
                     . PHP_EOL
                 );
-                $myCart->cartItem()->update(['status'=>'addToCart']);
-                return redirect()->route('panel.index')->with(['error-SweetAlert'=>$objBank->verifyTransaction($back_price)]);
+                $myCart->cartItem()->update(['status' => 'addToCart']);
+                return redirect()->route('panel.index')->with(['error-SweetAlert' => $objBank->verifyTransaction($back_price)]);
             }
 
             $payment->update(
@@ -217,13 +221,13 @@ class PaymentController extends Controller
             ]);
 
 
-            $cartItems=$myCart->cartItem()->where('status','applyToTheBank')->get();
+            $cartItems = $myCart->cartItem()->where('status', 'applyToTheBank')->get();
             foreach ($cartItems as $cartItem) {
 
                 $product = $cartItem->product;
 
                 if ($product->type != 'service') {
-                    $productTransaction =$product->productTransaction()->latest()->first();
+                    $productTransaction = $product->productTransaction()->latest()->first();
                     \App\Models\ProductTransaction::create([
                         'user_id' => $user->id,
                         'product_id' => $cartItem->product_id,
@@ -235,23 +239,23 @@ class PaymentController extends Controller
                 }
                 $cartItem->forceDelete();
             }
-            if ($myCart->cartItem->count()<1)
+            if ($myCart->cartItem->count() < 1)
                 $myCart->forceDelete();
 
             $this->updateTotolProceCart($myCart);
             Order::create([
-                'user_id'=>$user->id,
-                'invoice_id'=>$invoice->id,
-                'total_price'=>$invoice->final_amount
+                'user_id' => $user->id,
+                'invoice_id' => $invoice->id,
+                'total_price' => $invoice->final_amount
             ]);
 
 
-            $invoice->update(['status' => 'paid','description'=>'پرداخت موفقیت آمیز']);
+            $invoice->update(['status' => 'paid', 'description' => 'پرداخت موفقیت آمیز']);
 
-            return redirect()->route('panel.order.invoiceDetail',$invoice)->with(['success-SweetAlert'=>'پرداخت باموفقیت انجام شد']);
+            return redirect()->route('panel.order.invoiceDetail', $invoice)->with(['success-SweetAlert' => 'پرداخت باموفقیت انجام شد']);
         } catch (\Exception $e) {
 
-            Log::channel('bankLog')->emergency(PHP_EOL . "Purchase validation from the payment gateway : " .  $e->getMessage() . PHP_EOL);
+            Log::channel('bankLog')->emergency(PHP_EOL . "Purchase validation from the payment gateway : " . $e->getMessage() . PHP_EOL);
 
             return redirect()->route('panel.index')->with(['error-SweetAlert' => "خطایی رخ داد لطفا جهت پیگیری پرداخت با پشتیبانی تماس حاصل فرمایید باتشکر"]);
 
