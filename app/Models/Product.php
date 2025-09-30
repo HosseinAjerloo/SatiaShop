@@ -634,7 +634,7 @@ class Product extends Model
 
     public function isRemaining()
     {
-        $cart = Cart::where('status', 'addToCart')->orWhere('status', 'applyToTheBank')->get();
+        $cart = Cart::where('status', 'addToCart')->get();
 
         $cartItem = CartItem::where('product_id', $this->id)->whereIn('cart_id', $cart->pluck('id'))->get();
 
@@ -653,7 +653,7 @@ class Product extends Model
     public function productRemaining()
     {
 
-        $cart = Cart::where('status', 'addToCart')->orWhere('status', 'applyToTheBank')->get();
+        $cart = Cart::where('status', 'addToCart')->get();
         $cartItem = CartItem::where('product_id', $this->id)->whereIn('cart_id', $cart->pluck('id'))->get();
         if ($cartItem->count() > 0) {
             if ($this->type == 'goods') {
@@ -671,7 +671,7 @@ class Product extends Model
 
     public function productRemainingExceptUser( $productCount)
     {
-        $cart = Cart::whereIn('status', ['addToCart', 'applyToTheBank'])->get();
+        $cart = Cart::where('status', 'addToCart')->get();
         $cartItem = CartItem::where('product_id', $this->id)->whereIn('cart_id', $cart->pluck('id'))->get();
         if ($cartItem->count() > 0) {
             if ($this->type == 'goods') {
@@ -694,7 +694,7 @@ class Product extends Model
     {
         $user = Auth::user();
 
-        $myCart = Cart::where('status', 'addToCart')->orWhere('status','applyToTheBank')->when($user, function ($query) use ($user) {
+        $myCart = Cart::where('status', 'addToCart')->when($user, function ($query) use ($user) {
             $query->where('user_id', $user->id);
         })->when(!$user, function ($query) {
             $query->where('id', session()->get('cart_id'));

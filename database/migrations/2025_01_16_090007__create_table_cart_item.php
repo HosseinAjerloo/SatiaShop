@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained('products')->cascadeOnDelete()->cascadeOnUpdate();
             $table->decimal('price',20,3)->nullable();
             $table->integer('amount')->default(0);
+            $table->enum('status', ['addToCart', 'applyToTheBank'])->default('addToCart');
             $table->enum('type', ['service', 'product'])->nullable();
             $table->timestamps();
             $table->softDeletes();

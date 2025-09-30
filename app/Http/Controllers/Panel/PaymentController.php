@@ -27,7 +27,7 @@ class PaymentController extends Controller
         $user = Auth::user();
 
 
-        $myCart = Cart::where('status', 'addToCart')->orWhere('status','applyToTheBank')->when($user,function ($query) use ($user) {
+        $myCart = Cart::where('status', 'addToCart')->when($user,function ($query) use ($user) {
             $query->where('user_id',  $user->id);
         })->when(!$user,function ($query){
             $query->where('id', session()->get('cart_id'));
@@ -48,7 +48,8 @@ class PaymentController extends Controller
 
             $inputs = array_merge(request()->all(),request()->request->all());
             $bank = Bank::find($inputs['payment_type']);
-            $myCart = Cart::where('status', 'addToCart')->orWhere('status','applyToTheBank')->where('user_id', $user->id)->first();
+            $myCart = Cart::where('status', 'addToCart')->where('user_id', $user->id)->first();
+            $myCart->cartItem()->update(['status'=>'applyToTheBank']);
             $myCart->finalPrice=round($myCart->finalPrice);
             $invoice = Invoice::create([
                 'user_id' => $user->id,
@@ -58,7 +59,8 @@ class PaymentController extends Controller
                 'status' => 'not_paid',
                 'type_of_business' => 'sales'
             ]);
-            foreach ($myCart->cartItem as $cartItem) {
+            $cartItems=$myCart->cartItem()->where('status','applyToTheBank')->get();
+            foreach ($cartItems as $cartItem) {
                 $invoice->invoiceItem()->create([
                     'product_id' => $cartItem->product_id,
                     'price' => $cartItem->price,
@@ -94,7 +96,6 @@ class PaymentController extends Controller
                 'description' => " ارتباط با بانک $bank->name",
                 'payment_id' => $payment->id,
             ]);
-//            dd($status);
             if (!$status) {
                 $invoice->update(['description' => "به دلیل عدم ارتباط با بانک $bank->name سفارش شما لغو شد ",'status_bank'=>'fail']);
                 $financeTransaction->update(['description' => "به دلیل عدم ارتباط با بانک $bank->name سفارش شما لغو شد ", 'status' => 'fail']);
@@ -115,7 +116,6 @@ class PaymentController extends Controller
                 'user ID: ' . $user->id
                 . PHP_EOL
             );
-            $myCart->update(['status'=>'applyToTheBank']);
             return $objBank->connectionToBank($token);
         } catch (\Exception $e) {
             Log::emergency(PHP_EOL . $e->getMessage() . PHP_EOL);
@@ -213,8 +213,9 @@ class PaymentController extends Controller
             ]);
 
 
+            $cartItems=$myCart->cartItem()->where('status','applyToTheBank')->get();
 
-            foreach ($myCart->cartItem as $cartItem) {
+            foreach ($cartItems as $cartItem) {
 
                 $product = $cartItem->product;
 
@@ -229,7 +230,12 @@ class PaymentController extends Controller
                         'type' => 'minus'
                     ]);
                 }
+                $cartItem->forceDelete();
             }
+            if ($myCart->cartItem->count()<1)
+                $myCart->forceDelete();
+
+
             Order::create([
                 'user_id'=>$user->id,
                 'invoice_id'=>$invoice->id,
@@ -238,7 +244,6 @@ class PaymentController extends Controller
 
 
             $invoice->update(['status' => 'paid','description'=>'پرداخت موفقیت آمیز']);
-            $myCart->delete();
 
             return redirect()->route('panel.order.invoiceDetail',$invoice)->with(['success-SweetAlert'=>'پرداخت باموفقیت انجام شد']);
         } catch (\Exception $e) {

@@ -18,7 +18,7 @@ class CartController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        $myCart = Cart::where('status', 'addToCart')->orWhere('status','applyToTheBank')->when($user,function ($query) use ($user) {
+        $myCart = Cart::where('status', 'addToCart')->when($user,function ($query) use ($user) {
             $query->where('user_id',  $user->id);
         })->when(!$user,function ($query){
             $query->where('id', session()->get('cart_id'));
@@ -42,7 +42,7 @@ class CartController extends Controller
 
         $request->request->add(['product' => $product]);
 
-        $myCart = Cart::where('status', 'addToCart')->orWhere('status','applyToTheBank')->when($user,function ($query) use ($user) {
+        $myCart = Cart::where('status', 'addToCart')->when($user,function ($query) use ($user) {
             $query->where('user_id',  $user->id);
         })->when(!$user,function ($query){
             $query->where('id', session()->get('cart_id'));
@@ -82,7 +82,7 @@ class CartController extends Controller
         if (!$product or !$request->has('amount'))
             return response()->json(['message' => 'موردی یافت نشد لطفا شبکه خود را چک کنید', 'status' => false]);
 
-        $myCart = Cart::where('status', 'addToCart')->orWhere('status','applyToTheBank')->when($user,function ($query) use ($user) {
+        $myCart = Cart::where('status', 'addToCart')->when($user,function ($query) use ($user) {
             $query->where('user_id',  $user->id);
         })->when(!$user,function ($query){
             $query->where('id', session()->get('cart_id'));
@@ -113,7 +113,7 @@ class CartController extends Controller
             return response()->json(['message' => 'موردی یافت نشد لطفا شبکه خود را چک کنید', 'status' => false]);
 
 
-        $myCart = Cart::where('status', 'addToCart')->orWhere('status','applyToTheBank')->when($user,function ($query) use ($user) {
+        $myCart = Cart::where('status', 'addToCart')->when($user,function ($query) use ($user) {
             $query->where('user_id',  $user->id);
         })->when(!$user,function ($query){
             $query->where('id', session()->get('cart_id'));
@@ -136,7 +136,7 @@ class CartController extends Controller
     {
         $user = Auth::user();
 
-        $myCart = Cart::where('status', 'addToCart')->orWhere('status','applyToTheBank')->when($user,function ($query) use ($user) {
+        $myCart = Cart::where('status', 'addToCart')->when($user,function ($query) use ($user) {
             $query->where('user_id',  $user->id);
         })->when(!$user,function ($query){
             $query->where('id', session()->get('cart_id'));
@@ -155,7 +155,7 @@ class CartController extends Controller
     public function getCountNumberOfCartItem()
     {
         $user=Auth::user();
-        $myCart = Cart::where('status', 'addToCart')->orWhere('status','applyToTheBank')->when($user,function ($query) use ($user) {
+        $myCart = Cart::where('status', 'addToCart')->when($user,function ($query) use ($user) {
             $query->where('user_id',  $user->id);
         })->when(!$user,function ($query){
             $query->where('id', session()->get('cart_id'));

@@ -31,12 +31,12 @@ class ClearReservedProducts implements ShouldQueue, ShouldBeUnique
      */
     public function handle(): void
     {
-        $carts = Cart::where('status', 'addToCart')->orWhere('status', 'applyToTheBank')?->get();
+        $carts = Cart::where('status', 'addToCart')?->get();
         if ($carts->count()) {
             $carts->map(function ($cart) {
                 $cartItem = $cart->cartItem()->latest()->first();
                 if ($cartItem) {
-                    $subtime = Carbon::now()->subMinutes($cart->status == 'applyToTheBank' ? env('DeleteBasedOnApplyToTheBankType') : env('DeleteBasedOnAddCartType'))->toDateTimeString();
+                    $subtime = Carbon::now()->subMinutes(env('DeleteBasedOnAddCartType'))->toDateTimeString();
                     if ($cartItem->created_at < $subtime){
                         $cart->cartItem->map(function ($item){
                             $item->delete();
