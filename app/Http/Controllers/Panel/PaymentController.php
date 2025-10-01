@@ -169,7 +169,6 @@ class PaymentController extends Controller
             }
 
             $back_price = $objBank->verify($payment->amount);
-            Log::emergency('bank price'.(string)$back_price);
             if ($back_price !== true or Payment::where("order_id", $payment->order_id)->count() > 1) {
 
                 $payment->update(
