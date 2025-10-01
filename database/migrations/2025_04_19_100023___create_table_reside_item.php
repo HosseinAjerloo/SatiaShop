@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('unique_code')->nullable();
             $table->enum('flag_sms',['send','no_send'])->default('no_send');
             $table->decimal('price',20,3)->nullable();
+            $table->decimal('salary',20,3)->default(0);
             $table->integer('amount')->default(1);
             $table->enum('balloons',['internal','external'])->nullable();
             $table->enum('type', ['service', 'goods'])->nullable();

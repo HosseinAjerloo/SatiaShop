@@ -38,7 +38,9 @@ class Product extends Model
             'status' => 'active',
             'price' => 10000000,
             'user_id' => 1,
-            'related_goods'=>5
+            'related_goods'=>5,
+            'salary'=>1000
+
         ],
         [
             'category_id' => 1,
@@ -48,7 +50,9 @@ class Product extends Model
             'status' => 'active',
             'price' => 15000000,
             'user_id' => 1,
-            'related_goods'=>5
+            'related_goods'=>5,
+            'salary'=>2000
+
 
         ],
         [
@@ -59,7 +63,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 20000000,
             'user_id' => 1,
-            'related_goods'=>5
+            'related_goods'=>5,
+            'salary'=>3000
 
         ],
         [
@@ -70,7 +75,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 23000000,
             'user_id' => 1,
-            'related_goods'=>5
+            'related_goods'=>5,
+            'salary'=>4000
 
         ],
         [
@@ -81,7 +87,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 28000000,
             'user_id' => 1,
-            'related_goods'=>5
+            'related_goods'=>5,
+            'salary'=>5000
 
         ],
         [
@@ -92,7 +99,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 38000000,
             'user_id' => 1,
-            'related_goods'=>5
+            'related_goods'=>5,
+            'salary'=>6000
 
         ],
         [
@@ -103,7 +111,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 68000000,
             'user_id' => 1,
-            'related_goods'=>5
+            'related_goods'=>5,
+            'salary'=>7000
 
         ],
         [
@@ -114,7 +123,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 100000000,
             'user_id' => 1,
-            'related_goods'=>5
+            'related_goods'=>5,
+            'salary'=>8000
 
         ],
         [
@@ -125,7 +135,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 14000000,
             'user_id' => 1,
-            'related_goods'=>4
+            'related_goods'=>4,
+            'salary'=>9000
 
         ],
         [
@@ -136,7 +147,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 22000000,
             'user_id' => 1,
-            'related_goods'=>4
+            'related_goods'=>4,
+            'salary'=>10000
         ],
         [
             'category_id' => 2,
@@ -146,7 +158,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 52000000,
             'user_id' => 1,
-            'related_goods'=>4
+            'related_goods'=>4,
+            'salary'=>11000
 
         ],
 
@@ -158,7 +171,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 12000000,
             'user_id' => 1,
-            'related_goods'=>6
+            'related_goods'=>6,
+            'salary'=>12000
 
         ],
 
@@ -170,7 +184,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 14000000,
             'user_id' => 1,
-            'related_goods'=>6
+            'related_goods'=>6,
+            'salary'=>13000
 
         ],
         [
@@ -181,7 +196,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 16000000,
             'user_id' => 1,
-            'related_goods'=>6
+            'related_goods'=>6,
+            'salary'=>14000
 
         ],
         [
@@ -192,7 +208,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 18000000,
             'user_id' => 1,
-            'related_goods'=>6
+            'related_goods'=>6,
+            'salary'=>15000
 
         ],
         [
@@ -203,7 +220,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 20000000,
             'user_id' => 1,
-            'related_goods'=>6
+            'related_goods'=>6,
+            'salary'=>16000
 
         ],
         [
@@ -214,7 +232,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 26000000,
             'user_id' => 1,
-            'related_goods'=>6
+            'related_goods'=>6,
+            'salary'=>17000
 
         ],
         [
@@ -225,7 +244,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 30000000,
             'user_id' => 1,
-            'related_goods'=>6
+            'related_goods'=>6,
+            'salary'=>18000
 
         ],
 
@@ -384,7 +404,9 @@ class Product extends Model
             'type' => 'goods',
             'status' => 'active',
             'price' => 80000000,
-            'user_id' => 1
+            'user_id' => 1,
+            'salary'=>19000
+
         ],
         [
             'category_id' => 5,
@@ -393,7 +415,8 @@ class Product extends Model
             'type' => 'goods',
             'status' => 'active',
             'price' => 6000000,
-            'user_id' => 1
+            'user_id' => 1,
+            'salary'=>20000
         ],
         [
             'category_id' => 5,
@@ -402,7 +425,8 @@ class Product extends Model
             'type' => 'goods',
             'status' => 'active',
             'price' => 8000000,
-            'user_id' => 1
+            'user_id' => 1,
+            'salary'=>21000
         ],
         [
             'category_id' => 5,
@@ -411,7 +435,9 @@ class Product extends Model
             'type' => 'goods',
             'status' => 'active',
             'price' => 10000000,
-            'user_id' => 1
+            'user_id' => 1,
+            'salary'=>22000
+
         ],
         ///
         [
@@ -448,7 +474,8 @@ class Product extends Model
             'type' => 'goods',
             'status' => 'active',
             'price' => 7000000,
-            'user_id' => 1
+            'user_id' => 1,
+            'salary'=>23000
         ],
         [
             'category_id' => 4,
@@ -457,7 +484,9 @@ class Product extends Model
             'type' => 'goods',
             'status' => 'active',
             'price' => 7000000,
-            'user_id' => 1
+            'user_id' => 1,
+            'salary'=>24000
+
         ],
         [
             'category_id' => 4,
@@ -466,7 +495,8 @@ class Product extends Model
             'type' => 'goods',
             'status' => 'active',
             'price' => 7000000,
-            'user_id' => 1
+            'user_id' => 1,
+            'salary'=>24000
         ],
 
 
@@ -551,7 +581,8 @@ class Product extends Model
             'type' => 'goods',
             'status' => 'active',
             'price' => 80000000,
-            'user_id' => 1
+            'user_id' => 1,
+            'salary'=>26000
         ],
         [
             'category_id' => 6,
@@ -560,7 +591,8 @@ class Product extends Model
             'type' => 'goods',
             'status' => 'active',
             'price' => 80000000,
-            'user_id' => 1
+            'user_id' => 1,
+            'salary'=>27000
         ],
 
     ];

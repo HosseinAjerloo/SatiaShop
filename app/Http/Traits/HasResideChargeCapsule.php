@@ -85,6 +85,7 @@ trait  HasResideChargeCapsule
                 'type' => $product->type,
                 'status' => $inputs['product_status'][$key],
                 'description' => $value,
+                'salary' => $product->salary,
                 'unique_code' => isset($inputs['unique_code'])? $inputs['unique_code']: $this->generateUniqueCode()
             ];
 

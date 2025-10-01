@@ -132,6 +132,9 @@
                                 <span class="text-min sm:text-sm text-nowrap font-bold">کدیکتا</span>
                             </th>
                             <th class=" text-sm font-light px-2 leading-6 text-white  p-2">
+                                <span class="text-min sm:text-sm text-nowrap font-bold">عنوان کالا</span>
+                            </th>
+                            <th class=" text-sm font-light px-2 leading-6 text-white  p-2">
                                 <span class="text-min sm:text-sm text-nowrap font-bold">شرح کالاو خدمات</span>
                             </th>
                             <th class=" text-sm font-light px-2 leading-6 text-white  p-2">
@@ -163,10 +166,14 @@
                                     @if($index==0)
                                         <td class="border border-gray-400  text-center  "
                                             rowspan="{{$resideItem->productResidItem->count()+1}}">
-                                            <a href="{{route('admin.invoice.issuance.operation',[$resideItem->reside_id,$resideItem->id])}}"
-                                               class=" text-[15px] sm:text-[13px]  p-1 w-full ">
+                                            <div class=" text-[15px] sm:text-[13px]  p-1 w-full ">
                                                 {{$resideItem->unique_code??''}}
-                                            </a>
+                                            </div>
+                                        </td>
+                                        <td class="border border-gray-400  text-center" rowspan="{{$resideItem->productResidItem->count()+1}}">
+                                            <p class="text-[15px]  sm:text-[13px]  p-1 w-full ">
+                                                {{$resideItem->product->removeUnderline??''}}
+                                            </p>
                                         </td>
                                     @endif
                                     <td class="border border-gray-400  text-center">
@@ -183,7 +190,7 @@
                                     @if($index==0)
                                         <td class="border border-gray-300"
                                             rowspan="{{$resideItem->productResidItem->count()}}">
-                                            <canvas class="qrcode !w-full sm:!w-[114px] !h-auto "
+                                            <canvas class="qrcode !w-full  !h-auto "
                                                     data-product="{{$resideItem->changeToQrcodeNameProduct()}}"></canvas>
 
                                         </td>
@@ -199,7 +206,7 @@
                                 <td class="border border-gray-400  text-center  font-bold">{{$count}}</td>
                                 <td class="border border-gray-400  text-center  ">اجرت</td>
                                 <td class="border border-gray-400  text-center  "
-                                    colspan="2">{{numberFormat($resideItem->product->salary)??100}}</td>
+                                    colspan="2">{{numberFormat($resideItem->salary)??0}}</td>
 
 
                             </tr>
@@ -211,7 +218,7 @@
                                     جمع
                                 </p>
                             </td>
-                            <td class="border border-gray-400  text-center" colspan="2">
+                            <td class="border border-gray-400  text-center" colspan="3">
                                 <p class=" text-[15px]  sm:text-[13px]  p-1 w-full ">
                                     {{numberFormat($reside->totalPrice())??''}}
                                     ریال
@@ -231,7 +238,7 @@
 
                                 </div>
                             </td>
-                            <td class="border border-gray-400  text-center" colspan="2">
+                            <td class="border border-gray-400  text-center" colspan="3">
                                 <p class="totalPriceDiscount text-[15px] space-x-reverse space-x-2  sm:text-[13px]  p-1 w-full flex items-center justify-center">
                                     {{numberFormat($reside->calculationWithDiscount())??0}}
                                     ریال
@@ -247,7 +254,7 @@
                                     <span>  {{$reside->commission??0}}%مالیات</span>
                                 </div>
                             </td>
-                            <td class="border border-gray-400  text-center" colspan="2">
+                            <td class="border border-gray-400  text-center" colspan="3">
                                 <span class="totalPricePlusTax text-[15px]  sm:text-[13px]  p-1 w-full "
                                 >
                                     {{numberFormat($reside->final_price)??''}}
@@ -261,7 +268,7 @@
                                     جمع کل
                                 </p>
                             </td>
-                            <td class="border border-gray-400  text-center" colspan="2">
+                            <td class="border border-gray-400  text-center" colspan="3">
                                 <p class="final-price  text-[15px]  sm:text-[13px]  p-1 w-full ">
                                     {{numberFormat($reside->final_price)??''}}
                                     ریال

@@ -4,6 +4,7 @@
     @php
         $count=0;
     @endphp
+
     <section class=" space-y-3 relative">
         <article class="space-y-5 bg-F1F1F1 p-6 rounded-md">
 
@@ -76,6 +77,10 @@
                                 <span class="text-min sm:text-sm text-nowrap font-bold">کدیکتا</span>
                             </th>
                             <th class=" text-sm font-light px-2 leading-6 text-white  p-2">
+                                <span class="text-min sm:text-sm text-nowrap font-bold">عنوان کالا</span>
+                            </th>
+
+                            <th class=" text-sm font-light px-2 leading-6 text-white  p-2">
                                 <span class="text-min sm:text-sm text-nowrap font-bold">شرح کالاو خدمات</span>
                             </th>
                             <th class=" text-sm font-light px-2 leading-6 text-white  p-2">
@@ -112,7 +117,13 @@
                                                 {{$resideItem->unique_code??''}}
                                             </a>
                                         </td>
+                                        <td class="border border-gray-400  text-center" rowspan="{{$resideItem->productResidItem->count()+1}}">
+                                            <p class="text-[15px]  sm:text-[13px]  p-1 w-full ">
+                                                {{$resideItem->product->removeUnderline??''}}
+                                            </p>
+                                        </td>
                                     @endif
+
                                     <td class="border border-gray-400  text-center">
                                         <p class="text-[15px]  sm:text-[13px]  p-1 w-full ">
                                             {{$productItem->removeUnderline??''}}
@@ -145,7 +156,7 @@
                                 <td class="border border-gray-400  text-center  font-bold">{{$count}}</td>
                                 <td class="border border-gray-400  text-center  ">اجرت</td>
                                 <td class="border border-gray-400  text-center  "
-                                    colspan="2">{{numberFormat($resideItem->product->salary)??100}}</td>
+                                    colspan="2">{{numberFormat($resideItem->salary)??100}}</td>
 
 
                             </tr>
@@ -157,7 +168,7 @@
                                     جمع
                                 </p>
                             </td>
-                            <td class="border border-gray-400  text-center" colspan="2">
+                            <td class="border border-gray-400  text-center" colspan="3">
                                 <p class=" text-[15px]  sm:text-[13px]  p-1 w-full ">
                                     {{numberFormat($reside->totalPrice())??''}}
                                     ریال
@@ -230,7 +241,7 @@
 
                                 </div>
                             </td>
-                            <td class="border border-gray-400  text-center" colspan="2">
+                            <td class="border border-gray-400  text-center" colspan="3">
                                 <p class="totalPriceDiscount text-[15px] space-x-reverse space-x-2  sm:text-[13px]  p-1 w-full flex items-center justify-center">
                                     {{numberFormat($reside->totalPrice())??''}}
                                 </p>
@@ -245,7 +256,7 @@
                                     <span>  {{env('Commission')}}%مالیات</span>
                                 </div>
                             </td>
-                            <td class="border border-gray-400  text-center" colspan="2">
+                            <td class="border border-gray-400  text-center" colspan="3">
                                 <span class="totalPricePlusTax text-[15px]  sm:text-[13px]  p-1 w-full "
                                 >
                                     {{numberFormat($reside->totalPrice())??''}}
@@ -258,7 +269,7 @@
                                     جمع کل
                                 </p>
                             </td>
-                            <td class="border border-gray-400  text-center" colspan="2">
+                            <td class="border border-gray-400  text-center" colspan="3">
                                 <p class="final-price  text-[15px]  sm:text-[13px]  p-1 w-full ">
                                     {{numberFormat($reside->final_price)??''}}
                                 </p>

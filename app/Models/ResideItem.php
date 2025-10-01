@@ -19,7 +19,8 @@ class ResideItem extends Model
         'description',
         'balloons',
         'unique_code',
-        'flag_sms'
+        'flag_sms',
+        'salary'
     ];
 
     public function product()
@@ -48,7 +49,7 @@ class ResideItem extends Model
         foreach ($this->productResidItem as $product) {
             $totalPrice += ($product->pivot->price);
         }
-        $totalPrice=$this->product->salary+$totalPrice;
+        $totalPrice=$this->salary+$totalPrice;
         return $totalPrice;
     }
 

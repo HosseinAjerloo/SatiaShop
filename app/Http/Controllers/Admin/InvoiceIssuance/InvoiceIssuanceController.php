@@ -22,6 +22,7 @@ InvoiceIssuanceController extends Controller
 
     public function index(Reside $reside)
     {
+
         Gate::authorize('admin.invoice.issuance.index');
         $breadcrumbs = Breadcrumbs::render('admin.invoice.issuance.index', $reside)->getData()['breadcrumbs'];
         return view('Admin.InvoiceIssuance.index', compact('reside', 'breadcrumbs'));
@@ -68,7 +69,8 @@ InvoiceIssuanceController extends Controller
             $productItems=[];
             foreach ($inputs['product_id'] as $key => $product)
             {
-                $productItems[$product]=['price'=>Product::find($product)->price];
+                $productItem=Product::find($product);
+                $productItems[$product]=['price'=>$productItem->price];
             }
             $resideItem->productResidItem()->sync($productItems);
             $resideItem->update([
