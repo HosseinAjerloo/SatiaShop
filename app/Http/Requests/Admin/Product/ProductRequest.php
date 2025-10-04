@@ -33,7 +33,7 @@ class ProductRequest extends FormRequest
                 'related_goods'=>'nullable|exists:categories,id',
                 'brand_id'=>'required|exists:brands,id',
                 'status'=>'required|in:active,inactive',
-                'type'=>'required|in:goods,service',
+                'type'=>'nullable|in:goods,service',
                 'description'=>'nullable|min:3',
                 'is_favorite'=>'required|in:0,1',
                 'file' => [

@@ -112,11 +112,13 @@
                                 <td class="border border-gray-400  text-center">
                                     <p class="text-[15px]  sm:text-[13px]  p-1 w-full ">
                                         {{$resideItem->product->removeUnderline??''}}
+
                                     </p>
                                 </td>
                                 <td class="border border-gray-400  text-center">
                                     <p class="  text-[15px] sm:text-[13px] p-1 w-full ">
                                         {{$resideItem->amount??0}}
+                                        {{$resideItem->product->getUnitOfMeasurement??''}}
                                     </p>
                                 </td>
 
@@ -219,6 +221,7 @@
                             <td class="border border-gray-400  text-center" colspan="3">
                                 <p class="totalPriceDiscount text-[15px] space-x-reverse space-x-2  sm:text-[13px]  p-1 w-full flex items-center justify-center">
                                     {{numberFormat($reside->total_price)??''}}
+                                    ریال
                                 </p>
                             </td>
                         </tr>

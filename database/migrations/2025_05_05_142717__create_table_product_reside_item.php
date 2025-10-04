@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->nullable()->constrained('products')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('reside_item_id')->nullable()->constrained('reside_items')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->integer('amount')->default(1);
             $table->decimal('price',20,3)->nullable();
+            $table->decimal('total_price',20,3)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -29,7 +29,7 @@
                        value="{{(float)old('price',$product->price)}}">
             </div>
             <div class="flex items-center space-x-reverse space-x-8">
-                <h5 class="text-min font-light w-28"> اجرت(ریال) :</h5>
+                <h5 class="text-min font-light w-28">قیمت اجرت(ریال) : </h5>
                 <input type="text" name="salary" class="outline-none border border-black rounded-md w-48"
                        value="{{(float)old('salary',$product->salary)}}">
             </div>
@@ -83,22 +83,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex items-center space-x-reverse space-x-8 ">
-                <h5 class="text-min font-light w-28">نوع محصول:</h5>
-                <div class="flex items-center space-x-3 space-x-reverse">
-                    <div>
-                        <label>کالا</label>
-                        <input type="radio" name="type" value="goods"
-                               @if(old('type',$product->type)=='goods') checked="checked" @endif >
 
-                    </div>
-                    <div>
-                        <label>سرویس</label>
-                        <input type="radio" name="type" id="" value="service"
-                               @if(old('type',$product->type)=='service') checked="checked" @endif >
-                    </div>
-                </div>
-            </div>
 
             <div class="flex items-center space-x-reverse space-x-8 ">
                 <h5 class="text-min font-light w-28">افزودن به علاقه مندی:</h5>

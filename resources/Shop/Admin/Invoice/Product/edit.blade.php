@@ -4,7 +4,7 @@
 
     <section class="px-5 relative">
         <h1 class="font-bold text-sm">
-            ویرایش  فاکتور محصول :
+            ویرایش فاکتور محصول :
         </h1>
 
 
@@ -15,7 +15,7 @@
             <section class="pb-3  border-b-2 border-black/40">
                 <div class="flex items-center space-x-reverse space-x-8">
                     <h5 class="text-min font-light w-28">تامین کنندگان:</h5>
-                    <select name="supplier_id"  class="outline-none border border-black rounded-md w-48 select2">
+                    <select name="supplier_id" class="outline-none border border-black rounded-md w-48 select2">
 
                         @foreach($suppliers as $supplier)
                             <option @if($invoice->supplier_id==$supplier->id) selected="selected"
@@ -67,8 +67,6 @@
                             </div>
 
 
-
-
                             <div class="flex items-center space-x-reverse space-x-8 ">
                                 <h5 class="text-min font-light w-48">توضیحات مربوط به محصول</h5>
                             </div>
@@ -97,15 +95,15 @@
                             <div class="flex items-center space-x-reverse space-x-8">
                                 <h5 class="text-min font-light w-28"> قیمت هر واحد(ریال):</h5>
                                 <input type="text" name="price[]"
-                                       class="outline-none border border-black rounded-md w-48" value="{{round($invoiceItem->price)}}">
+                                       class="outline-none border border-black rounded-md w-48"
+                                       value="{{round($invoiceItem->price)}}">
                             </div>
                             <div class="flex items-center space-x-reverse space-x-8">
                                 <h5 class="text-min font-light w-28"> تعداد :</h5>
                                 <input type="number" min="1" name="amount[]"
-                                       class="outline-none border border-black rounded-md w-48" value="{{$invoiceItem->amount}}">
+                                       class="outline-none border border-black rounded-md w-48"
+                                       value="{{$invoiceItem->amount}}">
                             </div>
-
-
 
 
                             <div class="flex items-center space-x-reverse space-x-8 ">
@@ -197,7 +195,7 @@
                     </div>
                     <div class="flex items-center space-x-reverse space-x-8">
                         <h5 class="text-min font-light w-28">برند :</h5>
-                        <select name="brand_id"  class="outline-none border border-black rounded-md w-48 select2">
+                        <select name="brand_id" class="outline-none border border-black rounded-md w-48 select2">
                             @foreach($brands as $brand)
                                 <option
                                     @selected(old('brand_id')==$brand->id) value="{{$brand->id}}
@@ -211,33 +209,33 @@
                         <div class="flex items-center space-x-3 space-x-reverse">
                             <div>
                                 <label>فعال</label>
-                                <input type="radio" name="status"  value="active"
+                                <input type="radio" name="status" value="active"
                                        @if(old('status')=='active') checked="checked" @endif >
 
                             </div>
                             <div>
                                 <label>غیرفعال</label>
-                                <input type="radio" name="status"  value="inactive"
+                                <input type="radio" name="status" value="inactive"
                                        @if(old('status')=='inactive') checked="checked" @endif >
                             </div>
                         </div>
                     </div>
-                    <div class="flex items-center space-x-reverse space-x-8 ">
-                        <h5 class="text-min font-light w-28">نوع محصول:</h5>
-                        <div class="flex items-center space-x-3 space-x-reverse">
-                            <div>
-                                <label>کالا</label>
-                                <input type="radio" name="type" value="goods"
-                                       @if(old('type')=='goods') checked="checked" @endif >
+                    {{--                    <div class="flex items-center space-x-reverse space-x-8 ">--}}
+                    {{--                        <h5 class="text-min font-light w-28">نوع محصول:</h5>--}}
+                    {{--                        <div class="flex items-center space-x-3 space-x-reverse">--}}
+                    {{--                            <div>--}}
+                    {{--                                <label>کالا</label>--}}
+                    {{--                                <input type="radio" name="type" value="goods"--}}
+                    {{--                                       @if(old('type')=='goods') checked="checked" @endif >--}}
 
-                            </div>
-                            <div>
-                                <label>سرویس</label>
-                                <input type="radio" name="type"  value="service"
-                                       @if(old('type')=='service') checked="checked" @endif >
-                            </div>
-                        </div>
-                    </div>
+                    {{--                            </div>--}}
+                    {{--                            <div>--}}
+                    {{--                                <label>سرویس</label>--}}
+                    {{--                                <input type="radio" name="type"  value="service"--}}
+                    {{--                                       @if(old('type')=='service') checked="checked" @endif >--}}
+                    {{--                            </div>--}}
+                    {{--                        </div>--}}
+                    {{--                    </div>--}}
 
                     <div class="flex items-center space-x-reverse space-x-8 ">
                         <h5 class="text-min font-light w-28">عکس محصول:</h5>
@@ -330,6 +328,8 @@
                 '</div>' +
                 '</article>'
             $("#parent").append(record)
+
+
             changeFunction()
             FilterSelectProduct()
             elementFunction()
@@ -444,6 +444,7 @@
 
             circle.style.clipPath = `circle(100% at center)`;
             circle.style.visibility = `visible`;
+            circle.firstElementChild.scrollIntoView(false);
         }
 
 
@@ -476,8 +477,8 @@
                 processData: false,
                 success: function (response) {
                     if (response.status && response.data && response.product) {
-                        products=response.data.filter((item)=>{
-                            if (item.type!="service")
+                        products = response.data.filter((item) => {
+                            if (item.type != "service")
                                 return item
                         })
                         let allSelectElement = document.getElementsByClassName('product-select');

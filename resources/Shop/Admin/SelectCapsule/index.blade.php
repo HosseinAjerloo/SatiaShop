@@ -25,62 +25,99 @@
                   class="w-full" id="form">
                 @csrf
                 @if( isset($resideItem->product->relatedGoods->id))
+
                     <section class="space-y-5">
                         <div>
                             <h1 class="text-rose-600  font-black">{{$resideItem->product->removeUnderline}}</h1>
                         </div>
                         <article class=" w-full flex flex-col justify-center md:w-3/4 lg:w-3/5 xl:w-[50%] space-y-4">
-                            @foreach($categories::where('category_id',$resideItem->product->relatedGoods->id)->get() as $childCategory)
-                                <div data-value="value"
-                                     class=" flex justify-center items-start flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
-                                    <label class="font-semibold text-sm">{{$childCategory->removeUnderline}} :</label>
-                                    <select class="select2 w-full sm:w-[60%]" name="product_id[]">
-                                        <option value="">انتخاب کنید</option>
-                                        @foreach($childCategory->productes as $product)
-                                            <option value="{{$product->id}}"
-                                                    @if(in_array($product->id,$resideItem->productResidItem->pluck('id')->toArray())) selected="selected" @endif>{{$product->removeUnderLine}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            @endforeach
+
 
                             @foreach($resideItem->product->relatedGoods->productes as $product)
                                 <div data-value="value"
-                                     class=" flex justify-center items-start flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
-                                    <label class="font-semibold text-sm">{{$product->removeUnderline}} :</label>
-                                    <select class="select2 w-full sm:w-[60%]" name="product_id[]">
-                                        <option value="" selected="selected">تعویض نشده</option>
-                                        <option value="{{$product->id}}"
-                                                @if(in_array($product->id,$resideItem->productResidItem->pluck('id')->toArray())) selected="selected" @endif>
-                                            تعویض شده
-                                        </option>
-                                    </select>
+                                     class=" flex justify-center items-start flex-col sm:flex-row sm:items-center sm:justify-start space-y-2 space-x-reverse space-x-2 sm:space-y-0">
+                                    <label
+                                        class=" font-semibold text-sm w-[30%] leading-6">{{$product->removeUnderline}}
+                                        :</label>
+
+                                    <div
+                                        class="flex  justify-between items-center space-x-4 space-x-reverse w-[80%] ">
+                                        @if($product->unit_of_measurement)
+                                            <div class="max-w-max flex items-center justify-center ">
+                                                <button
+                                                    class="minus flex items-center justify-center font-bold w-[25px] h-[25px] text-white shadow-md shadow-black/35 bg-sky-500 rounded-lg"
+                                                    type="button" data-target="target-{{$product->id}}">
+                                                    -
+                                                </button>
+                                            </div>
+                                        @endif
+                                        <div class="w-full  flex items-center justify-center">
+                                            @if($product->unit_of_measurement)
+                                                <input id="target-{{$product->id}}"
+                                                       name="product_id[id_{{$product->id}}]" type="text"
+                                                       readonly
+                                                       class="w-full text-center rounded-md border border-black/50 focus:outline-none outline-none"
+                                                       value="0">
+                                            @else
+                                                <select class="select2 w-full " name="product_id[]">
+                                                    <option value="" selected="selected">تعویض نشده</option>
+                                                    <option value="{{$product->id}}"
+                                                            @if(in_array($product->id,$resideItem->productResidItem->pluck('id')->toArray())) selected="selected" @endif>
+                                                        تعویض شده
+                                                    </option>
+                                                </select>
+                                            @endif
+                                        </div>
+                                        @if($product->unit_of_measurement)
+                                            <div
+                                                class="max-w-max  flex items-center justify-center space-x-2 space-x-reverse">
+                                                <span>{{$product->getUnitOfMeasurement}}</span>
+                                                <button
+                                                    data-target="target-{{$product->id}}"
+                                                    class="increase flex items-center justify-center font-bold w-[25px] h-[25px] text-white shadow-md shadow-black/35 bg-sky-500 rounded-lg"
+                                                    type="button">+
+                                                </button>
+
+                                            </div>
+                                        @endif
+                                    </div>
+
                                 </div>
                             @endforeach
                             <div data-value="value"
-                                 class=" flex justify-center items-start flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
-                                <label class="font-semibold text-sm">بالن :</label>
-                                <select class="select2 w-full sm:w-[60%]" name="balloons">
-                                    <option value="">انتخاب کنید</option>
-                                    <option value="internal"
-                                            @if($resideItem->balloons=='internal') selected="selected" @endif>داخلی
-                                    </option>
-                                    <option value="external"
-                                            @if($resideItem->balloons=='external') selected="selected" @endif>بغل دار
-                                    </option>
-                                </select>
+                                 class="flex justify-center items-start flex-col sm:flex-row sm:items-center sm:justify-start  sm:space-y-0">
+                                <label class="font-semibold text-sm  w-[30%]">بالن :</label>
+                                <div class="flex justify-center items-center space-x-4 space-x-reverse w-[87%]">
+                                    <div class="flex justify-center items-center space-x-4 space-x-reverse w-full">
+                                        <select class="select2 w-full" name="balloons">
+                                            <option value="">انتخاب کنید</option>
+                                            <option value="internal"
+                                                    @if($resideItem->balloons=='internal') selected="selected" @endif>
+                                                داخلی
+                                            </option>
+                                            <option value="external"
+                                                    @if($resideItem->balloons=='external') selected="selected" @endif>
+                                                بغل
+                                                دار
+                                            </option>
+                                        </select>
+
+                                    </div>
+                                </div>
                             </div>
                             <div data-value="value"
-                                 class=" flex justify-center items-start flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
-                                <label class="font-semibold text-sm">اجرت (ریال) :</label>
-                                <input type="hidden"
-                                       class="w-full sm:w-[60%] outline-none p-[2.5px] text-center border-black/50 border rounded-[5px]"
-                                       name="salary" min="0" value="{{(float)$resideItem->product->salary??0}}">
-                                <p class="w-full sm:w-[60%] outline-none p-[2.5px] text-center border-black/50 border rounded-[5px]">
-                                    {{numberFormat((float)$resideItem->product->salary??0)}}
-                                </p>
+                                 class="flex justify-center items-start flex-col sm:flex-row sm:items-center sm:justify-start  sm:space-y-0">
+                                <label class="font-semibold text-sm w-[30%]">اجرت (ریال) :</label>
+                                <input type="hidden" name="salary" min="0"
+                                       value="{{(float)$resideItem->product->salary??0}}">
+                                <div class="flex justify-center items-center space-x-4 space-x-reverse w-[80%]">
+                                    <p class="w-full  outline-none p-[2.5px] text-center border-black/50 border rounded-[5px]">
+                                        {{numberFormat((float)$resideItem->product->salary??0)}}
+                                    </p>
+                                </div>
                             </div>
                         </article>
+
                         <article class="flex items-center space-x-reverse space-x-4">
                             <button type="button" class="px-6 py-1 bg-268832 text-white rounded-md save">ذخیره</button>
                             <a href="{{route('panel.admin')}}"
@@ -138,21 +175,20 @@
             finalTide.classList.add('showLayer')
             let items = document.querySelectorAll("div[data-value='value']");
             let itemList = document.querySelector(".item-list");
-            itemList.innerHTML='';
+            itemList.innerHTML = '';
             items.forEach((item) => {
-                let parentDiv=document.createElement("div");
-                parentDiv.classList.add('space-x-reverse','space-x-4');
-                let spanTitle=document.createElement('span');
-                spanTitle.classList.add('text-sm','font-semibold');
-                let spanValue=document.createElement('span');
+                let parentDiv = document.createElement("div");
+                parentDiv.classList.add('space-x-reverse', 'space-x-4');
+                let spanTitle = document.createElement('span');
+                spanTitle.classList.add('text-sm', 'font-semibold');
+                let spanValue = document.createElement('span');
 
-                if (item.children[1].nodeName == 'SELECT') {
-                    spanTitle.innerText=item.children[0].innerHTML;
-                    spanValue.innerText=item.children[1].options[item.children[1].selectedIndex].text
-
-                } else {
-                    spanTitle.innerText=item.children[0].innerHTML;
-                    spanValue.innerText=format(item.children[1].value)
+                if (item.children[1].children[0] && item.children[1].children[0].children[0].nodeName == 'SELECT') {
+                    spanTitle.innerText = item.children[0].innerHTML;
+                    spanValue.innerText = item.children[1].children[0].children[0].options[item.children[1].children[0].children[0].selectedIndex].text
+                } else if (item.children[1].children[1] && item.children[1].children[1].children[0]) {
+                    spanTitle.innerText = item.children[0].innerHTML;
+                    spanValue.innerText=`${item.children[1].children[1].children[0].value} ${item.children[1].children[2].children[0].innerText}`
 
                 }
                 parentDiv.appendChild(spanTitle)
@@ -162,11 +198,13 @@
 
             })
         })
-        document.querySelector('.close').addEventListener('click',function (){
+
+
+        document.querySelector('.close').addEventListener('click', function () {
             finalTide.classList.remove('showLayer')
             finalTide.classList.add('hiddenLayer')
         })
-        document.querySelector('.submit').addEventListener('click',function (){
+        document.querySelector('.submit').addEventListener('click', function () {
             window.form.submit();
         })
 
@@ -195,7 +233,7 @@
         generateQrCode();
 
 
-        function format(value){
+        function format(value) {
             price = new Intl.NumberFormat('fa-IR', {
 
                 currency: 'IRR'
@@ -203,12 +241,27 @@
             return price;
         }
     </script>
-
     <script>
-        CKEDITOR.replace('description', {
-            versionCheck: false,
-            language: 'fa',
-            removeButtons: 'Image,Link,Source,About'
-        });
+        const operations = (e, operation) => {
+            let input = document.getElementById(e.target.dataset.target);
+            let inputValue = input.value;
+            let context = `${inputValue} ${operation} 1`;
+            let result = eval(context);
+            if (result >= 0)
+                input.value = result
+        }
+        const increase = document.querySelectorAll('.increase');
+        increase.forEach((elem) => {
+            elem.addEventListener('click', (e) => {
+                operations(e, '+')
+            });
+        })
+        const minus = document.querySelectorAll('.minus');
+        minus.forEach((elem) => {
+            elem.addEventListener('click', (e) => {
+                operations(e, '-')
+            });
+        })
     </script>
+
 @endsection

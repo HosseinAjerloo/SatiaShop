@@ -21,14 +21,22 @@ class RuleProductCount implements ValidationRule
     {
         $route = Route::current();
         if ($route->getName() == 'admin.invoice.issuance.storeProductItem') {
+//            dd($value);
             $productValue = [];
-            foreach ($value as $product) {
-                $productValue[$product] = 1;
+            foreach ($value as $key=> $product) {
+                if (str_contains($key,'id_'))
+                {
+                    $id=explode('_',$key)[1];
+                    $productValue[$id]=$product;
+                }
+                else{
+                    $productValue[$product] = 1;
+                }
             }
             $value = $productValue;
         }
 
-        $user = Auth::user();
+
         foreach ($value as $productID => $productCount) {
             $product = Product::find($productID);
             if (!$product->productRemainingExceptUser($productCount)) {

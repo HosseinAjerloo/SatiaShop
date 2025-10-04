@@ -35,7 +35,7 @@ class Category extends Model
                 'menu_id' => 1
             ],
             [
-                'name' => ' کالای مربوط به آب و کف',
+                'name' => ' کالای مربوط به مایع کف',
                 'view_sort' => 4,
                 'status' => 'active',
                 'menu_id' => 1
@@ -52,37 +52,6 @@ class Category extends Model
                 'status' => 'active',
                 'menu_id' => 1
             ],
-
-            [
-                'name' => 'گاز (پودر و گاز)',
-                'view_sort' => 1,
-                'status' => 'active',
-                'menu_id' => 2,
-                'category_id'=>5
-            ],
-            [
-                'name' => 'پودر مصرفی (پودر و گاز)',
-                'view_sort' => 2,
-                'status' => 'active',
-                'menu_id' => 2,
-                'category_id'=>5
-            ],
-            [
-                'name' => 'مایع کف (آب و کف)',
-                'view_sort' => 3,
-                'status' => 'active',
-                'menu_id' => 2,
-                'category_id'=>4
-
-            ],
-            [
-                'name' => 'گاز (گاز Co2)',
-                'view_sort' => 1,
-                'status' => 'active',
-                'menu_id' => 2,
-                'category_id'=>6
-            ],
-
 
 
         ];

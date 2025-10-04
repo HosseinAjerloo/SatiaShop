@@ -101,7 +101,6 @@
                                 $count++
                             @endphp
                             @foreach($resideItem->productResidItem as $index=>$productItem)
-
                                 <tr class=" bg-white">
 
                                     <td class="border border-gray-400  text-center">
@@ -119,6 +118,7 @@
                                         </td>
                                         <td class="border border-gray-400  text-center" rowspan="{{$resideItem->productResidItem->count()+1}}">
                                             <p class="text-[15px]  sm:text-[13px]  p-1 w-full ">
+
                                                 {{$resideItem->product->removeUnderline??''}}
                                             </p>
                                         </td>
@@ -126,12 +126,16 @@
 
                                     <td class="border border-gray-400  text-center">
                                         <p class="text-[15px]  sm:text-[13px]  p-1 w-full ">
+                                            @if($productItem->unit_of_measurement)
+                                                {{$productItem->pivot->amount}}
+                                                {{$productItem->getUnitOfMeasurement}}
+                                            @endif
                                             {{$productItem->removeUnderline??''}}
                                         </p>
                                     </td>
                                     <td class="border border-gray-400  text-center">
                                         <p class="  text-[15px] sm:text-[13px] p-1 w-full ">
-                                            {{numberFormat(($productItem->pivot->price)??0)}}
+                                            {{numberFormat(($productItem->pivot->total_price)??0)}}
                                         </p>
                                     </td>
 
@@ -193,6 +197,7 @@
                                                 </p>
                                                 <span class="font-semibold">
                                                       {{numberFormat($reside->totalPrice())??''}}
+                                                    ریال
                                                 </span>
                                             </div>
                                             <div class="px-1.5 py-2 space-y-4">
@@ -244,6 +249,8 @@
                             <td class="border border-gray-400  text-center" colspan="3">
                                 <p class="totalPriceDiscount text-[15px] space-x-reverse space-x-2  sm:text-[13px]  p-1 w-full flex items-center justify-center">
                                     {{numberFormat($reside->totalPrice())??''}}
+                                    ریال
+
                                 </p>
                             </td>
                         </tr>

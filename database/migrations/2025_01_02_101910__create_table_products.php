@@ -20,9 +20,10 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->text('description')->nullable();
             $table->enum('type',['service','goods'])->default('goods');
-            $table->enum('status',['active','inactive'])->default('active');
             $table->decimal('price',20,3)->default(0);
             $table->decimal('salary',20,3)->default(0);
+            $table->enum('status',['active','inactive'])->default('active');
+            $table->enum('unit_of_measurement',['m','kg',"l"])->nullable();
             $table->timestamps();
             $table->softDeletes();
 

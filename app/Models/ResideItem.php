@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ResideItem extends Model
 {
     use SoftDeletes;
+
     protected $fillable = [
         'reside_id',
         'product_id',
@@ -40,23 +41,23 @@ class ResideItem extends Model
 
     public function productResidItem()
     {
-        return $this->belongsToMany(Product::class, 'product_reside_items', 'reside_item_id', 'product_id')->withPivot('price')->withTimestamps();
+        return $this->belongsToMany(Product::class, 'product_reside_items', 'reside_item_id', 'product_id')->withPivot(['price', 'total_price','amount'])->withTimestamps();
     }
 
     public function getTotalProductPriceItems()
     {
         $totalPrice = 0;
         foreach ($this->productResidItem as $product) {
-            $totalPrice += ($product->pivot->price);
+            $totalPrice += ($product->pivot->total_price);
         }
-        $totalPrice=$this->salary+$totalPrice;
+        $totalPrice = $this->salary + $totalPrice;
         return $totalPrice;
     }
 
     public function changeToQrcodeNameProduct()
     {
         if (isset($this->unique_code) and !empty($this->unique_code))
-            return route('admin.scanQrCode.index',$this->unique_code);
+            return route('admin.scanQrCode.index', $this->unique_code);
 
         return '';
 
@@ -64,31 +65,32 @@ class ResideItem extends Model
 
     public function getResideItemProduct()
     {
-            $products=$this->productResidItem()->pluck('title')->toArray();
-            if (!empty($products))
-            {
-                $filter=function ($value){
-                    return str_replace('-',' ',$value);
-                };
-                $products=array_map($filter,$products);
-                return implode(' - ',$products);
-            }
-            return  '----';
+        $products = $this->productResidItem()->pluck('title')->toArray();
+        if (!empty($products)) {
+            $filter = function ($value) {
+                return str_replace('-', ' ', $value);
+            };
+            $products = array_map($filter, $products);
+            return implode(' - ', $products);
+        }
+        return '----';
     }
-    public function scopeSearch(Builder $builder){
-        $inputs=request()->all();
-        $builder->when($inputs['uniqueCode']??false,function ($qu,$value) {
-           $qu->where('unique_code',$value);
-        })->when($inputs['name']??false,function ($qu,$value){
-            $users=User::whereLike(['name','family','organizationORcompanyName'],$value)->get()->pluck('id')->toArray();
-            $qu->whereHas('reside',function ($query) use ($users){
-                $query->whereIn('user_id',$users);
+
+    public function scopeSearch(Builder $builder)
+    {
+        $inputs = request()->all();
+        $builder->when($inputs['uniqueCode'] ?? false, function ($qu, $value) {
+            $qu->where('unique_code', $value);
+        })->when($inputs['name'] ?? false, function ($qu, $value) {
+            $users = User::whereLike(['name', 'family', 'organizationORcompanyName'], $value)->get()->pluck('id')->toArray();
+            $qu->whereHas('reside', function ($query) use ($users) {
+                $query->whereIn('user_id', $users);
             });
-        })->when($inputs['product_name']??false,function ($qu,$value){
-            $value=str_replace(' ','-',$value);
-            $product=Product::where('title','like',"%{$value}%")->first();
+        })->when($inputs['product_name'] ?? false, function ($qu, $value) {
+            $value = str_replace(' ', '-', $value);
+            $product = Product::where('title', 'like', "%{$value}%")->first();
             if ($product)
-                $qu->where("product_id",$product->id);
+                $qu->where("product_id", $product->id);
         });;
     }
 

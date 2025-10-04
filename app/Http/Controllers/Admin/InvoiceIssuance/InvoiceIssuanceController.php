@@ -22,7 +22,6 @@ InvoiceIssuanceController extends Controller
 
     public function index(Reside $reside)
     {
-
         Gate::authorize('admin.invoice.issuance.index');
         $breadcrumbs = Breadcrumbs::render('admin.invoice.issuance.index', $reside)->getData()['breadcrumbs'];
         return view('Admin.InvoiceIssuance.index', compact('reside', 'breadcrumbs'));
@@ -43,8 +42,8 @@ InvoiceIssuanceController extends Controller
         try {
             $inputs = $request->all();
             $this->compilationResideFactor($reside);
-            $sms=new SatiaService();
-            $sms->send('کاربر گرامی کپسول شما آماده تحویل میباشد لطفا در اسرع وقت به سازمان آتش نشانی اردبیل مراجعه فرمایید.',$reside->user->mobile);
+            $sms = new SatiaService();
+            $sms->send('کاربر گرامی کپسول شما آماده تحویل میباشد لطفا در اسرع وقت به سازمان آتش نشانی اردبیل مراجعه فرمایید.', $reside->user->mobile);
             if (isset($inputs['sodurFactor']) && $inputs['sodurFactor'] == 'yes') {
                 return redirect()->route('admin.invoice.issuance.printFactor', $reside)->with(['success' => 'عملیات با موفقیت انجام شد']);
             } else {
@@ -66,11 +65,19 @@ InvoiceIssuanceController extends Controller
     {
         try {
             $inputs = $request->all();
-            $productItems=[];
-            foreach ($inputs['product_id'] as $key => $product)
-            {
-                $productItem=Product::find($product);
-                $productItems[$product]=['price'=>$productItem->price];
+            $productItems = [];
+            foreach ($inputs['product_id'] as $key => $product) {
+                $id = $product;
+                $amount=1;
+                if (str_contains($key, 'id_')) {
+                    $id = explode('_', $key)[1];
+                    $amount=$product;
+                }
+                $productItem=Product::find($id);
+                if (!$product)
+                    return redirect()->route('admin.invoice.issuance.index', $reside)->withErrors(['error' => "محصول موجود نمیباشد"]);
+
+                $productItems[$id]=['price'=>$productItem->price ,'amount'=>$amount,'total_price'=>($productItem->price * $amount)];
             }
             $resideItem->productResidItem()->sync($productItems);
             $resideItem->update([

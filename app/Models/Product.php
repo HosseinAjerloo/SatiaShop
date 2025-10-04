@@ -24,7 +24,8 @@ class Product extends Model
         'price',
         'user_id',
         'related_goods',
-        'salary'
+        'salary',
+        'unit_of_measurement',
     ];
 
     protected $appends = ['is_favorite'];
@@ -38,8 +39,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 10000000,
             'user_id' => 1,
-            'related_goods'=>5,
-            'salary'=>1000
+            'related_goods' => 5,
+            'salary' => 1000
 
         ],
         [
@@ -50,8 +51,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 15000000,
             'user_id' => 1,
-            'related_goods'=>5,
-            'salary'=>2000
+            'related_goods' => 5,
+            'salary' => 2000
 
 
         ],
@@ -63,8 +64,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 20000000,
             'user_id' => 1,
-            'related_goods'=>5,
-            'salary'=>3000
+            'related_goods' => 5,
+            'salary' => 3000
 
         ],
         [
@@ -75,8 +76,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 23000000,
             'user_id' => 1,
-            'related_goods'=>5,
-            'salary'=>4000
+            'related_goods' => 5,
+            'salary' => 4000
 
         ],
         [
@@ -87,8 +88,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 28000000,
             'user_id' => 1,
-            'related_goods'=>5,
-            'salary'=>5000
+            'related_goods' => 5,
+            'salary' => 5000
 
         ],
         [
@@ -99,8 +100,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 38000000,
             'user_id' => 1,
-            'related_goods'=>5,
-            'salary'=>6000
+            'related_goods' => 5,
+            'salary' => 6000
 
         ],
         [
@@ -111,8 +112,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 68000000,
             'user_id' => 1,
-            'related_goods'=>5,
-            'salary'=>7000
+            'related_goods' => 5,
+            'salary' => 7000
 
         ],
         [
@@ -123,8 +124,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 100000000,
             'user_id' => 1,
-            'related_goods'=>5,
-            'salary'=>8000
+            'related_goods' => 5,
+            'salary' => 8000
 
         ],
         [
@@ -135,8 +136,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 14000000,
             'user_id' => 1,
-            'related_goods'=>4,
-            'salary'=>9000
+            'related_goods' => 4,
+            'salary' => 9000
 
         ],
         [
@@ -147,8 +148,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 22000000,
             'user_id' => 1,
-            'related_goods'=>4,
-            'salary'=>10000
+            'related_goods' => 4,
+            'salary' => 10000
         ],
         [
             'category_id' => 2,
@@ -158,8 +159,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 52000000,
             'user_id' => 1,
-            'related_goods'=>4,
-            'salary'=>11000
+            'related_goods' => 4,
+            'salary' => 11000
 
         ],
 
@@ -171,8 +172,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 12000000,
             'user_id' => 1,
-            'related_goods'=>6,
-            'salary'=>12000
+            'related_goods' => 6,
+            'salary' => 12000
 
         ],
 
@@ -184,8 +185,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 14000000,
             'user_id' => 1,
-            'related_goods'=>6,
-            'salary'=>13000
+            'related_goods' => 6,
+            'salary' => 13000
 
         ],
         [
@@ -196,8 +197,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 16000000,
             'user_id' => 1,
-            'related_goods'=>6,
-            'salary'=>14000
+            'related_goods' => 6,
+            'salary' => 14000
 
         ],
         [
@@ -208,8 +209,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 18000000,
             'user_id' => 1,
-            'related_goods'=>6,
-            'salary'=>15000
+            'related_goods' => 6,
+            'salary' => 15000
 
         ],
         [
@@ -220,8 +221,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 20000000,
             'user_id' => 1,
-            'related_goods'=>6,
-            'salary'=>16000
+            'related_goods' => 6,
+            'salary' => 16000
 
         ],
         [
@@ -232,8 +233,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 26000000,
             'user_id' => 1,
-            'related_goods'=>6,
-            'salary'=>17000
+            'related_goods' => 6,
+            'salary' => 17000
 
         ],
         [
@@ -244,159 +245,11 @@ class Product extends Model
             'status' => 'active',
             'price' => 30000000,
             'user_id' => 1,
-            'related_goods'=>6,
-            'salary'=>18000
+            'related_goods' => 6,
+            'salary' => 18000
 
         ],
 
-        ///
-
-        [
-            'category_id' => 8,
-            'brand_id' => 3,
-            'title' => 'پودر مصرفی یک کیلوئی پودر و گاز',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 10000000,
-            'user_id' => 1
-        ],
-        [
-            'category_id' => 8,
-            'brand_id' => 3,
-            'title' => 'پودر مصرفی دو کیلوئی پودر و گاز',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 20000000,
-            'user_id' => 1
-        ],
-        [
-            'category_id' => 8,
-            'brand_id' => 3,
-            'title' => 'پودر مصرفی سه کیلوئی پودر و گاز',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 30000000,
-            'user_id' => 1
-        ],
-        [
-            'category_id' => 8,
-            'brand_id' => 3,
-            'title' => 'پودر مصرفی چهار کیلوئی پودر و گاز',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 40000000,
-            'user_id' => 1
-        ],
-        [
-            'category_id' => 8,
-            'brand_id' => 3,
-            'title' => 'پودر مصرفی شش کیلوئی پودر و گاز',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 60000000,
-            'user_id' => 1
-        ],
-        [
-            'category_id' => 8,
-            'brand_id' => 3,
-            'title' => 'پودر مصرفی دوازده کیلوئی پودر و گاز',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 65000000,
-            'user_id' => 1
-        ],
-        [
-            'category_id' => 8,
-            'brand_id' => 3,
-            'title' => 'پودر مصرفی بیست و پنج کیلوئی پودر و گاز',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 75000000,
-            'user_id' => 1
-        ],
-        [
-            'category_id' => 8,
-            'brand_id' => 3,
-            'title' => 'پودر مصرفی پنجاه کیلوئی پودر و گاز',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 80000000,
-            'user_id' => 1
-        ],
-        ///
-        [
-            'category_id' => 7,
-            'brand_id' => 3,
-            'title' => 'حجم گاز یک کیلوئی پودرو گاز',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 10000000,
-            'user_id' => 1
-        ],
-        [
-            'category_id' => 7,
-            'brand_id' => 3,
-            'title' => 'حجم گاز دو کیلوئی پودرو گاز',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 20000000,
-            'user_id' => 1
-        ],
-        [
-            'category_id' => 7,
-            'brand_id' => 3,
-            'title' => 'حجم گاز سه کیلوئی پودرو گاز',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 30000000,
-            'user_id' => 1
-        ],
-        [
-            'category_id' => 7,
-            'brand_id' => 3,
-            'title' => 'حجم گاز چهار کیلوئی پودرو گاز',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 40000000,
-            'user_id' => 1
-        ],
-        [
-            'category_id' => 7,
-            'brand_id' => 3,
-            'title' => 'حجم گاز شش کیلوئی پودرو گاز',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 60000000,
-            'user_id' => 1
-        ],
-        [
-            'category_id' => 7,
-            'brand_id' => 3,
-            'title' => 'حجم گاز دوازده کیلوئی پودرو گاز',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 65000000,
-            'user_id' => 1
-        ],
-        [
-            'category_id' => 7,
-            'brand_id' => 3,
-            'title' => 'حجم گاز بیست و پنج کیلوئی پودرو گاز',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 75000000,
-            'user_id' => 1
-        ],
-        [
-            'category_id' => 7,
-            'brand_id' => 3,
-            'title' => 'حجم گاز پنجاه کیلوئی پودرو گاز',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 80000000,
-            'user_id' => 1
-        ],
-        ///
         [
             'category_id' => 5,
             'brand_id' => 3,
@@ -405,7 +258,7 @@ class Product extends Model
             'status' => 'active',
             'price' => 80000000,
             'user_id' => 1,
-            'salary'=>19000
+            'salary' => 19000
 
         ],
         [
@@ -416,7 +269,7 @@ class Product extends Model
             'status' => 'active',
             'price' => 6000000,
             'user_id' => 1,
-            'salary'=>20000
+            'salary' => 20000
         ],
         [
             'category_id' => 5,
@@ -426,7 +279,7 @@ class Product extends Model
             'status' => 'active',
             'price' => 8000000,
             'user_id' => 1,
-            'salary'=>21000
+            'salary' => 21000
         ],
         [
             'category_id' => 5,
@@ -436,46 +289,19 @@ class Product extends Model
             'status' => 'active',
             'price' => 10000000,
             'user_id' => 1,
-            'salary'=>22000
+            'salary' => 22000
 
         ],
-        ///
+
         [
-            'category_id' => 9,
-            'brand_id' => 2,
-            'title' => 'مایع کف یک کیلوئی',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 5000000,
-            'user_id' => 1
-        ],
-        [
-            'category_id' => 9,
-            'brand_id' => 2,
-            'title' => 'مایع کف دو کیلوئی',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 7000000,
-            'user_id' => 1
-        ],
-        [
-            'category_id' => 9,
-            'brand_id' => 2,
-            'title' => 'مایع کف سه کیلوئی',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 9000000,
-            'user_id' => 1
-        ],
-        [
-            'category_id' =>4,
+            'category_id' => 4,
             'brand_id' => 2,
             'title' => 'مانومتر آب و کف',
             'type' => 'goods',
             'status' => 'active',
             'price' => 7000000,
             'user_id' => 1,
-            'salary'=>23000
+            'salary' => 23000
         ],
         [
             'category_id' => 4,
@@ -485,7 +311,7 @@ class Product extends Model
             'status' => 'active',
             'price' => 7000000,
             'user_id' => 1,
-            'salary'=>24000
+            'salary' => 24000
 
         ],
         [
@@ -496,84 +322,8 @@ class Product extends Model
             'status' => 'active',
             'price' => 7000000,
             'user_id' => 1,
-            'salary'=>24000
+            'salary' => 24000
         ],
-
-
-        ///
-        [
-            'category_id' => 10,
-            'brand_id' => 3,
-            'title' => 'حجم گاز یک کیلوئی CO2',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 10000000,
-            'user_id' => 1
-        ],
-        [
-            'category_id' => 10,
-            'brand_id' => 3,
-            'title' => 'حجم گاز دو کیلوئی CO2',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 20000000,
-            'user_id' => 1
-        ],
-        [
-            'category_id' => 10,
-            'brand_id' => 3,
-            'title' => 'حجم گاز سه کیلوئی CO2',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 30000000,
-            'user_id' => 1
-        ],
-        [
-            'category_id' => 10,
-            'brand_id' => 3,
-            'title' => 'حجم گاز چهار کیلوئی CO2',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 40000000,
-            'user_id' => 1
-        ],
-        [
-            'category_id' => 10,
-            'brand_id' => 3,
-            'title' => 'حجم گاز شش کیلوئی CO2',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 60000000,
-            'user_id' => 1
-        ],
-        [
-            'category_id' => 10,
-            'brand_id' => 3,
-            'title' => 'حجم گاز دوازده کیلوئی CO2',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 65000000,
-            'user_id' => 1
-        ],
-        [
-            'category_id' => 10,
-            'brand_id' => 3,
-            'title' => 'حجم گاز بیست و پنج کیلوئی CO2',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 75000000,
-            'user_id' => 1
-        ],
-        [
-            'category_id' => 10,
-            'brand_id' => 3,
-            'title' => 'حجم گاز پنجاه کیلوئی CO2',
-            'type' => 'service',
-            'status' => 'active',
-            'price' => 80000000,
-            'user_id' => 1
-        ],
-        ///
         [
             'category_id' => 6,
             'brand_id' => 3,
@@ -582,7 +332,7 @@ class Product extends Model
             'status' => 'active',
             'price' => 80000000,
             'user_id' => 1,
-            'salary'=>26000
+            'salary' => 26000
         ],
         [
             'category_id' => 6,
@@ -592,8 +342,68 @@ class Product extends Model
             'status' => 'active',
             'price' => 80000000,
             'user_id' => 1,
-            'salary'=>27000
+            'salary' => 27000
         ],
+
+        [
+            'category_id' => 5,
+            'brand_id' => 3,
+            'title' => 'گاز پودروگاز',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 80000000,
+            'user_id' => 1,
+            'salary' => 27000,
+            'unit_of_measurement' => 'kg'
+        ],
+        [
+            'category_id' => 5,
+            'brand_id' => 3,
+            'title' => 'پودر پودروگاز',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 80000000,
+            'user_id' => 1,
+            'salary' => 27000,
+            'unit_of_measurement' => 'kg'
+        ],
+        [
+            'category_id' => 4,
+            'brand_id' => 3,
+            'title' => 'مایع مایع کف',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 80000000,
+            'user_id' => 1,
+            'salary' => 27000,
+            'unit_of_measurement' => 'l'
+
+        ],
+
+        [
+            'category_id' => 4,
+            'brand_id' => 3,
+            'title' => 'کف مایع کف',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 80000000,
+            'user_id' => 1,
+            'salary' => 27000,
+            'unit_of_measurement' => 'l'
+        ],
+
+        [
+            'category_id' => 6,
+            'brand_id' => 3,
+            'title' => 'گازCO2',
+            'type' => 'goods',
+            'status' => 'active',
+            'price' => 80000000,
+            'user_id' => 1,
+            'salary' => 27000,
+            'unit_of_measurement' => 'kg'
+        ],
+
 
     ];
 
@@ -644,6 +454,7 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
+
     public function relatedGoods()
     {
         return $this->belongsTo(Category::class, 'related_goods');
@@ -658,9 +469,10 @@ class Product extends Model
     {
         return $this->hasMany(CartItem::class, 'product_id');
     }
+
     public function resideItemProduct()
     {
-        return $this->belongsToMany(ResideItem::class,'product_reside_items','product_id','reside_item_id');
+        return $this->belongsToMany(ResideItem::class, 'product_reside_items', 'product_id', 'reside_item_id');
     }
 
 
@@ -696,18 +508,18 @@ class Product extends Model
             }
         }
         if ($this->type == 'goods')
-            return ($this->productTransaction()->latest()->first()->remain?? 0)  - $this->theTotalPurchaseReceiptOfTheCapsule();
+            return ($this->productTransaction()->latest()->first()->remain ?? 0) - $this->theTotalPurchaseReceiptOfTheCapsule();
         else
             return 'نامحدود';
     }
 
-    public function productRemainingExceptUser( $productCount)
+    public function productRemainingExceptUser($productCount)
     {
         $cart = Cart::where('status', 'addToCart')->get();
         $cartItem = CartItem::where('product_id', $this->id)->whereIn('cart_id', $cart->pluck('id'))->get();
         if ($cartItem->count() > 0) {
             if ($this->type == 'goods') {
-                $remainProduct = $this->productTransaction()->latest()->first()->remain - ( $cartItem->sum('amount') + $this->theTotalPurchaseReceiptOfTheCapsule());
+                $remainProduct = $this->productTransaction()->latest()->first()->remain - ($cartItem->sum('amount') + $this->theTotalPurchaseReceiptOfTheCapsule());
                 return ($remainProduct >= $productCount) ? true : false;
             } else {
                 return true;
@@ -746,18 +558,18 @@ class Product extends Model
     {
         $resides = Reside::where('status', 'not_paid')->where('type', 'reside')->WhereHas("resideItem")->get();
         $total = 0;
-        $resideItemSumAmount=0;
+        $resideItemSumAmount = 0;
         if ($this->type == 'goods') {
             if ($resides->count()) {
                 foreach ($resides as $reside) {
                     $resideItems = $reside->resideItem;
                     foreach ($resideItems as $resideItem) {
-                        $resideItemSumAmount = $resideItem->where('product_id',$this->id)->where('status','sell')->sum('amount');
-                        $total += $resideItem->productResidItem()->where('product_id', $this->id)->count();
+                        $resideItemSumAmount = $resideItem->where('product_id', $this->id)->where('status', 'sell')->sum('amount');
+                        $total += $resideItem->productResidItem()->where('product_id', $this->id)->sum('amount');
 
                     }
                 }
-                $total+=$resideItemSumAmount;
+                $total += $resideItemSumAmount;
             } else {
                 return $total;
             }
@@ -769,6 +581,25 @@ class Product extends Model
     {
         return Attribute::make(
             get: fn() => $this->type == 'goods' ? 'کالا' : 'سرویس'
+        );
+    }
+
+    public function getUnitOfMeasurement(): Attribute
+    {
+
+        return Attribute::make(
+            get: function () {
+                switch ($this->unit_of_measurement) {
+                    case 'l':
+                        return 'لیتر';
+                    case 'm':
+                        return 'متر';
+                    case 'kg':
+                        return 'کیلوگرم';
+                    default:
+                        return ' ';
+                }
+            }
         );
     }
 

@@ -178,12 +178,16 @@
                                     @endif
                                     <td class="border border-gray-400  text-center">
                                         <p class="text-[15px]  sm:text-[13px]  p-1 w-full ">
+                                            @if($productItem->unit_of_measurement)
+                                                {{$productItem->pivot->amount}}
+                                                {{$productItem->getUnitOfMeasurement}}
+                                            @endif
                                             {{$productItem->removeUnderline??''}}
                                         </p>
                                     </td>
                                     <td class="border border-gray-400  text-center">
                                         <p class="  text-[15px] sm:text-[13px] p-1 w-full ">
-                                            {{numberFormat(($productItem->pivot->price)??0)}}
+                                            {{numberFormat(($productItem->pivot->total_price)??0)}}
                                         </p>
                                     </td>
 

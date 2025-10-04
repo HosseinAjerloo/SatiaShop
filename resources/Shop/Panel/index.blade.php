@@ -2,63 +2,65 @@
 @section('content')
 
     @foreach($menus as $menu)
+        @if($menu->category()->count()>0)
+            <section class="mb-8">
 
-        <section class="mb-8">
+                <section class="container-xxl">
+                    <section class="row">
+                        <section class="col">
+                            <section class="content-wrapper bg-white p-3 rounded-2">
+                                <!-- start vontent header -->
+                                <section class="content-header py-2">
+                                    <section class="d-flex justify-content-between align-items-center">
+                                        <h2 class="content-header-title ">
+                                            <span> {{$menu->name??''}}</span>
+                                        </h2>
 
-            <section class="container-xxl">
-                <section class="row">
-                    <section class="col">
-                        <section class="content-wrapper bg-white p-3 rounded-2">
-                            <!-- start vontent header -->
-                            <section class="content-header py-2">
-                                <section class="d-flex justify-content-between align-items-center">
-                                    <h2 class="content-header-title ">
-                                        <span> {{$menu->name??''}}</span>
-                                    </h2>
-
+                                    </section>
                                 </section>
-                            </section>
-                            <!-- start vontent header -->
+                                <!-- start vontent header -->
 
-                            <section class="lazyload-wrapper">
-                                <section class="lazyload light-owl-nav owl-carousel owl-theme">
-                                    @foreach($menu->categoryShow() as $category)
+                                <section class="lazyload-wrapper">
+                                    <section class="lazyload light-owl-nav owl-carousel owl-theme">
+                                        @foreach($menu->categoryShow() as $category)
 
-                                        <section class="item">
-                                            <section class="lazyload-item-wrapper">
-                                                <section class="product">
-                                                    <a class="product-link"
-                                                       href="{{ $category->chidren()->count()?route('panel.underCategory',$category->name):route('panel.products',$category->name)}}">
-                                                        <section class="product-image">
-                                                            <img class="" src="{{$category->image?->path}}" alt="">
-                                                        </section>
-                                                        <section class="product-colors"></section>
-                                                        <section class="product-name">
-                                                            <h3> {{$category->removeUnderLine??''}}</h3></section>
+                                            <section class="item">
+                                                <section class="lazyload-item-wrapper">
+                                                    <section class="product">
+                                                        <a class="product-link"
+                                                           href="{{ $category->chidren()->count()?route('panel.underCategory',$category->name):route('panel.products',$category->name)}}">
+                                                            <section class="product-image">
+                                                                <img class="" src="{{$category->image?->path}}" alt="">
+                                                            </section>
+                                                            <section class="product-colors"></section>
+                                                            <section class="product-name">
+                                                                <h3> {{$category->removeUnderLine??''}}</h3></section>
 
-                                                        <section class="product-colors">
-                                                            <section class="product-colors-item"
-                                                                     style="background-color: white;"></section>
-                                                            <section class="product-colors-item"
-                                                                     style="background-color: blue;"></section>
-                                                            <section class="product-colors-item"
-                                                                     style="background-color: red;"></section>
-                                                        </section>
-                                                    </a>
+                                                            <section class="product-colors">
+                                                                <section class="product-colors-item"
+                                                                         style="background-color: white;"></section>
+                                                                <section class="product-colors-item"
+                                                                         style="background-color: blue;"></section>
+                                                                <section class="product-colors-item"
+                                                                         style="background-color: red;"></section>
+                                                            </section>
+                                                        </a>
+                                                    </section>
                                                 </section>
                                             </section>
-                                        </section>
 
-                                    @endforeach
+                                        @endforeach
 
 
+                                    </section>
                                 </section>
                             </section>
                         </section>
                     </section>
                 </section>
             </section>
-        </section>
+
+        @endif
     @endforeach
 
 

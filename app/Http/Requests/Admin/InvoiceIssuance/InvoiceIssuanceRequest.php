@@ -8,6 +8,7 @@ use function PHPUnit\Framework\isArray;
 
 class InvoiceIssuanceRequest extends FormRequest
 {
+
     private $allData = [];
 
     /**

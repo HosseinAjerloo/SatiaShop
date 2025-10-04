@@ -170,12 +170,14 @@
                                 </td>
                                 <td class="border border-gray-400  text-center">
                                     <p class="text-[15px]  sm:text-[13px]  p-1 w-full ">
+
                                         {{$resideItem->product->removeUnderline??''}}
                                     </p>
                                 </td>
                                 <td class="border border-gray-400  text-center">
                                     <p class="  text-[15px] sm:text-[13px] p-1 w-full ">
                                         {{$resideItem->amount??0}}
+                                        {{$resideItem->product->getUnitOfMeasurement??''}}
                                     </p>
                                 </td>
 
