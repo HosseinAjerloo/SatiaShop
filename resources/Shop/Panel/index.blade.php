@@ -62,9 +62,7 @@
 
         @endif
     @endforeach
-
-
-
+    
 {{--    <section class="mb-3">--}}
 {{--        <section class="container-xxl">--}}
 {{--            <!-- two column-->--}}
