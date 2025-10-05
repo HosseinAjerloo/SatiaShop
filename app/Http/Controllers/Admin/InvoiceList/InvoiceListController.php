@@ -80,7 +80,7 @@ class InvoiceListController extends Controller
             $payment->update(['order_id' => $payment->id + Payment::transactionNumber]);
             $objBank = new $bank->class;
             $objBank->setOrderID($payment->id + Payment::transactionNumber);
-            $objBank->setTotalPrice(  (float)$reside->final_price);
+            $objBank->setTotalPrice((float)$reside->final_price);
             $objBank->setBankUrl($bank->url);
             $objBank->setTerminalId($bank->terminal_id);
             $objBank->setUrlBack(route('admin.invoice-list.back'));
@@ -98,6 +98,7 @@ class InvoiceListController extends Controller
                 'payment_id' => $payment->id,
             ]);
             if (!$status) {
+                $reside->update(['status_bank' => 'failed']);
                 $payment->update(['description' => "به دلیل عدم ارتباط با بانک $bank->name سفارش شما لغو شد ", 'state' => 'failed']);
                 $financeTransaction->update(['description' => "به دلیل عدم ارتباط با بانک $bank->name سفارش شما لغو شد ", 'status' => 'fail']);
                 return redirect()->route('admin.invoice-list.index')->withErrors(['error' => 'ارتباط با بانک فراهم نشد لطفا چند دقیقه بعد تلاش فرماید.']);
@@ -153,8 +154,8 @@ class InvoiceListController extends Controller
                         'description' => ' پرداخت موفقیت آمیز نبود ' . $objBank->transactionStatus()
 
                     ]);
+                $reside->update(['status_bank' => 'failed']);
                 $financeTransaction->update(['description' => ' پرداخت موفقیت آمیز نبود ' . $objBank->transactionStatus(), 'status' => 'fail']);
-
                 $bankErrorMessage = " درگاه بانک $bank->name  تراکنش شمارا به دلیل " . $objBank->transactionStatus() . " ناموفق اعلام کرد باتشکر " . PHP_EOL;
                 $satiaService->send($bankErrorMessage, $user->mobile, env('SMS_Number'), env('SMS_Username'), env('SMS_Password'));
 
@@ -173,6 +174,7 @@ class InvoiceListController extends Controller
 
 
                     ]);
+                $reside->update(['status_bank' => 'failed']);
                 $financeTransaction->update(['description' => ' پرداخت موفقیت آمیز نبود ' . $objBank->verifyTransaction($back_price), 'status' => 'fail']);
 
                 $bankErrorMessage = " درگاه بانک $bank->name تراکنش شمارا به دلیل " . $objBank->verifyTransaction($back_price) . " ناموفق اعلام کرد باتشکر " . PHP_EOL;
@@ -194,7 +196,7 @@ class InvoiceListController extends Controller
                     'state' => 'finished',
                     'description' => 'پرداخت با موفقیت انجام شد'
                 ]);
-
+            $reside->update(['status' => 'paid', 'status_bank' => 'finished']);
             $financeTransaction->update([
                 'user_id' => $reside->user->id,
                 'amount' => $payment->amount,
@@ -235,9 +237,9 @@ class InvoiceListController extends Controller
 
                     \App\Models\ProductTransaction::create([
                         'user_id' => $user->id,
-                        'product_id' =>$item->product->id,
+                        'product_id' => $item->product->id,
                         'reside_id' => $reside->id,
-                        'amount' =>$item->amount,
+                        'amount' => $item->amount,
                         'remain' => $productTransaction->remain - $item->amount,
                         'type' => 'minus'
                     ]);
