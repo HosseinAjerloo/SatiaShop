@@ -43,26 +43,30 @@
                                   rows="3">{{$reside->description??''}}</textarea>
                         <div class="flex items-center flex-wrap space-x-reverse space-x-2 image-location">
 
-                           @foreach($reside->file as $file)
-                                <a href="{{route('admin.resideCapsule.download',[$reside,$file])}}" class="relative p-2 transition-all">
-                                    <img class="w-32 object-contain" data-click="no_click" src="{{asset($file->path)}}" alt="">
+                            @foreach($reside->file as $file)
+                                <a href="{{route('admin.resideCapsule.download',[$reside,$file])}}"
+                                   class="relative p-2 transition-all">
+                                    <img class="w-32 object-contain" data-click="no_click" src="{{asset($file->path)}}"
+                                         alt="">
                                 </a>
-                           @endforeach
+                            @endforeach
 
                         </div>
                     </div>
-                    <div class="mt-8 flex items-center  space-x-reverse space-x-4">
-                        <h1 class="font-bold">فایل ضمیمه:</h1>
-                        <div class="bg-white p-2 rounded-md flex items-center justify-between w-2/5	">
-                            <img src="{{asset('capsule/images/uploadFile.svg')}}" alt="">
-                            <span class="text-gray-400/75 file-counter">فایلی موجود نمیباشد</span>
-                            <button class="bg-2081F2 text-white rounded-lg text-white p-2 btn-file" type="button">انتخاب
-                                کنید
-                            </button>
+                    @if($reside->type=='reside')
+                        <div class="mt-8 flex items-center  space-x-reverse space-x-4">
+                            <h1 class="font-bold">فایل ضمیمه:</h1>
+                            <div class="bg-white p-2 rounded-md flex items-center justify-between w-2/5	">
+                                <img src="{{asset('capsule/images/uploadFile.svg')}}" alt="">
+                                <span class="text-gray-400/75 file-counter">فایلی موجود نمیباشد</span>
+                                <button class="bg-2081F2 text-white rounded-lg text-white p-2 btn-file" type="button">
+                                    انتخاب
+                                    کنید
+                                </button>
+                            </div>
+                            @endif
+
                         </div>
-
-
-                    </div>
 
 
                 </div>
@@ -111,12 +115,13 @@
                                     @if($index==0)
                                         <td class="border border-gray-400  text-center  "
                                             rowspan="{{$resideItem->productResidItem->count()+1}}">
-                                            <a href="{{route('admin.invoice.issuance.operation',[$resideItem->reside_id,$resideItem->id])}}"
+                                            <a href="@if($reside->type=='reside') {{route('admin.invoice.issuance.operation',[$resideItem->reside_id,$resideItem->id])}} @endif"
                                                class="underline decoration-2 underline-offset-4	 decoration-2081F2 text-[15px] sm:text-[13px]  p-1 w-full ">
                                                 {{$resideItem->unique_code??''}}
                                             </a>
                                         </td>
-                                        <td class="border border-gray-400  text-center" rowspan="{{$resideItem->productResidItem->count()+1}}">
+                                        <td class="border border-gray-400  text-center"
+                                            rowspan="{{$resideItem->productResidItem->count()+1}}">
                                             <p class="text-[15px]  sm:text-[13px]  p-1 w-full ">
 
                                                 {{$resideItem->product->removeUnderline??''}}
@@ -183,7 +188,8 @@
                             <td class="border border-gray-400  text-center" colspan="3">
                                 <div class="text-[15px]  sm:text-[13px]  p-1 w-full ">
                                     <div class="text-[15px]  sm:text-[13px]  p-1 w-full font-bold relative">
-                                        <input name="discountChecked" type="checkbox" @if($reside->isDiscount()) checked="checked" @endif>
+                                        <input name="discountChecked" type="checkbox"
+                                               @if($reside->isDiscount()) checked="checked" @endif>
                                         <span>
                                             <span>تخفیف</span>
                                             <span class="showDiscount">({{$reside->resideDiscountAmount}})</span>
@@ -213,7 +219,8 @@
                                                     <div
                                                         class="invisible flex items-center   space-x-reverse space-x-4 ">
                                                         <input type="number" min="0" max="100" name="discountDecimal"
-                                                               class="border w-[50px] rounded-md p-[3px] text-center outline-none discount" value="{{$reside->discount_collection >0?$reside->discount_collection:null}}">
+                                                               class="border w-[50px] rounded-md p-[3px] text-center outline-none discount"
+                                                               value="{{$reside->discount_collection >0?$reside->discount_collection:null}}">
                                                         <h1 class="font-bold">درصد</h1>
                                                     </div>
                                                 </div>
@@ -224,7 +231,8 @@
                                                     <div
                                                         class="invisible flex items-center w-3/5  space-x-reverse space-x-4 ">
                                                         <input type="number" min="0" max="100" name="discount_price"
-                                                               class="w-3/5	 border  rounded-md p-[3px] text-center outline-none discount" value="{{$reside->discount_price>0?$reside->discount_price:null}}">
+                                                               class="w-3/5	 border  rounded-md p-[3px] text-center outline-none discount"
+                                                               value="{{$reside->discount_price>0?$reside->discount_price:null}}">
                                                         <h1 class="font-bold">ریال مبلغ</h1>
                                                     </div>
                                                 </div>
@@ -290,9 +298,11 @@
                         <div class="bg-268832 px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
                             <button class="sodurFactor" type="button">صدور فاکتورنهایی وپرینت</button>
                         </div>
-                        <div class="bg-2081F2 px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
-                            <button>صدور فاکتور</button>
-                        </div>
+                        @if($reside->type=='reside')
+                            <div class="bg-2081F2 px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
+                                <button>صدور فاکتور</button>
+                            </div>
+                        @endif
                     </section>
                 </div>
 
@@ -344,7 +354,7 @@
         const removeImageLocation = () => {
             let imageLocation = document.querySelector('.image-location');
             for (const childLocation of imageLocation.children) {
-                if (!childLocation.children[0].dataset.click){
+                if (!childLocation.children[0].dataset.click) {
                     childLocation.children[0].addEventListener('click', function (e) {
                         childLocation.style.transform = `scale(0)`;
                         document.querySelector(`input[data-file=${e.target.dataset.file}]`).remove();
@@ -390,15 +400,15 @@
             window.form.appendChild(file);
             file.click()
             file.addEventListener('change', function (e) {
-                let type=e.target.files[0].type;
+                let type = e.target.files[0].type;
                 if (e.target.files[0] && type) {
-                    type=type.split('/')[0];
-                   if (type =='image'){
-                       addImageLocation(URL.createObjectURL(e.target.files[0]), `file-${fileCount}`);
-                       removeImageLocation();
-                       fileCount++;
-                       document.querySelector('.file-counter').innerHTML=fileCount+' فایل انتخاب شده است '
-                   }
+                    type = type.split('/')[0];
+                    if (type == 'image') {
+                        addImageLocation(URL.createObjectURL(e.target.files[0]), `file-${fileCount}`);
+                        removeImageLocation();
+                        fileCount++;
+                        document.querySelector('.file-counter').innerHTML = fileCount + ' فایل انتخاب شده است '
+                    }
 
                 }
             })
@@ -432,8 +442,8 @@
 
         inputDiscounts.forEach((input) => {
             input.addEventListener('input', discount);
-           if (input.value>0)
-            input.dispatchEvent(event);
+            if (input.value > 0)
+                input.dispatchEvent(event);
         })
 
 
@@ -451,8 +461,7 @@
                     removeAllDiscount()
                 }
                 inputCommission.dispatchEvent(eventChange)
-            }
-            else {
+            } else {
 
                 finalPrice = totalPrice;
                 price = numberToPersian(finalPrice);
@@ -486,7 +495,7 @@
         function discountPrice(event) {
             let discount = totalPrice - event.target.value;
             finalPrice = discount;
-            price =numberToPersian(discount);
+            price = numberToPersian(discount);
             document.querySelector('.totalPriceDiscount').innerText = price;
             document.querySelector('.totalPriceDiscount').innerText += ' ریال ';
             document.querySelector('.totalPricePlusTax').innerText = price;

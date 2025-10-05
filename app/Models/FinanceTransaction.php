@@ -14,7 +14,7 @@ class FinanceTransaction extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['user_id', 'payment_id', 'voucher_id', 'voucher_id', 'amount', 'type', 'creadit_balance', 'description', 'time_price_of_dollars','status','siteService_id'];
+    protected $fillable = ['user_id', 'operator_id','payment_id', 'voucher_id', 'voucher_id', 'amount', 'type', 'creadit_balance', 'description', 'time_price_of_dollars','status','siteService_id'];
 
     public function scopeSearch(Builder $query): void
     {
@@ -39,6 +39,9 @@ class FinanceTransaction extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+    public function operator(){
+        return $this->belongsTo(User::class,'operator_id');
     }
     public function transmission()
     {

@@ -49,18 +49,20 @@
                             @endforeach
                         </div>
                     </div>
-                    <div class="mt-8 flex items-center  space-x-reverse space-x-4">
-                        <h1 class="font-bold">فایل ضمیمه:</h1>
-                        <div class="bg-white p-2 rounded-md flex items-center justify-between w-2/5	">
-                            <img src="{{asset('capsule/images/uploadFile.svg')}}" alt="">
-                            <span class="text-gray-400/75 file-counter">فایلی موجود نمیباشد</span>
-                            <button class="bg-2081F2 text-white rounded-lg text-white p-2 btn-file" type="button">انتخاب
-                                کنید
-                            </button>
+                    @if($reside->type=='reside')
+
+                        <div class="mt-8 flex items-center  space-x-reverse space-x-4">
+                            <h1 class="font-bold">فایل ضمیمه:</h1>
+                            <div class="bg-white p-2 rounded-md flex items-center justify-between w-2/5	">
+                                <img src="{{asset('capsule/images/uploadFile.svg')}}" alt="">
+                                <span class="text-gray-400/75 file-counter">فایلی موجود نمیباشد</span>
+                                <button class="bg-2081F2 text-white rounded-lg text-white p-2 btn-file" type="button">
+                                    انتخاب
+                                    کنید
+                                </button>
+                            </div>
                         </div>
-
-
-                    </div>
+                    @endif
 
 
                 </div>
@@ -262,9 +264,11 @@
                         <div class="bg-268832 px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
                             <button class="sodurFactor" type="button">صدور فاکتورنهایی وپرینت</button>
                         </div>
-                        <div class="bg-2081F2 px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
-                            <button>صدور فاکتور</button>
-                        </div>
+                        @if($reside->type=='reside')
+                            <div class="bg-2081F2 px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
+                                <button>صدور فاکتور</button>
+                            </div>
+                        @endif
                     </section>
                 </div>
 

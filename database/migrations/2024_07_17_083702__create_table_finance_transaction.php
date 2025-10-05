@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('finance_transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('operator_id')->nullable()->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('payment_id')->nullable()->constrained('payments')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('voucher_id')->nullable()->constrained('vouchers')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('siteService_id')->nullable()->constrained('site_services')->cascadeOnUpdate()->cascadeOnDelete();

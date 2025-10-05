@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('order_id')->nullable();
             $table->text('RefNum')->nullable();
             $table->text('ResNum')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

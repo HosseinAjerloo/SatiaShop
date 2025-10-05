@@ -41,9 +41,12 @@ InvoiceIssuanceController extends Controller
 
         try {
             $inputs = $request->all();
-            $this->compilationResideFactor($reside);
-            $sms = new SatiaService();
-            $sms->send('کاربر گرامی کپسول شما آماده تحویل میباشد لطفا در اسرع وقت به سازمان آتش نشانی اردبیل مراجعه فرمایید.', $reside->user->mobile);
+            if ($reside->type=='reside')
+            {
+                $this->compilationResideFactor($reside);
+                $sms = new SatiaService();
+                $sms->send('کاربر گرامی کپسول شما آماده تحویل میباشد لطفا در اسرع وقت به سازمان آتش نشانی اردبیل مراجعه فرمایید.', $reside->user->mobile);
+            }
             if (isset($inputs['sodurFactor']) && $inputs['sodurFactor'] == 'yes') {
                 return redirect()->route('admin.invoice.issuance.printFactor', $reside)->with(['success' => 'عملیات با موفقیت انجام شد']);
             } else {

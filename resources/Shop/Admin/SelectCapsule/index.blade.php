@@ -56,7 +56,7 @@
                                                 <input id="target-{{$product->id}}"
                                                        name="product_id[id_{{$product->id}}]" type="text"
                                                        readonly
-                                                       class="w-full text-center rounded-md border border-black/50 focus:outline-none outline-none"
+                                                       class="w-full text-center rounded-md border border-black/50 focus:outline-none outline-none py-1"
                                                        value="0">
                                             @else
                                                 <select class="select2 w-full " name="product_id[]">
@@ -188,7 +188,7 @@
                     spanValue.innerText = item.children[1].children[0].children[0].options[item.children[1].children[0].children[0].selectedIndex].text
                 } else if (item.children[1].children[1] && item.children[1].children[1].children[0]) {
                     spanTitle.innerText = item.children[0].innerHTML;
-                    spanValue.innerText=`${item.children[1].children[1].children[0].value} ${item.children[1].children[2].children[0].innerText}`
+                    spanValue.innerText = `${item.children[1].children[1].children[0].value} ${item.children[1].children[2].children[0].innerText}`
 
                 }
                 parentDiv.appendChild(spanTitle)

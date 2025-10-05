@@ -18,7 +18,7 @@ class ChargingOperationController extends Controller
         Gate::authorize('admin.charging-operation.index');
         $breadcrumbs = Breadcrumbs::render('admin.charging-operation.index')->getData()['breadcrumbs'];
         $resideItems = ResideItem::whereHas('reside', function (Builder $query) {
-            $query->where('type', 'reside')->orderBy('user_id', 'desc');
+            $query->where('status', 'not_paid')->orderBy('user_id', 'desc');
         })->where(function ($query) {
             $query->where('status', 'recharge')->orWhere('status', 'used');
         })->doesntHave('productResidItem')->orderBy('reside_id', 'desc')->paginate(20);
@@ -29,7 +29,7 @@ class ChargingOperationController extends Controller
     public function searchAjax(Request $request)
     {
         $resideItems = ResideItem::Search()->whereHas('reside', function (Builder $query) {
-            $query->where('type', 'reside')->orderBy('user_id', 'desc');
+            $query->where('status', 'not_paid')->orderBy('user_id', 'desc');
         })->where(function ($query) {
             $query->where('status', 'recharge')->orWhere('status', 'used');
         })->doesntHave('productResidItem')->orderBy('reside_id', 'desc')->cursorPaginate(20);

@@ -556,7 +556,7 @@ class Product extends Model
 
     public function theTotalPurchaseReceiptOfTheCapsule()
     {
-        $resides = Reside::where('status', 'not_paid')->where('type', 'reside')->WhereHas("resideItem")->get();
+        $resides = Reside::where('status', 'not_paid')->WhereHas("resideItem")->get();
         $total = 0;
         $resideItemSumAmount = 0;
         if ($this->type == 'goods') {

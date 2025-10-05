@@ -6,11 +6,11 @@
         <article class="space-y-5 bg-F1F1F1 p-3 ">
             <article class="flex items-center space-x-reverse space-x-2">
 
-                    <img src="{{asset('capsule/images/plus.svg')}}" alt="">
+                <img src="{{asset('capsule/images/plus.svg')}}" alt="">
 
                 <h1 class="font-semibold w-52">لیست فاکتور ها</h1>
             </article>
-            <form action="" method="post" class="w-full">
+            <section class="w-full">
                 @csrf
 
                 <table class="border-collapse  border border-gray-400 w-full table-fixed">
@@ -21,6 +21,9 @@
                         </th>
                         <th class=" text-sm font-light px-2 leading-6 text-white ">
                             <span>فاکتور</span>
+                        </th>
+                        <th class=" text-sm font-light px-2 leading-6 text-white ">
+                            <span>وضعیت پرداخت</span>
                         </th>
 
                         <th class=" text-sm font-light px-2 leading-6 text-white text-nowrap max-w-max">
@@ -55,10 +58,13 @@
                         </td>
 
 
-
-
-
-
+                        <td class="border border-gray-400   text-center p-1">
+                            <div class="w-full flex items-center ">
+                                <input type="number"
+                                       class="w-full border border-black/60 outline-none rounded-md  text-min text-center py-1"
+                                       disabled>
+                            </div>
+                        </td>
                         <td class="border border-gray-400   text-center p-1">
                             <div class="w-full flex items-center ">
                                 <input type="number"
@@ -115,14 +121,30 @@
                             </td>
                             <td class="border border-gray-400   text-center ">
 
-                                <a href="@if($reside->reside_type=='sell') {{route('admin.sale.show', $reside)}}  @else {{route('admin.invoice.issuance.index', $reside)}} @endif" class="w-full flex items-center justify-center p-1">
+                                <a href="@if($reside->reside_type=='sell') {{route('admin.sale.show', $reside)}}  @else {{route('admin.invoice.issuance.index', $reside)}} @endif"
+                                   class="w-full flex items-center justify-center p-1">
                                     <img src="{{asset('capsule/images/eya.svg')}}" alt="">
                                 </a>
 
                             </td>
+                            <td class="border border-gray-400  text-center ">
+                                <form class=" flex items-center justify-center"
+                                      action="{{route('admin.invoice-list.payment',$reside)}}" method="POST">
+                                    @csrf
+                                    <img onclick="payment(event)" src="@if($reside->status_bank=='requested')
+                                    {{asset('capsule/images/payment-waiting.svg')}}
+                                @elseif($reside->status_bank=='failed')
+                                    {{asset('capsule/images/close.svg')}}
+                                @else
+                                    {{asset('capsule/images/success.svg')}}
+                                @endif" alt=""
+
+                                    >
+                                </form>
+                            </td>
                             <td class="border border-gray-400   text-center p-1">
                                 <p
-                                   class="sm:font-normal sm:text-sm text-[13px] p-1 w-full underline underline-sky-500 underline-offset-4 decoration-sky-500 text-sky-600">
+                                    class="sm:font-normal sm:text-sm text-[13px] p-1 w-full underline underline-sky-500 underline-offset-4 decoration-sky-500 text-sky-600">
                                     {{$reside->id}}
                                 </p>
                             </td>
@@ -151,9 +173,6 @@
                             </td>
 
 
-
-
-
                             <td class="border border-gray-400  text-center   p-1">
                                 <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full ">
                                     {{\Morilog\Jalali\Jalalian::forge($reside->created_at)->format('Y/m/d')}}
@@ -167,7 +186,7 @@
                     </tbody>
                 </table>
 
-            </form>
+            </section>
 
 
         </article>
@@ -176,91 +195,92 @@
 
 @endsection
 @section('script')
-@section('script')
+    @section('script')
 
-    <script>
-        let firstTrTbodyTable = document.querySelector('table tbody tr:first-child');
-        let allInputs = firstTrTbodyTable.querySelectorAll('input');
-        let getDate = firstTrTbodyTable.querySelector('input[type="hidden"]');
-        let data = {}
+        <script>
+            let firstTrTbodyTable = document.querySelector('table tbody tr:first-child');
+            let allInputs = firstTrTbodyTable.querySelectorAll('input');
+            let getDate = firstTrTbodyTable.querySelector('input[type="hidden"]');
+            let data = {}
 
 
-        let mutations = new MutationObserver(function (mutations) {
-            mutations.forEach(function (mutation) {
-                data[mutation.target.dataset.name] = mutation.target.value;
-                requestToServer();
-            });
-        });
-        mutations.observe(getDate, {
-            attributes: true
-        });
-        let valid = {
-            'count_capsule': true,
-            'reside_id': true
-        }
-        for (const input of allInputs) {
-            input.addEventListener('input', function (event) {
-                if (event.target.value === '') {
-                    if (event.target.dataset.name in data) {
-                        delete data[event.target.dataset.name]
-                    }
-                } else {
-                    data[event.target.dataset.name] = event.target.value;
-                }
-                if (event.target !== undefined && (event.target.value.length >= 3 || (event.target.dataset.name in valid && valid[event.target.dataset.name]))) {
+            let mutations = new MutationObserver(function (mutations) {
+                mutations.forEach(function (mutation) {
+                    data[mutation.target.dataset.name] = mutation.target.value;
                     requestToServer();
-                } else {
-                    requestToServer();
-                }
-            })
-        }
-
-        function removeRow() {
-            window.tbody.querySelectorAll('tr').forEach(function (row, index) {
-
-                if (index !== 0) {
-                    row.remove();
-                }
+                });
             });
-        }
-
-        function requestToServer() {
-            let xmlHttpRequest = new XMLHttpRequest();
-            xmlHttpRequest.open("POST", "{{route('admin.invoice-list.search')}}");
-            xmlHttpRequest.setRequestHeader('X-CSRF-Token', "{{csrf_token()}}")
-            xmlHttpRequest.setRequestHeader("Content-Type", "application/json");
-            xmlHttpRequest.send(JSON.stringify(data));
-            xmlHttpRequest.onreadystatechange = function () {
-                if (xmlHttpRequest.readyState === 4 && xmlHttpRequest.status === 200) {
-                    let responseXml = JSON.parse(xmlHttpRequest.response)
-                    if (xmlHttpRequest.response !== '' && xmlHttpRequest.response !== undefined && !('errors' in responseXml) && responseXml.data.length !== 0) {
-                        generateElement(responseXml);
+            mutations.observe(getDate, {
+                attributes: true
+            });
+            let valid = {
+                'count_capsule': true,
+                'reside_id': true
+            }
+            for (const input of allInputs) {
+                input.addEventListener('input', function (event) {
+                    if (event.target.value === '') {
+                        if (event.target.dataset.name in data) {
+                            delete data[event.target.dataset.name]
+                        }
+                    } else {
+                        data[event.target.dataset.name] = event.target.value;
                     }
+                    if (event.target !== undefined && (event.target.value.length >= 3 || (event.target.dataset.name in valid && valid[event.target.dataset.name]))) {
+                        requestToServer();
+                    } else {
+                        requestToServer();
+                    }
+                })
+            }
 
-                }
+            function removeRow() {
+                window.tbody.querySelectorAll('tr').forEach(function (row, index) {
 
-                if (xmlHttpRequest.status !== 200 && xmlHttpRequest.readyState === 4) {
-                    let responseXml = JSON.parse(xmlHttpRequest.response)
-                    if ('errors' in responseXml) {
-                        for (const error in responseXml.errors) {
-                            toast(responseXml.errors[error].toString(), false)
+                    if (index !== 0) {
+                        row.remove();
+                    }
+                });
+            }
+
+            function requestToServer() {
+                let xmlHttpRequest = new XMLHttpRequest();
+                xmlHttpRequest.open("POST", "{{route('admin.invoice-list.search')}}");
+                xmlHttpRequest.setRequestHeader('X-CSRF-Token', "{{csrf_token()}}")
+                xmlHttpRequest.setRequestHeader("Content-Type", "application/json");
+                xmlHttpRequest.send(JSON.stringify(data));
+                xmlHttpRequest.onreadystatechange = function () {
+                    if (xmlHttpRequest.readyState === 4 && xmlHttpRequest.status === 200) {
+                        let responseXml = JSON.parse(xmlHttpRequest.response)
+                        if (xmlHttpRequest.response !== '' && xmlHttpRequest.response !== undefined && !('errors' in responseXml) && responseXml.data.length !== 0) {
+                            generateElement(responseXml);
                         }
 
                     }
 
+                    if (xmlHttpRequest.status !== 200 && xmlHttpRequest.readyState === 4) {
+                        let responseXml = JSON.parse(xmlHttpRequest.response)
+                        if ('errors' in responseXml) {
+                            for (const error in responseXml.errors) {
+                                toast(responseXml.errors[error].toString(), false)
+                            }
+
+                        }
+
+                    }
                 }
             }
-        }
 
-        function isEmptyObject(object) {
-            return Object.keys(object).length === 0;
-        }
+            function isEmptyObject(object) {
+                return Object.keys(object).length === 0;
+            }
 
-        function generateElement(data) {
-            removeRow()
-            let myHtml = '';
-            data.data.forEach(function (value, index) {
-                myHtml += `<tr class=" ${index %2 ==0?'bg-white ':'bg-gray-200/78'}   ">
+            function generateElement(data) {
+                removeRow()
+                let myHtml = '';
+                data.data.forEach(function (value, index) {
+
+                    myHtml += `<tr class=" ${index % 2 == 0 ? 'bg-white ' : 'bg-gray-200/78'}   ">
 
 
                             <td class="border border-gray-400  text-center  p-1">
@@ -275,12 +295,20 @@
                                         <img src="{{asset('capsule/images/eya.svg')}}" alt="">
                                    </a>
                         </td>
+                          <td class="border border-gray-400  text-center ">
+                              <form method='POST' action="${value.paymentRoute}" class="flex items-center justify-center">
+                              @csrf
+                    <img src="${value.image_payment}" alt="" onclick="payment(event)">
+
+                              </form>
+                            </td>
                         <td class="border border-gray-400  text-center  p-1">
                             <p class="sm:font-normal sm:text-sm  text-[13px] p-1 w-full underline underline-sky-500 underline-offset-4 decoration-sky-500 text-sky-600 ">
                                  <p>${value.id}</p>
 
                             </p>
                         </td>
+
 
                         <td class="border border-gray-400   text-center p-1">
                             <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full  ">
@@ -307,15 +335,20 @@
 
 
                     </tr>`;
-            });
-            window.tbody.insertAdjacentHTML('beforeend', myHtml)
-        }
+                });
+                window.tbody.insertAdjacentHTML('beforeend', myHtml)
+            }
 
-    </script>
-    <script>
-        let dateIcon = document.querySelector('.date-icon');
-        dateIcon.onclick = function () {
-            document.querySelector('.startDate').click();
-        }
-    </script>
-@endsection
+        </script>
+        <script>
+            let dateIcon = document.querySelector('.date-icon');
+            dateIcon.onclick = function () {
+                document.querySelector('.startDate').click();
+            }
+        </script>
+        <script>
+            function payment(event) {
+                event.target.parentElement.submit();
+            }
+        </script>
+    @endsection

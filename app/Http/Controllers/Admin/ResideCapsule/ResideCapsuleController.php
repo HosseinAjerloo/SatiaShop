@@ -20,7 +20,7 @@ class ResideCapsuleController extends Controller
     {
         Gate::authorize('admin.resideCapsule.index');
         $breadcrumbs = Breadcrumbs::render('admin.resideCapsule.index')->getData()['breadcrumbs'];
-        $resides = Reside::orderBy('created_at', 'desc')->where('reside_type', 'recharge')->where('type', 'reside')->whereHas('resideItem', function ($q) {
+        $resides = Reside::orderBy('created_at', 'desc')->where('reside_type', 'recharge')->where('status', 'not_paid')->whereHas('resideItem', function ($q) {
             $q->whereDoesntHave('productResidItem');
         })->paginate(10);
         $routeName = Route::current()->getName();

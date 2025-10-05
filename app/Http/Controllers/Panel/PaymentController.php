@@ -101,6 +101,7 @@ class PaymentController extends Controller
                 'payment_id' => $payment->id,
             ]);
             if (!$status) {
+                $payment->update(['description' => "به دلیل عدم ارتباط با بانک $bank->name سفارش شما لغو شد ", 'state' => 'failed']);
                 $invoice->update(['description' => "به دلیل عدم ارتباط با بانک $bank->name سفارش شما لغو شد ", 'status_bank' => 'fail']);
                 $financeTransaction->update(['description' => "به دلیل عدم ارتباط با بانک $bank->name سفارش شما لغو شد ", 'status' => 'fail']);
                 return redirect()->route('panel.cart.index')->with(['error-SweetAlert' => 'ارتباط با بانک فراهم نشد لطفا چند دقیقه بعد تلاش فرماید.']);
@@ -155,7 +156,8 @@ class PaymentController extends Controller
                     [
                         'RefNum' => $inputs['RefNum'] ?? null,
                         'ResNum' => $payment->order_id,
-                        'state' => 'failed'
+                        'state' => 'failed',
+                        'description' => ' پرداخت موفقیت آمیز نبود ' . $objBank->transactionStatus()
 
                     ]);
                 $invoice->update(['description' => ' پرداخت موفقیت آمیز نبود ' . $objBank->transactionStatus(), 'status_bank' => 'failed']);
@@ -175,7 +177,9 @@ class PaymentController extends Controller
                     [
                         'RefNum' => $inputs['RefNum'] ?? null,
                         'ResNum' => $payment->order_id,
-                        'state' => 'failed'
+                        'state' => 'failed',
+                        'description' => ' پرداخت موفقیت آمیز نبود ' . $objBank->verifyTransaction($back_price)
+
 
                     ]);
                 $invoice->update(['description' => ' پرداخت موفقیت آمیز نبود ' . $objBank->verifyTransaction($back_price), 'status_bank' => 'failed']);
@@ -198,7 +202,8 @@ class PaymentController extends Controller
                 [
                     'RefNum' => $inputs['RefNum'],
                     'ResNum' => $payment->order_id,
-                    'state' => 'finished'
+                    'state' => 'finished',
+                    'description'=>'پرداخت با موفقیت انجام شد'
                 ]);
 
             $financeTransaction->update([

@@ -15,8 +15,10 @@ class ProductTransaction extends Model
         'product_id',
         'user_id',
         'invoice_id',
-        'amount','remain'
-        ,'type'
+        'amount',
+        'remain',
+        'type',
+        'reside_id'
     ];
     public function scopeSearch(Builder $query): void
     {

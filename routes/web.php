@@ -271,7 +271,11 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
 
     Route::prefix('invoice-list')->name('admin.invoice-list.')->group(function (){
         Route::get('',[App\Http\Controllers\Admin\InvoiceList\InvoiceListController::class,'index'])->name('index');
+        Route::post('/payment/{reside}',[App\Http\Controllers\Admin\InvoiceList\InvoiceListController::class,'payment'])->name('payment');
+        Route::post('payment-back', [App\Http\Controllers\Admin\InvoiceList\InvoiceListController::class,'paymentBack'])->withoutMiddleware(Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class)->name('back');
+
         Route::post('search',[App\Http\Controllers\Admin\InvoiceList\InvoiceListController::class,'search'])->name('search');
+
     });
     Route::get('print-capsule/{resideItem}',[App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'printCapsule'])->name('admin.print.capsule');
 

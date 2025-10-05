@@ -61,7 +61,8 @@ trait HasDiscount
             'final_price' => $totalPrice,
             'discount_price' => $inputs['discount_price'],
             'description' => $inputs['description'],
-            'commission' => $inputs['commission']
+            'commission' => $inputs['commission'],
+            'type'=>'invoice'
         ]);
         if (request()->file('discountFile'))
         {
