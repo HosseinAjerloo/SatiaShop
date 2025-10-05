@@ -28,7 +28,11 @@ class FinalInvoiceIssuanceRequest extends FormRequest
     {
         if (Route::current()->hasParameter('reside')) {
             $this->reside = $this->route('reside');
-            $this->totalPrice=$this->reside->totalPrice();
+            if ($this->reside->reside_type=='recharge'){
+                $this->totalPrice=$this->reside->totalPrice();
+            }else{
+                $this->totalPrice=$this->reside->totalPriceSale();
+            }
         }
         return [
             'description' => 'nullable|string',
