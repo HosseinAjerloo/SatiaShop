@@ -91,7 +91,9 @@
 <script>
 
     function select2Start() {
-        $(".select2").select2({});
+        $(".select2").select2({
+            dir: "rtl",
+        });
     }
 
     select2Start();

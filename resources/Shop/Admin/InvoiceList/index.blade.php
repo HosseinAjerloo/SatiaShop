@@ -129,17 +129,23 @@
                             </td>
                             <td class="border border-gray-400  text-center ">
                                 <form class=" flex items-center justify-center"
-                                      action="{{route('admin.invoice-list.payment',$reside)}}" method="POST">
+                                      action="{{route('admin.invoice-list.payment',$reside)}}"
+                                      method="POST">
                                     @csrf
-                                    <img onclick="payment(event)" src="@if($reside->status_bank=='requested')
-                                    {{asset('capsule/images/payment-waiting.svg')}}
-                                @elseif($reside->status_bank=='failed')
-                                    {{asset('capsule/images/close.svg')}}
-                                @else
-                                    {{asset('capsule/images/success.svg')}}
-                                @endif" alt=""
+                                    <div @if($reside->status_bank!='finished') onclick="payment(event)  @endif "
+                                         class="h-full cursor-pointer flex items-center flex-col space-y-reverse space-y-1.5 w-full">
 
-                                    >
+                                            <span class="text-sm">
+                                              @if($reside->status_bank=='requested')
+                                                    درانتظار پرداخت
+                                                @elseif($reside->status_bank=='failed')
+                                                    پرداخت موفقیت آمیز نبود
+                                                @else
+                                                    باموفقیت پرداخت شده است
+                                                @endif
+                                            </span>
+                                            <img class="w-7 " src="@if($reside->status_bank=='requested')  {{asset('capsule/images/payment-waiting.svg')}}  @elseif($reside->status_bank=='failed') {{asset('capsule/images/close.svg')}} @else {{asset('capsule/images/success.svg')}}  @endif" alt="">
+                                    </div>
                                 </form>
                             </td>
                             <td class="border border-gray-400   text-center p-1">
@@ -295,10 +301,18 @@
                                         <img src="{{asset('capsule/images/eya.svg')}}" alt="">
                                    </a>
                         </td>
-                          <td class="border border-gray-400  text-center ">
+                        <td class="border border-gray-400  text-center ">
                               <form method='POST' action="${value.paymentRoute}" class="flex items-center justify-center">
                               @csrf
-                    <img src="${value.image_payment}" alt="" onclick="payment(event)">
+                    <div ${value.status_bank != 'finished' ? 'onclick="payment(event)' : ''} "
+                                         class="h-full cursor-pointer flex items-center flex-col space-y-reverse space-y-1.5 w-full">
+                                        <span class="text-sm">
+                                        ${value.status_bank == 'requested' ? 'درانتظار پرداخت' : value.status_bank == 'failed' ? 'پرداخت موفقیت آمیز نبود' : 'باموفقیت پرداخت شده است'}
+                                        </span>
+                                            <img class="w-7 "src="${value.image_payment}" alt="">
+
+                                </div>
+
 
                               </form>
                             </td>
@@ -348,7 +362,11 @@
         </script>
         <script>
             function payment(event) {
-                event.target.parentElement.submit();
+                if (event.target.nodeName !== 'DIV')
+                    event.target.parentElement.parentElement.submit()
+                else
+                    event.target.parentElement.submit()
+
             }
         </script>
     @endsection

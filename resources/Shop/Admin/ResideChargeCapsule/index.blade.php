@@ -13,6 +13,7 @@
         .select2-container--open {
             z-index: 99999;
         }
+
     </style>
 @endsection
 @section('content')
@@ -27,8 +28,9 @@
                         <div class="flex items-center sm:w-[50%]">
                             <h1 class="font-bold w-36 tracking-wider">جستوجوی مشتری:</h1>
                             <div class="relative w-full mt-3 sm:mt-0 sm:w-[50%]">
+                       
                                 <select type="text"
-                                        class="select-user placeholder:text-min placeholder:text-black/50 outline-none searchInput bg-transparent w-full select2 px-10"
+                                        class="select-user placeholder:text-min placeholder:text-black/50 outline-none text-right searchInput bg-transparent w-full select2 px-10"
                                         name="name" id="input_search">
                                     <option data-type="customSelect">انتخاب کنید</option>
                                     @foreach($allUser as $user)
@@ -42,8 +44,7 @@
                                         </option>
                                     @endforeach
                                 </select>
-                                <img src=" {{asset('capsule/images/search.svg')}}" alt=""
-                                     class="search cursor-pointer absolute top-[50%] right-[20px] translate-y-[-50%]">
+
                             </div>
                         </div>
                         <div
