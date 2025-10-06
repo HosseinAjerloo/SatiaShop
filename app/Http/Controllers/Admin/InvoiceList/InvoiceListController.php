@@ -218,17 +218,20 @@ class InvoiceListController extends Controller
 
             $resideItem = $reside->resideItem;
             if ($reside->reside_type == 'recharge') {
-                foreach ($resideItem->productResidItem as $product) {
-                    $productTransaction = $product->productTransaction()->latest()->first();
+                foreach ($resideItem as $item){
+                    foreach ($item->productResidItem as $product) {
+                        $productTransaction = $product->productTransaction()->latest()->first();
 
-                    \App\Models\ProductTransaction::create([
-                        'user_id' => $user->id,
-                        'product_id' => $product->id,
-                        'reside_id' => $reside->id,
-                        'amount' => $product->pivot->amount,
-                        'remain' => $productTransaction->remain - $product->pivot->amount,
-                        'type' => 'minus'
-                    ]);
+                        \App\Models\ProductTransaction::create([
+                            'user_id' => $user->id,
+                            'product_id' => $product->id,
+                            'reside_id' => $reside->id,
+                            'amount' => $product->pivot->amount,
+                            'remain' => $productTransaction->remain - $product->pivot->amount,
+                            'type' => 'minus'
+                        ]);
+                    }
+
                 }
 
             } else {
