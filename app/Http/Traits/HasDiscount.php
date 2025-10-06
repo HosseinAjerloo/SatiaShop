@@ -38,18 +38,18 @@ trait HasDiscount
 
         if (isset($inputs['discountDecimal']))
         {
-            $totalPrice=$this->calculateDecimal($total,$inputs['discountDecimal']);
+            $totalPrice=roundNumber($this->calculateDecimal($total,$inputs['discountDecimal']));
         }
         elseif (isset($inputs['discount_price']))
         {
-            $totalPrice=$this->calculatePrice($total,$inputs['discount_price']);
+            $totalPrice=roundNumber($this->calculatePrice($total,$inputs['discount_price']));
         }
         else{
             $totalPrice=$total;
         }
 
         if (isset($inputs['commission']) && $inputs['commission'] == 'yes') {
-            $totalPrice = ($totalPrice * env('Commission') / 100) + $totalPrice;
+            $totalPrice = roundNumber(($totalPrice * env('Commission') / 100) + $totalPrice);
             $inputs['commission'] = env('Commission');
         } else {
             $inputs['commission'] = 0;

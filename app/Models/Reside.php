@@ -107,7 +107,7 @@ class Reside extends Model
         foreach ($this->resideItem as $item) {
             $total += $item->getTotalProductPriceItems();
         }
-        return $total;
+        return roundNumber($total);
     }
 
     public function totalPriceSale()
@@ -116,7 +116,7 @@ class Reside extends Model
         foreach ($this->resideItem as $item) {
             $total += $item->price * $item->amount;
         }
-        return $total;
+        return roundNumber($total);
     }
 
     public function totalPricePlusTax()
@@ -126,7 +126,7 @@ class Reside extends Model
         if ($this->commission > 0) {
             $total = (($total * $this->commission) / 100) + $total;
         }
-        return $total;
+        return roundNumber($total);
     }
     public function file(){
         return $this->morphMany(File::class,'files','fileable_type','fileable_id');
@@ -156,7 +156,7 @@ class Reside extends Model
             $price=$this->calculatePrice($this->total_price,$this->discount_price);
         }
 
-        return $price;
+        return roundNumber($price);
     }
 
     protected function resideDiscountAmount(): Attribute

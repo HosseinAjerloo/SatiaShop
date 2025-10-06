@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->decimal('total_price', 20, 3)->default(0);
             $table->decimal('discount_collection', 20, 3)->nullable()->default(0);
             $table->decimal('discount_price', 20, 3)->nullable()->default(0);
-            $table->integer('commission')->nullable()->default(0);
+            $table->decimal('commission',20,3)->nullable()->default(0);
             $table->decimal('final_price', 20, 3)->default(0);
             $table->enum('status', ['paid', 'not_paid'])->nullable();
             $table->enum('reside_type', ['sell', 'recharge'])->nullable();

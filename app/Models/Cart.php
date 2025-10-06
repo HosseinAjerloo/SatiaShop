@@ -30,7 +30,7 @@ class Cart extends Model
         {
             $totalPrice+=$cartItem->product->price*$cartItem->amount;
         }
-        return $totalPrice;
+        return roundNumber($totalPrice);
     }
 
 

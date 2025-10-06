@@ -49,3 +49,6 @@ function getGrandParentَAll($product)
         return $category->removeUnderLine;
     }
 }
+function roundNumber($number){
+    return floor($number / 1000) * 1000;
+}

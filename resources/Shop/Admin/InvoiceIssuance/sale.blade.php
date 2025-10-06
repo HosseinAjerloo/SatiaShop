@@ -440,11 +440,11 @@
             if (event.target.value > 0 && event.target.value <= 100) {
                 let discount = ((event.target.value * totalPrice) / 100);
                 discount = totalPrice - discount;
-                finalPrice = discount;
+                finalPrice = round(discount);
                 price = new Intl.NumberFormat('fa-IR', {
                     // style: 'currency',
                     currency: 'IRR'
-                }).format(discount);
+                }).format(finalPrice);
                 document.querySelector('.totalPriceDiscount').innerText = price;
                 document.querySelector('.totalPriceDiscount').innerText += ' ریال ';
                 document.querySelector('.totalPricePlusTax').innerText = price;
@@ -460,11 +460,11 @@
 
         function discountPrice(event) {
             let discount = totalPrice - event.target.value;
-            finalPrice = discount;
+            finalPrice = round(discount);
             price = new Intl.NumberFormat('fa-IR', {
                 // style: 'currency',
                 currency: 'IRR'
-            }).format(discount);
+            }).format(finalPrice);
             document.querySelector('.totalPriceDiscount').innerText = price;
             document.querySelector('.totalPriceDiscount').innerText += ' ریال ';
             document.querySelector('.totalPricePlusTax').innerText = price;
@@ -496,6 +496,7 @@
             finalPrice = Number(finalPrice);
             if (event.target.checked) {
                 commissionAmount = ((finalPrice * commission) / 100) + finalPrice;
+                commissionAmount=round(commissionAmount);
             } else {
                 commissionAmount = finalPrice;
             }

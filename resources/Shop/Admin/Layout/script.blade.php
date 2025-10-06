@@ -189,4 +189,7 @@
         convertElementAndChildren(document.body);
         setupObserver();
     });
+    function round(number){
+        return Math.floor(number / 1000)*1000;
+    }
 </script>
