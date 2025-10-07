@@ -10,10 +10,10 @@
                 </a>
                 <h1 class="font-semibold w-52">{{$routeName=='admin.resideCapsule.index'?'رسیدهای پذیرش کپسول':'لیست کپسول های فروخته شده'}}</h1>
             </article>
-            <form action="" method="post" class="w-full">
+            <form action="" method="post" class="w-full overflow-x-auto">
                 @csrf
 
-                <table class="border-collapse  border border-gray-400 w-full table-fixed">
+                <table class="border-collapse  border border-gray-400 min-w-full table-auto">
                     <thead class="bg-2081F2">
                     <tr>
                         <th class=" text-sm font-light px-2 leading-6 text-white ">

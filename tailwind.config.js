@@ -53,7 +53,8 @@ module.exports = {
             },
             borderRadius:{
                 '50%':'50%'
-            }
+            },
+
         },
     },
     plugins: [],

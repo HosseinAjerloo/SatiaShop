@@ -8,7 +8,7 @@
     <section class=" space-y-3 relative">
         <article class="space-y-5 bg-F1F1F1 p-6 rounded-md">
 
-            <article class="flex justify-between items-center">
+            <article class="flex justify-between items-center space-y-3 flex-wrap sm:flex-nowrap sm:space-y-0 ">
                 <div class="flex items-center space-x-reverse space-x-2 ">
                     <img src="{{asset("capsule/images/blue-user.svg")}}" alt="">
                     <div class="flex items-center space-x-2 space-x-reverse">
@@ -22,7 +22,7 @@
                     <span
                         class="text-sm sm:tetx-base">{{\Morilog\Jalali\Jalalian::forge($reside->created_at)->format('Y/m/d')}}</span>
                 </div>
-                <div class="flex items-center justify-end space-x-reverse  space-x-2 ">
+                <div class="flex items-center justify-end space-x-reverse  space-x-2">
                     <h1 class="font-bold text-sm sm:tetx-base">شماره فاکتور:</h1>
                     <span
                         class="text-sm sm:tetx-base">{{$reside->id??""}}</span>
@@ -31,10 +31,10 @@
         </article>
         <article class="space-y-5 bg-F1F1F1 p-6 rounded-md ">
             <form action="{{route('admin.invoice.issuance.store',$reside->id)}}" enctype="multipart/form-data"
-                  method="post" class="w-full flex  justify-between flex-wrap" id="form">
+                  method="post" class="w-full flex  justify-between flex-wrap space-y-3 lg:space-y-0" id="form">
                 @csrf
 
-                <div class="w-[49%] space-y-3">
+                <div class="w-full lg:w-[49%] space-y-3">
 
                     <div class="bg-white ">
                         <h1 class="font-bold mb-3 bg-F1F1F1 py-1.5">توضیحات تخفیفی</h1>
@@ -54,15 +54,12 @@
                         </div>
                     </div>
                     @if($reside->type=='reside')
-                        <div class="mt-8 flex items-center  space-x-reverse space-x-4">
-                            <h1 class="font-bold">فایل ضمیمه:</h1>
-                            <div class="bg-white p-2 rounded-md flex items-center justify-between w-2/5	">
-                                <img src="{{asset('capsule/images/uploadFile.svg')}}" alt="">
-                                <span class="text-gray-400/75 file-counter">فایلی موجود نمیباشد</span>
-                                <button class="bg-2081F2 text-white rounded-lg text-white p-2 btn-file" type="button">
-                                    انتخاب
-                                    کنید
-                                </button>
+                        <div class="mt-8 flex w-full items-center  space-x-reverse space-x-4 flex-wrap">
+                            <h1 class="font-bold text-sm mb-2">فایل ضمیمه:</h1>
+                            <div class="box-content bg-white p-2 rounded-md flex items-center space-x-reverse space-x-2 max-w-max	">
+                                <img src="{{asset('capsule/images/uploadFile.svg')}}" alt="" class="w-6">
+                                <span class="text-gray-400/75 file-counter text-sm">فایلی موجود نمیباشد</span>
+                                <button class="bg-2081F2 text-white rounded-lg  p-2 btn-file" type="button">انتخاب کنید</button>
                             </div>
                             @endif
 
@@ -70,7 +67,7 @@
 
 
                 </div>
-                <div class="w-[49%]">
+                <div class="w-full lg:w-[49%]">
                     <table class="border-collapse   border border-gray-400 table-fixed w-full">
                         <thead class="bg-2081F2 ">
                         <tr>
@@ -195,7 +192,7 @@
                                             <span class="showDiscount">({{$reside->resideDiscountAmount}})</span>
                                         </span>
                                         <div
-                                            class="invisible transition-all absolute z-[101] w-2/3 h-75  top-0 right-[60%] rounded-lg  bg-white shadow-md shadow-black/35 ">
+                                            class="invisible transition-all absolute z-[101] w-[300px] sm:w-full md:w-4/5 lg:w-full h-75  top-0 right-0 sm:right-[60%] rounded-lg  bg-white shadow-md shadow-black/35 ">
                                             <div
                                                 class="flex items-center justify-start space-x-reverse space-x-2 bg-E0E0E0  border-2 border-b-black p-2">
                                                 <p class="font-medium">
@@ -208,13 +205,12 @@
                                             </div>
                                             <div class="px-1.5 py-2 space-y-4">
                                                 <div class="flex items-center space-x-2 space-x-reverse">
-                                                    <label class="w-1/4 flex items-center justify-start">بدون
-                                                        تخفیف</label>
+                                                    <label class=" flex items-center justify-start">بدون تخفیف</label>
                                                     <input type="radio" name="disc">
 
                                                 </div>
                                                 <div class="flex items-center space-x-2 space-x-reverse">
-                                                    <label class="w-1/4 flex items-center justify-start">% قیمت</label>
+                                                    <label class=" flex items-center justify-start">% قیمت</label>
                                                     <input type="radio" name="disc">
                                                     <div
                                                         class="invisible flex items-center   space-x-reverse space-x-4 ">
@@ -225,7 +221,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="flex items-center space-x-2 space-x-reverse ">
-                                                    <label class="w-1/4 flex items-center justify-start">کسر از
+                                                    <label class=" flex items-center justify-start">کسر از
                                                         قیمت</label>
                                                     <input type="radio" name="disc">
                                                     <div

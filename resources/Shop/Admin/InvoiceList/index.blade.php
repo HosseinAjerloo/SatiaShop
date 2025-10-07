@@ -10,10 +10,10 @@
 
                 <h1 class="font-semibold w-52">لیست فاکتور ها</h1>
             </article>
-            <section class="w-full">
+            <section class="w-full overflow-x-auto">
                 @csrf
 
-                <table class="border-collapse  border border-gray-400 w-full table-fixed">
+                <table class="border-collapse  border border-gray-400 min-w-full table-auto">
                     <thead class="bg-2081F2">
                     <tr>
                         <th class=" text-sm font-light px-2 leading-6 text-white ">
@@ -150,7 +150,7 @@
                             </td>
                             <td class="border border-gray-400   text-center p-1">
                                 <p
-                                    class="sm:font-normal sm:text-sm text-[13px] p-1 w-full underline underline-sky-500 underline-offset-4 decoration-sky-500 text-sky-600">
+                                    class="sm:font-normal sm:text-sm text-[13px] p-1 w-full  decoration-sky-500 ">
                                     {{$reside->id}}
                                 </p>
                             </td>
