@@ -27,54 +27,54 @@ Route::middleware('guest')->group(function () {
         Route::get('login-sso', [App\Http\Controllers\Auth\LoginController::class, 'loginWithSso'])->name('loginWithSso');
         Route::post('simple-login', [App\Http\Controllers\Auth\LoginController::class, 'simpleLoginPost'])->name('simple-post');
     });
-    Route::get('register', [App\Http\Controllers\Auth\LoginController::class, 'register'])->name('register');
-    Route::post('register/{otp:token}', [App\Http\Controllers\Auth\LoginController::class, 'registerUser'])->name('register.post');
-    Route::get('forgot-password', [App\Http\Controllers\Auth\LoginController::class, 'forgotPassword'])->name('forgotPassword');
-    Route::post('forgot-password', [App\Http\Controllers\Auth\LoginController::class, 'sendCodeForget'])->name('post.forgotPassword');
-    Route::get('forgot-password/{otp:token}', [App\Http\Controllers\Auth\LoginController::class, 'forgotPasswordToken'])->name('forgotPassword.token');
-    Route::get('update-password/{otp:token}', [App\Http\Controllers\Auth\LoginController::class, 'updatePassword'])->name('update.Password');
-    Route::post('update-password/{otp:token}', [App\Http\Controllers\Auth\LoginController::class, 'updatePasswordPost'])->name('post.update.Password');
-    Route::post('create-cod', [App\Http\Controllers\Auth\LoginController::class, 'createCode'])->name('createCode');
+//    Route::get('register', [App\Http\Controllers\Auth\LoginController::class, 'register'])->name('register');
+//    Route::post('register/{otp:token}', [App\Http\Controllers\Auth\LoginController::class, 'registerUser'])->name('register.post');
+//    Route::get('forgot-password', [App\Http\Controllers\Auth\LoginController::class, 'forgotPassword'])->name('forgotPassword');
+//    Route::post('forgot-password', [App\Http\Controllers\Auth\LoginController::class, 'sendCodeForget'])->name('post.forgotPassword');
+//    Route::get('forgot-password/{otp:token}', [App\Http\Controllers\Auth\LoginController::class, 'forgotPasswordToken'])->name('forgotPassword.token');
+//    Route::get('update-password/{otp:token}', [App\Http\Controllers\Auth\LoginController::class, 'updatePassword'])->name('update.Password');
+//    Route::post('update-password/{otp:token}', [App\Http\Controllers\Auth\LoginController::class, 'updatePasswordPost'])->name('post.update.Password');
+//    Route::post('create-cod', [App\Http\Controllers\Auth\LoginController::class, 'createCode'])->name('createCode');
 
 });
 Route::get('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
 
 Route::get('', [App\Http\Controllers\Panel\PanelController::class, 'index'])->name('panel.index');
-Route::get('under-category/{category:name}', [App\Http\Controllers\Panel\PanelController::class, 'underCategory'])->name('panel.underCategory');
-Route::get('products/{category:name}', [App\Http\Controllers\Panel\PanelController::class, 'products'])->name('panel.products');
-Route::get('product/{product:title}', [App\Http\Controllers\Panel\PanelController::class, 'product'])->name('panel.product');
-Route::post('find-product', [App\Http\Controllers\Panel\PanelController::class, 'findProductWithAjax'])->name('panel.product.find');
-Route::prefix('cart')->name('panel.cart.')->group(function () {
-    Route::get('', [App\Http\Controllers\Panel\CartController::class, 'index'])->name('index');
-    Route::post('addCard', [App\Http\Controllers\Panel\CartController::class, 'addCart'])->name('addCart');
-    Route::post('addCard', [App\Http\Controllers\Panel\CartController::class, 'addCart'])->name('addCart');
-    Route::post('increase', [App\Http\Controllers\Panel\CartController::class, 'increase'])->name('increase');
-    Route::post('decrease', [App\Http\Controllers\Panel\CartController::class, 'decrease'])->name('decrease');
-    Route::get('destroy/{cartItem}', [App\Http\Controllers\Panel\CartController::class, 'destroy'])->name('destroy');
-});
-
-//PANEL
-Route::middleware(['auth'])->name('panel.')->group(function () {
-    Route::prefix('payment')->name('payment.')->group(function () {
-        Route::get('advance', [App\Http\Controllers\Panel\PaymentController::class, 'advance'])->name('advance');
-        Route::post('', [App\Http\Controllers\Panel\PaymentController::class, 'payment'])->name('payment');
-        Route::post('paymentBack', [App\Http\Controllers\Panel\PaymentController::class, 'paymentBack'])->withoutMiddleware(Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class)->name('back');
-    });
-
-    Route::prefix('order')->name('order.')->group(function () {
-        Route::get('', [App\Http\Controllers\Panel\OrderController::class, 'index'])->name('index');
-        Route::get('invoice-detail-report/{invoice}', [App\Http\Controllers\Panel\OrderController::class, 'invoiceDetail'])->name('invoiceDetail');
-    });
-
-
-    Route::prefix('my-profile')->name('my-profile.')->group(function () {
-        Route::get('', [App\Http\Controllers\Panel\UserController::class, 'index'])->name("index");
-        Route::put('update', [App\Http\Controllers\Panel\UserController::class, 'update'])->name('update');
-
-    });
-
-});
+//Route::get('under-category/{category:name}', [App\Http\Controllers\Panel\PanelController::class, 'underCategory'])->name('panel.underCategory');
+//Route::get('products/{category:name}', [App\Http\Controllers\Panel\PanelController::class, 'products'])->name('panel.products');
+//Route::get('product/{product:title}', [App\Http\Controllers\Panel\PanelController::class, 'product'])->name('panel.product');
+//Route::post('find-product', [App\Http\Controllers\Panel\PanelController::class, 'findProductWithAjax'])->name('panel.product.find');
+//Route::prefix('cart')->name('panel.cart.')->group(function () {
+//    Route::get('', [App\Http\Controllers\Panel\CartController::class, 'index'])->name('index');
+//    Route::post('addCard', [App\Http\Controllers\Panel\CartController::class, 'addCart'])->name('addCart');
+//    Route::post('addCard', [App\Http\Controllers\Panel\CartController::class, 'addCart'])->name('addCart');
+//    Route::post('increase', [App\Http\Controllers\Panel\CartController::class, 'increase'])->name('increase');
+//    Route::post('decrease', [App\Http\Controllers\Panel\CartController::class, 'decrease'])->name('decrease');
+//    Route::get('destroy/{cartItem}', [App\Http\Controllers\Panel\CartController::class, 'destroy'])->name('destroy');
+//});
+//
+////PANEL
+//Route::middleware(['auth'])->name('panel.')->group(function () {
+//    Route::prefix('payment')->name('payment.')->group(function () {
+//        Route::get('advance', [App\Http\Controllers\Panel\PaymentController::class, 'advance'])->name('advance');
+//        Route::post('', [App\Http\Controllers\Panel\PaymentController::class, 'payment'])->name('payment');
+//        Route::post('paymentBack', [App\Http\Controllers\Panel\PaymentController::class, 'paymentBack'])->withoutMiddleware(Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class)->name('back');
+//    });
+//
+//    Route::prefix('order')->name('order.')->group(function () {
+//        Route::get('', [App\Http\Controllers\Panel\OrderController::class, 'index'])->name('index');
+//        Route::get('invoice-detail-report/{invoice}', [App\Http\Controllers\Panel\OrderController::class, 'invoiceDetail'])->name('invoiceDetail');
+//    });
+//
+//
+//    Route::prefix('my-profile')->name('my-profile.')->group(function () {
+//        Route::get('', [App\Http\Controllers\Panel\UserController::class, 'index'])->name("index");
+//        Route::put('update', [App\Http\Controllers\Panel\UserController::class, 'update'])->name('update');
+//
+//    });
+//
+//});
 
 
 Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {

@@ -42,6 +42,8 @@ class PanelController extends Controller
 
     public function index()
     {
+        return redirect()->route('panel.admin');
+
         $breadcrumbs=Breadcrumbs::render('panel.index')->getData()['breadcrumbs'];
 
         $menus=Menu::where("status",'active')->orderBy('view_sort','asc')->get();

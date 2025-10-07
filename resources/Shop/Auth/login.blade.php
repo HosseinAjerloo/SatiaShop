@@ -47,16 +47,16 @@
                 </a>
             </div>
 
-            <div class="p-1.5  rounded-md h-10 space-x-reverse space-x-3">
+{{--            <div class="p-1.5  rounded-md h-10 space-x-reverse space-x-3">--}}
 
 
-                <a href="{{route('register')}}" class="text-min text-blue-800 font-bold  underline underline-offset-4">
-                    ثبت نام </a>
-                <a href="{{ route('forgotPassword') }}" class="text-min text-blue-800 font-bold  underline underline-offset-4">کلمه عبور را فراموش
-                    کرده اید</a>
+{{--                <a href="{{route('register')}}" class="text-min text-blue-800 font-bold  underline underline-offset-4">--}}
+{{--                    ثبت نام </a>--}}
+{{--                <a href="{{ route('forgotPassword') }}" class="text-min text-blue-800 font-bold  underline underline-offset-4">کلمه عبور را فراموش--}}
+{{--                    کرده اید</a>--}}
 
 
-            </div>
+{{--            </div>--}}
 
         </form>
     </section>

@@ -61,13 +61,16 @@ class LoginController extends Controller
     public function simpleLoginPost(SimpleLoginPost $simpleLoginPost)
     {
         $user = User::where("mobile", $simpleLoginPost->mobile)->first();
+        if ($user->type!='admin')
+            return redirect()->back()->withErrors(['passwordNotMatch' => 'شما مجوز ورود به سامانه را ندارید']);
+
         $inputs = $simpleLoginPost->all();
 
         $validPassword = password_verify($inputs['password'], $user->password);
 
 
         if (!$validPassword)
-            return redirect()->back()->withErrors(['passwordNotMatch' => 'نام کاربری یا رمز عبور اشتباه است.']);
+            return redirect()->route('panel.index')->withErrors(['passwordNotMatch' => 'نام کاربری یا رمز عبور اشتباه است.']);
 
         $remember = $simpleLoginPost->has('rememberMe') ? true : false;
         $cart=\session()->get('cart_id');
@@ -205,6 +208,8 @@ class LoginController extends Controller
                     'family'=>$userObj->last_name??'',
                     'username'=>$userObj->username??''
                 ]);
+                if ($user->type!='admin')
+                    return redirect()->route('panel.index')->withErrors(['passwordNotMatch' => 'شما مجوز ورود به سامانه را ندارید']);
                     auth()->login($user, true);
                     session(['login_type' => 'sso']);
                     session()->forget('state');
