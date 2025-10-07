@@ -64,6 +64,9 @@ class InvoiceListController extends Controller
     {
 
         try {
+            if ($reside->type=='reside')
+                return redirect()->route('admin.invoice-list.index')->withErrors(['error' => 'لطفاً ابتدا رسید خود را به فاکتور تبدیل نمایید، سپس پرداخت را انجام دهید.']);
+
             $user = Auth::user();
             $balance = $reside->user->getCreaditBalance();
 
