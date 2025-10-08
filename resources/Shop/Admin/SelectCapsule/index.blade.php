@@ -36,9 +36,7 @@
                             @foreach($resideItem->product->relatedGoods->productes as $product)
                                 <div data-value="value"
                                      class=" flex justify-center items-start flex-col sm:flex-row sm:items-center sm:justify-start space-y-2 space-x-reverse space-x-2 sm:space-y-0">
-                                    <label
-                                        class=" font-semibold text-sm w-[30%] leading-6">{{$product->removeUnderline}}
-                                        :</label>
+                                    <label class=" font-semibold text-sm w-[30%] leading-6">{{$product->removeUnderline}} :</label>
 
                                     <div
                                         class="flex  justify-between items-center space-x-4 space-x-reverse w-[80%] ">
@@ -178,10 +176,11 @@
             itemList.innerHTML = '';
             items.forEach((item) => {
                 let parentDiv = document.createElement("div");
-                parentDiv.classList.add('space-x-reverse', 'space-x-4');
+                parentDiv.classList.add('space-x-reverse', 'space-x-4','mb-2','flex');
                 let spanTitle = document.createElement('span');
                 spanTitle.classList.add('text-sm', 'font-semibold');
                 let spanValue = document.createElement('span');
+                spanValue.classList.add('flex');
 
                 if (item.children[1].children[0] && item.children[1].children[0].children[0].nodeName == 'SELECT') {
                     spanTitle.innerText = item.children[0].innerHTML;
