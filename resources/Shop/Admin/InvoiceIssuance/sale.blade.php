@@ -66,8 +66,8 @@
 
 
                 </div>
-                <div class="w-full lg:w-[49%]">
-                    <table class="border-collapse   border border-gray-400 table-fixed w-full">
+                <div class="w-full lg:w-[49%] overflow-x-auto sm:overflow-visible">
+                    <table class="border-collapse   border border-gray-400 table-auto min-w-max w-full">
                         <thead class="bg-2081F2 ">
                         <tr>
                             <th class=" text-sm font-light px-2 leading-6 text-white  p-2">
