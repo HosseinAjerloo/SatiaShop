@@ -197,7 +197,7 @@
         </section>
 
 
-        <section class="flex items-center justify-between ">
+        <section class="flex items-center space-x-reverse space-x-[28px] ">
             <a href="{{route('admin.finance.transaction.index')}}"
                class="border border-black/30 rounded-md  flex items-center justify-center flex-col w-[32%]">
                 <div class="p-2">

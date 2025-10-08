@@ -36,8 +36,7 @@
                                             data-type="{{$user->customer_type}}">@if($user->customer_type=='juridical_person') {{$user->organizationORcompanyName??$user->fullName??''}}@else {{$user->fullName??'-'}} @endif</option>
                                 @endforeach
                             </select>
-                            <img src=" {{asset('capsule/images/search.svg')}}" alt=""
-                                 class="search cursor-pointer absolute top-[50%] right-[20px] translate-y-[-50%]">
+
                         </div>
                         </div>
                         <div class="flex items-center space-x-4 mt-4 sm:mt-0 space-x-reverse py-1.5 sm:px-2 rounded-md w-[50%]">
