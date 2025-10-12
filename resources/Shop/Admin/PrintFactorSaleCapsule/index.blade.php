@@ -41,8 +41,12 @@
                 table-layout: fixed !important;
                 border-collapse: collapse !important;
                 font-size: 9pt !important;
-                page-break-inside: avoid !important;
-                break-inside: avoid !important;
+                page-break-inside: auto !important;
+
+            }
+            tr{
+                page-break-inside: avoid !important; /* بهتره فقط روی سطرهای خیلی مهم */
+                page-break-after: auto !important;
             }
 
             th, td {

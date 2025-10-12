@@ -41,8 +41,7 @@
                 table-layout: fixed !important;
                 border-collapse: collapse !important;
                 font-size: 9pt !important;
-                page-break-inside: avoid !important;
-                break-inside: avoid !important;
+                page-break-inside: auto !important;
             }
 
             th, td {
@@ -53,7 +52,10 @@
                 white-space: normal !important;
                 word-wrap: break-word !important;
             }
-
+            tr{
+                page-break-inside: avoid !important; /* بهتره فقط روی سطرهای خیلی مهم */
+                page-break-after: auto !important;
+            }
             * {
                 print-color-adjust: exact !important;
                 -webkit-print-color-adjust: exact !important;
