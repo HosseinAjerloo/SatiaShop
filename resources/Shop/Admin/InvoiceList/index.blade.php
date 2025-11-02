@@ -4,12 +4,7 @@
 
     <section class=" space-y-6 ">
         <article class="space-y-5 bg-F1F1F1 p-3 ">
-            <article class="flex items-center space-x-reverse space-x-2">
 
-                <img src="{{asset('capsule/images/plus.svg')}}" alt="">
-
-                <h1 class="font-semibold w-52">لیست فاکتور ها</h1>
-            </article>
             <section class="w-full overflow-x-auto">
                 @csrf
 

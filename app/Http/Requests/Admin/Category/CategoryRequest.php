@@ -28,7 +28,7 @@ class CategoryRequest extends FormRequest
             'file' => [$routeCurrent->getName() == 'admin.category.update' ? 'nullable' : 'required', 'file', 'mimes:jpg,png,jpeg','max:'.env('FILE_SIZE')],
             'view_sort' => 'required',
             'status' => 'required|in:active,inactive',
-            'menu_id' => 'required|exists:menus,id',
+            'menu_id' => 'nullable|exists:menus,id',
             'category_id' => 'nullable|exists:categories,id',
         ];
     }

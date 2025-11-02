@@ -51,11 +51,11 @@
                                value="{{old('address')}}">
                     </div>
                 </section>
-                <div class=" flex space-x-reverse space-x-4 ">
-                    <label for="" class="flex items-center font-bold">این کاربر پشتیبان شود :</label>
-                    <input type="checkbox" @if(old('type')=='admin') checked="checked" @endif class="border-0  w-5 accent-2081F2" name="type"
-                           value="admin">
-                </div>
+{{--                <div class=" flex space-x-reverse space-x-4 ">--}}
+{{--                    <label for="" class="flex items-center font-bold">این کاربر پشتیبان شود :</label>--}}
+{{--                    <input type="checkbox" @if(old('type')=='admin') checked="checked" @endif class="border-0  w-5 accent-2081F2" name="type"--}}
+{{--                           value="admin">--}}
+{{--                </div>--}}
                 <input type="hidden" name="roles" id="roles" >
             </section>
             <section class="flex items-center justify-center space-x-reverse space-x-3 p-5">

@@ -18,11 +18,11 @@
                     نام دسته بندی
                 </h1>
             </div>
-            <div class="w-[11%] max-w-[11%]">
-                <h1 class="text-white text-min font-bold text-right">
-                    محل نمایش در منو
-                </h1>
-            </div>
+{{--            <div class="w-[11%] max-w-[11%]">--}}
+{{--                <h1 class="text-white text-min font-bold text-right">--}}
+{{--                    محل نمایش در منو--}}
+{{--                </h1>--}}
+{{--            </div>--}}
             <div class="w-[11%] max-w-[11%]">
                 <h1 class="text-white text-min font-bold text-right">
                     نام دسته والد
@@ -66,11 +66,11 @@
                             {{$category->removeUnderLine??''}}
                         </p>
                     </a>
-                    <div class="border-b border-black/35 sm:border-none w-full justify-between   sm:w-[11%] sm:max-w-[11%] text-min_sm   h-full flex items-center text-right whitespace-normal break-words ">
-                        <p class="sm:hidden text-min_sm ">محل نمایش در منو</p>
-                        {{$category->menu->name??''}}
+{{--                    <div class="border-b border-black/35 sm:border-none w-full justify-between   sm:w-[11%] sm:max-w-[11%] text-min_sm   h-full flex items-center text-right whitespace-normal break-words ">--}}
+{{--                        <p class="sm:hidden text-min_sm ">محل نمایش در منو</p>--}}
+{{--                        {{$category->menu->name??''}}--}}
 
-                    </div>
+{{--                    </div>--}}
                     <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] whitespace-normal break-words">
                         <p class="sm:hidden text-min_sm "> نام دسته والد</p>
                         <p class="text-black  text-min_sm   h-full flex items-center text-right ">

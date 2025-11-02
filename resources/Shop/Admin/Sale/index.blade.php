@@ -360,7 +360,7 @@
                             ذخیره
                         </button>
                         <button type="button" onclick="closeModal()"
-                                class="mt-3 inline-flex w-full justify-center ml-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto sm:mr-4">
+                                class="mt-3 text-white bg-rose-500 inline-flex w-full justify-center ml-3 rounded-md  px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 sm:mt-0 sm:w-auto sm:mr-4">
                             انصراف
                         </button>
                     </div>

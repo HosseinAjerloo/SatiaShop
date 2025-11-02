@@ -36,16 +36,16 @@
                     @endforeach
                 </select>
             </div>
-            <div class="flex items-center space-x-reverse space-x-8">
-                <h5 class="text-min font-light w-28">محل منوی نمایش :</h5>
-                <select name="menu_id" id="" class="outline-none border border-black rounded-md w-48 select2">
-                    @foreach($menus as $menu)
-                        <option
-                            @selected(old('menu_id',$category->menu_id)==$menu->id) value="{{$menu->id}}">{{$menu->name??""}}</option>
-                    @endforeach
+{{--            <div class="flex items-center space-x-reverse space-x-8">--}}
+{{--                <h5 class="text-min font-light w-28">محل منوی نمایش :</h5>--}}
+{{--                <select name="menu_id" id="" class="outline-none border border-black rounded-md w-48 select2">--}}
+{{--                    @foreach($menus as $menu)--}}
+{{--                        <option--}}
+{{--                            @selected(old('menu_id',$category->menu_id)==$menu->id) value="{{$menu->id}}">{{$menu->name??""}}</option>--}}
+{{--                    @endforeach--}}
 
-                </select>
-            </div>
+{{--                </select>--}}
+{{--            </div>--}}
             <div class="flex items-center space-x-reverse space-x-8 ">
                 <h5 class="text-min font-light w-28">وضعیت:</h5>
                 <div class="flex items-center space-x-3 space-x-reverse">
