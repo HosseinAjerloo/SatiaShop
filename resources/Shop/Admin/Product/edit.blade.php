@@ -117,7 +117,7 @@
                 <div
                     class=" border border-black rounded-md px-2 bg-red-500 py-1.5 flex items-center justify-center space-x-1 space-x-reverse">
                     <p class="text-min text-white font-bold">حذف کردن</p>
-                    <img src="{{asset('capsule/images/del2.svg')}}" alt="" class="w-2">
+                    <img src="{{asset('capsule/images/del2.svg')}}" alt="" class="w-4">
                 </div>
             </a>
             <div>

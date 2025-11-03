@@ -74,19 +74,19 @@
                         </p>
                         <p class="text-sky-500  text-min_sm sm:font-bold  h-full flex items-center text-right leading-8 underline underline-offset-4   whitespace-normal break-words ">
                             <a href="{{route('admin.user.edit',$user)}}">
-                                {{$user->name??''}}
+                                {{$user->fullName??''}}
                             </a>
                         </p>
                     </div>
                     <div class="border-b border-black/35 sm:border-none w-full justify-between   sm:w-[11%] sm:max-w-[11%] text-min_sm   h-full flex items-center text-right whitespace-normal break-words ">
                         <p class="sm:hidden text-min_sm font-bold">نام خانوادگی</p>
-                        {{$user->family??''}}
+                        {{$user->family??'--'}}
 
                     </div>
                     <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] whitespace-normal break-words">
                         <p class="sm:hidden text-min_sm font-bold">شماره موبایل</p>
                         <p class="text-black  text-min_sm sm:font-bold  h-full flex items-center text-right ">
-                            {{$user->mobile??''}}
+                            {{$user->mobile??'--'}}
                         </p>
                     </div>
                     <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] h-full whitespace-normal break-words">
@@ -94,7 +94,7 @@
                             شماره ثابت
                         </p>
                         <p class="text-black  text-sm sm:font-bold  h-full flex items-center text-right">
-                            {{$user->tel??''}}
+                            {{$user->tel??'--'}}
                         </p>
                     </div>
 
@@ -103,7 +103,7 @@
                             کدملی
                         </p>
                         <p class="text-black  text-min_sm sm:font-bold  h-full flex items-center text-right whitespace-normal break-words">
-                            {{$user->national_code??''}}
+                            {{$user->national_code??'--'}}
                         </p>
 
                     </div>
@@ -113,13 +113,13 @@
                             ایمیل
                         </p>
                         <p class="text-black  text-sm sm:font-bold  h-full flex items-center text-right whitespace-normal break-all">
-                            {{$user->email??''}}
+                            {{$user->email??'--'}}
                         </p>
                     </div>
                     <div class="border-b border-black/35 sm:border-none w-full  justify-between flex sm:w-[11%] sm:max-w-[11%] h-full whitespace-normal break-words">
                         <p class="sm:hidden text-min_sm font-bold">آدرس</p>
                         <p class="text-black  text-min_sm sm:font-bold  h-full flex items-center text-right whitespace-normal break-words">
-                            {{$user->address??''}}
+                            {{$user->address??'--'}}
                         </p>
                     </div>
                     <div class="border-b border-black/35 sm:border-none w-full justify-between flex sm:w-[11%] sm:max-w-[11%] h-full whitespace-normal break-words">

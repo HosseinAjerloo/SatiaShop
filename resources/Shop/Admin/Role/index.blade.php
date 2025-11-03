@@ -50,7 +50,7 @@
                             </td>
                             <td class="border border-gray-400   text-center p-1">
                                 <p class="sm:font-normal sm:text-sm text-[13px] p-1 w-full  ">
-                                    {{implode(' - ',$role->permissions->pluck('persian_name')->toArray())}}
+                                    {{\Illuminate\Support\Str::limit(implode(' - ',$role->permissions->pluck('persian_name')->toArray()),80)}}
                                 </p>
                             </td>
                             <td class="border border-gray-400   text-center p-1">
