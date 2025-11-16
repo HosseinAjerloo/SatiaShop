@@ -184,11 +184,9 @@
                                 انتخاب کنید
                             </option>
                             @foreach($categories as $category)
-                                @if(str_contains($category->removeUnderline,'کالای مربوط'))
                                     <option
                                         @selected(old('related_goods')==$category->id) value="{{$category->id}}">{{$category->removeUnderLine??''}}
                                     </option>
-                                @endif
                             @endforeach
                         </select>
                     </div>

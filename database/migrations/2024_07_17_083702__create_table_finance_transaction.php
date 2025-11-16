@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('siteService_id')->nullable()->constrained('site_services')->cascadeOnUpdate()->cascadeOnDelete();
 
             $table->integer('amount')->nullable();
-            $table->enum('type',['deposit','withdrawal','bank'])->nullable();
+            $table->enum('type',['deposit','withdrawal','bank','pos'])->nullable();
             $table->enum('status',['success','fail'])->default('success');
             $table->bigInteger('creadit_balance')->default(0);
             $table->string('description')->nullable();

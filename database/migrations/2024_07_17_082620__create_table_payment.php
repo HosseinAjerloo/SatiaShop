@@ -21,6 +21,8 @@ return new class extends Migration
             $table->text('RefNum')->nullable();
             $table->text('ResNum')->nullable();
             $table->text('description')->nullable();
+            $table->enum('payment_type',['pos','gateway'])->nullable();
+            $table->json('pos_info')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

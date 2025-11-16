@@ -2,6 +2,28 @@
 
 @section('content')
 
+    <section class="modal transition-all fixed w-full h-screen left-0 invisible top-0 bottom-0 right-0  bg-transparent">
+        <article class="absolute transition-all  top-[50%] left-1/2  translate-x-[-50%]   translate-y-[-80%] modal-white  w-1/4 h-[500] rounded-lg bg-white">
+            <div class="p-2 ">
+                <img class="w-7 cursor-pointer close-modal" src="{{asset('capsule/images/close.svg')}}" alt="">
+            </div>
+            <div  class="flex items-center justify-between flex-wrap p-10">
+                <form onclick="(this.submit())" method="POST"
+                      class="cursor-pointer p-5 w-[49%] flex-col space-y-3 flex items-center justify-center  h-1/2 rounded-lg border border-black border-solid">
+                    @csrf
+                    <img src="{{asset('capsule/images/kartkhan.svg')}}" alt="">
+                    <h1 class="text-black text-md font-extrabold">پرداخت باکارتخوان</h1>
+
+                </form  >
+                <form onclick="(this.submit())" method="POST"
+                      class="cursor-pointer p-5 w-[49%] flex-col space-y-3 flex items-center justify-center  h-1/2 rounded-lg border border-black border-solid">
+                    @csrf
+                    <img src="{{asset('capsule/images/dargah.svg')}}" alt="">
+                    <h1 class="text-black text-md font-extrabold">پرداخت بادرگاه</h1>
+                </form>
+            </div>
+        </article>
+    </section>
     <section class=" space-y-6 ">
         <article class="space-y-5 bg-F1F1F1 p-3 ">
 
@@ -33,12 +55,9 @@
                         <th class=" text-sm font-light px-2 leading-6 text-white ">
                             <span>مبلغ</span>
                         </th>
-
-
                         <th class=" text-sm font-light px-2 leading-6 text-white ">
                             <span>تاریخ</span>
                         </th>
-
                     </tr>
 
                     </thead>
@@ -118,30 +137,41 @@
 
                                 <a href="@if($reside->reside_type=='sell') {{route('admin.sale.show', $reside)}}  @else {{route('admin.invoice.issuance.index', $reside)}} @endif"
                                    class="w-full flex items-center justify-center p-1">
-                                    <img src="{{asset('capsule/images/eya.svg')}}" alt="">
+                                    <img src="{{asset('capsule/images/eya.svg')}}" alt="" class="w-10">
                                 </a>
 
                             </td>
                             <td class="border border-gray-400  text-center ">
-                                <form class=" flex items-center justify-center"
-                                      action="{{route('admin.invoice-list.payment',$reside)}}"
-                                      method="POST">
-                                    @csrf
-                                    <div @if($reside->status_bank!='finished') onclick="payment(event)  @endif "
-                                         class="h-full cursor-pointer flex items-center flex-col space-y-reverse space-y-1.5 w-full">
-
-                                            <span class="text-sm">
-                                              @if($reside->status_bank=='requested')
-                                                    درانتظار پرداخت
-                                                @elseif($reside->status_bank=='failed')
-                                                    پرداخت موفقیت آمیز نبود
-                                                @else
-                                                    باموفقیت پرداخت شده است
-                                                @endif
+                                <div data-payment_gateway="{{route('admin.invoice-list.payment',$reside)}}"
+                                     data-payment_pos="{{route('admin.invoice-list.pos',$reside)}}"
+                                    class="@if($reside->type=='invoice' and $reside->status!='paid') select-payment @endif h-full cursor-pointer flex items-center flex-col space-y-reverse space-y-1.5 w-full">
+                                    @if($reside->type=='reside')
+                                        <span class="text-sm">
+                                            نیاز به تایید فاکتور
+                                        </span>
+                                        <img class="w-8 " src="{{asset('capsule/images/invoice-wait.svg')}}  " alt="">
+                                    @elseif($reside->final_price==0)
+                                        <span class="text-sm">
+                                            نیاز به پرداخت ندارد
                                             </span>
-                                            <img class="w-7 " src="@if($reside->status_bank=='requested')  {{asset('capsule/images/payment-waiting.svg')}}  @elseif($reside->status_bank=='failed') {{asset('capsule/images/close.svg')}} @else {{asset('capsule/images/success.svg')}}  @endif" alt="">
-                                    </div>
-                                </form>
+                                        <img class="w-8 " src="{{asset('capsule/images/free.svg')}}  " alt="">
+                                    @elseif($reside->status_bank=='requested')
+                                        <span class="text-sm">
+                                            درانتظار پرداخت
+                                            </span>
+                                        <img class="w-8 " src="{{asset('capsule/images/payment-waiting.svg')}}" alt="">
+                                    @elseif($reside->status_bank=='failed')
+                                        <span class="text-sm">
+                                            پرداخت موفقیت آمیز نبود
+                                            </span>
+                                        <img class="w-7 " src="{{asset('capsule/images/close.svg')}}" alt="">
+                                    @else
+                                        <span class="text-sm">
+                                            پرداخت موفقیت آمیز
+                                            </span>
+                                        <img class="w-8 " src="{{asset('capsule/images/success.svg')}}" alt="">
+                                    @endif
+                                </div>
                             </td>
                             <td class="border border-gray-400   text-center p-1">
                                 <p
@@ -196,7 +226,6 @@
 
 @endsection
 @section('script')
-    @section('script')
 
         <script>
             let firstTrTbodyTable = document.querySelector('table tbody tr:first-child');
@@ -356,12 +385,48 @@
             }
         </script>
         <script>
-            function payment(event) {
-                if (event.target.nodeName !== 'DIV')
-                    event.target.parentElement.parentElement.submit()
-                else
-                    event.target.parentElement.submit()
 
-            }
+
+
+            let btnSelectPayments = document.querySelectorAll('.select-payment');
+            let modal = document.querySelector('.modal');
+            let modalWhite = document.querySelector('.modal-white');
+            btnSelectPayments.forEach((element)=>{
+                element.addEventListener('click',function (e){
+                    modalWhite.children[1].children[0].action=e.currentTarget.dataset.payment_pos;
+                    modalWhite.children[1].children[1].action=e.currentTarget.dataset.payment_gateway;
+                        modal.style.transition =
+                        'background-color 1s ease , backdrop-filter 1s ease , visibility 1s ease ';
+                    modal.style.backgroundColor='rgba(0,0,0,.5)';
+                    modal.style.visibility='visible';
+                    modal.style.backdropFilter = 'blur(3px)';
+                    modalWhite.style.transition =
+                        'top 1s ease .7s ,left 1s ease .7s, transform 1s ease .7s,opacity 1s ease .7s,visibility 1s ease .7s ';
+                    modalWhite.style.top='50%';
+                    modalWhite.style.left='50%';
+                    modalWhite.style.transform='translateX(-50%) translateY(-50%)'
+                    modalWhite.style.opacity='1'
+                    modalWhite.style.visibility='visible'
+
+
+                })
+            })
+
+            let btnCloseModal = document.querySelector('.close-modal');
+            btnCloseModal.addEventListener('click', function (e) {
+                const grandFatherElement = e.currentTarget.closest('article');
+                grandFatherElement.style.transition ='transform .5s ease .5s,opacity .5s ease .5s,visibility .5s ease .5s';
+                grandFatherElement.style.transform = 'translateY(-80%) translateX(-50%)';
+                    grandFatherElement.style.opacity = 0;
+                    grandFatherElement.style.visibility = 'hidden';
+                    grandFatherElement.parentElement.style.transition =
+                        'background-color 0s ease 1s, backdrop-filter 0s ease 1s, visibility 0s ease 1s';
+                    grandFatherElement.parentElement.style.backgroundColor = 'transparent'
+                    grandFatherElement.parentElement.style.backdropFilter = 'blur(0)';
+                    grandFatherElement.parentElement.style.visibility = 'hidden';
+            });
+
+
+
         </script>
-    @endsection
+@endsection

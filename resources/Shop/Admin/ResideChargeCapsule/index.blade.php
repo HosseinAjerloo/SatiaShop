@@ -28,7 +28,7 @@
                         <div class="flex items-center sm:w-[50%]">
                             <h1 class="font-bold w-36 tracking-wider">جستوجوی مشتری:</h1>
                             <div class="relative w-full mt-3 sm:mt-0 sm:w-[50%]">
-                       
+
                                 <select type="text"
                                         class="select-user placeholder:text-min placeholder:text-black/50 outline-none text-right searchInput bg-transparent w-full select2 px-10"
                                         name="name" id="input_search">
@@ -336,11 +336,10 @@
                                     class="w-full rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-600 select2-category">
                                     <option>انتخاب کنید</option>
                                     @foreach($filterProducts as $product)
-                                        @if(!str_contains($product->category->removeUnderline,'کالای مربوط'))
+
                                             <option
                                                 data-id="{{$product->category_id}}">{{getGrandParentَAll($product)}}
                                             </option>
-                                        @endif
 
                                     @endforeach
                                 </select>

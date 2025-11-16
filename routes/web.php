@@ -1,23 +1,8 @@
 <?php
 
-
-use App\Http\Requests\Admin\Product\ProductRequest;
-use App\Models\Bank;
-use App\Models\Cart;
-use App\Models\CartItem;
 use App\Models\Payment;
-use App\Models\Product;
-use App\Models\ResideItem;
-use App\Models\User;
-use App\Services\ImageService\ImageService;
-use App\Services\SmsService\SatiaService;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
-use App\Http\Traits\HasCart;
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use \Illuminate\Support\Facades\Http;
 
 Route::middleware('guest')->group(function () {
     Route::name('login.')->prefix('login')->group(function () {
@@ -92,9 +77,9 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
     Route::prefix('user')->name('admin.user.')->group(function () {
         Route::get('/', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('index');
         Route::get('create', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('create');
-        Route::post('store',[App\Http\Controllers\Admin\UserController::class, 'store'])->name('store');
-        Route::get('edit/{user}',[App\Http\Controllers\Admin\UserController::class, 'edit'])->name('edit');
-        Route::put('update/{user}',[App\Http\Controllers\Admin\UserController::class, 'update'])->name('update');
+        Route::post('store', [App\Http\Controllers\Admin\UserController::class, 'store'])->name('store');
+        Route::get('edit/{user}', [App\Http\Controllers\Admin\UserController::class, 'edit'])->name('edit');
+        Route::put('update/{user}', [App\Http\Controllers\Admin\UserController::class, 'update'])->name('update');
     });
 
 
@@ -239,8 +224,8 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
         Route::get('', [App\Http\Controllers\Admin\Sale\SaleController::class, 'index'])->name('index');
         Route::get('capsule', [App\Http\Controllers\Admin\Sale\SaleController::class, 'saleReside'])->name('saleReside');
         Route::post('', [App\Http\Controllers\Admin\Sale\SaleController::class, 'store'])->name('store');
-        Route::get('edit/{reside}',[App\Http\Controllers\Admin\Sale\SaleController::class,'edit'])->name('edit');
-        Route::put('update/{reside}',[App\Http\Controllers\Admin\Sale\SaleController::class,'update'])->name('update');
+        Route::get('edit/{reside}', [App\Http\Controllers\Admin\Sale\SaleController::class, 'edit'])->name('edit');
+        Route::put('update/{reside}', [App\Http\Controllers\Admin\Sale\SaleController::class, 'update'])->name('update');
         Route::get('show/{reside}', [App\Http\Controllers\Admin\Sale\SaleController::class, 'show'])->name('show');
         Route::post('generate-factor/{reside}', [App\Http\Controllers\Admin\Sale\SaleController::class, 'generateFactor'])->name('generate.factor');
         Route::get('print-factor/{reside}', [App\Http\Controllers\Admin\Sale\SaleController::class, 'printFactor'])->name('printFactor');
@@ -248,41 +233,45 @@ Route::prefix('admin')->middleware(['auth', 'AdminLogin'])->group(function () {
 
     });
 
-    Route::prefix('role')->name('admin.role.')->group(function (){
-       Route::get('',[App\Http\Controllers\Admin\Role\RoleController::class,'index'])->name('index');
-       Route::get('create',[App\Http\Controllers\Admin\Role\RoleController::class,'create'])->name('create');
-       Route::post('store',[App\Http\Controllers\Admin\Role\RoleController::class,'store'])->name('store');
-       Route::get('edit/{role}',[App\Http\Controllers\Admin\Role\RoleController::class,'edit'])->name('edit');
-       Route::put('update/{role}',[App\Http\Controllers\Admin\Role\RoleController::class,'update'])->name('update');
-       Route::get('delete/{role}',[App\Http\Controllers\Admin\Role\RoleController::class,'destroy'])->name('destroy');
+    Route::prefix('role')->name('admin.role.')->group(function () {
+        Route::get('', [App\Http\Controllers\Admin\Role\RoleController::class, 'index'])->name('index');
+        Route::get('create', [App\Http\Controllers\Admin\Role\RoleController::class, 'create'])->name('create');
+        Route::post('store', [App\Http\Controllers\Admin\Role\RoleController::class, 'store'])->name('store');
+        Route::get('edit/{role}', [App\Http\Controllers\Admin\Role\RoleController::class, 'edit'])->name('edit');
+        Route::put('update/{role}', [App\Http\Controllers\Admin\Role\RoleController::class, 'update'])->name('update');
+        Route::get('delete/{role}', [App\Http\Controllers\Admin\Role\RoleController::class, 'destroy'])->name('destroy');
     });
 
-    Route::prefix('charging-operation')->name('admin.charging-operation.')->group(function (){
-            Route::get('',[App\Http\Controllers\Admin\ChargingOperation\ChargingOperationController::class,'index'])->name('index');
-            Route::post('search-ajax',[App\Http\Controllers\Admin\ChargingOperation\ChargingOperationController::class,'searchAjax'])->name('searchAjax');
+    Route::prefix('charging-operation')->name('admin.charging-operation.')->group(function () {
+        Route::get('', [App\Http\Controllers\Admin\ChargingOperation\ChargingOperationController::class, 'index'])->name('index');
+        Route::post('search-ajax', [App\Http\Controllers\Admin\ChargingOperation\ChargingOperationController::class, 'searchAjax'])->name('searchAjax');
     });
 
 
-    Route::prefix('scan-qrCode')->name('admin.scanQrCode.')->group(function (){
-        Route::get('/{resideItemHistory}',[App\Http\Controllers\Admin\ScanQrCode\ScanQrCodeController::class,'index'])->name('index');
-        Route::get('/{resideItemHistory}/create',[App\Http\Controllers\Admin\ScanQrCode\ScanQrCodeController::class,'create'])->name('create');
-        Route::post('/{resideItemHistory}/store',[App\Http\Controllers\Admin\ScanQrCode\ScanQrCodeController::class,'store'])->name('store');
+    Route::prefix('scan-qrCode')->name('admin.scanQrCode.')->group(function () {
+        Route::get('/{resideItemHistory}', [App\Http\Controllers\Admin\ScanQrCode\ScanQrCodeController::class, 'index'])->name('index');
+        Route::get('/{resideItemHistory}/create', [App\Http\Controllers\Admin\ScanQrCode\ScanQrCodeController::class, 'create'])->name('create');
+        Route::post('/{resideItemHistory}/store', [App\Http\Controllers\Admin\ScanQrCode\ScanQrCodeController::class, 'store'])->name('store');
     });
 
-    Route::prefix('invoice-list')->name('admin.invoice-list.')->group(function (){
-        Route::get('',[App\Http\Controllers\Admin\InvoiceList\InvoiceListController::class,'index'])->name('index');
-        Route::post('/payment/{reside}',[App\Http\Controllers\Admin\InvoiceList\InvoiceListController::class,'payment'])->name('payment');
-        Route::post('payment-back', [App\Http\Controllers\Admin\InvoiceList\InvoiceListController::class,'paymentBack'])->withoutMiddleware(Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class)->name('back');
-
-        Route::post('search',[App\Http\Controllers\Admin\InvoiceList\InvoiceListController::class,'search'])->name('search');
+    Route::prefix('invoice-list')->name('admin.invoice-list.')->group(function () {
+        Route::get('', [App\Http\Controllers\Admin\InvoiceList\InvoiceListController::class, 'index'])->name('index');
+        Route::post('/payment/{reside}', [App\Http\Controllers\Admin\InvoiceList\InvoiceListController::class, 'payment'])->name('payment');
+        Route::post('payment-back', [App\Http\Controllers\Admin\InvoiceList\InvoiceListController::class, 'paymentBack'])->withoutMiddleware(Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class)->name('back');
+        Route::post('payment/pos/{reside}',[App\Http\Controllers\Admin\InvoiceList\InvoiceListController::class,'paymentPos'])->name('pos');
+        Route::post('search', [App\Http\Controllers\Admin\InvoiceList\InvoiceListController::class, 'search'])->name('search');
 
     });
-    Route::get('print-capsule/{resideItem}',[App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'printCapsule'])->name('admin.print.capsule');
+    Route::get('print-capsule/{resideItem}', [App\Http\Controllers\Admin\InvoiceIssuance\InvoiceIssuanceController::class, 'printCapsule'])->name('admin.print.capsule');
 
-    Route::view('my-menu','Admin.adminMenu')->name('admin.my-menu');
+    Route::view('my-menu', 'Admin.adminMenu')->name('admin.my-menu');
 });
 
 Route::fallback(function () {
     abort(404);
 });
 
+Route::get('test', function () {
+
+
+});

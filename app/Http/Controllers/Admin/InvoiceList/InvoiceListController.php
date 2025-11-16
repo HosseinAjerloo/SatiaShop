@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class InvoiceListController extends Controller
@@ -64,7 +65,7 @@ class InvoiceListController extends Controller
     {
 
         try {
-            if ($reside->type=='reside')
+            if ($reside->type == 'reside')
                 return redirect()->route('admin.invoice-list.index')->withErrors(['error' => 'لطفاً ابتدا رسید خود را به فاکتور تبدیل نمایید، سپس پرداخت را انجام دهید.']);
 
             $user = Auth::user();
@@ -78,6 +79,7 @@ class InvoiceListController extends Controller
                     'reside_id' => $reside->id,
                     'amount' => $reside->final_price,
                     'state' => 'requested',
+                    'payment_type' => 'gateway'
                 ]
             );
             $payment->update(['order_id' => $payment->id + Payment::transactionNumber]);
@@ -221,7 +223,7 @@ class InvoiceListController extends Controller
 
             $resideItem = $reside->resideItem;
             if ($reside->reside_type == 'recharge') {
-                foreach ($resideItem as $item){
+                foreach ($resideItem as $item) {
                     foreach ($item->productResidItem as $product) {
                         $productTransaction = $product->productTransaction()->latest()->first();
 
@@ -261,6 +263,169 @@ class InvoiceListController extends Controller
 
             return redirect()->route('admin.invoice-list.index')->withErrors(['error-SweetAlert' => "خطایی رخ داد لطفا جهت پیگیری پرداخت با پشتیبانی تماس حاصل فرمایید باتشکر"]);
 
+        }
+    }
+
+    public function paymentPos(Reside $reside)
+    {
+        try {
+
+            $user = Auth::user();
+            $balance = $reside->user->getCreaditBalance();
+            Http::fake([
+                env('PC_POS') => Http::response([
+                    "Envelope" => [
+                        "Body" => [
+                            "PcPosSaleResponse" => [
+                                "PcPosSaleResult" => [
+                                    "PacketType" => "",
+                                    "ResponseCode" => "00",
+                                    "ResponseCodeMessage" => "تراکنش موفق",
+                                    "Amount" => "13000",
+                                    "CardNo" => "606373******7399",
+                                    "ProcessingCode" => "000000",
+                                    "TransactionNo" => "001863",
+                                    "TransactionTime" => "12:23:38",
+                                    "TransactionDate" => "1404/08/21",
+                                    "Rrn" => "329515321340",
+                                    "ApprovalCode" => "001863",
+                                    "TerminalId" => "33765353",
+                                    "MerchantId" => "000000131436562",
+                                    "OptionalField" => "",
+                                    "PcPosStatus" => "ارتباط موفق با دستگاه",
+                                    "PcPosStatusCode" => 4,
+                                    "OrderId" => "123451",
+                                    "SaleId" => "12345"
+                                ]
+                            ]
+                        ]
+                    ]
+                ], 200)
+            ]);
+            $payment = Payment::create(
+                [
+                    'reside_id' => $reside->id,
+                    'amount' => $reside->final_price,
+                    'state' => 'requested',
+                    'payment_type' => 'pos'
+                ]
+            );
+
+            $payment->update(['order_id' => $payment->id + Payment::transactionNumber]);
+
+            $financeTransaction = FinanceTransaction::create([
+                'user_id' => $reside->user->id,
+                'operator_id' => $user->id,
+                'amount' => $payment->amount,
+                'type' => "pos",
+                "creadit_balance" => $balance,
+                'description' => "ارسال درخواست با دستگاه پوز",
+                'payment_id' => $payment->id,
+            ]);
+            Log::channel('posLog')->emergency(PHP_EOL . 'Connection with pos system the pos payment'
+                . PHP_EOL .
+                'payment price: ' . $reside->final_price
+                . PHP_EOL .
+                'payment date: ' . Carbon::now()->toDateTimeString()
+                . PHP_EOL .
+                'user ID: ' . $user->id
+                . PHP_EOL
+            );
+            $response = Http::post(env('PC_POS_IP'),
+                [
+                    "token" => env('PC_POS_TOKEN'),
+                    "payId" => $payment->order_id,
+                    "orderId" => $payment->order_id,
+                    "amount" => (float)$reside->final_price
+                ]);
+
+
+
+            if (!$response->ok() || !$response->successful())
+                throw new Exception('filed payment pcPos');
+
+            $body = $response->json('Envelope');
+            if (!empty($body) && isset($body['Body'])) {
+                $body = $body['Body']['PcPosSaleResponse']['PcPosSaleResult'];
+                $payment->update(['pos_info'=>$body]);
+                if ($body['ResponseCode'] == "00") {
+
+                    $payment->update(
+                        [
+                            'state' => 'finished',
+                            'description' => 'پرداخت با موفقیت انجام شد'
+                        ]);
+                    $reside->update(['status' => 'paid', 'status_bank' => 'finished']);
+                    $financeTransaction->update([
+                        'user_id' => $reside->user->id,
+                        'amount' => $payment->amount,
+                        'type' => "deposit",
+                        "creadit_balance" => $balance + $payment->amount,
+                        'description' => ' افزایش کیف پول جهت پرداخت سفارش',
+                        'payment_id' => $payment->id,
+                    ]);
+
+                    FinanceTransaction::create([
+                        'user_id' => $reside->user->id,
+                        'operator_id' => $user->id,
+                        'amount' => $payment->amount,
+                        'type' => "withdrawal",
+                        "creadit_balance" => $financeTransaction->creadit_balance - $payment->amount,
+                        'description' => 'برداشت از کیف پول چهت پرداخت سفارش',
+                        'payment_id' => $payment->id,
+                    ]);
+
+                    $resideItem = $reside->resideItem;
+                    if ($reside->reside_type == 'recharge') {
+                        foreach ($resideItem as $item) {
+                            foreach ($item->productResidItem as $product) {
+                                $productTransaction = $product->productTransaction()->latest()->first();
+
+                                \App\Models\ProductTransaction::create([
+                                    'user_id' => $user->id,
+                                    'product_id' => $product->id,
+                                    'reside_id' => $reside->id,
+                                    'amount' => $product->pivot->amount,
+                                    'remain' => $productTransaction->remain - $product->pivot->amount,
+                                    'type' => 'minus'
+                                ]);
+                            }
+
+                        }
+
+                    } else {
+                        foreach ($resideItem as $item) {
+                            $productTransaction = $item->product->productTransaction()->latest()->first();
+
+                            \App\Models\ProductTransaction::create([
+                                'user_id' => $user->id,
+                                'product_id' => $item->product->id,
+                                'reside_id' => $reside->id,
+                                'amount' => $item->amount,
+                                'remain' => $productTransaction->remain - $item->amount,
+                                'type' => 'minus'
+                            ]);
+                        }
+
+                    }
+
+
+                    return redirect()->route('admin.invoice-list.index')->with(['success' => 'پرداخت باموفقیت انجام شد']);
+
+                } else {
+                    $reside->update(['status_bank' => 'failed']);
+                    $payment->update(['description' => "پرداخت موفقیت آمیز نبود", 'state' => 'failed']);
+                    $financeTransaction->update(['description' => "پرداخت موفقیت آمیز نبود", 'status' => 'fail']);
+                    Log::emergency(PHP_EOL . "پرداخت موفقیت آمیز نبود" . PHP_EOL);
+                    return redirect()->route('admin.invoice-list.index')->withErrors(['error' => 'پرداخت موفقیت آمیز نبود']);
+                }
+            }
+        } catch (\Exception $error) {
+            $reside->update(['status_bank' => 'failed']);
+            $payment->update(['description' => "ارتباط با دستگاه پوز فراهم نشد", 'state' => 'failed']);
+            $financeTransaction->update(['description' => "ارتباط با دستگاه پوز فراهم نشد", 'status' => 'fail']);
+            Log::emergency(PHP_EOL . $error->getMessage() . PHP_EOL);
+            return redirect()->route('admin.invoice-list.index')->withErrors(['error' => 'ارتباط با دستگاه پوز فراهم نشد']);
         }
     }
 
