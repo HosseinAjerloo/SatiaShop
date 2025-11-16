@@ -195,7 +195,7 @@
                                                     <input type="radio" name="disc">
                                                     <div
                                                         class="invisible flex items-center w-3/5  space-x-reverse space-x-4 ">
-                                                        <input type="number" min="0" max="100" name="discount_price"
+                                                        <input type="number" min="0"  name="discount_price"
                                                                class="w-3/5	 border  rounded-md p-[3px] text-center outline-none discount"
                                                                value="{{$reside->discount_price>0?$reside->discount_price:null}}">
                                                         <h1 class="font-bold">ریال مبلغ</h1>
@@ -261,11 +261,18 @@
                     </table>
                     <section class="flex items-center justify-center w-full space-x-reverse space-x-3 p-5">
                         <div class="bg-268832 px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
-                            <button class="sodurFactor" type="button">صدور فاکتورنهایی وپرینت</button>
+                            <button class="sodurFactor" type="button">
+                                @if($reside->type=='reside')
+                                    صدور فاکتورنهایی وپرینت
+                                @else
+                                    پرینت فاکتور
+                                @endif
+
+                            </button>
                         </div>
                         @if($reside->type=='reside')
                             <div class="bg-2081F2 px-2 text-sm font-medium shadow py-1 text-white  rounded-md">
-                                <button>صدور فاکتور</button>
+                                <button type="submit">صدور فاکتور</button>
                             </div>
                         @endif
                     </section>
