@@ -244,6 +244,8 @@ return [
         'permission_id'=>'الگوی دسترسی',
         'discountFile'=>'فایل ضمیمه تخفیف',
         'roles'=>'نقش ها',
+        'discount_price'=>'کسر از قیمت',
+        'discountDecimal'=>'تخفیف %'
 
     ],
 
