@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -24,12 +25,9 @@ class InvoiceListController extends Controller
     public function index()
     {
         $breadcrumbs = Breadcrumbs::render('admin.invoice-list.index')->getData()['breadcrumbs'];
-        $resides = Reside::whereHas('resideItem', function ($query) {
-            $query->whereHas('productResidItem');
-        })
-            ->whereDoesntHave('resideItem', function ($query) {
-                $query->doesntHave('productResidItem');
-            })->orWhere('reside_type', 'sell')->orderBy('created_at', 'desc')
+        $resides = Reside::whereDoesntHave('resideItem', function ($query) {
+            $query->doesntHave('productResidItem');
+        })->orWhere('reside_type', 'sell')->orderBy('created_at', 'desc')
             ->paginate(10);
         return view('Admin.InvoiceList.index', compact('resides', 'breadcrumbs'));
     }
@@ -48,7 +46,10 @@ class InvoiceListController extends Controller
             $reside->capsuleCount = $reside->reside_type == 'sell' ? $reside->resideItem->sum('amount') : $reside->resideItem->count();
             $reside->final_pricePersian = $reside->final_price != 0 ? numberFormat($reside->final_price) : numberFormat($reside->totalPrice());
             $reside->invoiceRoute = $reside->reside_type == 'sell' ? route('admin.sale.show', $reside) : route('admin.invoice.issuance.index', $reside);
-            if ($reside->status_bank == 'requested') {
+
+            if ($reside->type == 'reside') {
+                $reside->image_payment = asset('capsule/images/invoice-wait.svg');
+            } elseif ($reside->status_bank == 'requested') {
                 $reside->image_payment = asset('capsule/images/payment-waiting.svg');
             } elseif ($reside->status_bank == 'failed') {
                 $reside->image_payment = asset('capsule/images/close.svg');
@@ -56,8 +57,21 @@ class InvoiceListController extends Controller
                 $reside->image_payment = asset('capsule/images/success.svg');
             }
             $reside->type_change = $reside->reside_type == 'recharge' ? 'شارژ و تمدید کپسول' : 'فروش';
-            $reside->paymentRoute = route('admin.invoice-list.payment', $reside);
+            $reside->paymentGatewayRoute = route('admin.invoice-list.payment', $reside);
+            $reside->paymentPosRoute = route('admin.invoice-list.pos', $reside);
+
         }
+            if (isset($request->final_price)){
+                $record=$resides->filter(function ($res) use ($request){
+                   return $res->paymentPrice>=$request->final_price;
+                });
+                $resides=collect();
+                $record->map(function ($res) use ($resides){
+                $resides->add($res);
+
+                });
+
+            }
         return response()->json(['success' => true, 'data' => $resides]);
     }
 
@@ -340,14 +354,13 @@ class InvoiceListController extends Controller
                 ]);
 
 
-
             if (!$response->ok() || !$response->successful())
                 throw new Exception('filed payment pcPos');
 
             $body = $response->json('Envelope');
             if (!empty($body) && isset($body['Body'])) {
                 $body = $body['Body']['PcPosSaleResponse']['PcPosSaleResult'];
-                $payment->update(['pos_info'=>$body]);
+                $payment->update(['pos_info' => $body]);
                 if ($body['ResponseCode'] == "00") {
 
                     $payment->update(

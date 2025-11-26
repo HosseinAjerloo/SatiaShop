@@ -51,8 +51,8 @@ class ProductController extends Controller
     public function store(ProductRequest $request, ImageService $imageService)
     {
         Gate::authorize('admin.category.create');
-
         $inputs = $request->all();
+//        dd($inputs);
         $user = Auth::user();
         $inputs['user_id'] = $user->id;
 
@@ -69,7 +69,6 @@ class ProductController extends Controller
             'path' => $image,
             'user_id' => $user->id
         ]);
-
         if ($inputs['is_favorite'])
         {
             $product->userFavorite()->toggle($user->id);

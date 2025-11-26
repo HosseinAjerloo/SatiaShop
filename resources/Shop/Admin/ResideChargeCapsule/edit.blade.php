@@ -44,8 +44,6 @@
                                         </option>
                                     @endforeach
                                 </select>
-                                <img src=" {{asset('capsule/images/search.svg')}}" alt=""
-                                     class="search cursor-pointer absolute top-[50%] right-[20px] translate-y-[-50%]">
                             </div>
                         </div>
                         <div

@@ -3,20 +3,20 @@
 @section('content')
 
     <section class="modal transition-all fixed w-full h-screen left-0 invisible top-0 bottom-0 right-0  bg-transparent">
-        <article class="absolute transition-all  top-[50%] left-1/2  translate-x-[-50%]   translate-y-[-80%] modal-white  w-1/4 h-[500] rounded-lg bg-white">
+        <article class="absolute transition-all   top-[50%] left-1/2  translate-x-[-50%]   translate-y-[-80%] modal-white  w-full md:w-[70%] lg:w-1/2 xl:w-[40%] 2xl:w-1/4 h-[500] rounded-lg bg-white">
             <div class="p-2 ">
                 <img class="w-7 cursor-pointer close-modal" src="{{asset('capsule/images/close.svg')}}" alt="">
             </div>
-            <div  class="flex items-center justify-between flex-wrap p-10">
+            <div  class="flex space-y-2 md:space-y-0 items-center justify-between flex-wrap p-10">
                 <form onclick="(this.submit())" method="POST"
-                      class="cursor-pointer p-5 w-[49%] flex-col space-y-3 flex items-center justify-center  h-1/2 rounded-lg border border-black border-solid">
+                      class="cursor-pointer p-5 w-full sm:w-[49%] flex-col space-y-3 flex items-center justify-center  h-1/2 rounded-lg border border-black border-solid">
                     @csrf
                     <img src="{{asset('capsule/images/kartkhan.svg')}}" alt="">
                     <h1 class="text-black text-md font-extrabold">پرداخت باکارتخوان</h1>
 
                 </form  >
                 <form onclick="(this.submit())" method="POST"
-                      class="cursor-pointer p-5 w-[49%] flex-col space-y-3 flex items-center justify-center  h-1/2 rounded-lg border border-black border-solid">
+                      class="cursor-pointer p-5 w-full sm:w-[49%] flex-col space-y-3 flex items-center justify-center  h-1/2 rounded-lg border border-black border-solid">
                     @csrf
                     <img src="{{asset('capsule/images/dargah.svg')}}" alt="">
                     <h1 class="text-black text-md font-extrabold">پرداخت بادرگاه</h1>
@@ -306,6 +306,7 @@
             }
 
             function generateElement(data) {
+                console.log(data.data);
                 removeRow()
                 let myHtml = '';
                 data.data.forEach(function (value, index) {
@@ -326,19 +327,18 @@
                                    </a>
                         </td>
                         <td class="border border-gray-400  text-center ">
-                              <form method='POST' action="${value.paymentRoute}" class="flex items-center justify-center">
-                              @csrf
-                    <div ${value.status_bank != 'finished' ? 'onclick="payment(event)' : ''} "
-                                         class="h-full cursor-pointer flex items-center flex-col space-y-reverse space-y-1.5 w-full">
+
+                                <div data-payment_gateway="${value.paymentGatewayRoute}"  data-payment_pos="${value.paymentPosRoute}"
+                                   class="h-full ${value.type=='invoice' && value.status!='paid' ?'select-payment':''}  cursor-pointer flex items-center flex-col space-y-reverse space-y-1.5 w-full">
                                         <span class="text-sm">
-                                        ${value.status_bank == 'requested' ? 'درانتظار پرداخت' : value.status_bank == 'failed' ? 'پرداخت موفقیت آمیز نبود' : 'باموفقیت پرداخت شده است'}
+                                             ${value.type == 'reside'?'نیاز به تایید فاکتور':value.status_bank == 'requested' ? 'درانتظار پرداخت' : value.status_bank == 'failed' ? 'پرداخت موفقیت آمیز نبود' : 'باموفقیت پرداخت شده است'}
                                         </span>
                                             <img class="w-7 "src="${value.image_payment}" alt="">
 
                                 </div>
 
 
-                              </form>
+
                             </td>
                         <td class="border border-gray-400  text-center  p-1">
                             <p class="sm:font-normal sm:text-sm  text-[13px] p-1 w-full underline underline-sky-500 underline-offset-4 decoration-sky-500 text-sky-600 ">
@@ -374,7 +374,9 @@
 
                     </tr>`;
                 });
-                window.tbody.insertAdjacentHTML('beforeend', myHtml)
+                window.tbody.insertAdjacentHTML('beforeend', myHtml);
+                payment();
+
             }
 
         </script>
@@ -388,29 +390,32 @@
 
 
 
-            let btnSelectPayments = document.querySelectorAll('.select-payment');
-            let modal = document.querySelector('.modal');
-            let modalWhite = document.querySelector('.modal-white');
-            btnSelectPayments.forEach((element)=>{
-                element.addEventListener('click',function (e){
-                    modalWhite.children[1].children[0].action=e.currentTarget.dataset.payment_pos;
-                    modalWhite.children[1].children[1].action=e.currentTarget.dataset.payment_gateway;
+            const payment=()=>{
+                let btnSelectPayments = document.querySelectorAll('.select-payment');
+                let modal = document.querySelector('.modal');
+                let modalWhite = document.querySelector('.modal-white');
+                btnSelectPayments.forEach((element)=>{
+                    element.addEventListener('click',function (e){
+                        modalWhite.children[1].children[0].action=e.currentTarget.dataset.payment_pos;
+                        modalWhite.children[1].children[1].action=e.currentTarget.dataset.payment_gateway;
                         modal.style.transition =
-                        'background-color 1s ease , backdrop-filter 1s ease , visibility 1s ease ';
-                    modal.style.backgroundColor='rgba(0,0,0,.5)';
-                    modal.style.visibility='visible';
-                    modal.style.backdropFilter = 'blur(3px)';
-                    modalWhite.style.transition =
-                        'top 1s ease .7s ,left 1s ease .7s, transform 1s ease .7s,opacity 1s ease .7s,visibility 1s ease .7s ';
-                    modalWhite.style.top='50%';
-                    modalWhite.style.left='50%';
-                    modalWhite.style.transform='translateX(-50%) translateY(-50%)'
-                    modalWhite.style.opacity='1'
-                    modalWhite.style.visibility='visible'
+                            'background-color 1s ease , backdrop-filter 1s ease , visibility 1s ease ';
+                        modal.style.backgroundColor='rgba(0,0,0,.5)';
+                        modal.style.visibility='visible';
+                        modal.style.backdropFilter = 'blur(3px)';
+                        modalWhite.style.transition =
+                            'top 1s ease .7s ,left 1s ease .7s, transform 1s ease .7s,opacity 1s ease .7s,visibility 1s ease .7s ';
+                        modalWhite.style.top='50%';
+                        modalWhite.style.left='50%';
+                        modalWhite.style.transform='translateX(-50%) translateY(-50%)'
+                        modalWhite.style.opacity='1'
+                        modalWhite.style.visibility='visible'
 
 
+                    })
                 })
-            })
+            }
+            payment();
 
             let btnCloseModal = document.querySelector('.close-modal');
             btnCloseModal.addEventListener('click', function (e) {

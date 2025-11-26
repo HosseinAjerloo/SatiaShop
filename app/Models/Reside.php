@@ -11,7 +11,8 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Reside extends Model
 {
-    use SoftDeletes,HasDiscount;
+    use SoftDeletes, HasDiscount;
+
     protected $fillable =
         [
             'user_id',
@@ -53,7 +54,7 @@ class Reside extends Model
             })->first();
             $user ? $query->where('user_id', $user->id) : '';
         })->when(request()->input('count_capsule'), function ($query) {
-            $query->when(request()->input('reside_type'),function ($query,$value){
+            $query->when(request()->input('reside_type'), function ($query, $value) {
                 $resideType = request()->input('reside_type');
                 if (str_contains($resideType, 'شارژ')) {
                     $query->where('reside_type', 'recharge');
@@ -92,13 +93,9 @@ class Reside extends Model
             $date = date('Y/m/d', $date);
 
             $query->whereDate('created_at', ">", $date);
-        })->when(request()->input('type'),function ($query,$value){
-            $query->where('type',$value);
-        })->when(request()->input('final_price'),function ($query,$value){
-            $query->where('final_price',">=",$value);
+        })->when(request()->input('type'), function ($query, $value) {
+            $query->where('type', $value);
         });
-
-
     }
 
     public function totalPrice()
@@ -128,32 +125,32 @@ class Reside extends Model
         }
         return roundNumber($total);
     }
-    public function file(){
-        return $this->morphMany(File::class,'files','fileable_type','fileable_id');
+
+    public function file()
+    {
+        return $this->morphMany(File::class, 'files', 'fileable_type', 'fileable_id');
     }
+
     public function isDiscount()
     {
-        $status=false;
-        if ($this->discount_collection>0)
-        {
-            $status=true;
-        }elseif ($this->discount_price>0)
-        {
-            $status=true;
+        $status = false;
+        if ($this->discount_collection > 0) {
+            $status = true;
+        } elseif ($this->discount_price > 0) {
+            $status = true;
         }
         return $status;
 
 
     }
+
     public function calculationWithDiscount()
     {
-        $price=$this->total_price;
-        if ($this->discount_collection>0)
-        {
-            $price=$this->calculateDecimal($this->total_price,$this->discount_collection);
-        }elseif ($this->discount_price>0)
-        {
-            $price=$this->calculatePrice($this->total_price,$this->discount_price);
+        $price = $this->total_price;
+        if ($this->discount_collection > 0) {
+            $price = $this->calculateDecimal($this->total_price, $this->discount_collection);
+        } elseif ($this->discount_price > 0) {
+            $price = $this->calculatePrice($this->total_price, $this->discount_price);
         }
 
         return roundNumber($price);
@@ -162,19 +159,23 @@ class Reside extends Model
     protected function resideDiscountAmount(): Attribute
     {
         return Attribute::make(
-            get: function (){
-                if ($this->discount_collection)
-                {
-                    return numberFormat($this->discount_collection).'%';
-                }
-                elseif ($this->discount_price)
-                {
-                    return numberFormat($this->discount_price)."ریال";
-                }
-                else{
+            get: function () {
+                if ($this->discount_collection) {
+                    return numberFormat($this->discount_collection) . '%';
+                } elseif ($this->discount_price) {
+                    return numberFormat($this->discount_price) . "ریال";
+                } else {
                     return 0;
                 }
             }
         );
     }
+
+    protected function paymentPrice(): Attribute
+    {
+        return Attribute::make(get: function () {
+            return $this->final_price != 0 ? $this->final_price : $this->totalPrice();
+        });
+    }
+
 }
