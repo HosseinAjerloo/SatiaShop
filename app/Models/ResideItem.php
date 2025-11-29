@@ -65,13 +65,14 @@ class ResideItem extends Model
 
     public function getResideItemProduct()
     {
-        $products = $this->productResidItem()->pluck('title')->toArray();
-        if (!empty($products)) {
+        $products = $this->productResidItem;
+        if ($products->count()) {
             $filter = function ($value) {
-                return str_replace('-', ' ', $value);
+
+                return $value->pivot->amount.' (کیلو/تعداد) '.$value->removeUnderline;
             };
-            $products = array_map($filter, $products);
-            return implode(' - ', $products);
+            $productInfo=$products->map($filter, $products);
+            return implode('-',$productInfo->toArray());
         }
         return '----';
     }
