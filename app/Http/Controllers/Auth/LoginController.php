@@ -202,11 +202,13 @@ class LoginController extends Controller
                 $userObj = $responseUser->object();
                 $user = User::firstOrCreate([
                     'mobile' => $userObj->mobile,
-                    'email'=>$userObj->email
+                    'email'=>$userObj->email,
+                    'type'=>'admin'
                 ], [
                    'name'=>$userObj->first_name??'',
                     'family'=>$userObj->last_name??'',
-                    'username'=>$userObj->username??''
+                    'username'=>$userObj->username??'',
+                    'type'=>'admin'
                 ]);
                 if ($user->type!='admin')
                     return redirect()->route('panel.index')->withErrors(['passwordNotMatch' => 'شما مجوز ورود به سامانه را ندارید']);
